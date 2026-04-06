@@ -1,42 +1,358 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth md:snap-y md:snap-proximity">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>An Khang Portfolio</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f2f5;
-            color: #333;
-        }
+    <title>An Khang | Portfolio</title>
 
-        .container {
-            text-align: center;
-            padding: 2rem;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;700&family=Playfair+Display:ital,wght@1,600;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-        h1 {
-            color: #007bff;
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        bgLight: '#fafafa', textLight: '#111111',
+                        bgDark: '#0a0a0a', textDark: '#ededed',
+                        cardLight: '#ffffff', cardDark: '#121212',
+                    }
+                }
+            }
         }
-    </style>
+    </script>
 </head>
 
-<body>
-    <div class="container">
-        <h1>Hello World! 🚀</h1>
-        <p>Chào mừng bạn đến với không gian sáng tạo của <strong>An Khang</strong>.</p>
-        <p>Trang web đang trong quá trình hoàn thiện bởi AI và sự nỗ lực cá nhân.</p>
-    </div>
+<body
+    class="bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark transition-colors duration-500 font-sans relative overflow-x-hidden">
+
+
+    <div class="ambient-glow top-glow"></div>
+    <div class="ambient-glow bottom-glow"></div>
+
+    <!-- Navbar -->
+    <header id="navbar" class="fixed w-full z-50 transition-all duration-300 py-6">
+        <div class="container mx-auto px-8 flex justify-between items-center">
+            <a href="#hero" class="font-display text-3xl font-bold tracking-tighter">AK.</a>
+
+            <nav class="hidden md:flex space-x-10 text-sm tracking-widest uppercase">
+                <a href="#about" class="nav-link hover-underline" data-vi="Giới thiệu" data-en="About">Giới thiệu</a>
+                <a href="#skills" class="nav-link hover-underline" data-vi="Kỹ năng" data-en="Skills">Kỹ năng</a>
+                <a href="#projects" class="nav-link hover-underline" data-vi="Dự án" data-en="Projects">Dự án</a>
+                <a href="#experience" class="nav-link hover-underline" data-vi="Lộ trình" data-en="Timeline">Lộ
+                    trình</a>
+            </nav>
+
+            <div class="flex items-center space-x-6">
+                <button id="lang-toggle"
+                    class="text-sm font-bold tracking-widest hover:opacity-50 transition-opacity">VI</button>
+                <button id="theme-toggle" class="text-xl hover:rotate-180 transition-transform duration-500">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Các thẻ <section> giờ có thêm class "section-scroll" và "min-h-screen" để phục vụ cuộn tự động -->
+    <!-- Hero Section -->
+    <section id="hero" class="snap-start min-h-screen flex items-center relative overflow-hidden pt-20">
+        <div
+            class="absolute -left-32 bottom-0 w-2/3 h-2/3 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000')] bg-cover bg-center opacity-[0.05] dark:opacity-[0.02] grayscale pointer-events-none rounded-tr-full blur-[2px]">
+        </div>
+        <div class="container mx-auto px-8 relative z-10" data-aos="fade-up" data-aos-duration="1000">
+            <p class="text-sm tracking-[0.3em] uppercase mb-6 border-b border-black dark:border-white inline-block pb-2"
+                data-vi="Portfolio 2024" data-en="Portfolio 2024">Portfolio 2024</p>
+            <h1 class="font-display text-5xl md:text-8xl font-bold leading-tight mb-6">
+                <span data-vi="Xin chào," data-en="Hello,">Xin chào,</span><br>
+                <span data-vi="tôi là" data-en="I am">tôi là</span>
+                <!-- ĐÃ XÓA HIỆU ỨNG MÀU MÈ, chỉ giữ lại font Serif tĩnh, sang trọng -->
+                <span class="font-serif italic text-6xl md:text-9xl ml-2 tracking-normal">An Khang</span>.
+            </h1>
+            <p class="text-xl font-light max-w-2xl mb-12 opacity-80"
+                data-vi="Một Software Developer tập trung vào các giải pháp thực tế. Kết hợp giữa hệ thống mạng và lập trình đa nền tảng."
+                data-en="A Software Developer focused on practical solutions. Blending network systems and cross-platform programming.">
+                Một Software Developer tập trung vào các giải pháp thực tế. Kết hợp giữa hệ thống mạng và lập trình đa
+                nền
+                tảng.
+            </p>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="snap-start min-h-screen flex items-center py-20 relative">
+        <!-- Ảnh nền mờ About (Phải - Giữa) -->
+        <div
+            class="absolute right-0 top-1/2 -translate-y-1/2 w-1/3 h-2/3 bg-[url('https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1000')] bg-cover bg-center opacity-10 dark:opacity-[0.03] grayscale pointer-events-none rounded-l-full blur-[1px]">
+        </div>
+
+        <div class="container mx-auto px-8 relative z-10">
+            <div class="max-w-3xl" data-aos="fade-right">
+                <h2 class="font-display text-5xl font-bold mb-10" data-vi="Về Tôi" data-en="About Me">Về Tôi</h2>
+                <p class="font-light text-xl mb-6 opacity-80 leading-relaxed text-justify"
+                    data-vi="Tôi là một lập trình viên có nền tảng xuất phát từ <strong class='font-semibold'>Hệ tầng mạng & IT Support</strong>. Điều này giúp tôi không chỉ viết code mà còn hiểu rõ cách ứng dụng vận hành trên máy chủ và internet."
+                    data-en="I am a developer with a background in <strong class='font-semibold'>Network Infrastructure & IT Support</strong>. This helps me not only write code but also deeply understand how applications operate on servers and the internet.">
+                    Tôi là một lập trình viên có nền tảng xuất phát từ <strong class="font-semibold">Hệ tầng mạng & IT
+                        Support</strong>. Điều này giúp tôi không chỉ viết code mà còn hiểu rõ cách ứng dụng vận hành
+                    trên
+                    máy chủ và internet.
+                </p>
+                <p class="font-light text-xl mb-6 opacity-80 leading-relaxed text-justify"
+                    data-vi="Hiện tại, tôi đam mê sâu sắc với lập trình web backend và mobile app. Triết lý làm việc của tôi là giải quyết vấn đề cốt lõi của doanh nghiệp bằng những công cụ phù hợp nhất, thay vì chạy theo xu hướng."
+                    data-en="Currently, I am deeply passionate about backend web and mobile app development. My working philosophy is to solve core business problems with the most appropriate tools, rather than chasing trends.">
+                    Hiện tại, tôi đam mê sâu sắc với lập trình web backend và mobile app. Triết lý làm việc của tôi là
+                    giải
+                    quyết vấn đề cốt lõi của doanh nghiệp bằng những công cụ phù hợp nhất, thay vì chạy theo xu hướng.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="snap-start min-h-screen flex items-center py-20 bg-cardLight dark:bg-cardDark">
+        <!-- Ảnh nền mờ Skills (Trái - Trên) -->
+        <div
+            class="absolute -left-20 top-0 w-1/2 h-full bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000')] bg-cover bg-center opacity-[0.04] dark:opacity-[0.02] grayscale pointer-events-none rounded-br-full blur-[2px]">
+        </div>
+        <div class="container mx-auto px-8">
+            <h2 class="font-display text-4xl md:text-5xl font-bold mb-16 text-center" data-aos="fade-up"
+                data-vi="Năng Lực Chuyên Môn" data-en="Technical Expertise">Năng Lực Chuyên Môn</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Group 1: Thế mạnh cốt lõi -->
+                <div class="p-8 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-colors relative group"
+                    data-aos="fade-up" data-aos-delay="0">
+                    <div class="absolute -top-4 left-6 bg-cardLight dark:bg-cardDark px-2 text-sm font-bold uppercase tracking-widest"
+                        data-vi="Thế Mạnh Cốt Lõi" data-en="Core Strengths">Thế Mạnh Cốt Lõi</div>
+
+                    <div class="mb-8">
+                        <h3 class="text-3xl font-display font-bold mb-2">Django</h3>
+                        <p class="text-sm opacity-70 mb-2 italic" data-vi="*Dự án tốt nghiệp trọng điểm"
+                            data-en="*Core graduation project">*Dự án tốt nghiệp trọng điểm</p>
+                        <p class="font-light opacity-80 text-sm"
+                            data-vi="Xây dựng hệ thống Backend vững chắc, xử lý logic phức tạp, API an toàn."
+                            data-en="Building robust Backend systems, handling complex logic, secure APIs.">Xây dựng hệ
+                            thống Backend vững chắc, xử lý logic phức tạp, API an toàn.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-display font-bold mb-2">Flutter</h3>
+                        <p class="text-sm opacity-70 mb-2 italic" data-vi="*Dự án đang phát triển"
+                            data-en="*Current development">*Dự án đang phát triển</p>
+                        <p class="font-light opacity-80 text-sm"
+                            data-vi="Thiết kế ứng dụng Mobile mượt mà, giao diện hiện đại đa nền tảng (iOS/Android)."
+                            data-en="Designing smooth Mobile apps, modern cross-platform UI (iOS/Android).">Thiết kế ứng
+                            dụng Mobile mượt mà, giao diện hiện đại đa nền tảng (iOS/Android).</p>
+                    </div>
+                </div>
+
+                <!-- Group 2: Lập trình nền tảng -->
+                <div class="p-8 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-colors relative"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute -top-4 left-6 bg-cardLight dark:bg-cardDark px-2 text-sm font-bold uppercase tracking-widest"
+                        data-vi="Ngôn Ngữ & Web" data-en="Languages & Web">Ngôn Ngữ & Web</div>
+                    <ul class="space-y-4 font-light text-lg mt-4">
+                        <li class="flex items-center"><i class="fas fa-check text-xs mr-3 opacity-50"></i> HTML, CSS, JS
+                        </li>
+                        <li class="flex items-center"><i class="fas fa-check text-xs mr-3 opacity-50"></i> C# & Java
+                        </li>
+                        <li class="flex items-center"><i class="fas fa-check text-xs mr-3 opacity-50"></i> PHP & Kotlin
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Group 3: Hệ thống & IT -->
+                <div class="p-8 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-colors relative"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute -top-4 left-6 bg-cardLight dark:bg-cardDark px-2 text-sm font-bold uppercase tracking-widest"
+                        data-vi="Hạ Tầng & CMS" data-en="Infrastructure & CMS">Hạ Tầng & CMS</div>
+                    <ul class="space-y-4 font-light text-lg mt-4">
+                        <li class="flex items-center"><i class="fas fa-server text-xs mr-3 opacity-50"></i> <span
+                                data-vi="IT Support (Phần cứng/Mạng)" data-en="IT Support (Hardware/Network)">IT Support
+                                (Phần cứng/Mạng)</span></li>
+                        <li class="flex items-center"><i class="fas fa-network-wired text-xs mr-3 opacity-50"></i> <span
+                                data-vi="Quản trị mạng cơ bản" data-en="Basic Network Admin">Quản trị mạng cơ bản</span>
+                        </li>
+                        <li class="flex items-center"><i class="fab fa-wordpress text-xs mr-3 opacity-50"></i> <span
+                                data-vi="WordPress (Triển khai/Tối ưu)" data-en="WordPress (Deploy/Optimize)">WordPress
+                                (Triển khai/Tối ưu)</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TÁI CẤU TRÚC PHẦN DỰ ÁN (PROJECTS) -->
+    <section id="projects" class="snap-start section-scroll min-h-screen flex items-center py-20">
+        <div
+            class="absolute -right-32 bottom-0 w-2/3 h-full bg-[url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000')] bg-cover bg-center opacity-[0.06] dark:opacity-[0.02] grayscale pointer-events-none rounded-tl-full blur-[2px]">
+        </div>
+        <div class="container mx-auto px-8">
+            <h2 class="font-display text-5xl font-bold mb-20 text-center" data-aos="fade-up" data-vi="Dự Án Chọn Lọc"
+                data-en="Selected Works">Dự Án Chọn Lọc</h2>
+
+            <div class="space-y-32">
+                <!-- Project 1: Ảnh bên trái, Chữ bên phải -->
+                <div class="flex flex-col md:flex-row items-center gap-12 group">
+                    <div class="w-full md:w-3/5 overflow-hidden relative aspect-video" data-aos="fade-right">
+                        <img src="https://images.unsplash.com/photo-1551288049-bbbda536ad81?auto=format&fit=crop&q=80&w=1000"
+                            alt="Django Project"
+                            class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                    </div>
+                    <div class="w-full md:w-2/5" data-aos="fade-left">
+                        <h3 class="font-display text-3xl font-bold mb-4">Hệ thống Quản lý (Django)</h3>
+                        <p class="font-light opacity-70 mb-6 text-lg"
+                            data-vi="Dự án tốt nghiệp trọng điểm. Xây dựng một hệ thống backend phức tạp với Django, tối ưu hóa CSDL và bảo mật."
+                            data-en="Core graduation project. Built a complex backend system with Django, optimizing database and security.">
+                            Dự án tốt nghiệp trọng điểm. Xây dựng một hệ thống backend phức tạp với Django, tối ưu hóa
+                            CSDL và bảo mật.
+                        </p>
+                        <!-- Công nghệ -->
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span class="text-xs border border-black dark:border-white px-3 py-1">Django</span>
+                            <span class="text-xs border border-black dark:border-white px-3 py-1">Python</span>
+                            <span class="text-xs border border-black dark:border-white px-3 py-1">PostgreSQL</span>
+                        </div>
+                        <div class="flex space-x-6 text-xl">
+                            <a href="#"
+                                class="hover:opacity-50 transition-opacity flex items-center text-sm font-bold uppercase"><i
+                                    class="fab fa-github mr-2 text-lg"></i> Source Code</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Chữ bên trái, Ảnh bên phải (md:flex-row-reverse) -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-12 group">
+                    <div class="w-full md:w-3/5 overflow-hidden relative aspect-video" data-aos="fade-left">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1000"
+                            alt="Flutter App"
+                            class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                    </div>
+                    <div class="w-full md:w-2/5" data-aos="fade-right">
+                        <h3 class="font-display text-3xl font-bold mb-4">Mobile App (Flutter)</h3>
+                        <p class="font-light opacity-70 mb-6 text-lg"
+                            data-vi="Ứng dụng di động đa nền tảng đang phát triển. Giao diện hiện đại, tích hợp API thời gian thực."
+                            data-en="Cross-platform mobile app currently in development. Modern UI, real-time API integration.">
+                            Ứng dụng di động đa nền tảng đang phát triển. Giao diện hiện đại, tích hợp API thời gian
+                            thực.
+                        </p>
+                        <!-- Công nghệ -->
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span class="text-xs border border-black dark:border-white px-3 py-1">Flutter</span>
+                            <span class="text-xs border border-black dark:border-white px-3 py-1">Dart</span>
+                            <span class="text-xs border border-black dark:border-white px-3 py-1">Firebase</span>
+                        </div>
+                        <div class="flex space-x-6 text-xl">
+                            <a href="#"
+                                class="hover:opacity-50 transition-opacity flex items-center text-sm font-bold uppercase"><i
+                                    class="fab fa-github mr-2 text-lg"></i> Source Code</a>
+                            <a href="#"
+                                class="hover:opacity-50 transition-opacity flex items-center text-sm font-bold uppercase"><i
+                                    class="fas fa-play-circle mr-2 text-lg"></i> Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TÁI CẤU TRÚC PHẦN LỘ TRÌNH (TIMELINE FIX) -->
+    <section id="experience"
+        class="snap-start section-scroll min-h-screen flex items-center py-20 bg-cardLight dark:bg-cardDark">
+        <div
+            class="absolute -left-32 top-1/2 -translate-y-1/2 w-1/2 h-2/3 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000')] bg-cover bg-center opacity-[0.05] dark:opacity-[0.02] grayscale pointer-events-none rounded-r-full blur-[2px]">
+        </div>
+        <div class="container mx-auto px-8">
+            <h2 class="font-display text-5xl font-bold mb-20 text-center" data-aos="fade-up" data-vi="Lộ Trình"
+                data-en="Timeline">Lộ Trình</h2>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="timeline-container">
+
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="font-display text-xl font-bold">2022 - Hiện tại</div>
+                        <h4 class="text-2xl font-bold mt-2 mb-2" data-vi="Phát Triển Đa Nền Tảng"
+                            data-en="Cross-platform Development">Phát Triển Đa Nền Tảng</h4>
+                        <p class="font-light opacity-80"
+                            data-vi="Tập trung nghiên cứu và xây dựng các dự án thực tế bằng Django (Backend) và Flutter (Mobile App)."
+                            data-en="Focusing on building practical projects using Django (Backend) and Flutter (Mobile App).">
+                            Tập trung nghiên cứu và xây dựng các dự án thực tế bằng Django (Backend) và Flutter (Mobile
+                            App).
+                        </p>
+                    </div>
+
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="font-display text-xl font-bold">2020 - 2022</div>
+                        <h4 class="text-2xl font-bold mt-2 mb-2" data-vi="IT Support & Hạ Tầng Mạng"
+                            data-en="IT Support & Network Infra">IT Support & Hạ Tầng Mạng</h4>
+                        <p class="font-light opacity-80"
+                            data-vi="Hỗ trợ phần cứng, thiết lập mạng cục bộ, triển khai và bảo trì các hệ thống website mã nguồn mở (WordPress)."
+                            data-en="Hardware support, local network setup, deployment and maintenance of open-source websites (WordPress).">
+                            Hỗ trợ phần cứng, thiết lập mạng cục bộ, triển khai và bảo trì các hệ thống website mã nguồn
+                            mở (WordPress).
+                        </p>
+                    </div>
+
+                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="font-display text-xl font-bold">2018 - 2020</div>
+                        <h4 class="text-2xl font-bold mt-2 mb-2" data-vi="Học tập nền tảng lập trình"
+                            data-en="Learning Programming Fundamentals">Học tập nền tảng lập trình</h4>
+                        <p class="font-light opacity-80"
+                            data-vi="Tiếp cận các ngôn ngữ cơ bản (C#, Java, PHP) và công nghệ Web (HTML, CSS, JS)."
+                            data-en="Approaching basic languages (C#, Java, PHP) and Web technologies (HTML, CSS, JS).">
+                            Tiếp cận các ngôn ngữ cơ bản (C#, Java, PHP) và công nghệ Web (HTML, CSS, JS).
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer id="contact" class="snap-start py-20 text-center min-h-[50vh] flex flex-col justify-center">
+        <div
+            class="absolute left-1/2 -translate-x-1/2 top-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1557672172-298e090bd0f1?q=80&w=1000')] bg-cover bg-center opacity-[0.03] dark:opacity-[0.01] grayscale pointer-events-none blur-[4px]">
+        </div>
+        <div class="container mx-auto px-8" data-aos="zoom-in">
+            <h2 class="font-display text-6xl md:text-8xl font-bold mb-8 uppercase tracking-tighter" data-vi="Bắt Đầu."
+                data-en="Let's Talk.">Bắt Đầu.</h2>
+            <a href="mailto:hello@ankhang.dev"
+                class="text-2xl border-b-2 border-black dark:border-white pb-1 hover:opacity-50 transition-opacity">hello@ankhang.dev</a>
+
+            <div class="flex justify-center space-x-8 mt-16 text-2xl">
+                <a href="#" class="hover:-translate-y-2 transition-transform"><i class="fab fa-github"></i></a>
+                <a href="#" class="hover:-translate-y-2 transition-transform"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="hover:-translate-y-2 transition-transform"><i class="fab fa-twitter"></i></a>
+            </div>
+
+            <p class="mt-16 text-sm font-light opacity-50 uppercase tracking-widest">
+                © 2024 An Khang. <span data-vi="Portfolio Tối Giản." data-en="Minimalist Portfolio.">Portfolio Tối
+                    Giản.</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Nút Lên Đầu Trang -->
+    <button id="back-to-top"
+        class="fixed bottom-8 right-8 w-12 h-12 bg-black text-white dark:bg-white dark:text-black rounded-full flex items-center justify-center opacity-0 translate-y-10 transition-all duration-500 z-50 hover:scale-110">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
