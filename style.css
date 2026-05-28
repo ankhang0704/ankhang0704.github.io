@@ -44,13 +44,26 @@ html {
 /* FIX LỖI TIMELINE (Cấu trúc thanh dọc và dấu chấm) */
 .timeline-container {
     border-left: 2px solid currentColor;
-    padding-left: 3rem;
-    margin-left: 1rem;
+    padding-left: 2rem;
+    margin-left: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .timeline-container {
+        padding-left: 3rem;
+        margin-left: 1rem;
+    }
 }
 
 .timeline-item {
     position: relative;
-    padding-bottom: 4rem;
+    padding-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+    .timeline-item {
+        padding-bottom: 4rem;
+    }
 }
 
 .timeline-item:last-child {
@@ -60,46 +73,76 @@ html {
 .timeline-item::before {
     content: '';
     position: absolute;
-    left: -3.45rem;
+    left: -2.45rem;
     top: 0.2rem;
-    width: 1rem;
-    height: 1rem;
+    width: 0.8rem;
+    height: 0.8rem;
     background-color: var(--bg-light);
     border: 2px solid currentColor;
     border-radius: 50%;
 }
 
-.dark .timeline-item::before {
-    background-color: #121212;
+@media (min-width: 768px) {
+    .timeline-item::before {
+        left: -3.45rem;
+        width: 1rem;
+        height: 1rem;
+    }
 }
 
 .dark .timeline-item::before {
     background-color: #121212;
 }
-
-
 
 .ambient-glow {
     position: fixed;
-    width: 50vw;
-    height: 50vw;
+    width: 80vw;
+    height: 80vw;
     border-radius: 50%;
-    filter: blur(100px);
+    filter: blur(80px);
     z-index: 0;
     pointer-events: none;
     transition: background 1s ease;
 }
 
+@media (min-width: 768px) {
+    .ambient-glow {
+        width: 50vw;
+        height: 50vw;
+        filter: blur(100px);
+    }
+}
+
 .top-glow {
-    top: -20vw;
-    right: -10vw;
+    top: -30vw;
+    right: -20vw;
     background: radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, transparent 70%);
 }
 
 .bottom-glow {
-    bottom: -20vw;
-    left: -10vw;
+    bottom: -30vw;
+    left: -20vw;
     background: radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, transparent 70%);
+}
+
+@media (min-width: 768px) {
+    .top-glow {
+        top: -20vw;
+        right: -10vw;
+    }
+    .bottom-glow {
+        bottom: -20vw;
+        left: -10vw;
+    }
+}
+
+/* Utility to hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .dark .top-glow {

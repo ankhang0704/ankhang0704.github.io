@@ -5,20 +5,31 @@ AOS.init({ duration: 1500, easing: 'ease-out-cubic', once: true, offset: 50 });
 const navbar = document.getElementById('navbar');
 const backToTopBtn = document.getElementById('back-to-top');
 
-window.addEventListener('scroll', () => {
+let ticking = false;
+
+function updateNavbar() {
     if (window.scrollY > 50) {
-        navbar.classList.add('glass-nav');
+        navbar.classList.add('glass-nav', 'py-4');
         navbar.classList.remove('py-6');
-        navbar.classList.add('py-4');
     } else {
-        navbar.classList.remove('glass-nav');
-        navbar.classList.remove('py-4');
+        navbar.classList.remove('glass-nav', 'py-4');
         navbar.classList.add('py-6');
     }
+    
     if (window.scrollY > 500) {
         backToTopBtn.classList.add('show-back-to-top');
     } else {
         backToTopBtn.classList.remove('show-back-to-top');
+    }
+    ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            updateNavbar();
+        });
+        ticking = true;
     }
 });
 
@@ -60,8 +71,8 @@ const navLinks = document.querySelectorAll('.nav-link');
 
 const observerOptions = {
     root: null,
-    rootMargin: '0px',
-    threshold: 0.5 // Section chiếm 50% màn hình thì được coi là đang Active
+    rootMargin: '-10% 0px -70% 0px', // Điều chỉnh vùng nhận diện linh hoạt hơn cho mobile
+    threshold: 0
 };
 
 const observer = new IntersectionObserver((entries) => {
@@ -78,4 +89,3 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 sections.forEach(section => observer.observe(section));
-

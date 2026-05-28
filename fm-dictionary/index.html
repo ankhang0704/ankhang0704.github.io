@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FM Dictionary — An Khang Studio</title>
+    <meta name="description"
+        content="FM Dictionary — A Vietnamese language learning app with gamification, AI-powered pronunciation, and roadmap-based learning. Developed by An Khang Studio." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&family=Playfair+Display:ital,wght@1,600;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        bgLight: '#fafafa', textLight: '#111111',
+                        bgDark: '#0a0a0a', textDark: '#ededed',
+                        cardLight: '#ffffff', cardDark: '#121212',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body
+    class="bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark transition-colors duration-500 font-sans relative overflow-x-hidden max-w-full">
+
+    <div class="ambient-glow top-glow max-w-full"></div>
+    <div class="ambient-glow bottom-glow max-w-full"></div>
+
+    <!-- Navbar -->
+    <header id="navbar" class="fixed inset-x-0 top-0 z-50 transition-all duration-300 py-6">
+        <div class="container mx-auto w-full px-6 md:px-8 flex justify-between items-center">
+            <a href="../index.html" class="font-display text-3xl font-bold tracking-tighter">KHANG</a>
+
+            <nav class="hidden md:flex space-x-10 text-sm tracking-widest uppercase">
+                <a href="#features" class="nav-link hover-underline" data-vi="Tính năng" data-en="Features">Features</a>
+                <a href="#tech" class="nav-link hover-underline" data-vi="Công nghệ" data-en="Tech Stack">Tech Stack</a>
+                <a href="#permissions" class="nav-link hover-underline" data-vi="Bảo mật" data-en="Privacy">Privacy</a>
+                <a href="privacy-policy.html" class="nav-link hover-underline" data-vi="Chính sách" data-en="Policy">Policy</a>
+            </nav>
+
+            <div class="flex items-center space-x-6">
+                <button id="lang-toggle" class="text-sm font-bold tracking-widest hover:opacity-50 transition-opacity">EN</button>
+                <button id="theme-toggle" class="text-xl hover:rotate-180 transition-transform duration-500">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center relative overflow-x-hidden pt-20">
+        <div
+            class="absolute -left-32 bottom-0 w-2/3 h-2/3 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000')] bg-cover bg-center opacity-[0.05] dark:opacity-[0.02] grayscale pointer-events-none rounded-tr-full blur-[2px]">
+        </div>
+        <div class="container mx-auto px-6 md:px-8 relative z-10" data-aos="fade-up" data-aos-duration="1000">
+            <p class="text-sm tracking-[0.3em] uppercase mb-6 border-b border-black dark:border-white inline-block pb-2">
+                An Khang Studio · 2026</p>
+            <h1 class="font-display text-5xl md:text-8xl font-bold leading-tight mb-6 md:mb-12" data-vi="Học tiếng Anh.<br>Theo cách thông minh." data-en="Learn English.<br>The smart way.">
+                Learn English.<br>
+                <span class="font-serif italic text-6xl md:text-9xl tracking-normal">The smart way</span>.
+            </h1>
+            <p class="text-xl font-light max-w-2xl mb-12 opacity-80" data-vi="FM Dictionary là ứng dụng học ngôn ngữ kết hợp lộ trình bài học, phản hồi phát âm AI và nhóm học tập - xây dựng bằng Flutter cho iOS & Android." data-en="FM Dictionary is a gamified language learning app combining roadmap-based lessons, AI pronunciation feedback, and social study groups — built with Flutter for iOS & Android.">
+                FM Dictionary is a gamified language learning app combining roadmap-based lessons, AI pronunciation
+                feedback, and social study groups — built with Flutter for iOS & Android.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                <a href="#features"
+                    class="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all text-center" data-vi="Khám phá tính năng ↓" data-en="Explore Features ↓">
+                    Explore Features ↓
+                </a>
+                <a href="privacy-policy.html"
+                    class="px-8 py-4 text-sm font-bold uppercase tracking-widest opacity-60 hover:opacity-100 transition-opacity text-center" data-vi="Chính sách bảo mật →" data-en="Privacy Policy →">
+                    Privacy Policy →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="py-12 border-y border-black/10 dark:border-white/10 overflow-x-hidden relative">
+        <div class="container mx-auto px-6 md:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center md:text-left" data-aos="fade-up" data-aos-delay="0">
+                    <div class="font-display text-4xl font-bold mb-1">2<span class="text-sm align-top">+</span></div>
+                    <div class="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50" data-vi="Nền tảng · iOS & Android" data-en="Platforms · iOS & Android">Platforms · iOS & Android</div>
+                </div>
+                <div class="text-center md:text-left" data-aos="fade-up" data-aos-delay="100">
+                    <div class="font-display text-4xl font-bold mb-1">8</div>
+                    <div class="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50" data-vi="Huy hiệu thành tựu" data-en="Achievement Badges">Achievement Badges</div>
+                </div>
+                <div class="text-center md:text-left" data-aos="fade-up" data-aos-delay="200">
+                    <div class="font-display text-4xl font-bold mb-1">2</div>
+                    <div class="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50" data-vi="Ngôn ngữ · VI & EN" data-en="Languages · VI & EN">Languages · VI & EN</div>
+                </div>
+                <div class="text-center md:text-left" data-aos="fade-up" data-aos-delay="300">
+                    <div class="font-display text-4xl font-bold mb-1">100%</div>
+                    <div class="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50" data-vi="Lõi ngoại tuyến" data-en="Offline-capable Core">Offline-capable Core</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden">
+        <div class="container mx-auto px-6 md:px-8">
+            <div class="max-w-3xl mb-20" data-aos="fade-right">
+                <p class="text-xs tracking-[0.3em] uppercase mb-4 opacity-50" data-vi="Tính năng chính" data-en="Core Features">Core Features</p>
+                <h2 class="font-display text-4xl md:text-6xl font-bold mb-6" data-vi="Mọi thứ bạn cần<br>để làm chủ từ vựng" data-en="Everything you need<br>to master vocabulary">Everything you need<br>to master vocabulary
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-1">
+                <div class="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors"
+                    data-aos="fade-up">
+                    <div class="text-3xl mb-6 text-black dark:text-white"><i class="fas fa-map-location-dot"></i></div>
+                    <h3 class="font-display text-xl font-bold mb-4" data-vi="Lộ trình học tập" data-en="Roadmap Learning">Roadmap Learning</h3>
+                    <p class="font-light opacity-70 leading-relaxed" data-vi="Lộ trình học tập có cấu trúc với các chương, giai đoạn và độ khó tăng dần. Theo dõi hành trình của bạn từ người mới bắt đầu đến nâng cao." data-en="Structured learning path with chapters, stages, and progressive difficulty. Track your journey from beginner to advanced.">Structured learning path with chapters, stages, and
+                        progressive difficulty. Track your journey from beginner to advanced.</p>
+                </div>
+                <div class="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-3xl mb-6 text-black dark:text-white"><i class="fas fa-microphone-lines"></i></div>
+                    <h3 class="font-display text-xl font-bold mb-4" data-vi="Luyện phát âm" data-en="Pronunciation Practice">Pronunciation Practice</h3>
+                    <p class="font-light opacity-70 leading-relaxed" data-vi="So sánh giọng nói thời gian thực được hỗ trợ bởi phân tích âm thanh trên thiết bị. Không lưu trữ âm thanh — phản hồi tức thì, bảo mật tuyệt đối." data-en="Real-time voice comparison powered by on-device audio analysis. No audio stored — instant feedback, total privacy.">Real-time voice comparison powered by on-device
+                        audio analysis. No audio stored — instant feedback, total privacy.</p>
+                </div>
+                <div class="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-3xl mb-6 text-black dark:text-white"><i class="fas fa-trophy"></i></div>
+                    <h3 class="font-display text-xl font-bold mb-4" data-vi="Hệ thống trò chơi hóa" data-en="Gamification System">Gamification System</h3>
+                    <p class="font-light opacity-70 leading-relaxed" data-vi="8 huy hiệu có thể mở khóa, chuỗi ngày học tập và điểm số câu đố giúp người học luôn có động lực. Tất cả thành tựu được đồng bộ trên các thiết bị." data-en="8 unlockable badges, daily streaks, and quiz scoring keep learners motivated. All achievements sync across devices.">8 unlockable badges, daily streaks, and quiz
+                        scoring keep learners motivated. All achievements sync across devices.</p>
+                </div>
+                <div class="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors"
+                    data-aos="fade-up">
+                    <div class="text-3xl mb-6 text-black dark:text-white"><i class="fas fa-users-rectangle"></i></div>
+                    <h3 class="font-display text-xl font-bold mb-4" data-vi="Nhóm học tập" data-en="Study Groups">Study Groups</h3>
+                    <p class="font-light opacity-70 leading-relaxed" data-vi="Tham gia các nhóm học tập riêng tư để chia sẻ tiến trình học tập với bạn bè. Tiến trình chỉ hiển thị trong nhóm — không công khai." data-en="Join private study groups to share learning progress with peers. Progress is visible within the group only — not public.">Join private study groups to share learning
+                        progress with peers. Progress is visible within the group only — not public.</p>
+                </div>
+                <div class="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-3xl mb-6 text-black dark:text-white"><i class="fas fa-book-bookmark"></i></div>
+                    <h3 class="font-display text-xl font-bold mb-4" data-vi="Từ điển cá nhân" data-en="Personal Dictionary">Personal Dictionary</h3>
+                    <p class="font-light opacity-70 leading-relaxed" data-vi="Lưu và đánh dấu các từ khi bạn học. Bộ sưu tập từ cá nhân của bạn đồng bộ với Hive để truy cập ngoại tuyến tức thì." data-en="Save and bookmark words as you learn. Your personal word collection syncs with Hive for instant offline access.">Save and bookmark words as you learn. Your personal
+                        word collection syncs with Hive for instant offline access.</p>
+                </div>
+                <div class="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-3xl mb-6 text-black dark:text-white"><i class="fas fa-language"></i></div>
+                    <h3 class="font-display text-xl font-bold mb-4" data-vi="Giao diện đa ngôn ngữ" data-en="Multilingual UI">Multilingual UI</h3>
+                    <p class="font-light opacity-70 leading-relaxed" data-vi="Bản địa hóa toàn bộ giao diện sang tiếng Việt và tiếng Anh thông qua easy_localization — bao gồm huy hiệu, nhãn và tất cả văn bản hệ thống." data-en="Full interface localization in Vietnamese and English via easy_localization — including badges, labels, and all system text.">Full interface localization in Vietnamese and
+                        English via easy_localization — including badges, labels, and all system text.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section id="tech" class="py-32 relative overflow-x-hidden">
+        <div class="container mx-auto px-6 md:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
+                <div class="max-w-2xl" data-aos="fade-right">
+                    <p class="text-xs tracking-[0.3em] uppercase mb-4 opacity-50" data-vi="Công nghệ" data-en="Tech Stack">Tech Stack</p>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold" data-vi="Xây dựng với công cụ hiện đại,<br>bền bỉ theo thời gian" data-en="Built with modern tools,<br>designed to last">Built with modern tools,<br>designed to last
+                    </h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="p-6 border border-black/10 dark:border-white/10 flex items-center gap-4 group hover:border-black dark:hover:border-white transition-colors"
+                    data-aos="zoom-in">
+                    <div class="w-2 h-2 rounded-full bg-black dark:bg-white"></div>
+                    <div>
+                        <div class="text-sm font-bold uppercase tracking-tight">Flutter</div>
+                        <div class="text-[10px] opacity-50 uppercase" data-vi="Khung giao diện" data-en="UI Framework">UI Framework</div>
+                    </div>
+                </div>
+                <div class="p-6 border border-black/10 dark:border-white/10 flex items-center gap-4 group hover:border-black dark:hover:border-white transition-colors"
+                    data-aos="zoom-in" data-aos-delay="50">
+                    <div class="w-2 h-2 rounded-full bg-black dark:bg-white"></div>
+                    <div>
+                        <div class="text-sm font-bold uppercase tracking-tight">Dart</div>
+                        <div class="text-[10px] opacity-50 uppercase" data-vi="Ngôn ngữ" data-en="Language">Language</div>
+                    </div>
+                </div>
+                <div class="p-6 border border-black/10 dark:border-white/10 flex items-center gap-4 group hover:border-black dark:hover:border-white transition-colors"
+                    data-aos="zoom-in" data-aos-delay="100">
+                    <div class="w-2 h-2 rounded-full bg-black dark:bg-white"></div>
+                    <div>
+                        <div class="text-sm font-bold uppercase tracking-tight">Provider</div>
+                        <div class="text-[10px] opacity-50 uppercase" data-vi="Quản lý trạng thái" data-en="State Management">State Management</div>
+                    </div>
+                </div>
+                <div class="p-6 border border-black/10 dark:border-white/10 flex items-center gap-4 group hover:border-black dark:hover:border-white transition-colors"
+                    data-aos="zoom-in" data-aos-delay="150">
+                    <div class="w-2 h-2 rounded-full bg-black dark:bg-white"></div>
+                    <div>
+                        <div class="text-sm font-bold uppercase tracking-tight">Hive</div>
+                        <div class="text-[10px] opacity-50 uppercase" data-vi="Lưu trữ ngoại tuyến" data-en="Offline Storage">Offline Storage</div>
+                    </div>
+                </div>
+                <div class="p-6 border border-black/10 dark:border-white/10 flex items-center gap-4 group hover:border-black dark:hover:border-white transition-colors"
+                    data-aos="zoom-in" data-aos-delay="200">
+                    <div class="w-2 h-2 rounded-full bg-black dark:bg-white"></div>
+                    <div>
+                        <div class="text-sm font-bold uppercase tracking-tight">Firebase</div>
+                        <div class="text-[10px] opacity-50 uppercase" data-vi="Xác thực + CS dữ liệu" data-en="Auth + Database">Auth + Database</div>
+                    </div>
+                </div>
+                <div class="p-6 border border-black/10 dark:border-white/10 flex items-center gap-4 group hover:border-black dark:hover:border-white transition-colors"
+                    data-aos="zoom-in" data-aos-delay="250">
+                    <div class="w-2 h-2 rounded-full bg-black dark:bg-white"></div>
+                    <div>
+                        <div class="text-sm font-bold uppercase tracking-tight">GetIt</div>
+                        <div class="text-[10px] opacity-50 uppercase" data-vi="Tiêm phụ thuộc" data-en="Dependency Injection">Dependency Injection</div>
+                    </div>
+                </div>
+                <div class="p-6 border border-black/10 dark:border-white/10 flex items-center gap-4 group hover:border-black dark:hover:border-white transition-colors"
+                    data-aos="zoom-in" data-aos-delay="300">
+                    <div class="w-2 h-2 rounded-full bg-black dark:bg-white"></div>
+                    <div>
+                        <div class="text-sm font-bold uppercase tracking-tight">easy_localization</div>
+                        <div class="text-[10px] opacity-50 uppercase" data-vi="Đa ngôn ngữ / VI + EN" data-en="i18n / VI + EN">i18n / VI + EN</div>
+                    </div>
+                </div>
+                <div class="p-6 border border-black/10 dark:border-white/10 flex items-center gap-4 group hover:border-black dark:hover:border-white transition-colors"
+                    data-aos="zoom-in" data-aos-delay="350">
+                    <div class="w-2 h-2 rounded-full bg-black dark:bg-white"></div>
+                    <div>
+                        <div class="text-sm font-bold uppercase tracking-tight">SSO</div>
+                        <div class="text-[10px] opacity-50 uppercase" data-vi="Google / Apple" data-en="Google / Apple">Google / Apple</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Screens -->
+    <section class="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden">
+        <div class="container mx-auto px-6 md:px-8">
+            <h2 class="font-display text-4xl font-bold mb-16 text-center" data-aos="fade-up" data-vi="Thiết kế tập trung, tối ưu quy trình" data-en="Designed for focus, built for flow">Designed for focus, built
+                for flow</h2>
+
+            <div class="flex gap-8 overflow-x-auto pb-12 scrollbar-hide snap-x snap-mandatory">
+                <div class="flex-none w-64 aspect-[9/19] bg-bgLight dark:bg-bgDark border border-black/10 dark:border-white/10 rounded-[2.5rem] p-4 flex flex-col items-center justify-center text-center group hover:border-black dark:hover:border-white transition-all snap-center"
+                    data-aos="fade-left">
+                    <div class="text-4xl mb-4 text-black dark:text-white"><i class="fas fa-house"></i></div>
+                    <div class="font-bold text-sm uppercase tracking-widest" data-vi="Trang chủ" data-en="Home">Home</div>
+                    <div class="text-[10px] opacity-50 mt-2 italic" data-vi="Thêm ảnh chụp màn hình" data-en="Add screenshot">Add screenshot</div>
+                </div>
+                <div class="flex-none w-64 aspect-[9/19] bg-bgLight dark:bg-bgDark border border-black/10 dark:border-white/10 rounded-[2.5rem] p-4 flex flex-col items-center justify-center text-center group hover:border-black dark:hover:border-white transition-all snap-center"
+                    data-aos="fade-left" data-aos-delay="100">
+                    <div class="text-4xl mb-4 text-black dark:text-white"><i class="fas fa-map-location-dot"></i></div>
+                    <div class="font-bold text-sm uppercase tracking-widest" data-vi="Lộ trình" data-en="Roadmap">Roadmap</div>
+                    <div class="text-[10px] opacity-50 mt-2 italic" data-vi="Thêm ảnh chụp màn hình" data-en="Add screenshot">Add screenshot</div>
+                </div>
+                <div class="flex-none w-64 aspect-[9/19] bg-bgLight dark:bg-bgDark border border-black/10 dark:border-white/10 rounded-[2.5rem] p-4 flex flex-col items-center justify-center text-center group hover:border-black dark:hover:border-white transition-all snap-center"
+                    data-aos="fade-left" data-aos-delay="200">
+                    <div class="text-4xl mb-4 text-black dark:text-white"><i class="fas fa-pen-to-square"></i></div>
+                    <div class="font-bold text-sm uppercase tracking-widest" data-vi="Câu đố" data-en="Quiz">Quiz</div>
+                    <div class="text-[10px] opacity-50 mt-2 italic" data-vi="Thêm ảnh chụp màn hình" data-en="Add screenshot">Add screenshot</div>
+                </div>
+                <div class="flex-none w-64 aspect-[9/19] bg-bgLight dark:bg-bgDark border border-black/10 dark:border-white/10 rounded-[2.5rem] p-4 flex flex-col items-center justify-center text-center group hover:border-black dark:hover:border-white transition-all snap-center"
+                    data-aos="fade-left" data-aos-delay="300">
+                    <div class="text-4xl mb-4 text-black dark:text-white"><i class="fas fa-microphone-lines"></i></div>
+                    <div class="font-bold text-sm uppercase tracking-widest" data-vi="Phát âm" data-en="Pronunciation">Pronunciation</div>
+                    <div class="text-[10px] opacity-50 mt-2 italic" data-vi="Thêm ảnh chụp màn hình" data-en="Add screenshot">Add screenshot</div>
+                </div>
+                <div class="flex-none w-64 aspect-[9/19] bg-bgLight dark:bg-bgDark border border-black/10 dark:border-white/10 rounded-[2.5rem] p-4 flex flex-col items-center justify-center text-center group hover:border-black dark:hover:border-white transition-all snap-center"
+                    data-aos="fade-left" data-aos-delay="400">
+                    <div class="text-4xl mb-4 text-black dark:text-white"><i class="fas fa-trophy"></i></div>
+                    <div class="font-bold text-sm uppercase tracking-widest" data-vi="Huy hiệu" data-en="Badges">Badges</div>
+                    <div class="text-[10px] opacity-50 mt-2 italic" data-vi="Thêm ảnh chụp màn hình" data-en="Add screenshot">Add screenshot</div>
+                </div>
+                <div class="flex-none w-64 aspect-[9/19] bg-bgLight dark:bg-bgDark border border-black/10 dark:border-white/10 rounded-[2.5rem] p-4 flex flex-col items-center justify-center text-center group hover:border-black dark:hover:border-white transition-all snap-center"
+                    data-aos="fade-left" data-aos-delay="500">
+                    <div class="text-4xl mb-4 text-black dark:text-white"><i class="fas fa-book-bookmark"></i></div>
+                    <div class="font-bold text-sm uppercase tracking-widest" data-vi="Từ điển" data-en="Dictionary">Dictionary</div>
+                    <div class="text-[10px] opacity-50 mt-2 italic" data-vi="Thêm ảnh chụp màn hình" data-en="Add screenshot">Add screenshot</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Permissions -->
+    <section id="permissions" class="py-32 relative overflow-x-hidden">
+        <div class="container mx-auto px-6 md:px-8">
+            <div class="max-w-3xl mb-16" data-aos="fade-right">
+                <p class="text-xs tracking-[0.3em] uppercase mb-4 opacity-50" data-vi="Quyền truy cập ứng dụng" data-en="App Permissions">App Permissions</p>
+                <h2 class="font-display text-4xl md:text-5xl font-bold" data-vi="Ứng dụng truy cập những gì<br>và lý do chính xác" data-en="What the app accesses<br>and exactly why">What the app accesses<br>and exactly why</h2>
+            </div>
+
+            <div class="space-y-6">
+                <div class="p-6 md:p-8 border border-black/10 dark:border-white/10 flex flex-col md:flex-row gap-8 items-start group hover:border-black dark:hover:border-white transition-colors"
+                    data-aos="fade-up">
+                    <div class="text-3xl text-black dark:text-white"><i class="fas fa-microphone-lines"></i></div>
+                    <div class="flex-1">
+                        <h4 class="font-display text-xl font-bold mb-2" data-vi="Micro" data-en="Microphone">Microphone</h4>
+                        <p class="font-light opacity-70 leading-relaxed mb-4" data-vi="Được sử dụng độc quyền cho tính năng luyện phát âm. Âm thanh được xử lý trên thiết bị theo thời gian thực để so sánh với âm thanh tham chiếu. Không có bản ghi nào được lưu trữ, truyền tải hoặc giữ lại sau khi phiên kết thúc." data-en="Used exclusively for the pronunciation practice feature. Audio is processed on-device in real-time for comparison with reference audio. No recording is stored, transmitted, or retained after the session ends.">Used exclusively for the pronunciation
+                            practice feature. Audio is processed on-device in real-time for comparison with reference
+                            audio. No recording is stored, transmitted, or retained after the session ends.</p>
+                        <span class="text-[10px] border border-black dark:border-white px-2 py-1 uppercase font-bold tracking-widest" data-vi="Bắt buộc cho tính năng" data-en="Required for feature">Required for feature</span>
+                    </div>
+                </div>
+                <div class="p-6 md:p-8 border border-black/10 dark:border-white/10 flex flex-col md:flex-row gap-8 items-start group hover:border-black dark:hover:border-white transition-colors"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-3xl text-black dark:text-white"><i class="fas fa-globe"></i></div>
+                    <div class="flex-1">
+                        <h4 class="font-display text-xl font-bold mb-2" data-vi="Truy cập Internet" data-en="Internet Access">Internet Access</h4>
+                        <p class="font-light opacity-70 leading-relaxed mb-4" data-vi="Đồng bộ hóa tiến trình học tập với Firebase, cho phép đăng nhập Google / Apple và tải các bản cập nhật nội dung. Trải nghiệm học tập cốt lõi hoạt động hoàn toàn ngoại tuyến sau khi nội dung được tải xuống." data-en="Syncs learning progress to Firebase, enables Google / Apple sign-in, and fetches content updates. The core learning experience works fully offline once content is downloaded.">Syncs learning progress to Firebase,
+                            enables Google / Apple sign-in, and fetches content updates. The core learning experience
+                            works fully offline once content is downloaded.</p>
+                        <span class="text-[10px] border border-black dark:border-white px-2 py-1 uppercase font-bold tracking-widest" data-vi="Bắt buộc để đồng bộ" data-en="Required for sync">Required for sync</span>
+                    </div>
+                </div>
+                <div class="p-6 md:p-8 border border-black/10 dark:border-white/10 flex flex-col md:flex-row gap-8 items-start group hover:border-black dark:hover:border-white transition-colors"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-3xl text-black dark:text-white"><i class="fas fa-bell"></i></div>
+                    <div class="flex-1">
+                        <h4 class="font-display text-xl font-bold mb-2" data-vi="Thông báo đẩy" data-en="Push Notifications">Push Notifications</h4>
+                        <p class="font-light opacity-70 leading-relaxed mb-4" data-vi="Gửi các lời nhắc học tập hàng ngày tùy chọn và cảnh báo chuỗi ngày để giúp bạn đi đúng hướng. Có thể tắt bất cứ lúc nào trong Cài đặt thiết bị của bạn mà không ảnh hưởng đến bất kỳ chức năng nào của Ứng dụng." data-en="Sends optional daily learning reminders and streak alerts to keep you on track. Can be disabled at any time in your device Settings without affecting any App functionality.">Sends optional daily learning reminders and
+                            streak alerts to keep you on track. Can be disabled at any time in your device Settings
+                            without affecting any App functionality.</p>
+                        <span class="text-[10px] border border-black/20 dark:border-white/20 opacity-50 px-2 py-1 uppercase font-bold tracking-widest" data-vi="Tùy chọn" data-en="Optional">Optional</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden">
+        <div class="container mx-auto px-6 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
+                <div data-aos="fade-right">
+                    <p class="text-xs tracking-[0.3em] uppercase mb-4 opacity-50" data-vi="Về dự án" data-en="About the Project">About the Project</p>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-8" data-vi="Được tạo ra với sự tận tâm<br>bởi An Khang Studio" data-en="Made with care<br>by An Khang Studio">Made with care<br>by An Khang Studio</h2>
+                    <p class="font-light text-lg opacity-70 mb-6 text-justify" data-vi="FM Dictionary là một ứng dụng giáo dục được ủy quyền phát triển bởi An Khang Studio cho Thủy Tạ, người cung cấp nội dung ngôn ngữ và chương trình học tiếng Việt." data-en="FM Dictionary is a commissioned educational application developed by An Khang Studio for Thuy Ta, who provided the Vietnamese language content and curriculum.">
+                        FM Dictionary is a commissioned educational application developed by An Khang Studio for Thuy
+                        Ta, who provided the Vietnamese language content and curriculum.
+                    </p>
+                    <p class="font-light text-lg opacity-70 mb-6 text-justify" data-vi="Ứng dụng đại diện cho một dự án Flutter hoàn chỉnh cấp độ sản xuất: kiến trúc sạch, thiết kế ưu tiên ngoại tuyến, cơ chế học tập trò chơi hóa và bản địa hóa đầy đủ cho khán giả Việt Nam và quốc tế." data-en="The app represents a complete production-grade Flutter project: clean architecture, offline-first design, gamified learning mechanics, and full localization for Vietnamese and international audiences.">
+                        The app represents a complete production-grade Flutter project: clean architecture,
+                        offline-first design, gamified learning mechanics, and full localization for Vietnamese and
+                        international audiences.
+                    </p>
+                    <p class="text-xs opacity-80 font-medium uppercase tracking-widest" data-vi="Nội dung © Thuy Ta · Ứng dụng © An Khang Studio" data-en="Content © Thuy Ta · Application © An Khang Studio">
+                        Content © Thuy Ta · Application © An Khang Studio
+                    </p>
+                </div>
+                <div class="p-8 md:p-12 border border-black dark:border-white relative" data-aos="fade-left">
+                    <div class="absolute -top-4 left-6 bg-cardLight dark:bg-cardDark px-2 text-xs font-bold uppercase tracking-widest" data-vi="Khám phá thêm" data-en="Explore More">Explore More</div>
+                    <h3 class="font-display text-2xl font-bold mb-4" data-vi="Dữ liệu & Liên hệ" data-en="Data & Contact">Data & Contact</h3>
+                    <p class="font-light opacity-70 mb-8" data-vi="Tìm hiểu về các quy định dữ liệu hoặc liên hệ về dự án." data-en="Learn about data practices or get in touch about the project.">Learn about data practices or get in touch about the project.</p>
+                    
+                    <div class="space-y-4">
+                        <a href="privacy-policy.html" class="flex justify-between items-center p-4 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group">
+                            <span class="text-sm font-bold uppercase tracking-widest" data-vi="🔒 Chính sách bảo mật" data-en="🔒 Privacy Policy"><i class="fas fa-lock mr-2"></i> Privacy Policy</span>
+                            <span class="group-hover:translate-x-2 transition-transform">→</span>
+                        </a>
+                        <a href="mailto:ankhang.nguyen0704@gmail.com" class="flex justify-between items-center p-4 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group">
+                            <span class="text-sm font-bold uppercase tracking-widest" data-vi="✉️ Liên hệ nhà phát triển" data-en="✉️ Contact Developer"><i class="fas fa-envelope mr-2"></i> Contact Developer</span>
+                            <span class="group-hover:translate-x-2 transition-transform">→</span>
+                        </a>
+                        <div class="flex justify-between items-center p-4 border border-black/5 dark:border-white/5 opacity-30 cursor-not-allowed">
+                            <span class="text-sm font-bold uppercase tracking-widest" data-vi="📱 Cửa hàng ứng dụng" data-en="📱 App Store"><i class="fas fa-mobile-screen-button mr-2"></i> App Store</span>
+                            <span data-vi="Sắp ra mắt" data-en="Soon">Soon</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="py-20 text-center relative border-t border-black/10 dark:border-white/10 overflow-x-hidden">
+        <div class="container mx-auto px-6 md:px-8 relative z-10" data-aos="zoom-in">
+            <h2 class="font-display text-5xl font-bold mb-8 uppercase tracking-tighter">FM Dictionary.</h2>
+            <div class="flex justify-center space-x-8 mb-12 text-xl">
+                <a href="mailto:ankhang.nguyen0704@gmail.com" class="hover:-translate-y-2 transition-transform"><i class="fas fa-envelope"></i></a>
+                <a href="https://github.com/ankhang0704" class="hover:-translate-y-2 transition-transform" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+            <p class="text-[10px] font-medium opacity-80 uppercase tracking-[0.3em]" data-vi="© 2026 An Khang Studio · Nội dung © Thuy Ta · Bảo lưu mọi quyền" data-en="© 2026 An Khang Studio · Content © Thuy Ta · All rights reserved">
+                © 2026 An Khang Studio · Content © Thuy Ta · All rights reserved
+            </p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top"
+        class="fixed bottom-8 right-8 w-12 h-12 bg-black text-white dark:bg-white dark:text-black rounded-full flex items-center justify-center opacity-0 translate-y-10 transition-all duration-500 z-50 hover:scale-110">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // 1. Initialize AOS
+        AOS.init({ duration: 1500, easing: 'ease-out-cubic', once: true, offset: 50 });
+
+        // 2. Navbar & Back to Top Scroll Effects
+        const navbar = document.getElementById('navbar');
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('glass-nav');
+                navbar.classList.remove('py-6');
+                navbar.classList.add('py-4');
+            } else {
+                navbar.classList.remove('glass-nav');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-6');
+            }
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.add('show-back-to-top');
+            } else {
+                backToTopBtn.classList.remove('show-back-to-top');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 3. Dark Mode Toggle
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+        
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            localStorage.setItem('theme', htmlElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // 4. Language Toggle
+        const langToggleBtn = document.getElementById('lang-toggle');
+        let currentLang = 'en';
+        langToggleBtn.addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'vi' : 'en';
+            langToggleBtn.innerText = currentLang === 'en' ? 'EN' : 'VI';
+            document.querySelectorAll('[data-vi]').forEach(el => {
+                el.innerHTML = currentLang === 'vi' ? el.getAttribute('data-vi') : el.getAttribute('data-en');
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — FM Dictionary</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&family=Playfair+Display:ital,wght@1,600;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        bgLight: '#fafafa', textLight: '#111111',
+                        bgDark: '#0a0a0a', textDark: '#ededed',
+                        cardLight: '#ffffff', cardDark: '#121212',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body
+    class="bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark transition-colors duration-500 font-sans relative overflow-x-hidden max-w-full">
+
+    <div class="ambient-glow top-glow max-w-full"></div>
+    <div class="ambient-glow bottom-glow max-w-full"></div>
+
+    <!-- Navbar -->
+    <header id="navbar" class="fixed inset-x-0 top-0 z-50 transition-all duration-300 py-6">
+        <div class="container mx-auto w-full px-6 md:px-8 flex justify-between items-center">
+            <a href="../index.html" class="font-display text-3xl font-bold tracking-tighter">KHANG</a>
+
+            <nav class="hidden md:flex space-x-10 text-sm tracking-widest uppercase">
+                <a href="index.html" class="nav-link hover-underline">
+                    <span data-en="FM Dictionary" data-vi="FM Dictionary">FM Dictionary</span>
+                </a>
+                <a href="index.html#permissions" class="nav-link hover-underline">
+                    <span data-en="Permissions" data-vi="Quyền truy cập">Permissions</span>
+                </a>
+                <a href="mailto:ankhang.nguyen0704@gmail.com" class="nav-link hover-underline">
+                    <span data-en="Contact" data-vi="Liên hệ">Contact</span>
+                </a>
+            </nav>
+
+            <div class="flex items-center space-x-6">
+                <button id="lang-toggle" class="text-xs font-bold tracking-widest uppercase hover:opacity-50 transition-opacity">
+                    <span class="lang-label">EN</span>
+                </button>
+                <button id="theme-toggle" class="text-xl hover:rotate-180 transition-transform duration-500">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-40 pb-32">
+        <div class="container mx-auto px-6 md:px-8 max-w-4xl">
+            <!-- Hero -->
+            <div class="mb-20" data-aos="fade-up">
+                <p class="text-xs tracking-[0.3em] uppercase mb-4 border-b border-black dark:border-white inline-block pb-1" data-en="Legal Document" data-vi="Văn bản pháp lý">Legal Document</p>
+                <h1 class="font-display text-5xl md:text-7xl font-bold mb-8" data-en="Privacy Policy" data-vi="Chính sách Bảo mật">Privacy Policy</h1>
+                <div class="flex flex-wrap gap-8 text-[10px] uppercase tracking-widest opacity-80 font-medium">
+                    <span><i class="fas fa-calendar-days mr-2"></i><span data-en="Effective: Jan 1, 2026" data-vi="Hiệu lực: 1/1/2026">Effective: Jan 1, 2026</span></span>
+                    <span><i class="fas fa-rotate mr-2"></i><span data-en="Updated: June 1, 2026" data-vi="Cập nhật: 1/6/2026">Updated: June 1, 2026</span></span>
+                    <span><i class="fas fa-building mr-2"></i><span data-en="An Khang Studio" data-vi="An Khang Studio">An Khang Studio</span></span>
+                </div>
+            </div>
+
+            <!-- Quick Summary -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1 mb-24 border border-black/10 dark:border-white/10" data-aos="fade-up">
+                <div class="p-6 bg-cardLight dark:bg-cardDark">
+                    <div class="text-2xl mb-4"><i class="fas fa-shield-halved"></i></div>
+                    <h3 class="font-display font-bold text-sm mb-2 uppercase tracking-tighter" data-en="Private" data-vi="Riêng tư">Private</h3>
+                    <p class="text-xs opacity-70" data-en="Learning data is never sold or shared with advertisers." data-vi="Dữ liệu học tập không bao giờ bị bán hoặc chia sẻ.">Learning data is never sold or shared with advertisers.</p>
+                </div>
+                <div class="p-6 bg-cardLight dark:bg-cardDark">
+                    <div class="text-2xl mb-4"><i class="fas fa-microphone-lines"></i></div>
+                    <h3 class="font-display font-bold text-sm mb-2 uppercase tracking-tighter" data-en="Voice" data-vi="Giọng nói">Voice</h3>
+                    <p class="text-xs opacity-70" data-en="Used only for practice. Audio is never stored." data-vi="Chỉ dùng để luyện tập. Âm thanh không được lưu trữ.">Used only for practice. Audio is never stored.</p>
+                </div>
+                <div class="p-6 bg-cardLight dark:bg-cardDark">
+                    <div class="text-2xl mb-4"><i class="fas fa-users-rectangle"></i></div>
+                    <h3 class="font-display font-bold text-sm mb-2 uppercase tracking-tighter" data-en="Groups" data-vi="Nhóm">Groups</h3>
+                    <p class="text-xs opacity-70" data-en="Sharing within app groups only — never public." data-vi="Chia sẻ trong nhóm ứng dụng — không công khai.">Sharing within app groups only — never public.</p>
+                </div>
+                <div class="p-6 bg-cardLight dark:bg-cardDark">
+                    <div class="text-2xl mb-4"><i class="fas fa-trash-can"></i></div>
+                    <h3 class="font-display font-bold text-sm mb-2 uppercase tracking-tighter" data-en="Delete" data-vi="Xóa">Delete</h3>
+                    <p class="text-xs opacity-70" data-en="Request full data deletion at any time." data-vi="Yêu cầu xóa toàn bộ dữ liệu bất kỳ lúc nào.">Request full data deletion at any time.</p>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="space-y-20 font-light text-lg leading-relaxed opacity-90">
+                <section data-aos="fade-up" class="overflow-x-hidden relative">
+                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-en="1. Introduction" data-vi="1. Giới thiệu">1. Introduction</h2>
+                    <p class="mb-6" data-en="FM Dictionary ('the App', 'we', 'our') is developed by An Khang Studio. This Privacy Policy explains how we collect, use, and protect information when you use our mobile application, available on iOS and Android." data-vi="FM Dictionary ('Ứng dụng', 'chúng tôi') được phát triển bởi An Khang Studio. Chính sách này giải thích cách chúng tôi thu thập, sử dụng và bảo vệ thông tin của bạn.">FM Dictionary ("the App", "we", "our") is developed by <strong>An Khang Studio</strong>. This Privacy Policy explains how we collect, use, and protect information when you use our mobile application, available on iOS and Android.</p>
+                    <p data-en="By using FM Dictionary, you agree to the collection and use of information in accordance with this policy. If you do not agree, please discontinue use of the App." data-vi="Bằng việc sử dụng FM Dictionary, bạn đồng ý với việc thu thập và sử dụng thông tin theo chính sách này. Nếu không đồng ý, vui lòng ngừng sử dụng ứng dụng.">By using FM Dictionary, you agree to the collection and use of information in accordance with this policy. If you do not agree, please discontinue use of the App.</p>
+                </section>
+
+                <section data-aos="fade-up" class="overflow-x-hidden relative">
+                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-en="2. Information Collection" data-vi="2. Thu thập Thông tin">2. Information Collection</h2>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <span class="opacity-30 flex-shrink-0">/</span>
+                            <span data-en="Account information — Name, email, and photo from Google or Apple sign-in." data-vi="Thông tin tài khoản — Tên, email và ảnh từ đăng nhập Google hoặc Apple."><strong>Account information</strong> — Name, email, and photo from Google or Apple sign-in.</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="opacity-30 flex-shrink-0">/</span>
+                            <span data-en="Learning progress — Lessons, quiz scores, streaks, and badges. Synced to servers for multi-device support." data-vi="Tiến độ học tập — Bài học, điểm số, chuỗi ngày học và huy hiệu. Được đồng bộ để hỗ trợ nhiều thiết bị."><strong>Learning progress</strong> — Lessons, quiz scores, streaks, and badges. Synced to servers for multi-device support.</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="opacity-30 flex-shrink-0">/</span>
+                            <span data-en="Audio recordings (temporary) — Real-time analysis for pronunciation. Discarded immediately. No storage or logging." data-vi="Ghi âm (tạm thời) — Phân tích phát âm thời gian thực. Bị xóa ngay lập tức. Không lưu trữ hoặc ghi nhật ký."><strong>Audio recordings (temporary)</strong> — Real-time analysis for pronunciation. <em>Discarded immediately</em>. No storage or logging.</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="opacity-30 flex-shrink-0">/</span>
+                            <span data-en="Study Groups — Name and progress metrics visible only to members of the same group." data-vi="Nhóm học tập — Tên và chỉ số tiến độ chỉ hiển thị với các thành viên trong cùng nhóm."><strong>Study Groups</strong> — Name and progress metrics visible <em>only</em> to members of the same group.</span>
+                        </li>
+                    </ul>
+                    <div class="mt-12 p-6 md:p-8 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark italic text-sm">
+                        <strong data-en="Zero Access:" data-vi="Không truy cập:">Zero Access:</strong> <span data-en="We do not collect location data, contacts, photos, or browsing history." data-vi="Chúng tôi không thu thập dữ liệu vị trí, danh bạ, ảnh hoặc lịch sử duyệt web.">We do not collect location data, contacts, photos, or browsing history.</span>
+                    </div>
+                </section>
+
+                <section data-aos="fade-up" class="overflow-x-hidden relative">
+                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-en="3. Permissions" data-vi="3. Quyền truy cập">3. Permissions</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm border-collapse">
+                            <thead>
+                                <tr class="border-b border-black dark:border-white">
+                                    <th class="py-4 font-bold uppercase tracking-widest" data-en="Permission" data-vi="Quyền">Permission</th>
+                                    <th class="py-4 font-bold uppercase tracking-widest" data-en="Purpose" data-vi="Mục đích">Purpose</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-black/10 dark:divide-white/10">
+                                <tr>
+                                    <td class="py-6 pr-8">
+                                        <div class="font-bold" data-en="Microphone" data-vi="Microphone">Microphone</div>
+                                        <div class="text-[10px] uppercase opacity-50 mt-1" data-en="Core Feature" data-vi="Tính năng chính">Core Feature</div>
+                                    </td>
+                                    <td class="py-6 opacity-70" data-en="Pronunciation practice. Voice analyzed locally. No audio recorded or transmitted." data-vi="Luyện phát âm. Giọng nói được phân tích nội bộ. Không ghi âm hay truyền tải.">Pronunciation practice. Voice analyzed locally. No audio recorded or transmitted.</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-6 pr-8">
+                                        <div class="font-bold" data-en="Internet" data-vi="Internet">Internet</div>
+                                        <div class="text-[10px] uppercase opacity-50 mt-1" data-en="Required" data-vi="Bắt buộc">Required</div>
+                                    </td>
+                                    <td class="py-6 opacity-70" data-en="Syncing progress, dictionary updates, and authentication." data-vi="Đồng bộ tiến độ, cập nhật từ điển và xác thực.">Syncing progress, dictionary updates, and authentication.</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-6 pr-8">
+                                        <div class="font-bold" data-en="Notifications" data-vi="Thông báo">Notifications</div>
+                                        <div class="text-[10px] uppercase opacity-50 mt-1" data-en="Optional" data-vi="Tùy chọn">Optional</div>
+                                    </td>
+                                    <td class="py-6 opacity-70" data-en="Daily reminders and streak alerts. Can be disabled in Settings." data-vi="Nhắc nhở hàng ngày và cảnh báo chuỗi ngày học. Có thể tắt trong Cài đặt.">Daily reminders and streak alerts. Can be disabled in Settings.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section data-aos="fade-up" class="overflow-x-hidden relative">
+                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-en="4. Third-Party Services" data-vi="4. Dịch vụ bên thứ ba">4. Third-Party Services</h2>
+                    <p class="mb-6 opacity-70" data-en="We use trusted partners for essential app functionality:" data-vi="Chúng tôi sử dụng các đối tác tin cậy cho các chức năng thiết yếu:">We use trusted partners for essential app functionality:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <a href="https://policies.google.com/privacy" target="_blank" class="p-4 sm:p-6 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group">
+                            <div class="font-bold mb-2">Google</div>
+                            <div class="text-xs opacity-50 uppercase tracking-widest" data-en="Auth & Database" data-vi="Xác thực & Dữ liệu">Auth & Database</div>
+                        </a>
+                        <a href="https://www.apple.com/legal/privacy/" target="_blank" class="p-4 sm:p-6 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group">
+                            <div class="font-bold mb-2">Apple</div>
+                            <div class="text-xs opacity-50 uppercase tracking-widest" data-en="Authentication" data-vi="Xác thực">Authentication</div>
+                        </a>
+                        <div class="p-4 sm:p-6 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark">
+                            <div class="font-bold mb-2">Firebase</div>
+                            <div class="text-xs opacity-50 uppercase tracking-widest" data-en="Cloud Services" data-vi="Dịch vụ Đám mây">Cloud Services</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section data-aos="fade-up" class="overflow-x-hidden relative">
+                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-en="5. Data Retention" data-vi="5. Lưu trữ dữ liệu">5. Data Retention</h2>
+                    <p data-en="Account data is retained while active. Upon deletion request, all personal info (name, email) is permanently removed within 30 days. Learning progress is anonymized for aggregate analytics. Local databases (Hive) are deleted when the App is uninstalled." data-vi="Dữ liệu tài khoản được giữ khi còn hoạt động. Khi yêu cầu xóa, thông tin cá nhân sẽ bị loại bỏ vĩnh viễn trong 30 ngày. Tiến độ học tập được ẩn danh cho phân tích tổng hợp. Cơ sở dữ liệu cục bộ sẽ bị xóa khi gỡ ứng dụng.">Account data is retained while active. Upon deletion request, all personal info (name, email) is permanently removed within 30 days. Learning progress is anonymized for aggregate analytics. Local databases (Hive) are deleted when the App is uninstalled.</p>
+                </section>
+
+                <section data-aos="fade-up" class="overflow-x-hidden relative">
+                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter text-red-500" data-en="6. Contact" data-vi="6. Liên hệ">6. Contact</h2>
+                    <div class="p-8 md:p-12 border border-black dark:border-white">
+                        <h3 class="font-display text-2xl font-bold mb-4">An Khang Studio</h3>
+                        <p class="mb-8 opacity-70" data-en="For privacy questions or data deletion requests:" data-vi="Cho các câu hỏi về quyền riêng tư hoặc yêu cầu xóa dữ liệu:">For privacy questions or data deletion requests:</p>
+                        <a href="mailto:ankhang.nguyen0704@gmail.com" class="text-lg sm:text-2xl font-serif italic border-b border-black dark:border-white pb-1 hover:opacity-50 transition-opacity break-all">ankhang.nguyen0704@gmail.com</a>
+                        <p class="mt-12 text-[10px] uppercase tracking-widest opacity-80 font-medium" data-en="Content ownership: Thuy Ta · Developer: An Khang Studio" data-vi="Sở hữu nội dung: Thủy Tạ · Phát triển: An Khang Studio">Content ownership: Thuy Ta · Developer: An Khang Studio</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-20 text-center border-t border-black/10 dark:border-white/10 overflow-x-hidden relative">
+        <div class="container mx-auto px-6 md:px-8 relative z-10" data-aos="zoom-in">
+            <h2 class="font-display text-4xl font-bold mb-8 uppercase tracking-tighter">KHANG</h2>
+            <div class="flex justify-center space-x-6 text-sm uppercase tracking-widest mb-12">
+                <a href="index.html" class="hover-underline" data-en="Home" data-vi="Trang chủ">Home</a>
+                <a href="mailto:ankhang.nguyen0704@gmail.com" class="hover-underline" data-en="Contact" data-vi="Liên hệ">Contact</a>
+            </div>
+            <p class="text-[10px] font-medium opacity-80 uppercase tracking-[0.3em]">
+                © 2026 An Khang Studio · <span data-en="All rights reserved" data-vi="Mọi quyền được bảo lưu">All rights reserved</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="back-to-top"
+        class="fixed bottom-8 right-8 w-12 h-12 bg-black text-white dark:bg-white dark:text-black rounded-full flex items-center justify-center opacity-0 translate-y-10 transition-all duration-500 z-50 hover:scale-110">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1500, easing: 'ease-out-cubic', once: true, offset: 50 });
+
+        const navbar = document.getElementById('navbar');
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('glass-nav');
+                navbar.classList.remove('py-6');
+                navbar.classList.add('py-4');
+            } else {
+                navbar.classList.remove('glass-nav');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-6');
+            }
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.add('show-back-to-top');
+            } else {
+                backToTopBtn.classList.remove('show-back-to-top');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            localStorage.setItem('theme', htmlElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // Language Toggle Logic
+        const langToggleBtn = document.getElementById('lang-toggle');
+        const langLabel = langToggleBtn.querySelector('.lang-label');
+        let currentLang = localStorage.getItem('lang') || 'en';
+
+        const updateLanguage = (lang) => {
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${lang}`);
+            });
+            langLabel.textContent = lang.toUpperCase();
+            localStorage.setItem('lang', lang);
+            currentLang = lang;
+        };
+
+        updateLanguage(currentLang);
+
+        langToggleBtn.addEventListener('click', () => {
+            updateLanguage(currentLang === 'en' ? 'vi' : 'en');
+        });
+    </script>
+</body>
+
+</html>
