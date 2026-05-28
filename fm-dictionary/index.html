@@ -50,19 +50,21 @@
         <div class="container mx-auto w-full px-6 md:px-8 flex justify-between items-center">
             <a href="../index.html" class="font-display text-3xl font-bold tracking-tighter">KHANG</a>
 
-            <nav class="hidden md:flex space-x-10 text-sm tracking-widest uppercase">
-                <a href="#features" class="nav-link hover-underline" data-vi="Tính năng" data-en="Features">Features</a>
-                <a href="#tech" class="nav-link hover-underline" data-vi="Công nghệ" data-en="Tech Stack">Tech Stack</a>
-                <a href="#permissions" class="nav-link hover-underline" data-vi="Bảo mật" data-en="Privacy">Privacy</a>
-                <a href="privacy-policy.html" class="nav-link hover-underline" data-vi="Chính sách" data-en="Policy">Policy</a>
-            </nav>
+            <div class="flex items-center space-x-6 md:space-x-10">
+                <nav class="hidden md:flex space-x-10 text-sm tracking-widest uppercase">
+                    <a href="#features" class="nav-link hover-underline" data-vi="Tính năng" data-en="Features">Features</a>
+                    <a href="#tech" class="nav-link hover-underline" data-vi="Công nghệ" data-en="Tech Stack">Tech Stack</a>
+                    <a href="#permissions" class="nav-link hover-underline" data-vi="Bảo mật" data-en="Privacy">Privacy</a>
+                    <a href="privacy-policy.html" class="nav-link hover-underline" data-vi="Chính sách" data-en="Policy">Policy</a>
+                </nav>
 
-            <div class="flex items-center space-x-6">
-                <button id="lang-toggle" class="text-sm font-bold tracking-widest hover:opacity-50 transition-opacity">EN</button>
-                <button id="theme-toggle" class="text-xl hover:rotate-180 transition-transform duration-500">
-                    <i class="fas fa-moon dark:hidden"></i>
-                    <i class="fas fa-sun hidden dark:block"></i>
-                </button>
+                <div class="flex items-center space-x-6">
+                    <button id="lang-toggle" class="text-sm font-bold tracking-widest hover:opacity-50 transition-opacity">EN</button>
+                    <button id="theme-toggle" class="text-xl hover:rotate-180 transition-transform duration-500">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -376,15 +378,24 @@
                     
                     <div class="space-y-4">
                         <a href="privacy-policy.html" class="flex justify-between items-center p-4 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group">
-                            <span class="text-sm font-bold uppercase tracking-widest" data-vi="🔒 Chính sách bảo mật" data-en="🔒 Privacy Policy"><i class="fas fa-lock mr-2"></i> Privacy Policy</span>
+                            <span class="flex items-center text-sm font-bold uppercase tracking-widest">
+                                <i class="fas fa-shield-halved mr-3 text-black dark:text-white"></i>
+                                <span data-vi="Chính sách bảo mật" data-en="Privacy Policy">Privacy Policy</span>
+                            </span>
                             <span class="group-hover:translate-x-2 transition-transform">→</span>
                         </a>
                         <a href="mailto:ankhang.nguyen0704@gmail.com" class="flex justify-between items-center p-4 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group">
-                            <span class="text-sm font-bold uppercase tracking-widest" data-vi="✉️ Liên hệ nhà phát triển" data-en="✉️ Contact Developer"><i class="fas fa-envelope mr-2"></i> Contact Developer</span>
+                            <span class="flex items-center text-sm font-bold uppercase tracking-widest">
+                                <i class="fas fa-envelope mr-3 text-black dark:text-white"></i>
+                                <span data-vi="Liên hệ nhà phát triển" data-en="Contact Developer">Contact Developer</span>
+                            </span>
                             <span class="group-hover:translate-x-2 transition-transform">→</span>
                         </a>
                         <div class="flex justify-between items-center p-4 border border-black/5 dark:border-white/5 opacity-30 cursor-not-allowed">
-                            <span class="text-sm font-bold uppercase tracking-widest" data-vi="📱 Cửa hàng ứng dụng" data-en="📱 App Store"><i class="fas fa-mobile-screen-button mr-2"></i> App Store</span>
+                            <span class="flex items-center text-sm font-bold uppercase tracking-widest">
+                                <i class="fas fa-store mr-3 text-black dark:text-white"></i>
+                                <span data-vi="Cửa hàng ứng dụng" data-en="App Store">App Store</span>
+                            </span>
                             <span data-vi="Sắp ra mắt" data-en="Soon">Soon</span>
                         </div>
                     </div>
