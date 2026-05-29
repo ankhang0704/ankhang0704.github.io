@@ -28,6 +28,10 @@ This document provides the operational policy and context for AI agents working 
     - Uses `data-vi` and `data-en` attributes.
     - Script logic in `script.js` toggles visibility and innerHTML based on selected language.
     - Both the Main Portfolio and FM Dictionary default to English (`en`).
+- **Routing & Deployment:**
+    - **Root-Relative Paths:** Use absolute paths from root (e.g., `/style.css`, `/fm-dictionary/privacy-policy.html`) for all internal links, assets, and scripts to ensure compatibility across subdirectories.
+    - **Trailing Slashes:** Directory links must end with a trailing slash (e.g., `href="/fm-dictionary/"`).
+    - **Vercel Config:** `vercel.json` must have `"trailingSlash": true` and `"cleanUrls": true` enabled.
 - **Styling Rules:**
     - Maintain "Ambient Glow" effect in all main sections.
     - Use `font-serif italic` (Playfair Display) for sophisticated emphasis.
