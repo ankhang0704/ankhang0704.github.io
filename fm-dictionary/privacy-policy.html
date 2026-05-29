@@ -46,258 +46,248 @@
     <!-- Navbar -->
     <header id="navbar" class="fixed inset-x-0 top-0 z-50 transition-all duration-300 py-6">
         <div class="container mx-auto w-full px-6 md:px-8 flex justify-between items-center">
-            <a href="../index.html" class="font-display text-3xl font-bold tracking-tighter">KHANG</a>
+            <a href="index.html" class="font-display text-3xl font-bold tracking-tighter">KHANG</a>
 
             <div class="flex items-center space-x-6 md:space-x-10">
                 <nav class="hidden md:flex space-x-10 text-sm tracking-widest uppercase">
-                    <a href="index.html" class="nav-link hover-underline">
-                        <span data-en="FM Dictionary" data-vi="FM Dictionary">FM Dictionary</span>
-                    </a>
-                    <a href="index.html#permissions" class="nav-link hover-underline">
-                        <span data-en="Permissions" data-vi="Quyền truy cập">Permissions</span>
-                    </a>
-                    <a href="mailto:ankhang.nguyen0704@gmail.com" class="nav-link hover-underline">
-                        <span data-en="Contact" data-vi="Liên hệ">Contact</span>
-                    </a>
+                    <a href="index.html#features" class="nav-link hover-underline" data-vi="Tính năng" data-en="Features">Features</a>
+                    <a href="index.html#tech" class="nav-link hover-underline" data-vi="Công nghệ" data-en="Tech Stack">Tech Stack</a>
+                    <a href="privacy-policy.html" class="nav-link hover-underline active" data-vi="Bảo mật" data-en="Privacy">Privacy</a>
+                    <a href="terms-of-service.html" class="nav-link hover-underline" data-vi="Điều khoản" data-en="Terms">Terms</a>
                 </nav>
 
-                <div class="flex items-center space-x-6">
-                    <button id="lang-toggle" class="text-xs font-bold tracking-widest uppercase hover:opacity-50 transition-opacity">
-                        <span class="lang-label">EN</span>
+                <div class="flex items-center space-x-4 md:space-x-6">
+                    <div class="hidden md:flex items-center space-x-6">
+                        <button id="lang-toggle" class="text-sm font-bold tracking-widest hover:opacity-50 transition-opacity">EN</button>
+                        <button id="theme-toggle" class="text-xl hover:rotate-180 transition-transform duration-500">
+                            <i class="fas fa-moon dark:hidden"></i>
+                            <i class="fas fa-sun hidden dark:block"></i>
+                        </button>
+                    </div>
+                    <!-- Mobile Menu Toggle -->
+                    <button id="mobile-menu-toggle" class="md:hidden text-2xl p-2">
+                        <i class="fas fa-bars"></i>
                     </button>
-                    <button id="theme-toggle" class="text-xl hover:rotate-180 transition-transform duration-500">
-                        <i class="fas fa-moon dark:hidden"></i>
-                        <i class="fas fa-sun hidden dark:block"></i>
+                    <!-- Mobile Menu Close (Hidden by default) -->
+                    <button id="mobile-menu-close" class="md:hidden text-3xl p-2 hidden">
+                        <i class="fas fa-times"></i>
                     </button>
                 </div>
             </div>
         </div>
     </header>
 
-    <main class="pt-40 pb-32">
-        <div class="container mx-auto px-6 md:px-8 max-w-4xl">
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] flex flex-col items-center justify-start pt-32 pb-12 space-y-12 text-2xl font-display uppercase tracking-widest opacity-0 pointer-events-none transition-all duration-500 overflow-y-auto w-full h-full">
+        
+        <nav class="flex flex-col items-center space-y-10">
+            <a href="index.html#features" class="mobile-nav-link" data-vi="Tính năng" data-en="Features">Features</a>
+            <a href="index.html#tech" class="mobile-nav-link" data-vi="Công nghệ" data-en="Tech Stack">Tech Stack</a>
+            <a href="privacy-policy.html" class="mobile-nav-link" data-vi="Bảo mật" data-en="Privacy">Privacy</a>
+            <a href="terms-of-service.html" class="mobile-nav-link" data-vi="Điều khoản" data-en="Terms">Terms</a>
+        </nav>
+
+        <div class="flex items-center space-x-12 pt-12 border-t border-black/10 dark:border-white/10 w-2/3 justify-center">
+            <button id="mobile-lang-toggle" class="text-lg font-bold tracking-widest uppercase">
+                <span class="lang-label">EN</span>
+            </button>
+            <button id="mobile-theme-toggle" class="text-3xl">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:block"></i>
+            </button>
+        </div>
+    </div>
+
+    <main class="pt-40 pb-32 w-full max-w-[100vw] overflow-x-hidden">
+        <div class="container mx-auto px-6 md:px-8 max-w-4xl break-words overflow-x-hidden">
             <!-- Hero -->
             <div class="mb-20" data-aos="fade-up">
                 <p class="text-xs tracking-[0.3em] uppercase mb-4 border-b border-black dark:border-white inline-block pb-1" data-en="Legal Document" data-vi="Văn bản pháp lý">Legal Document</p>
-                <h1 class="font-display text-5xl md:text-7xl font-bold mb-8" data-en="Privacy Policy" data-vi="Chính sách Bảo mật">Privacy Policy</h1>
+                <h1 class="font-display text-5xl md:text-8xl font-bold mb-8" data-en="Privacy Policy" data-vi="Chính sách Bảo mật (Privacy Policy) — FM Dictionary">Privacy Policy</h1>
                 <div class="flex flex-wrap gap-8 text-[10px] uppercase tracking-widest opacity-80 font-medium">
-                    <span><i class="fas fa-calendar-days mr-2"></i><span data-en="Effective: Jan 1, 2026" data-vi="Hiệu lực: 1/1/2026">Effective: Jan 1, 2026</span></span>
-                    <span><i class="fas fa-rotate mr-2"></i><span data-en="Updated: June 1, 2026" data-vi="Cập nhật: 1/6/2026">Updated: June 1, 2026</span></span>
-                    <span><i class="fas fa-building mr-2"></i><span data-en="An Khang Studio" data-vi="An Khang Studio">An Khang Studio</span></span>
-                </div>
-            </div>
-
-            <!-- Quick Summary -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1 mb-24 border border-black/10 dark:border-white/10" data-aos="fade-up">
-                <div class="p-6 bg-cardLight dark:bg-cardDark">
-                    <div class="text-2xl mb-4"><i class="fas fa-shield-halved"></i></div>
-                    <h3 class="font-display font-bold text-sm mb-2 uppercase tracking-tighter" data-en="Private" data-vi="Riêng tư">Private</h3>
-                    <p class="text-xs opacity-70" data-en="Learning data is never sold or shared with advertisers." data-vi="Dữ liệu học tập không bao giờ bị bán hoặc chia sẻ.">Learning data is never sold or shared with advertisers.</p>
-                </div>
-                <div class="p-6 bg-cardLight dark:bg-cardDark">
-                    <div class="text-2xl mb-4"><i class="fas fa-microphone-lines"></i></div>
-                    <h3 class="font-display font-bold text-sm mb-2 uppercase tracking-tighter" data-en="Voice" data-vi="Giọng nói">Voice</h3>
-                    <p class="text-xs opacity-70" data-en="Used only for practice. Audio is never stored." data-vi="Chỉ dùng để luyện tập. Âm thanh không được lưu trữ.">Used only for practice. Audio is never stored.</p>
-                </div>
-                <div class="p-6 bg-cardLight dark:bg-cardDark">
-                    <div class="text-2xl mb-4"><i class="fas fa-users-rectangle"></i></div>
-                    <h3 class="font-display font-bold text-sm mb-2 uppercase tracking-tighter" data-en="Groups" data-vi="Nhóm">Groups</h3>
-                    <p class="text-xs opacity-70" data-en="Sharing within app groups only — never public." data-vi="Chia sẻ trong nhóm ứng dụng — không công khai.">Sharing within app groups only — never public.</p>
-                </div>
-                <div class="p-6 bg-cardLight dark:bg-cardDark">
-                    <div class="text-2xl mb-4"><i class="fas fa-trash-can"></i></div>
-                    <h3 class="font-display font-bold text-sm mb-2 uppercase tracking-tighter" data-en="Delete" data-vi="Xóa">Delete</h3>
-                    <p class="text-xs opacity-70" data-en="Request full data deletion at any time." data-vi="Yêu cầu xóa toàn bộ dữ liệu bất kỳ lúc nào.">Request full data deletion at any time.</p>
+                    <span><i class="fas fa-calendar-days mr-2"></i><span data-en="Effective: Jan 01, 2026" data-vi="Ngày hiệu lực: 01/01/2026">Effective: Jan 01, 2026</span></span>
+                    <span><i class="fas fa-rotate mr-2"></i><span data-en="Updated: June 01, 2026" data-vi="Cập nhật lần cuối: 01/06/2026">Updated: June 01, 2026</span></span>
+                    <span><i class="fas fa-building mr-2"></i><span data-en="An Khang Studio" data-vi="Đơn vị phát triển: An Khang Studio">An Khang Studio</span></span>
                 </div>
             </div>
 
             <!-- Content -->
-            <div class="space-y-20 font-light text-lg leading-relaxed opacity-90">
-                <section data-aos="fade-up" class="overflow-x-hidden relative">
-                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-en="1. Introduction" data-vi="1. Giới thiệu">1. Introduction</h2>
-                    <p class="mb-6" data-en="FM Dictionary ('the App', 'we', 'our') is developed by An Khang Studio. This Privacy Policy explains how we collect, use, and protect information when you use our mobile application, available on iOS and Android." data-vi="FM Dictionary ('Ứng dụng', 'chúng tôi') được phát triển bởi An Khang Studio. Chính sách này giải thích cách chúng tôi thu thập, sử dụng và bảo vệ thông tin của bạn.">FM Dictionary ("the App", "we", "our") is developed by <strong>An Khang Studio</strong>. This Privacy Policy explains how we collect, use, and protect information when you use our mobile application, available on iOS and Android.</p>
-                    <p data-en="By using FM Dictionary, you agree to the collection and use of information in accordance with this policy. If you do not agree, please discontinue use of the App." data-vi="Bằng việc sử dụng FM Dictionary, bạn đồng ý với việc thu thập và sử dụng thông tin theo chính sách này. Nếu không đồng ý, vui lòng ngừng sử dụng ứng dụng.">By using FM Dictionary, you agree to the collection and use of information in accordance with this policy. If you do not agree, please discontinue use of the App.</p>
+            <div class="space-y-12 font-light text-xl leading-relaxed opacity-90">
+                <section data-aos="fade-up">
+                    <p class="mb-6" data-vi="Chào mừng bạn đến với <strong>FM Dictionary</strong> (&quot;Ứng dụng&quot;, &quot;chúng tôi&quot;). Chúng tôi cam kết bảo vệ quyền riêng tư của bạn và đảm bảo rằng thông tin cá nhân của bạn được xử lý một cách an toàn, minh bạch và có trách nhiệm." data-en="Welcome to <strong>FM Dictionary</strong> (&quot;the App&quot;, &quot;we&quot;, &quot;our&quot;). We are committed to protecting your privacy and ensuring that your personal information is handled in a safe, transparent, and responsible manner.">Welcome to <strong>FM Dictionary</strong> ("the App", "we", "our"). We are committed to protecting your privacy and ensuring that your personal information is handled in a safe, transparent, and responsible manner.</p>
+                    <p data-vi="Chính sách Bảo mật này giải thích cách chúng tôi thu thập, sử dụng, xử lý, bảo mật và xóa dữ liệu của bạn khi bạn sử dụng ứng dụng di động FM Dictionary trên các hệ điều hành iOS và Android. Bằng cách cài đặt và sử dụng ứng dụng, bạn đồng ý với các điều khoản được quy định trong chính sách này." data-en="This Privacy Policy explains how we collect, use, process, secure, and delete your data when you use the FM Dictionary mobile application on iOS and Android operating systems. By installing and using the app, you agree to the terms set forth in this policy.">This Privacy Policy explains how we collect, use, process, secure, and delete your data when you use the FM Dictionary mobile application on iOS and Android operating systems. By installing and using the app, you agree to the terms set forth in this policy.</p>
                 </section>
 
-                <section data-aos="fade-up" class="overflow-x-hidden relative">
-                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-en="2. Information Collection" data-vi="2. Thu thập Thông tin">2. Information Collection</h2>
+                <hr class="border-black/10 dark:border-white/10">
+
+                <section data-aos="fade-up">
+                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-vi="1. Dữ liệu chúng tôi thu thập và mục đích sử dụng" data-en="1. Data Collection and Purpose of Use">1. Data Collection and Purpose of Use</h2>
+                    <p class="mb-6" data-vi="Chúng tôi chỉ thu thập và xử lý các thông tin cần thiết tối thiểu để vận hành các tính năng cốt lõi của ứng dụng, đồng bộ tiến trình học tập, chẩn đoán lỗi hệ thống và bảo mật tài khoản của bạn:" data-en="We only collect and process the minimum necessary information to operate the app's core features, sync learning progress, diagnose system errors, and secure your account:">We only collect and process the minimum necessary information to operate the app's core features, sync learning progress, diagnose system errors, and secure your account:</p>
                     <ul class="space-y-6">
-                        <li class="flex gap-4">
-                            <span class="opacity-30 flex-shrink-0">/</span>
-                            <span data-en="Account information — Name, email, and photo from Google or Apple sign-in." data-vi="Thông tin tài khoản — Tên, email và ảnh từ đăng nhập Google hoặc Apple."><strong>Account information</strong> — Name, email, and photo from Google or Apple sign-in.</span>
+                        <li>
+                            <span data-vi="<strong>Thông tin tài khoản (Đăng nhập):</strong> Khi bạn đăng ký hoặc đăng nhập thông qua bên thứ ba (Google Sign-In hoặc Apple Sign-In), chúng tôi sẽ nhận được các thông tin cơ bản từ hồ sơ công khai của bạn, bao gồm: <strong>Địa chỉ Email, Họ và tên, và Ảnh đại diện (URL ảnh đại diện)</strong>. <em>Mục đích:</em> Dùng để xác thực danh tính, tạo tài khoản người dùng, cá nhân hóa giao diện và đồng bộ dữ liệu giữa nhiều thiết bị của bạn." data-en="<strong>Account Information (Login):</strong> When you register or log in through a third party (Google Sign-In or Apple Sign-In), we will receive basic information from your public profile, including: <strong>Email Address, Full Name, and Profile Picture (URL)</strong>. <em>Purpose:</em> Used to verify identity, create user accounts, personalize the interface, and sync data between multiple devices."><strong>Account Information (Login):</strong> When you register or log in through a third party (Google Sign-In or Apple Sign-In), we will receive basic information from your public profile, including: <strong>Email Address, Full Name, and Profile Picture (URL)</strong>. <em>Purpose:</em> Used to verify identity, create user accounts, personalize the interface, and sync data between multiple devices.</span>
                         </li>
-                        <li class="flex gap-4">
-                            <span class="opacity-30 flex-shrink-0">/</span>
-                            <span data-en="Learning progress — Lessons, quiz scores, streaks, and badges. Synced to servers for multi-device support." data-vi="Tiến độ học tập — Bài học, điểm số, chuỗi ngày học và huy hiệu. Được đồng bộ để hỗ trợ nhiều thiết bị."><strong>Learning progress</strong> — Lessons, quiz scores, streaks, and badges. Synced to servers for multi-device support.</span>
+                        <li>
+                            <span data-vi="<strong>Tiến độ học tập và Thành tựu:</strong> Chúng tôi thu thập dữ liệu về lịch sử học từ vựng, danh sách từ vựng cá nhân đã đánh dấu (flashcard), kết quả các bài kiểm tra (quiz/test), số chuỗi ngày học liên tục (streak) và các huy hiệu thành tựu đã mở khóa. <em>Mục đích:</em> Lưu trữ tiến độ học của bạn để tránh mất mát dữ liệu khi bạn đổi thiết bị hoặc cài đặt lại ứng dụng." data-en="<strong>Learning Progress and Achievements:</strong> We collect data on vocabulary learning history, bookmarked personal vocabulary lists (flashcards), quiz results, daily streaks, and unlocked achievement badges. <em>Purpose:</em> Store your learning progress to avoid data loss when you change devices or reinstall the app."><strong>Learning Progress and Achievements:</strong> We collect data on vocabulary learning history, bookmarked personal vocabulary lists (flashcards), quiz results, daily streaks, and unlocked achievement badges. <em>Purpose:</em> Store your learning progress to avoid data loss when you change devices or reinstall the app.</span>
                         </li>
-                        <li class="flex gap-4">
-                            <span class="opacity-30 flex-shrink-0">/</span>
-                            <span data-en="Audio recordings (temporary) — Real-time analysis for pronunciation. Discarded immediately. No storage or logging." data-vi="Ghi âm (tạm thời) — Phân tích phát âm thời gian thực. Bị xóa ngay lập tức. Không lưu trữ hoặc ghi nhật ký."><strong>Audio recordings (temporary)</strong> — Real-time analysis for pronunciation. <em>Discarded immediately</em>. No storage or logging.</span>
+                        <li>
+                            <span data-vi="<strong>Nhóm học tập (Social Learning):</strong> Nếu bạn chủ động tham gia một nhóm học tập riêng tư, tên hiển thị và các chỉ số tiến trình học tập của bạn (như điểm số, streak) sẽ được chia sẻ và hiển thị công khai <em>chỉ đối với các thành viên trong nhóm đó</em>. <em>Mục đích:</em> Thúc đẩy động lực học tập nhóm và xếp hạng thi đua nội bộ." data-en="<strong>Social Learning Groups:</strong> If you actively join a private study group, your display name and learning progress metrics (such as scores, streak) will be shared and displayed publicly <em>only to members of that group</em>. <em>Purpose:</em> Promote group learning motivation and internal competition rankings."><strong>Social Learning Groups:</strong> If you actively join a private study group, your display name and learning progress metrics (such as scores, streak) will be shared and displayed publicly <em>only to members of that group</em>. <em>Purpose:</em> Promote group learning motivation and internal competition rankings.</span>
                         </li>
-                        <li class="flex gap-4">
-                            <span class="opacity-30 flex-shrink-0">/</span>
-                            <span data-en="Study Groups — Name and progress metrics visible only to members of the same group." data-vi="Nhóm học tập — Tên và chỉ số tiến độ chỉ hiển thị với các thành viên trong cùng nhóm."><strong>Study Groups</strong> — Name and progress metrics visible <em>only</em> to members of the same group.</span>
+                        <li>
+                            <span data-vi="<strong>Dữ liệu kỹ thuật và chẩn đoán lỗi tự động:</strong> Khi bạn sử dụng Ứng dụng, các dịch vụ hạ tầng của bên thứ ba tích hợp trong ứng dụng (như Google Firebase) có thể tự động ghi nhận một số thông tin kỹ thuật bao gồm: địa chỉ IP, loại thiết bị, phiên bản hệ điều hành, mã định danh thiết bị ngẫu nhiên (chỉ dùng cho mục đích vận hành), và nhật ký lỗi ứng dụng (crash logs). <em>Mục đích:</em> Giám sát hiệu năng hệ thống, khắc phục sự cố kỹ thuật kịp thời và bảo vệ ứng dụng khỏi các hành vi tấn công giả mạo." data-en="<strong>Technical Data and Automatic Error Diagnostics:</strong> When you use the App, third-party infrastructure services integrated into the app (such as Google Firebase) may automatically record some technical information including: IP address, device type, operating system version, random device identifier (for operational purposes only), and app crash logs. <em>Purpose:</em> Monitor system performance, fix technical issues promptly, and protect the app from phishing attacks."><strong>Technical Data and Automatic Error Diagnostics:</strong> When you use the App, third-party infrastructure services integrated into the app (such as Google Firebase) may automatically record some technical information including: IP address, device type, operating system version, random device identifier (for operational purposes only), and app crash logs. <em>Purpose:</em> Monitor system performance, fix technical issues promptly, and protect the app from phishing attacks.</span>
                         </li>
                     </ul>
-                    <div class="mt-12 p-6 md:p-8 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark italic text-sm">
-                        <strong data-en="Zero Access:" data-vi="Không truy cập:">Zero Access:</strong> <span data-en="We do not collect location data, contacts, photos, or browsing history." data-vi="Chúng tôi không thu thập dữ liệu vị trí, danh bạ, ảnh hoặc lịch sử duyệt web.">We do not collect location data, contacts, photos, or browsing history.</span>
+                </section>
+
+                <hr class="border-black/10 dark:border-white/10">
+
+                <section data-aos="fade-up">
+                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-vi="2. Quyền truy cập thiết bị và Xử lý âm thanh (Tính năng phát âm AI)" data-en="2. Device Access and Audio Processing (AI Pronunciation Feature)">2. Device Access and Audio Processing (AI Pronunciation Feature)</h2>
+                    <p class="mb-6" data-vi="Ứng dụng FM Dictionary tích hợp tính năng phân tích và đánh giá phát âm tiếng Anh bằng trí tuệ nhân tạo (AI). Tính năng này yêu cầu quyền truy cập vào Microphone của thiết bị:" data-en="The FM Dictionary app integrates artificial intelligence (AI) English pronunciation analysis and evaluation features. This feature requires access to the device's Microphone:">The FM Dictionary app integrates artificial intelligence (AI) English pronunciation analysis and evaluation features. This feature requires access to the device's Microphone:</p>
+                    <ul class="space-y-6">
+                        <li>
+                            <span data-vi="<strong>Sự đồng ý rõ ràng:</strong> Chúng tôi chỉ truy cập Microphone khi bạn đồng ý cấp quyền thông qua hộp thoại yêu cầu cấp quyền hệ thống của iOS/Android. Bạn có thể thu hồi quyền này bất kỳ lúc nào trong phần cài đặt của thiết bị." data-en="<strong>Explicit Consent:</strong> We only access the Microphone when you agree to grant permission through the iOS/Android system permission dialog. You can revoke this permission at any time in your device settings."><strong>Explicit Consent:</strong> We only access the Microphone when you agree to grant permission through the iOS/Android system permission dialog. You can revoke this permission at any time in your device settings.</span>
+                        </li>
+                        <li>
+                            <span data-vi="<strong>Xử lý thời gian thực:</strong> Ứng dụng chỉ thu âm giọng nói của bạn khi bạn chủ động nhấn và giữ nút ghi âm trong các bài học phát âm." data-en="<strong>Real-time Processing:</strong> The app only records your voice when you actively press and hold the record button during pronunciation lessons."><strong>Real-time Processing:</strong> The app only records your voice when you actively press and hold the record button during pronunciation lessons.</span>
+                        </li>
+                        <li>
+                            <span data-vi="<strong>Chính sách xóa tức thì và Bảo mật tuyệt đối:</strong> Tệp âm thanh ghi âm của bạn sẽ được mã hóa và chuyển giao an toàn qua giao thức HTTPS (SSL/TLS) đến máy chủ xử lý của chúng tôi thông qua proxy bảo mật (Cloudflare Workers). Ngay sau khi quá trình nhận diện và chấm điểm phát âm hoàn tất (hoặc khi xảy ra lỗi kết nối), tệp âm thanh tạm thời này sẽ <strong>bị xóa bỏ lập tức, vĩnh viễn</strong> khỏi bộ nhớ thiết bị và máy chủ xử lý. Chúng tôi <strong>không lưu trữ</strong>, không ghi nhật ký (logs) và không lưu giữ bất kỳ tệp ghi âm giọng nói nào của bạn trên bất kỳ máy chủ nào. Dữ liệu âm thanh này cũng <strong>không bao giờ</strong> được chia sẻ với bên thứ ba hoặc dùng cho mục đích thương mại/quảng cáo." data-en="<strong>Instant Deletion and Absolute Privacy Policy:</strong> Your recorded audio files will be encrypted and securely transferred via HTTPS (SSL/TLS) to our processing servers through a secure proxy (Cloudflare Workers). Immediately after the recognition and scoring process is complete (or if a connection error occurs), this temporary audio file will be <strong>immediately and permanently deleted</strong> from the device memory and processing servers. We <strong>do not store</strong>, record logs, or retain any of your voice recording files on any server. This audio data is also <strong>never</strong> shared with third parties or used for commercial/advertising purposes."><strong>Instant Deletion and Absolute Privacy Policy:</strong> Your recorded audio files will be encrypted and securely transferred via HTTPS (SSL/TLS) to our processing servers through a secure proxy (Cloudflare Workers). Immediately after the recognition and scoring process is complete (or if a connection error occurs), this temporary audio file will be <strong>immediately and permanently deleted</strong> from the device memory and processing servers. We <strong>do not store</strong>, record logs, or retain any of your voice recording files on any server. This audio data is also <strong>never</strong> shared with third parties or used for commercial/advertising purposes.</span>
+                        </li>
+                    </ul>
+                </section>
+
+                <hr class="border-black/10 dark:border-white/10">
+
+                <section data-aos="fade-up">
+                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-vi="3. Dịch vụ bên thứ ba (Third-party Services) & Cam kết Dữ liệu" data-en="3. Third-party Services & Data Commitment">3. Third-party Services & Data Commitment</h2>
+                    <p class="mb-6" data-vi="Để cung cấp một số tính năng kỹ thuật, chúng tôi sử dụng các dịch vụ uy tín toàn cầu của bên thứ ba. Các nhà cung cấp dịch vụ này có chính sách bảo mật riêng đối với dữ liệu họ xử lý:" data-en="To provide some technical features, we use reputable global third-party services. These service providers have their own privacy policies regarding the data they process:">To provide some technical features, we use reputable global third-party services. These service providers have their own privacy policies regarding the data they process:</p>
+                    <ul class="space-y-6">
+                        <li><strong>Google Sign-In:</strong> <span data-vi="Dùng để xác thực tài khoản." data-en="Used for account authentication.">Used for account authentication.</span> <a href="https://policies.google.com/privacy" class="underline">Privacy Policy</a>.</li>
+                        <li><strong>Apple Sign-In:</strong> <span data-vi="Dùng để xác thực tài khoản trên thiết bị iOS." data-en="Used for account authentication on iOS devices.">Used for account authentication on iOS devices.</span> <a href="https://www.apple.com/legal/privacy/" class="underline">Privacy Policy</a>.</li>
+                        <li>
+                            <span data-vi="<strong>Firebase (Google Cloud):</strong> <em>Firebase Authentication:</em> Quản lý đăng nhập và xác thực tài khoản. <em>Cloud Firestore & Realtime Database:</em> Lưu trữ và đồng bộ hóa tiến độ học tập, cấu hình nhóm học tập. <a href='https://firebase.google.com/support/privacy' class='underline'>Chính sách bảo mật của Firebase</a>." data-en="<strong>Firebase (Google Cloud):</strong> <em>Firebase Authentication:</em> Manage account login and authentication. <em>Cloud Firestore & Realtime Database:</em> Store and sync learning progress, study group configurations. <a href='https://firebase.google.com/support/privacy' class='underline'>Firebase Privacy Policy</a>."><strong>Firebase (Google Cloud):</strong> <em>Firebase Authentication:</em> Manage account login and authentication. <em>Cloud Firestore & Realtime Database:</em> Store and sync learning progress, study group configurations. <a href="https://firebase.google.com/support/privacy" class="underline">Privacy Policy</a>.</span>
+                        </li>
+                        <li>
+                            <span data-vi="<strong>Cloudflare Workers:</strong> Proxy chuyển tiếp các yêu cầu nhận dạng âm thanh an toàn. <a href='https://www.cloudflare.com/privacypolicy/' class='underline'>Chính sách bảo mật của Cloudflare</a>." data-en="<strong>Cloudflare Workers:</strong> Proxy to forward secure audio recognition requests. <a href='https://www.cloudflare.com/privacypolicy/' class='underline'>Cloudflare Privacy Policy</a>."><strong>Cloudflare Workers:</strong> Proxy to forward secure audio recognition requests. <a href="https://www.cloudflare.com/privacypolicy/" class="underline">Privacy Policy</a>.</span>
+                        </li>
+                    </ul>
+                    <div class="mt-8 p-6 md:p-8 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark italic text-sm">
+                        <p class="font-bold mb-4 uppercase tracking-widest" data-vi="Cam kết quan trọng về Dữ liệu:" data-en="Important Data Commitments:">Important Data Commitments:</p>
+                        <ul class="space-y-4">
+                            <li>
+                                <span data-vi="<strong>Không bán hoặc chia sẻ dữ liệu thương mại:</strong> Chúng tôi <strong>không bán, không cho thuê, không trao đổi</strong> và không chia sẻ bất kỳ thông tin cá nhân nào của bạn cho bên thứ ba vì mục đích tiếp thị hoặc quảng cáo có mục tiêu." data-en="<strong>No commercial data selling or sharing:</strong> We <strong>do not sell, rent, trade</strong>, or share any of your personal information with third parties for marketing or targeted advertising purposes."><strong>No commercial data selling or sharing:</strong> We <strong>do not sell, rent, trade</strong>, or share any of your personal information with third parties for marketing or targeted advertising purposes.</span>
+                            </li>
+                            <li>
+                                <span data-vi="<strong>Chính sách không theo dõi (No-Tracking):</strong> Ứng dụng tuân thủ nghiêm ngặt cơ chế App Tracking Transparency (ATT) của Apple và các quy định của Google. Chúng tôi không sử dụng mã định danh quảng cáo (IDFA/GAID) để theo dõi hành vi của bạn xuyên suốt các ứng dụng và trang web thuộc sở hữu của đơn vị khác." data-en="<strong>No-Tracking Policy:</strong> The app strictly complies with Apple's App Tracking Transparency (ATT) mechanism and Google's regulations. We do not use advertising identifiers (IDFA/GAID) to track your behavior across apps and websites owned by other entities."><strong>No-Tracking Policy:</strong> The app strictly complies with Apple's App Tracking Transparency (ATT) mechanism and Google's regulations. We do not use advertising identifiers (IDFA/GAID) to track your behavior across apps and websites owned by other entities.</span>
+                            </li>
+                        </ul>
                     </div>
                 </section>
 
-                <section data-aos="fade-up" class="overflow-x-hidden relative">
-                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-en="3. Permissions" data-vi="3. Quyền truy cập">3. Permissions</h2>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm border-collapse">
-                            <thead>
-                                <tr class="border-b border-black dark:border-white">
-                                    <th class="py-4 font-bold uppercase tracking-widest" data-en="Permission" data-vi="Quyền">Permission</th>
-                                    <th class="py-4 font-bold uppercase tracking-widest" data-en="Purpose" data-vi="Mục đích">Purpose</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-black/10 dark:divide-white/10">
-                                <tr>
-                                    <td class="py-6 pr-8">
-                                        <div class="font-bold" data-en="Microphone" data-vi="Microphone">Microphone</div>
-                                        <div class="text-[10px] uppercase opacity-50 mt-1" data-en="Core Feature" data-vi="Tính năng chính">Core Feature</div>
-                                    </td>
-                                    <td class="py-6 opacity-70" data-en="Pronunciation practice. Voice analyzed locally. No audio recorded or transmitted." data-vi="Luyện phát âm. Giọng nói được phân tích nội bộ. Không ghi âm hay truyền tải.">Pronunciation practice. Voice analyzed locally. No audio recorded or transmitted.</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-6 pr-8">
-                                        <div class="font-bold" data-en="Internet" data-vi="Internet">Internet</div>
-                                        <div class="text-[10px] uppercase opacity-50 mt-1" data-en="Required" data-vi="Bắt buộc">Required</div>
-                                    </td>
-                                    <td class="py-6 opacity-70" data-en="Syncing progress, dictionary updates, and authentication." data-vi="Đồng bộ tiến độ, cập nhật từ điển và xác thực.">Syncing progress, dictionary updates, and authentication.</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-6 pr-8">
-                                        <div class="font-bold" data-en="Notifications" data-vi="Thông báo">Notifications</div>
-                                        <div class="text-[10px] uppercase opacity-50 mt-1" data-en="Optional" data-vi="Tùy chọn">Optional</div>
-                                    </td>
-                                    <td class="py-6 opacity-70" data-en="Daily reminders and streak alerts. Can be disabled in Settings." data-vi="Nhắc nhở hàng ngày và cảnh báo chuỗi ngày học. Có thể tắt trong Cài đặt.">Daily reminders and streak alerts. Can be disabled in Settings.</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <hr class="border-black/10 dark:border-white/10">
+
+                <section data-aos="fade-up">
+                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-vi="4. Bảo mật và Chuyển giao dữ liệu quốc tế" data-en="4. Security and International Data Transfer">4. Security and International Data Transfer</h2>
+                    <p class="mb-6" data-vi="Chúng tôi áp dụng các biện pháp bảo mật kỹ thuật và tổ chức nghiêm ngặt để bảo vệ thông tin cá nhân của bạn khỏi bị truy cập, thay đổi, tiết lộ hoặc hủy hoại trái phép:" data-en="We apply strict technical and organizational security measures to protect your personal information from unauthorized access, alteration, disclosure, or destruction:">We apply strict technical and organizational security measures to protect your personal information from unauthorized access, alteration, disclosure, or destruction:</p>
+                    <ul class="space-y-4 mb-6">
+                        <li data-vi="Mọi truyền tải dữ liệu giữa ứng dụng và máy chủ dịch vụ đều được mã hóa bằng công nghệ mã hóa tối tân SSL/TLS qua giao thức HTTPS." data-en="All data transmission between the app and service servers is encrypted using state-of-the-art SSL/TLS encryption via the HTTPS protocol.">All data transmission between the app and service servers is encrypted using state-of-the-art SSL/TLS encryption via the HTTPS protocol.</li>
+                        <li data-vi="Quyền truy cập dữ liệu trên cơ sở dữ liệu đám mây (Firebase Firestore) được cấu hình nghiêm ngặt thông qua các Quy tắc bảo mật (Security Rules), đảm bảo chỉ người dùng sở hữu tài khoản hợp pháp mới có quyền đọc và ghi dữ liệu của chính họ." data-en="Access to data on the cloud database (Firebase Firestore) is strictly configured through Security Rules, ensuring that only users with legitimate accounts have the right to read and write their own data.">Access to data on the cloud database (Firebase Firestore) is strictly configured through Security Rules, ensuring that only users with legitimate accounts have the right to read and write their own data.</li>
+                    </ul>
+                    <p data-vi="<strong>Chuyển giao dữ liệu quốc tế:</strong> Bằng việc sử dụng Ứng dụng, bạn hiểu và đồng ý rằng thông tin cá nhân và dữ liệu tiến trình của bạn có thể được truyền tải, lưu trữ và xử lý trên các máy chủ đám mây đặt tại nước ngoài do các đối tác hạ tầng của chúng tôi vận hành (Google Firebase, Cloudflare) tuân theo các tiêu chuẩn an toàn dữ liệu toàn cầu." data-en="<strong>International Data Transfer:</strong> By using the App, you understand and agree that your personal information and progress data may be transmitted, stored, and processed on cloud servers located abroad operated by our infrastructure partners (Google Firebase, Cloudflare) in accordance with global data safety standards."><strong>International Data Transfer:</strong> By using the App, you understand and agree that your personal information and progress data may be transmitted, stored, and processed on cloud servers located abroad operated by our infrastructure partners (Google Firebase, Cloudflare) in accordance with global data safety standards.</p>
+                </section>
+
+                <hr class="border-black/10 dark:border-white/10">
+
+                <section data-aos="fade-up">
+                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-vi="5. Quyền của người dùng và Quy trình xóa tài khoản" data-en="5. User Rights and Account Deletion Process">5. User Rights and Account Deletion Process</h2>
+                    <p class="mb-6" data-vi="Chúng tôi tôn trọng quyền kiểm soát tuyệt đối đối với dữ liệu cá nhân của bạn. Bạn có đầy đủ các quyền truy cập, chỉnh sửa, hạn chế xử lý và xóa bỏ dữ liệu của mình:" data-en="We respect your absolute control over your personal data. You have full rights to access, edit, restrict processing, and delete your data:">We respect your absolute control over your personal data. You have full rights to access, edit, restrict processing, and delete your data:</p>
+                    <ul class="space-y-6 mb-8">
+                        <li>
+                            <span data-vi="<strong>Quyền tự quản lý:</strong> Bạn có thể xem và chỉnh sửa thông tin hồ sơ của mình trực tiếp trong phần Cài đặt của ứng dụng. Bạn cũng có quyền rút lại các quyền truy cập phần cứng (như Microphone) bất kỳ lúc nào thông qua cài đặt hệ điều hành trên thiết bị." data-en="<strong>Self-Management Rights:</strong> You can view and edit your profile information directly in the Settings section of the app. You also have the right to withdraw hardware access permissions (such as the Microphone) at any time through the operating system settings on your device."><strong>Self-Management Rights:</strong> You can view and edit your profile information directly in the Settings section of the app. You also have the right to withdraw hardware access permissions (such as the Microphone) at any time through the operating system settings on your device.</span>
+                        </li>
+                        <li>
+                            <span data-vi="<strong>Quyền yêu cầu xóa tài khoản trực tiếp trong Ứng dụng (Khuyên dùng):</strong> <em>Bước 1:</em> Mở ứng dụng FM Dictionary, đi tới tab <strong>Cài đặt (Settings)</strong>. <em>Bước 2:</em> Chọn mục <strong>Thông tin cá nhân (Profile)</strong> hoặc <strong>Vùng nguy hiểm (Danger Zone)</strong>. <em>Bước 3:</em> Nhấp vào <strong>Xóa tài khoản (Delete Account)</strong> và xác nhận đồng ý trên hộp thoại hệ thống." data-en="<strong>Right to request account deletion directly in the App (Recommended):</strong> <em>Step 1:</em> Open the FM Dictionary app, go to the <strong>Settings</strong> tab. <em>Step 2:</em> Select <strong>Profile</strong> or <strong>Danger Zone</strong>. <em>Step 3:</em> Click <strong>Delete Account</strong> and confirm your agreement in the system dialog."><strong>Right to request account deletion directly in the App (Recommended):</strong> <em>Step 1:</em> Open the FM Dictionary app, go to the <strong>Settings</strong> tab. <em>Step 2:</em> Select <strong>Profile</strong> or <strong>Danger Zone</strong>. <em>Step 3:</em> Click <strong>Delete Account</strong> and confirm your agreement in the system dialog.</span>
+                        </li>
+                        <li>
+                            <span data-vi="<strong>Quyền yêu cầu xóa tài khoản qua Email:</strong> Bạn có thể gửi yêu cầu xóa tài khoản bằng cách gửi email trực tiếp tới địa chỉ hỗ trợ của chúng tôi tại: <strong>ankhang.nguyen0704@gmail.com</strong>. Vui lòng gửi email từ chính địa chỉ email bạn đã sử dụng để đăng nhập ứng dụng để chúng tôi xác minh danh tính chính chủ." data-en="<strong>Right to request account deletion via Email:</strong> You can request account deletion by sending an email directly to our support address at: <strong>ankhang.nguyen0704@gmail.com</strong>. Please send the email from the exact email address you used to log in to the app so we can verify your identity."><strong>Right to request account deletion via Email:</strong> You can request account deletion by sending an email directly to our support address at: <strong>ankhang.nguyen0704@gmail.com</strong>. Please send the email from the exact email address you used to log in to the app so we can verify your identity.</span>
+                        </li>
+                    </ul>
+                    <div class="p-6 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark">
+                        <p class="font-bold mb-4" data-vi="Kết quả xử lý xóa dữ liệu:" data-en="Data Deletion Results:">Data Deletion Results:</p>
+                        <p class="mb-4" data-vi="Ngay sau khi lệnh xóa được xác nhận thành công (qua ứng dụng hoặc qua email yêu cầu), toàn bộ thông tin cá nhân định danh (email, họ tên, ảnh đại diện), tiến độ học tập, lịch sử từ vựng, điểm số và dữ liệu nhóm học tập của bạn sẽ bị <strong>xóa bỏ hoàn toàn, vĩnh viễn và không thể khôi phục</strong> khỏi hệ thống lưu trữ Firebase Firestore của chúng tôi trong vòng tối đa 30 ngày." data-en="Immediately after the deletion command is successfully confirmed (via the app or email request), all personal identifiable information (email, full name, profile picture), learning progress, vocabulary history, scores, and study group data will be <strong>completely, permanently deleted and cannot be restored</strong> from our Firebase Firestore storage system within a maximum of 30 days.">Immediately after the deletion command is successfully confirmed (via the app or email request), all personal identifiable information (email, full name, profile picture), learning progress, vocabulary history, scores, and study group data will be <strong>completely, permanently deleted and cannot be restored</strong> from our Firebase Firestore storage system within a maximum of 30 days.</p>
+                        <p data-vi="Cơ sở dữ liệu lưu trữ cục bộ mã hóa (Hive) trên thiết bị của bạn cũng sẽ tự động bị xóa sạch hoàn toàn ngay khi bạn thực hiện gỡ cài đặt (uninstall) ứng dụng khỏi thiết bị." data-en="The encrypted local storage database (Hive) on your device will also be automatically and completely cleared as soon as you perform an uninstallation of the app from the device.">The encrypted local storage database (Hive) on your device will also be automatically and completely cleared as soon as you perform an uninstallation of the app from the device.</p>
                     </div>
                 </section>
 
-                <section data-aos="fade-up" class="overflow-x-hidden relative">
-                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-en="4. Third-Party Services" data-vi="4. Dịch vụ bên thứ ba">4. Third-Party Services</h2>
-                    <p class="mb-6 opacity-70" data-en="We use trusted partners for essential app functionality:" data-vi="Chúng tôi sử dụng các đối tác tin cậy cho các chức năng thiết yếu:">We use trusted partners for essential app functionality:</p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <a href="https://policies.google.com/privacy" target="_blank" class="p-4 sm:p-6 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group">
-                            <div class="font-bold mb-2">Google</div>
-                            <div class="text-xs opacity-50 uppercase tracking-widest" data-en="Auth & Database" data-vi="Xác thực & Dữ liệu">Auth & Database</div>
-                        </a>
-                        <a href="https://www.apple.com/legal/privacy/" target="_blank" class="p-4 sm:p-6 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group">
-                            <div class="font-bold mb-2">Apple</div>
-                            <div class="text-xs opacity-50 uppercase tracking-widest" data-en="Authentication" data-vi="Xác thực">Authentication</div>
-                        </a>
-                        <div class="p-4 sm:p-6 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark">
-                            <div class="font-bold mb-2">Firebase</div>
-                            <div class="text-xs opacity-50 uppercase tracking-widest" data-en="Cloud Services" data-vi="Dịch vụ Đám mây">Cloud Services</div>
-                        </div>
+                <hr class="border-black/10 dark:border-white/10">
+
+                <section data-aos="fade-up">
+                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-vi="6. Quyền riêng tư của trẻ em" data-en="6. Children's Privacy">6. Children's Privacy</h2>
+                    <p class="mb-6" data-vi="Ứng dụng của chúng tôi không hướng tới đối tượng là trẻ em dưới 13 tuổi (hoặc độ tuổi tối thiểu theo quy định pháp luật tại quốc gia của bạn). Chúng tôi không chủ động thu thập hoặc yêu cầu thông tin nhận dạng cá nhân từ trẻ em dưới 13 tuổi." data-en="Our App is not directed at children under 13 (or the minimum age according to the laws of your country). We do not actively collect or request personally identifiable information from children under 13.">Our App is not directed at children under 13 (or the minimum age according to the laws of your country). We do not actively collect or request personally identifiable information from children under 13.</p>
+                    <p data-vi="Nếu bạn là cha mẹ hoặc người giám hộ hợp pháp và phát hiện ra con em mình đã cung cấp thông tin cá nhân cho chúng tôi mà không có sự đồng ý, vui lòng liên hệ ngay qua email hỗ trợ để chúng tôi tiến hành xác minh và xóa bỏ thông tin đó khỏi hệ thống máy chủ lập tức." data-en="If you are a parent or legal guardian and discover that your child has provided us with personal information without consent, please contact us immediately via support email so we can verify and delete that information from our server system immediately.">If you are a parent or legal guardian and discover that your child has provided us with personal information without consent, please contact us immediately via support email so we can verify and delete that information from our server system immediately.</p>
+                </section>
+
+                <hr class="border-black/10 dark:border-white/10">
+
+                <section data-aos="fade-up">
+                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-vi="7. Thay đổi đối với Chính sách Bảo mật này" data-en="7. Changes to This Privacy Policy">7. Changes to This Privacy Policy</h2>
+                    <p data-vi="Chúng tôi có thể cập nhật Chính sách Bảo mật này theo thời gian để phản ánh các thay đổi trong tính năng vận hành của ứng dụng hoặc theo các cập nhật pháp lý mới từ Google và Apple. Phiên bản cập nhật sẽ được đăng tải trực tiếp trên trang này kèm theo ngày cập nhật mới nhất ở phần đầu văn bản. Chúng tôi khuyến khích bạn kiểm tra định kỳ trang này để luôn nắm rõ các quyền lợi của mình." data-en="We may update this Privacy Policy from time to time to reflect changes in the app's operational features or in accordance with new legal updates from Google and Apple. The updated version will be posted directly on this page with the latest update date at the beginning of the document. We encourage you to check this page periodically to stay informed of your rights.">We may update this Privacy Policy from time to time to reflect changes in the app's operational features or in accordance with new legal updates from Google and Apple. The updated version will be posted directly on this page with the latest update date at the beginning of the document. We encourage you to check this page periodically to stay informed of your rights.</p>
+                </section>
+
+                <hr class="border-black/10 dark:border-white/10">
+
+                <section data-aos="fade-up" class="text-red-500">
+                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-vi="8. Liên hệ với chúng tôi" data-en="8. Contact Us">8. Contact Us</h2>
+                    <div class="p-8 md:p-12 border border-red-500/20 bg-red-500/5">
+                        <p class="mb-6" data-vi="Nếu bạn có bất kỳ câu hỏi, góp ý, phản ánh nào liên quan đến Chính sách Bảo mật này hoặc muốn thực thi các quyền dữ liệu cá nhân của mình, vui lòng liên hệ với chúng tôi qua các thông tin chính thức sau:" data-en="If you have any questions, suggestions, or feedback regarding this Privacy Policy or wish to exercise your personal data rights, please contact us through the following official information:">If you have any questions, suggestions, or feedback regarding this Privacy Policy or wish to exercise your personal data rights, please contact us through the following official information:</p>
+                        <ul class="space-y-4 font-bold">
+                            <li><span data-vi="Đơn vị phát triển ứng dụng: An Khang Studio" data-en="App Developer: An Khang Studio">App Developer: An Khang Studio</span></li>
+                            <li><span data-vi="Sở hữu bản quyền nội dung từ điển & học tập: Thúy Tạ (Thuy Ta)" data-en="Dictionary & Learning Content Copyright Owner: Thuy Ta">Dictionary & Learning Content Copyright Owner: Thuy Ta</span></li>
+                            <li><span data-vi="Email hỗ trợ & Tiếp nhận yêu cầu xóa dữ liệu: " data-en="Support Email & Data Deletion Requests: ">Support Email & Data Deletion Requests: </span><a href="mailto:ankhang.nguyen0704@gmail.com" class="underline break-all">ankhang.nguyen0704@gmail.com</a></li>
+                        </ul>
                     </div>
                 </section>
 
-                <section data-aos="fade-up" class="overflow-x-hidden relative">
-                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter" data-en="5. Data Retention" data-vi="5. Lưu trữ dữ liệu">5. Data Retention</h2>
-                    <p data-en="Account data is retained while active. Upon deletion request, all personal info (name, email) is permanently removed within 30 days. Learning progress is anonymized for aggregate analytics. Local databases (Hive) are deleted when the App is uninstalled." data-vi="Dữ liệu tài khoản được giữ khi còn hoạt động. Khi yêu cầu xóa, thông tin cá nhân sẽ bị loại bỏ vĩnh viễn trong 30 ngày. Tiến độ học tập được ẩn danh cho phân tích tổng hợp. Cơ sở dữ liệu cục bộ sẽ bị xóa khi gỡ ứng dụng.">Account data is retained while active. Upon deletion request, all personal info (name, email) is permanently removed within 30 days. Learning progress is anonymized for aggregate analytics. Local databases (Hive) are deleted when the App is uninstalled.</p>
+                <hr class="border-black/10 dark:border-white/10">
+
+                <section data-aos="fade-up">
+                    <h3 class="font-display text-xl font-bold mb-4 uppercase tracking-widest" data-vi="Tuyên bố về Sở hữu Trí tuệ (Copyright Notice)" data-en="Intellectual Property Statement (Copyright Notice)">Intellectual Property Statement (Copyright Notice)</h3>
+                    <p data-vi="Toàn bộ dữ liệu, nội dung bài học, định nghĩa từ vựng và các tài liệu giáo dục được tích hợp trong ứng dụng FM Dictionary thuộc sở hữu bản quyền hợp pháp và duy nhất của <strong>Thúy Tạ</strong>. Mọi hành vi sao chép, trích xuất hoặc tái sử dụng nội dung khi chưa có sự đồng ý bằng văn bản từ chủ sở hữu đều là vi phạm pháp luật." data-en="All data, lesson content, vocabulary definitions, and educational materials integrated in the FM Dictionary app are the legal and exclusive copyright of <strong>Thuy Ta</strong>. Any act of copying, extracting, or reusing content without written consent from the owner is a violation of the law.">All data, lesson content, vocabulary definitions, and educational materials integrated in the FM Dictionary app are the legal and exclusive copyright of <strong>Thuy Ta</strong>. Any act of copying, extracting, or reusing content without written consent from the owner is a violation of the law.</p>
                 </section>
 
-                <section data-aos="fade-up" class="overflow-x-hidden relative">
-                    <h2 class="font-display text-3xl font-bold mb-8 uppercase tracking-tighter text-red-500" data-en="6. Contact" data-vi="6. Liên hệ">6. Contact</h2>
-                    <div class="p-8 md:p-12 border border-black dark:border-white">
-                        <h3 class="font-display text-2xl font-bold mb-4">An Khang Studio</h3>
-                        <p class="mb-8 opacity-70" data-en="For privacy questions or data deletion requests:" data-vi="Cho các câu hỏi về quyền riêng tư hoặc yêu cầu xóa dữ liệu:">For privacy questions or data deletion requests:</p>
-                        <a href="mailto:ankhang.nguyen0704@gmail.com" class="text-lg sm:text-2xl font-serif italic border-b border-black dark:border-white pb-1 hover:opacity-50 transition-opacity break-all">ankhang.nguyen0704@gmail.com</a>
-                        <p class="mt-12 text-[10px] uppercase tracking-widest opacity-80 font-medium" data-en="Content ownership: Thuy Ta · Developer: An Khang Studio" data-vi="Sở hữu nội dung: Thủy Tạ · Phát triển: An Khang Studio">Content ownership: Thuy Ta · Developer: An Khang Studio</p>
-                    </div>
-                </section>
+                <p class="text-xs opacity-50 italic text-center py-10" data-vi="<em>Văn bản này được thiết lập nhằm tuân thủ các nguyên tắc bảo mật và quyền sở hữu trí tuệ nghiêm ngặt của Apple App Store và Google Play Store.</em>" data-en="<em>This document is established to comply with the strict privacy principles and intellectual property rights of the Apple App Store and Google Play Store.</em>"><em>This document is established to comply with the strict privacy principles and intellectual property rights of the Apple App Store and Google Play Store.</em></p>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="py-20 text-center border-t border-black/10 dark:border-white/10 overflow-x-hidden relative">
+    <footer id="contact" class="py-20 text-center relative border-t border-black/10 dark:border-white/10 overflow-x-hidden">
         <div class="container mx-auto px-6 md:px-8 relative z-10" data-aos="zoom-in">
-            <h2 class="font-display text-4xl font-bold mb-8 uppercase tracking-tighter">KHANG</h2>
-            <div class="flex justify-center space-x-6 text-sm uppercase tracking-widest mb-12">
-                <a href="index.html" class="hover-underline" data-en="Home" data-vi="Trang chủ">Home</a>
-                <a href="mailto:ankhang.nguyen0704@gmail.com" class="hover-underline" data-en="Contact" data-vi="Liên hệ">Contact</a>
+            <h2 class="font-display text-5xl font-bold mb-8 uppercase tracking-tighter">FM Dictionary.</h2>
+            <div class="flex justify-center space-x-8 mb-12 text-xl">
+                <a href="mailto:ankhang.nguyen0704@gmail.com" class="hover:-translate-y-2 transition-transform"><i class="fas fa-envelope"></i></a>
+                <a href="https://github.com/ankhang0704" class="hover:-translate-y-2 transition-transform" target="_blank"><i class="fab fa-github"></i></a>
             </div>
-            <p class="text-[10px] font-medium opacity-80 uppercase tracking-[0.3em]">
-                © 2026 An Khang Studio · <span data-en="All rights reserved" data-vi="Mọi quyền được bảo lưu">All rights reserved</span>
+            
+            <div class="flex justify-center space-x-6 text-[10px] uppercase tracking-widest mb-8 opacity-60">
+                <a href="index.html" class="hover-underline" data-en="Home" data-vi="Trang chủ">Home</a>
+                <a href="privacy-policy.html" class="hover-underline" data-en="Privacy" data-vi="Bảo mật">Privacy</a>
+                <a href="terms-of-service.html" class="hover-underline" data-en="Terms" data-vi="Điều khoản">Terms</a>
+            </div>
+            <p class="text-[10px] font-medium opacity-80 uppercase tracking-[0.3em]" data-vi="© 2026 An Khang Studio · Nội dung © Thủy Tạ · Bảo lưu mọi quyền" data-en="© 2026 An Khang Studio · Content © Thuy Ta · All rights reserved">
+                © 2026 An Khang Studio · Content © Thuy Ta · All rights reserved
             </p>
         </div>
     </footer>
 
-    <!-- Back to Top -->
     <button id="back-to-top"
         class="fixed bottom-8 right-8 w-12 h-12 bg-black text-white dark:bg-white dark:text-black rounded-full flex items-center justify-center opacity-0 translate-y-10 transition-all duration-500 z-50 hover:scale-110">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 1500, easing: 'ease-out-cubic', once: true, offset: 50 });
-
-        const navbar = document.getElementById('navbar');
-        const backToTopBtn = document.getElementById('back-to-top');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('glass-nav');
-                navbar.classList.remove('py-6');
-                navbar.classList.add('py-4');
-            } else {
-                navbar.classList.remove('glass-nav');
-                navbar.classList.remove('py-4');
-                navbar.classList.add('py-6');
-            }
-            if (window.scrollY > 500) {
-                backToTopBtn.classList.add('show-back-to-top');
-            } else {
-                backToTopBtn.classList.remove('show-back-to-top');
-            }
-        });
-
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            htmlElement.classList.add('dark');
-        } else {
-            htmlElement.classList.remove('dark');
-        }
-        themeToggleBtn.addEventListener('click', () => {
-            htmlElement.classList.toggle('dark');
-            localStorage.setItem('theme', htmlElement.classList.contains('dark') ? 'dark' : 'light');
-        });
-
-        // Language Toggle Logic
-        const langToggleBtn = document.getElementById('lang-toggle');
-        const langLabel = langToggleBtn.querySelector('.lang-label');
-        let currentLang = localStorage.getItem('lang') || 'en';
-
-        const updateLanguage = (lang) => {
-            document.querySelectorAll('[data-en]').forEach(el => {
-                el.innerHTML = el.getAttribute(`data-${lang}`);
-            });
-            langLabel.textContent = lang.toUpperCase();
-            localStorage.setItem('lang', lang);
-            currentLang = lang;
-        };
-
-        updateLanguage(currentLang);
-
-        langToggleBtn.addEventListener('click', () => {
-            updateLanguage(currentLang === 'en' ? 'vi' : 'en');
-        });
-    </script>
+    <script src="../script.js"></script>
 </body>
 
 </html>

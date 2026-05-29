@@ -4,7 +4,7 @@ This skill describes how to maintain and extend the bilingual system used in thi
 
 ## 🛠 How it works
 1. **Attributes:** Elements use `data-vi` for Vietnamese text and `data-en` for English text.
-2. **Static Text:** The initial text inside the tag should be the default language (English for FM Dictionary, Vietnamese for Main Portfolio).
+2. **Static Text:** The initial text inside the tag should be the default language (English for both FM Dictionary and the Main Portfolio).
 3. **Toggle Logic:**
    - A button with `id="lang-toggle"` triggers the switch.
    - The script iterates through all elements with `[data-vi]`.

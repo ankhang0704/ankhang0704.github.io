@@ -27,10 +27,11 @@ This document provides the operational policy and context for AI agents working 
 - **Bilingual System:**
     - Uses `data-vi` and `data-en` attributes.
     - Script logic in `script.js` toggles visibility and innerHTML based on selected language.
-    - FM Dictionary defaults to English (`en`).
+    - Both the Main Portfolio and FM Dictionary default to English (`en`).
 - **Styling Rules:**
     - Maintain "Ambient Glow" effect in all main sections.
     - Use `font-serif italic` (Playfair Display) for sophisticated emphasis.
+    - **Font Sizing:** Synchronize all primary page content to `text-xl` and hero headers to `md:text-8xl` for consistency across Portfolio and FM Dictionary pages.
     - Icons must be monochromatic (`text-black dark:text-white`) and use Font Awesome 6 classes (no emojis).
     - Footer visibility: Ownership and copyright text must be `opacity-80` and `font-medium` for readability.
 
@@ -39,7 +40,8 @@ This document provides the operational policy and context for AI agents working 
     1. Dark/Light mode consistency.
     2. Bilingual toggle functionality.
     3. Mobile responsiveness (Tailwind grid/flex).
-    4. AOS animation performance.
+    4. Mobile Menu (Hamburger) functionality and overlay links.
+    5. AOS animation performance.
 
 ---
 *Operational configuration is managed in the [./.agents/](./.agents/) directory.*
