@@ -164,10 +164,17 @@ sections.forEach(section => observer.observe(section));
 
 // 6. Highlight current page link (for static pages like Privacy/Terms)
 function highlightCurrentPage() {
-    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+    const currentPath = window.location.pathname;
+    
     navLinks.forEach(link => {
-        const linkPath = link.getAttribute('href');
-        if (linkPath === currentPath) {
+        const linkHref = link.getAttribute('href');
+        if (!linkHref || linkHref.startsWith('#')) return;
+
+        const normalizedHref = linkHref.endsWith('/') ? linkHref : linkHref + '/';
+        const normalizedPath = currentPath.endsWith('/') ? currentPath : currentPath + '/';
+
+        if (normalizedPath === normalizedHref) {
             link.classList.add('active');
         }
     });
