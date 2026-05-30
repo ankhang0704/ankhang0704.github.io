@@ -1,6 +1,6 @@
 # FM Dictionary — An Khang Studio
 
-**FM Dictionary** là ứng dụng học từ vựng chuyên ngành cao cấp, được thiết kế chuyên biệt để giúp sinh viên, kỹ sư, ban quản lý tòa nhà và các chuyên gia làm chủ **hơn 1.500 thuật ngữ trọng tâm** trong lĩnh vực **Quản lý cơ sở vật chất (Facility Management - FM)**. Ứng dụng được xây dựng bằng Flutter cho cả hai nền tảng iOS & Android.
+**FM Dictionary** là ứng dụng học từ vựng chuyên ngành cao cấp, được thiết kế chuyên biệt để giúp sinh viên, kỹ sư, ban quản lý tòa nhà và các chuyên gia làm chủ **hơn 1.800 thuật ngữ trọng tâm** trong lĩnh vực **Quản lý cơ sở vật chất (Facility Management - FM)**. Ứng dụng được xây dựng bằng Flutter cho cả hai nền tảng iOS & Android.
 
 ## Nền tảng và Thành tựu
 *   **Nền tảng hỗ trợ:** iOS & Android (giao diện tương thích mọi kích thước màn hình).
@@ -9,7 +9,7 @@
 *   **Khả năng hoạt động:** Thiết kế ưu tiên ngoại tuyến (Offline-First) giúp tra cứu và học từ vựng mọi lúc mọi nơi mà không cần kết nối mạng liên tục.
 
 ## Tính năng chính
-*   **Từ điển chuyên ngành FM:** Tra cứu nhanh chóng hơn 1.500 từ vựng chuyên ngành Quản lý cơ sở vật chất với định nghĩa chi tiết, phiên âm, ví dụ thực tế và phát âm chuẩn.
+*   **Từ điển chuyên ngành FM:** Tra cứu nhanh chóng hơn 1.800 từ vựng chuyên ngành Quản lý cơ sở vật chất với định nghĩa chi tiết, phiên âm, ví dụ thực tế và phát âm chuẩn.
 *   **Lộ trình học tập (Roadmap):** Lộ trình học được phân chia khoa học theo các chương, giai đoạn với độ khó tăng dần, hỗ trợ người học theo dõi sát sao tiến trình học tập của mình.
 *   **Luyện phát âm cùng AI:** Đọc và kiểm tra phát âm thời gian thực. Âm thanh được truyền tải qua cổng proxy bảo mật (Cloudflare Workers) để phân tích phản hồi ngay lập tức và bị xóa vĩnh viễn ngay sau đó nhằm bảo vệ tuyệt đối quyền riêng tư.
 *   **Hệ thống học tập thông minh:** Sử dụng flashcard tương tác kết hợp phương pháp lặp lại ngắt quãng (spaced repetition) và các bài kiểm tra trắc nghiệm (quiz) sinh động.

@@ -6,7 +6,7 @@ This document provides the operational policy and context for AI agents working 
 - **Type:** Personal Software Engineering Portfolio & Product Landing Page.
 - **Projects:**
     - **Main Portfolio:** Highlighting An Khang's transition from IT Support to Backend (Django) and Mobile (Flutter) development.
-    - **FM Dictionary:** A specialized mobile dictionary app (commissioned by Thuy Ta, developed by An Khang Studio).
+    - **FM Dictionary:** A premium vocabulary app helping the Facilities Management community and anyone interested in the field master 1,800+ specialized FM terms — built with Flutter for iOS & Android.
 
 ## 🛠 Tech Stack
 - **Frontend:** HTML5, Tailwind CSS (via CDN), Font Awesome 6.4.0.
