@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Custom CSS */
 html {
     /* Đảm bảo smooth scroll cho các link a href */
@@ -100,7 +104,7 @@ html {
     height: 80vw;
     border-radius: 50%;
     filter: blur(80px);
-    z-index: 0;
+    z-index: -1;
     pointer-events: none;
     transition: background 1s ease;
 }

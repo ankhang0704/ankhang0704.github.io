@@ -1,20 +1,18 @@
 "use client";
 
 import React, { useEffect } from "react";
+import AOS from "aos";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 export default function Home() {
   useEffect(() => {
-    // Initialize AOS
-    if (typeof window !== "undefined" && (window as any).AOS) {
-      (window as any).AOS.init({
-        duration: 1500,
-        easing: "ease-out-cubic",
-        once: true,
-        offset: 50,
-      });
-    }
+    AOS.init({
+      duration: 1500,
+      easing: "ease-out-cubic",
+      once: true,
+      offset: 50,
+    });
 
     // ScrollSpy logic
     const sections = document.querySelectorAll("section[id]");
@@ -64,7 +62,6 @@ export default function Home() {
           <div
             className="container mx-auto px-6 md:px-8 relative z-10"
             data-aos="fade-up"
-            data-aos-duration="1000"
           >
             <p
               className="text-sm tracking-[0.3em] uppercase mb-6 border-b border-black dark:border-white inline-block pb-2"
@@ -158,7 +155,6 @@ export default function Home() {
               <div
                 className="p-8 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-colors relative group"
                 data-aos="fade-up"
-                data-aos-delay="0"
               >
                 <div
                   className="absolute -top-4 left-6 bg-cardLight dark:bg-cardDark px-2 text-sm font-bold uppercase tracking-widest"
@@ -333,7 +329,7 @@ export default function Home() {
                   </div>
                   <div className="flex space-x-6 text-xl">
                     <a
-                      href="fm-dictionary/"
+                      href="/fm-dictionary/"
                       className="hover:opacity-50 transition-opacity flex items-center text-sm font-bold uppercase"
                       data-vi="Chi tiết"
                       data-en="Detail"

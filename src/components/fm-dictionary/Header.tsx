@@ -2,22 +2,22 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-export default function Header() {
+export default function FMHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [lang, setLang] = useState("en");
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    // Scroll effect
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     handleScroll();
 
-    // Theme init
     const savedTheme = localStorage.getItem("theme");
     const isDarkInit =
       savedTheme === "dark" ||
@@ -27,10 +27,8 @@ export default function Header() {
     if (isDarkInit) document.documentElement.classList.add("dark");
     else document.documentElement.classList.remove("dark");
 
-    // Lang init
     const savedLang = localStorage.getItem("lang") || "en";
     setLang(savedLang);
-    // Use a small timeout to ensure DOM is ready
     const timer = setTimeout(() => {
         updateLangDOM(savedLang);
     }, 100);
@@ -78,9 +76,10 @@ export default function Header() {
     });
   };
 
+  const isMainPage = pathname === "/fm-dictionary" || pathname === "/fm-dictionary/";
+
   return (
     <>
-      {/* Navbar */}
       <header
         id="navbar"
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
@@ -88,24 +87,27 @@ export default function Header() {
         }`}
       >
         <div className="container mx-auto w-full px-6 md:px-8 flex justify-between items-center">
-          <Link href="/" className="font-display text-3xl font-bold tracking-tighter">
-            KHANG
+          <Link href="/fm-dictionary" className="font-display text-2xl md:text-3xl font-bold tracking-tighter">
+            FM DICTIONARY
           </Link>
 
           <div className="flex items-center space-x-6 md:space-x-10">
             <nav className="hidden md:flex space-x-10 text-sm tracking-widest uppercase">
-              <a href="#about" className="nav-link hover-underline" data-vi="Tóm tắt" data-en="Summary">
-                Summary
-              </a>
-              <a href="#skills" className="nav-link hover-underline" data-vi="Kỹ năng" data-en="Skills">
-                Skills
-              </a>
-              <a href="#projects" className="nav-link hover-underline" data-vi="Dự án" data-en="Projects">
-                Projects
-              </a>
-              <a href="#experience" className="nav-link hover-underline" data-vi="Lộ trình" data-en="Timeline">
-                Timeline
-              </a>
+              <Link href={isMainPage ? "#features" : "/fm-dictionary/#features"} className="nav-link hover-underline" data-vi="Tính năng" data-en="Features">
+                Features
+              </Link>
+              <Link href={isMainPage ? "#tech" : "/fm-dictionary/#tech"} className="nav-link hover-underline" data-vi="Công nghệ" data-en="Tech Stack">
+                Tech Stack
+              </Link>
+              <Link href="/fm-dictionary/support" className={`nav-link hover-underline ${pathname === '/fm-dictionary/support' ? 'active' : ''}`} data-vi="Hỗ trợ" data-en="Support">
+                Support
+              </Link>
+              <Link href="/fm-dictionary/privacy-policy" className={`nav-link hover-underline ${pathname === '/fm-dictionary/privacy-policy' ? 'active' : ''}`} data-vi="Bảo mật" data-en="Privacy">
+                Privacy
+              </Link>
+              <Link href="/fm-dictionary/terms-of-service" className={`nav-link hover-underline ${pathname === '/fm-dictionary/terms-of-service' ? 'active' : ''}`} data-vi="Điều khoản" data-en="Terms">
+                Terms
+              </Link>
             </nav>
 
             <div className="flex items-center space-x-4 md:space-x-6">
@@ -154,42 +156,51 @@ export default function Header() {
         }`}
       >
         <nav className="flex flex-col items-center space-y-10">
-          <a
-            href="#about"
+          <Link
+            href={isMainPage ? "#features" : "/fm-dictionary/#features"}
             className="mobile-nav-link"
-            data-vi="Tóm tắt"
-            data-en="Summary"
+            data-vi="Tính năng"
+            data-en="Features"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Summary
-          </a>
-          <a
-            href="#skills"
+            Features
+          </Link>
+          <Link
+            href={isMainPage ? "#tech" : "/fm-dictionary/#tech"}
             className="mobile-nav-link"
-            data-vi="Kỹ năng"
-            data-en="Skills"
+            data-vi="Công nghệ"
+            data-en="Tech Stack"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Skills
-          </a>
-          <a
-            href="#projects"
+            Tech Stack
+          </Link>
+          <Link
+            href="/fm-dictionary/support"
             className="mobile-nav-link"
-            data-vi="Dự án"
-            data-en="Projects"
+            data-vi="Hỗ trợ"
+            data-en="Support"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Projects
-          </a>
-          <a
-            href="#experience"
+            Support
+          </Link>
+          <Link
+            href="/fm-dictionary/privacy-policy"
             className="mobile-nav-link"
-            data-vi="Lộ trình"
-            data-en="Timeline"
+            data-vi="Bảo mật"
+            data-en="Privacy"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Timeline
-          </a>
+            Privacy
+          </Link>
+          <Link
+            href="/fm-dictionary/terms-of-service"
+            className="mobile-nav-link"
+            data-vi="Điều khoản"
+            data-en="Terms"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Terms
+          </Link>
         </nav>
 
         <div className="flex items-center space-x-12 pt-12 border-t border-black/10 dark:border-white/10 w-2/3 justify-center">
