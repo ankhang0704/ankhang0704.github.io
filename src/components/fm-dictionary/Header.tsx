@@ -151,7 +151,7 @@ export default function FMHeader() {
         id="mobile-menu"
         className={`fixed inset-0 bg-bgLight/98 dark:bg-bgDark/98 z-[60] flex flex-col items-center justify-start pt-32 pb-12 space-y-12 text-2xl font-display uppercase tracking-widest transition-all duration-500 overflow-y-auto w-full h-full ${
           isMobileMenuOpen
-            ? "opacity-100 pointer-events-auto"
+            ? "active opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
         }`}
       >

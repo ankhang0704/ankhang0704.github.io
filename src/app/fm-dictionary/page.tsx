@@ -488,7 +488,7 @@ export default function FMDictionaryPage() {
                     className="flex justify-between items-center p-4 border border-black dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all group"
                   >
                     <span className="flex items-center text-sm font-bold uppercase tracking-widest">
-                      <i className="fas fa-headset text-black dark:text-white mr-3"></i>
+                      <i className="fas fa-headset mr-3 text-black dark:text-white group-hover:text-white dark:group-hover:text-black transition-colors"></i>
                       <span data-vi="Hỗ trợ & Liên hệ" data-en="Support & Contact">
                         Support & Contact
                       </span>
