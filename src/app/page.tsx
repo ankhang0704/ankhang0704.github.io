@@ -290,25 +290,35 @@ export default function Home() {
               Selected Works
             </h2>
 
-            <div className="space-y-32">
+            <div className="space-y-40">
               {/* Project 1: FM Dictionary */}
-              <div className="flex flex-col md:flex-row items-center gap-12 group">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center group">
                 <div
-                  className="w-full md:w-3/5 overflow-hidden relative aspect-video"
+                  className="lg:col-span-7 overflow-hidden relative aspect-[16/10]"
                   data-aos="fade-right"
                 >
                   <img
                     src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1000"
                     alt="FM Dictionary"
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
                   />
+                  <div className="absolute top-6 left-6 mix-blend-difference z-20">
+                    <span className="font-serif italic text-4xl opacity-50 text-white">01</span>
+                  </div>
                 </div>
-                <div className="w-full md:w-2/5" data-aos="fade-left">
-                  <h3 className="font-display text-3xl font-bold mb-4">
+                
+                <div className="lg:col-span-5" data-aos="fade-left">
+                  <div className="mb-4 flex items-center space-x-4">
+                    <span className="h-[1px] w-12 bg-black dark:bg-white opacity-30"></span>
+                    <span className="text-sm font-bold uppercase tracking-[0.2em] opacity-60">Mobile Application</span>
+                  </div>
+                  
+                  <h3 className="font-display text-4xl md:text-5xl font-bold mb-6">
                     FM Dictionary
                   </h3>
+                  
                   <p
-                    className="font-light opacity-70 mb-6 text-lg"
+                    className="font-light opacity-80 mb-8 text-xl leading-relaxed text-justify"
                     data-vi="FM Dictionary là ứng dụng từ vựng cao cấp giúp cộng đồng Quản lý Cơ sở vật chất làm chủ hơn 1.800 thuật ngữ FM chuyên ngành — được xây dựng bằng Flutter cho iOS & Android."
                     data-en="FM Dictionary is a premium vocabulary app helping the Facilities Management community master 1,800+ specialized FM terms — built with Flutter for iOS & Android."
                   >
@@ -316,26 +326,24 @@ export default function Home() {
                     Management community master 1,800+ specialized FM terms — built with
                     Flutter for iOS & Android.
                   </p>
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    <span className="text-xs border border-black dark:border-white px-3 py-1">
-                      Flutter
-                    </span>
-                    <span className="text-xs border border-black dark:border-white px-3 py-1">
-                      Dart
-                    </span>
-                    <span className="text-xs border border-black dark:border-white px-3 py-1">
-                      Firebase
-                    </span>
+                  
+                  <div className="flex flex-wrap gap-3 mb-12">
+                    {["Flutter", "Dart", "Firebase"].map((tag) => (
+                      <span key={tag} className="text-[10px] font-bold uppercase tracking-widest border border-black/20 dark:border-white/20 px-4 py-1.5 opacity-60 group-hover:border-black dark:group-hover:border-white group-hover:opacity-100 transition-all">
+                        {tag}
+                      </span>
+                    ))}
                   </div>
-                  <div className="flex space-x-6 text-xl">
+
+                  <div className="flex">
                     <a
                       href="/fm-dictionary/"
-                      className="hover:opacity-50 transition-opacity flex items-center text-sm font-bold uppercase"
-                      data-vi="Chi tiết"
-                      data-en="Detail"
+                      className="w-full sm:w-auto border border-black dark:border-white px-10 py-5 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all flex items-center justify-center group/btn"
+                      data-vi="Xem chi tiết dự án →"
+                      data-en="View Project Detail →"
                     >
-                      <i className="fas fa-info-circle text-black dark:text-white mr-2 text-lg"></i>{" "}
-                      Detail
+                      <span data-vi="Xem chi tiết dự án" data-en="View Project Detail">View Project Detail</span>
+                      <span className="ml-3 group-hover/btn:translate-x-2 transition-transform duration-300">→</span>
                     </a>
                   </div>
                 </div>

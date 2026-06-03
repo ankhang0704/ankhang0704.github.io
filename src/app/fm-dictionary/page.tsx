@@ -1,12 +1,27 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import AOS from "aos";
 import Link from "next/link";
+import Image from "next/image";
 import FMHeader from "../../components/fm-dictionary/Header";
 import FMFooter from "../../components/fm-dictionary/Footer";
 
 export default function FMDictionaryPage() {
+  const [selectedImg, setSelectedImg] = useState<string | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollTo = direction === "left" 
+        ? scrollLeft - clientWidth * 0.8 
+        : scrollLeft + clientWidth * 0.8;
+      
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
+    }
+  };
+
   useEffect(() => {
     AOS.init({
       duration: 1500,
@@ -14,6 +29,13 @@ export default function FMDictionaryPage() {
       once: true,
       offset: 50,
     });
+
+    // Close on ESC
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedImg(null);
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
   return (
@@ -100,7 +122,7 @@ export default function FMDictionaryPage() {
                 data-aos="fade-up"
                 data-aos-delay="100"
               >
-                <div className="font-display text-4xl font-bold mb-1">8</div>
+                <div className="font-display text-4xl font-bold mb-1">30</div>
                 <div
                   className="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50"
                   data-vi="Huy hiệu thành tựu"
@@ -306,34 +328,69 @@ export default function FMDictionaryPage() {
 
         {/* App Screens */}
         <section className="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden">
-          <div className="container mx-auto px-6 md:px-8">
-            <h2 className="font-display text-4xl font-bold mb-16 text-center" data-aos="fade-up" data-vi="Thiết kế tập trung, tối ưu quy trình" data-en="Designed for focus, built for flow">
+          <div className="container mx-auto px-6 md:px-8 mb-16 relative flex flex-col md:flex-row justify-between items-center gap-8">
+            <h2 className="font-display text-4xl font-bold text-center md:text-left" data-aos="fade-up" data-vi="Thiết kế tập trung, tối ưu quy trình" data-en="Designed for focus, built for flow">
               Designed for focus, built for flow
             </h2>
+            
+            {/* Desktop Navigation Arrows */}
+            <div className="hidden md:flex gap-4">
+              <button 
+                onClick={() => scroll("left")}
+                className="w-12 h-12 border border-black/10 dark:border-white/10 flex items-center justify-center hover:border-black dark:hover:border-white transition-all rounded-full"
+                aria-label="Previous"
+              >
+                <i className="fas fa-chevron-left"></i>
+              </button>
+              <button 
+                onClick={() => scroll("right")}
+                className="w-12 h-12 border border-black/10 dark:border-white/10 flex items-center justify-center hover:border-black dark:hover:border-white transition-all rounded-full"
+                aria-label="Next"
+              >
+                <i className="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
 
-            <div className="flex gap-8 overflow-x-auto pb-12 scrollbar-hide snap-x snap-mandatory">
+          <div className="relative">
+            {/* Gradient Mask for sides */}
+            <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-cardLight dark:from-cardDark to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-cardLight dark:from-cardDark to-transparent z-10 pointer-events-none"></div>
+
+            <div 
+              ref={scrollRef}
+              className="flex gap-6 md:gap-8 overflow-x-auto pb-12 px-16 md:px-32 scrollbar-hide snap-x snap-mandatory scroll-smooth"
+            >
               {[
-                { icon: "fa-house", label: "Home" },
-                { icon: "fa-map-location-dot", label: "Roadmap" },
-                { icon: "fa-pen-to-square", label: "Quiz" },
-                { icon: "fa-microphone-lines", label: "Pronunciation" },
-                { icon: "fa-trophy", label: "Badges" },
-                { icon: "fa-book-bookmark", label: "Dictionary" },
+                { icon: "fa-house", label: "Home", img: "/images/fm-dictionary/fm_dictionary_0001.webp" },
+                { icon: "fa-map-location-dot", label: "Roadmap", img: "/images/fm-dictionary/fm_dictionary_0002.webp" },
+                { icon: "fa-pen-to-square", label: "Quiz", img: "/images/fm-dictionary/fm_dictionary_0003.webp" },
+                { icon: "fa-microphone-lines", label: "Pronunciation", img: "/images/fm-dictionary/fm_dictionary_0004.webp" },
+                { icon: "fa-trophy", label: "Badges", img: "/images/fm-dictionary/fm_dictionary_0005.webp" },
+                { icon: "fa-book-bookmark", label: "Dictionary", img: "/images/fm-dictionary/fm_dictionary_0006.webp" },
               ].map((item, index) => (
                 <div
                   key={index}
-                  className="flex-none w-64 aspect-[9/19] bg-bgLight dark:bg-bgDark border border-black/10 dark:border-white/10 rounded-[2.5rem] p-4 flex flex-col items-center justify-center text-center group hover:border-black dark:hover:border-white transition-all snap-center"
-                  data-aos="fade-left"
-                  data-aos-delay={index * 100}
+                  className="flex-none w-64 md:w-72 aspect-[9/19] bg-bgLight dark:bg-bgDark border border-black/10 dark:border-white/10 rounded-[2.5rem] overflow-hidden relative group hover:border-black dark:hover:border-white transition-all snap-center cursor-zoom-in"
+                  onClick={() => setSelectedImg(item.img)}
                 >
-                  <div className="text-4xl mb-4 text-black dark:text-white">
-                    <i className={`fas ${item.icon}`}></i>
-                  </div>
-                  <div className="font-bold text-sm uppercase tracking-widest" data-vi={item.label} data-en={item.label}>
-                    {item.label}
-                  </div>
-                  <div className="text-[10px] opacity-50 mt-2 italic" data-vi="Thêm ảnh chụp màn hình" data-en="Add screenshot">
-                    Add screenshot
+                  <Image
+                    src={item.img}
+                    alt={item.label}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  {/* Overlay label */}
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-8 pt-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                    <div className="text-white">
+                      <div className="text-[10px] mb-2 opacity-60 uppercase tracking-[0.2em] flex items-center">
+                        <i className={`fas ${item.icon} mr-2`}></i>
+                        UI Screen
+                      </div>
+                      <div className="font-display font-bold text-lg uppercase tracking-widest" data-vi={item.label} data-en={item.label}>
+                        {item.label}
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -527,6 +584,29 @@ export default function FMDictionaryPage() {
       </main>
 
       <FMFooter />
+
+      {/* Lightbox / Modal */}
+      {selectedImg && (
+        <div 
+          className="fixed inset-0 bg-black/90 z-[1000] flex items-center justify-center p-4 md:p-10 cursor-zoom-out animate-in fade-in duration-300"
+          onClick={() => setSelectedImg(null)}
+        >
+          <div className="relative w-full max-w-sm aspect-[9/19] animate-in zoom-in-95 duration-300">
+            <Image
+              src={selectedImg}
+              alt="Zoomed Screenshot"
+              fill
+              className="object-contain rounded-2xl shadow-2xl"
+            />
+          </div>
+          <button 
+            className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors text-3xl p-2"
+            onClick={() => setSelectedImg(null)}
+          >
+            <i className="fas fa-times"></i>
+          </button>
+        </div>
+      )}
     </>
   );
 }
