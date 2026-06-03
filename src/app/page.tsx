@@ -13,6 +13,7 @@ export default function Home() {
       once: true,
       offset: 50,
     });
+    AOS.refresh();
 
     // ScrollSpy logic
     const sections = document.querySelectorAll("section[id]");

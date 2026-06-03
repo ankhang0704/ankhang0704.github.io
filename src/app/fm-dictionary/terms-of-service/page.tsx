@@ -7,14 +7,24 @@ import FMFooter from "../../../components/fm-dictionary/Footer";
 
 export default function TermsOfServicePage() {
   useEffect(() => {
-    if (typeof window !== "undefined" && (window as any).AOS) {
-      (window as any).AOS.init({
-        duration: 1500,
-        easing: "ease-out-cubic",
-        once: true,
-        offset: 50,
-      });
-    }
+    AOS.init({
+      duration: 1500,
+      easing: "ease-out-cubic",
+      once: true,
+      offset: 50,
+    });
+    
+    // Refresh AOS multiple times to handle hydration and dynamic content
+    AOS.refresh();
+    const t1 = setTimeout(() => AOS.refresh(), 100);
+    const t2 = setTimeout(() => AOS.refresh(), 500);
+    const t3 = setTimeout(() => AOS.refresh(), 1000);
+
+    return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+        clearTimeout(t3);
+    };
   }, []);
 
   return (

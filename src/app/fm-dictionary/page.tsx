@@ -29,6 +29,7 @@ export default function FMDictionaryPage() {
       once: true,
       offset: 50,
     });
+    AOS.refresh();
 
     // Close on ESC
     const handleEsc = (e: KeyboardEvent) => {

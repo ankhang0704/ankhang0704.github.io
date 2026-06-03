@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import AOS from "aos";
 
 export default function FMHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -29,15 +30,34 @@ export default function FMHeader() {
 
     const savedLang = localStorage.getItem("lang") || "en";
     setLang(savedLang);
-    const timer = setTimeout(() => {
-        updateLangDOM(savedLang);
-    }, 100);
 
     return () => {
         window.removeEventListener("scroll", handleScroll);
-        clearTimeout(timer);
     };
   }, []);
+
+  // Update Lang DOM when pathname or lang changes
+  useEffect(() => {
+    const savedLang = localStorage.getItem("lang") || "en";
+    
+    const runUpdate = () => {
+        updateLangDOM(savedLang);
+        // Important: Refresh AOS after content changes to ensure elements are visible
+        setTimeout(() => {
+            AOS.refresh();
+        }, 100);
+    };
+
+    // Run multiple times to ensure hydration is complete and DOM is stable
+    runUpdate();
+    const timer1 = setTimeout(runUpdate, 100);
+    const timer2 = setTimeout(runUpdate, 500);
+
+    return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+    };
+  }, [pathname, lang]);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
