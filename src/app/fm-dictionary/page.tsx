@@ -176,7 +176,7 @@ export default function FMDictionaryPage() {
                 Explore Features ↓
               </a>
               <Link
-                href="/fm-dictionary/privacy-policy"
+                href="/fm-dictionary/privacy-policy/"
                 className="px-8 py-4 text-sm font-bold uppercase tracking-widest opacity-60 hover:opacity-100 transition-opacity text-center"
                 data-vi="Chính sách bảo mật →"
                 data-en="Privacy Policy →"
@@ -676,7 +676,7 @@ export default function FMDictionaryPage() {
 
                 <div className="space-y-4">
                   <Link
-                    href="/fm-dictionary/support"
+                    href="/fm-dictionary/support/"
                     className="flex justify-between items-center p-4 border border-black dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all group"
                   >
                     <span className="flex items-center text-sm font-bold uppercase tracking-widest">
@@ -688,7 +688,7 @@ export default function FMDictionaryPage() {
                     <span className="group-hover:translate-x-2 transition-transform">→</span>
                   </Link>
                   <Link
-                    href="/fm-dictionary/privacy-policy"
+                    href="/fm-dictionary/privacy-policy/"
                     className="flex justify-between items-center p-4 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group"
                   >
                     <span className="flex items-center text-sm font-bold uppercase tracking-widest">
@@ -700,7 +700,7 @@ export default function FMDictionaryPage() {
                     <span className="group-hover:translate-x-2 transition-transform">→</span>
                   </Link>
                   <Link
-                    href="/fm-dictionary/terms-of-service"
+                    href="/fm-dictionary/terms-of-service/"
                     className="flex justify-between items-center p-4 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group"
                   >
                     <span className="flex items-center text-sm font-bold uppercase tracking-widest">

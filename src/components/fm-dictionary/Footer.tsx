@@ -49,13 +49,13 @@ export default function FMFooter() {
           </div>
 
           <div className="flex justify-center space-x-6 text-[10px] uppercase tracking-widest mb-12 opacity-60">
-            <Link href="/fm-dictionary/support" className="hover-underline" data-vi="Trung tâm Hỗ trợ" data-en="Support Center">
+            <Link href="/fm-dictionary/support/" className="hover-underline" data-vi="Trung tâm Hỗ trợ" data-en="Support Center">
               Support Center
             </Link>
-            <Link href="/fm-dictionary/privacy-policy" className="hover-underline" data-vi="Chính sách Bảo mật" data-en="Privacy Policy">
+            <Link href="/fm-dictionary/privacy-policy/" className="hover-underline" data-vi="Chính sách Bảo mật" data-en="Privacy Policy">
               Privacy Policy
             </Link>
-            <Link href="/fm-dictionary/terms-of-service" className="hover-underline" data-vi="Điều khoản Dịch vụ" data-en="Terms of Service">
+            <Link href="/fm-dictionary/terms-of-service/" className="hover-underline" data-vi="Điều khoản Dịch vụ" data-en="Terms of Service">
               Terms of Service
             </Link>
           </div>

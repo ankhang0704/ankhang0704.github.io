@@ -113,7 +113,7 @@ export default function FMHeader() {
         }`}
       >
         <div className="container mx-auto w-full px-6 md:px-8 flex justify-between items-center">
-          <Link href="/fm-dictionary" className="font-display text-2xl md:text-3xl font-bold tracking-tighter">
+          <Link href="/fm-dictionary/" className="font-display text-2xl md:text-3xl font-bold tracking-tighter">
             FM DICTIONARY
           </Link>
 
@@ -125,13 +125,13 @@ export default function FMHeader() {
               <Link href={isMainPage ? "#tech" : "/fm-dictionary/#tech"} className="nav-link hover-underline" data-vi="Công nghệ" data-en="Tech Stack">
                 Tech Stack
               </Link>
-              <Link href="/fm-dictionary/support" className={`nav-link hover-underline ${pathname === '/fm-dictionary/support' ? 'active' : ''}`} data-vi="Hỗ trợ" data-en="Support">
+              <Link href="/fm-dictionary/support/" className={`nav-link hover-underline ${pathname === '/fm-dictionary/support/' ? 'active' : ''}`} data-vi="Hỗ trợ" data-en="Support">
                 Support
               </Link>
-              <Link href="/fm-dictionary/privacy-policy" className={`nav-link hover-underline ${pathname === '/fm-dictionary/privacy-policy' ? 'active' : ''}`} data-vi="Bảo mật" data-en="Privacy">
+              <Link href="/fm-dictionary/privacy-policy/" className={`nav-link hover-underline ${pathname === '/fm-dictionary/privacy-policy/' ? 'active' : ''}`} data-vi="Bảo mật" data-en="Privacy">
                 Privacy
               </Link>
-              <Link href="/fm-dictionary/terms-of-service" className={`nav-link hover-underline ${pathname === '/fm-dictionary/terms-of-service' ? 'active' : ''}`} data-vi="Điều khoản" data-en="Terms">
+              <Link href="/fm-dictionary/terms-of-service/" className={`nav-link hover-underline ${pathname === '/fm-dictionary/terms-of-service/' ? 'active' : ''}`} data-vi="Điều khoản" data-en="Terms">
                 Terms
               </Link>
             </nav>
@@ -200,7 +200,7 @@ export default function FMHeader() {
             Tech Stack
           </Link>
           <Link
-            href="/fm-dictionary/support"
+            href="/fm-dictionary/support/"
             className="mobile-nav-link"
             data-vi="Hỗ trợ"
             data-en="Support"
@@ -209,7 +209,7 @@ export default function FMHeader() {
             Support
           </Link>
           <Link
-            href="/fm-dictionary/privacy-policy"
+            href="/fm-dictionary/privacy-policy/"
             className="mobile-nav-link"
             data-vi="Bảo mật"
             data-en="Privacy"
@@ -218,7 +218,7 @@ export default function FMHeader() {
             Privacy
           </Link>
           <Link
-            href="/fm-dictionary/terms-of-service"
+            href="/fm-dictionary/terms-of-service/"
             className="mobile-nav-link"
             data-vi="Điều khoản"
             data-en="Terms"
