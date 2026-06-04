@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
+import Link from "next/link";
 import AOS from "aos";
 import FMHeader from "../../../components/fm-dictionary/Header";
 import FMFooter from "../../../components/fm-dictionary/Footer";
@@ -8,23 +9,14 @@ import FMFooter from "../../../components/fm-dictionary/Footer";
 export default function SupportPage() {
   useEffect(() => {
     AOS.init({
-      duration: 1500,
+      duration: 800,
       easing: "ease-out-cubic",
       once: true,
-      offset: 50,
     });
     
-    // Refresh AOS multiple times to handle hydration and dynamic content
-    AOS.refresh();
-    const t1 = setTimeout(() => AOS.refresh(), 100);
-    const t2 = setTimeout(() => AOS.refresh(), 500);
-    const t3 = setTimeout(() => AOS.refresh(), 1000);
-
-    return () => {
-        clearTimeout(t1);
-        clearTimeout(t2);
-        clearTimeout(t3);
-    };
+    requestAnimationFrame(() => {
+      AOS.refresh();
+    });
   }, []);
 
   return (
@@ -34,7 +26,7 @@ export default function SupportPage() {
 
       <FMHeader />
 
-      <main className="pt-40 pb-32 w-full max-w-[100vw] overflow-x-hidden">
+      <main className="pt-40 pb-32 w-full max-w-full overflow-x-hidden">
         <div className="container mx-auto px-6 md:px-8 max-w-4xl break-words overflow-x-hidden">
           {/* Hero */}
           <div className="mb-20" data-aos="fade-up">
@@ -153,12 +145,23 @@ export default function SupportPage() {
                         Q: How do I delete my account permanently?
                       </p>
                       <p
+                        className="mb-4"
                         data-vi="Vào <strong>Cài đặt</strong> → <strong>Vùng nguy hiểm</strong> → <strong>Xóa tài khoản</strong>. Dữ liệu sẽ bị xóa vĩnh viễn và không thể phục hồi sau 30 ngày."
                         data-en="Go to <strong>Settings</strong> → <strong>Danger Zone</strong> → <strong>Delete Account</strong>. Data will be permanently deleted and cannot be recovered after 30 days."
                       >
                         Go to <strong>Settings</strong> → <strong>Danger Zone</strong> →{" "}
                         <strong>Delete Account</strong>. Data will be permanently deleted and
                         cannot be recovered after 30 days.
+                      </p>
+                      <p className="text-sm opacity-80">
+                        <Link
+                          href="/fm-dictionary/delete-account/"
+                          className="underline hover:text-black dark:hover:text-white transition-colors"
+                          data-vi="Xem chi tiết hoặc gửi yêu cầu trực tuyến →"
+                          data-en="View details or submit an online request →"
+                        >
+                          View details or submit an online request →
+                        </Link>
                       </p>
                     </div>
                   </div>

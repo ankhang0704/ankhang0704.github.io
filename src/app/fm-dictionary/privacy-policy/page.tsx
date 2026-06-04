@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
+import Link from "next/link";
 import AOS from "aos";
 import FMHeader from "../../../components/fm-dictionary/Header";
 import FMFooter from "../../../components/fm-dictionary/Footer";
@@ -8,23 +9,14 @@ import FMFooter from "../../../components/fm-dictionary/Footer";
 export default function PrivacyPolicyPage() {
   useEffect(() => {
     AOS.init({
-      duration: 1500,
+      duration: 800,
       easing: "ease-out-cubic",
       once: true,
-      offset: 50,
     });
     
-    // Refresh AOS multiple times to handle hydration and dynamic content
-    AOS.refresh();
-    const t1 = setTimeout(() => AOS.refresh(), 100);
-    const t2 = setTimeout(() => AOS.refresh(), 500);
-    const t3 = setTimeout(() => AOS.refresh(), 1000);
-
-    return () => {
-        clearTimeout(t1);
-        clearTimeout(t2);
-        clearTimeout(t3);
-    };
+    requestAnimationFrame(() => {
+      AOS.refresh();
+    });
   }, []);
 
   return (
@@ -34,7 +26,7 @@ export default function PrivacyPolicyPage() {
 
       <FMHeader />
 
-      <main className="pt-40 pb-32 w-full max-w-[100vw] overflow-x-hidden">
+      <main className="pt-40 pb-32 w-full max-w-full overflow-x-hidden">
         <div className="container mx-auto px-6 md:px-8 max-w-4xl break-words overflow-x-hidden">
           {/* Hero */}
           <div className="mb-20" data-aos="fade-up">
@@ -435,14 +427,18 @@ export default function PrivacyPolicyPage() {
                 </li>
                 <li>
                   <span
-                    data-vi="<strong>Quyền yêu cầu xóa tài khoản qua Email:</strong> Bạn có thể gửi yêu cầu xóa tài khoản bằng cách gửi email trực tiếp tới địa chỉ hỗ trợ của chúng tôi tại: <strong>ankhang.nguyen0704@gmail.com</strong>. Vui lòng gửi email từ chính địa chỉ email bạn đã sử dụng để đăng nhập ứng dụng để chúng tôi xác minh danh tính chính chủ."
-                    data-en="<strong>Right to request account deletion via Email:</strong> You can request account deletion by sending an email directly to our support address at: <strong>ankhang.nguyen0704@gmail.com</strong>. Please send the email from the exact email address you used to log in to the app so we can verify your identity."
+                    data-vi="<strong>Quyền yêu cầu xóa tài khoản qua Web hoặc Email:</strong> Bạn có thể sử dụng <a href='/fm-dictionary/delete-account/' class='underline hover:opacity-80 transition-opacity'>Trang xóa tài khoản trực tuyến</a> của chúng tôi hoặc gửi yêu cầu trực tiếp qua email tới địa chỉ: <strong>ankhang.nguyen0704@gmail.com</strong>. Vui lòng gửi email từ chính địa chỉ email bạn đã sử dụng để đăng nhập ứng dụng để chúng tôi xác minh danh tính chính chủ."
+                    data-en="<strong>Right to request account deletion via Web or Email:</strong> You can use our <a href='/fm-dictionary/delete-account/' class='underline hover:opacity-80 transition-opacity'>Online Account Deletion Page</a> or send an email directly to our support address at: <strong>ankhang.nguyen0704@gmail.com</strong>. Please send the email from the exact email address you used to log in to the app so we can verify your identity."
                   >
-                    <strong>Right to request account deletion via Email:</strong> You can
-                    request account deletion by sending an email directly to our support
-                    address at: <strong>ankhang.nguyen0704@gmail.com</strong>. Please send
-                    the email from the exact email address you used to log in to the app so
-                    we can verify your identity.
+                    <strong>Right to request account deletion via Web or Email:</strong> You can
+                    use our{" "}
+                    <Link href="/fm-dictionary/delete-account/" className="underline hover:opacity-80 transition-opacity">
+                      Online Account Deletion Page
+                    </Link>{" "}
+                    or send an email directly to our support address at:{" "}
+                    <strong>ankhang.nguyen0704@gmail.com</strong>. Please send the email from
+                    the exact email address you used to log in to the app so we can verify
+                    your identity.
                   </span>
                 </li>
               </ul>

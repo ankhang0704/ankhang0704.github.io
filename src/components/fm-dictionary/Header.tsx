@@ -31,6 +31,9 @@ export default function FMHeader() {
     const savedLang = localStorage.getItem("lang") || "en";
     setLang(savedLang);
 
+    // Disable snap scroll on HTML for FM Dictionary pages
+    document.documentElement.classList.remove("md:snap-y", "md:snap-proximity");
+
     return () => {
         window.removeEventListener("scroll", handleScroll);
     };
@@ -84,6 +87,9 @@ export default function FMHeader() {
     setLang(newLang);
     localStorage.setItem("lang", newLang);
     updateLangDOM(newLang);
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("langChange"));
+    }
   };
 
   const updateLangDOM = (currentLang: string) => {
@@ -166,13 +172,12 @@ export default function FMHeader() {
         </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
       <div
         id="mobile-menu"
-        className={`fixed inset-0 bg-bgLight/98 dark:bg-bgDark/98 z-[60] flex flex-col items-center justify-start pt-32 pb-12 space-y-12 text-2xl font-display uppercase tracking-widest transition-all duration-500 overflow-y-auto w-full h-full ${
+        className={`fixed inset-0 bg-bgLight/98 dark:bg-bgDark/98 z-[60] flex flex-col items-center justify-start pt-32 pb-12 space-y-12 text-2xl font-display uppercase tracking-widest transition-all duration-500 w-full h-full ${
           isMobileMenuOpen
-            ? "active opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+            ? "active opacity-100 pointer-events-auto overflow-y-auto"
+            : "opacity-0 pointer-events-none overflow-hidden"
         }`}
       >
         <nav className="flex flex-col items-center space-y-10">

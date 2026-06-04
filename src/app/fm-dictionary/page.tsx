@@ -7,18 +7,76 @@ import Image from "next/image";
 import FMHeader from "../../components/fm-dictionary/Header";
 import FMFooter from "../../components/fm-dictionary/Footer";
 
+const APP_SCREENS = [
+  { icon: "fa-house", label: "Home", img: "/images/fm-dictionary/fm_dictionary_0001.webp" },
+  { icon: "fa-map-location-dot", label: "Roadmap", img: "/images/fm-dictionary/fm_dictionary_0002.webp" },
+  { icon: "fa-pen-to-square", label: "Quiz", img: "/images/fm-dictionary/fm_dictionary_0003.webp" },
+  { icon: "fa-microphone-lines", label: "Pronunciation", img: "/images/fm-dictionary/fm_dictionary_0004.webp" },
+  { icon: "fa-trophy", label: "Badges", img: "/images/fm-dictionary/fm_dictionary_0005.webp" },
+  { icon: "fa-book-bookmark", label: "Dictionary", img: "/images/fm-dictionary/fm_dictionary_0006.webp" },
+];
+
 export default function FMDictionaryPage() {
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isHoveringGallery, setIsHoveringGallery] = useState(false);
+  const [galleryRevealed, setGalleryRevealed] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const galleryRef = useRef<HTMLElement>(null);
+
+  const scrollToSlide = (index: number) => {
+    if (!scrollRef.current) return;
+    const container = scrollRef.current;
+    const cards = container.querySelectorAll<HTMLElement>(".screen-card");
+    if (cards[index]) {
+      const cardLeft = cards[index].offsetLeft;
+      const containerWidth = container.clientWidth;
+      const cardWidth = cards[index].offsetWidth;
+      container.scrollTo({
+        left: cardLeft - containerWidth / 2 + cardWidth / 2,
+        behavior: "smooth",
+      });
+    }
+    setCurrentSlide(index);
+  };
 
   const scroll = (direction: "left" | "right") => {
-    if (scrollRef.current) {
-      const { scrollLeft, clientWidth } = scrollRef.current;
-      const scrollTo = direction === "left" 
-        ? scrollLeft - clientWidth * 0.8 
-        : scrollLeft + clientWidth * 0.8;
-      
-      scrollRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
+    const next =
+      direction === "right"
+        ? (currentSlide + 1) % APP_SCREENS.length
+        : (currentSlide - 1 + APP_SCREENS.length) % APP_SCREENS.length;
+    scrollToSlide(next);
+  };
+
+  // Autoplay
+  const startAutoplay = () => {
+    if (autoplayRef.current) clearInterval(autoplayRef.current);
+    autoplayRef.current = setInterval(() => {
+      setCurrentSlide((prev) => {
+        const next = (prev + 1) % APP_SCREENS.length;
+        if (scrollRef.current) {
+          const container = scrollRef.current;
+          const cards = container.querySelectorAll<HTMLElement>(".screen-card");
+          if (cards[next]) {
+            const cardLeft = cards[next].offsetLeft;
+            const containerWidth = container.clientWidth;
+            const cardWidth = cards[next].offsetWidth;
+            container.scrollTo({
+              left: cardLeft - containerWidth / 2 + cardWidth / 2,
+              behavior: "smooth",
+            });
+          }
+        }
+        return next;
+      });
+    }, 3000);
+  };
+
+  const stopAutoplay = () => {
+    if (autoplayRef.current) {
+      clearInterval(autoplayRef.current);
+      autoplayRef.current = null;
     }
   };
 
@@ -39,6 +97,33 @@ export default function FMDictionaryPage() {
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
+  // Start autoplay on mount, pause when hovering gallery
+  useEffect(() => {
+    if (!isHoveringGallery) {
+      startAutoplay();
+    } else {
+      stopAutoplay();
+    }
+    return stopAutoplay;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isHoveringGallery]);
+
+  // Scroll-triggered reveal for gallery cards
+  useEffect(() => {
+    if (!galleryRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setGalleryRevealed(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(galleryRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <div className="ambient-glow top-glow max-w-full"></div>
@@ -50,7 +135,7 @@ export default function FMDictionaryPage() {
         {/* Hero Section */}
         <section
           id="hero"
-          className="snap-start min-h-screen flex items-center relative overflow-x-hidden pt-32 pb-20 md:pt-20 md:pb-0"
+          className="min-h-screen flex items-center relative overflow-x-hidden pt-32 pb-20 md:pt-20 md:pb-0"
         >
           <div className="absolute -left-32 bottom-0 w-2/3 h-2/3 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000')] bg-cover bg-center opacity-[0.05] dark:opacity-[0.02] grayscale pointer-events-none rounded-tr-full blur-[2px]"></div>
           <div
@@ -328,51 +413,79 @@ export default function FMDictionaryPage() {
         </section>
 
         {/* App Screens */}
-        <section className="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden">
+        <section
+          ref={galleryRef}
+          className={`py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden${galleryRevealed ? " gallery-revealed" : ""}`}
+        >
           <div className="container mx-auto px-6 md:px-8 mb-16 relative flex flex-col md:flex-row justify-between items-center gap-8">
-            <h2 className="font-display text-4xl font-bold text-center md:text-left" data-aos="fade-up" data-vi="Thiết kế tập trung, tối ưu quy trình" data-en="Designed for focus, built for flow">
+            <h2
+              className="font-display text-4xl font-bold text-center md:text-left"
+              data-aos="fade-up"
+              data-vi="Thiết kế tập trung, tối ưu quy trình"
+              data-en="Designed for focus, built for flow"
+            >
               Designed for focus, built for flow
             </h2>
-            
-            {/* Desktop Navigation Arrows */}
-            <div className="hidden md:flex gap-4">
-              <button 
-                onClick={() => scroll("left")}
-                className="w-12 h-12 border border-black/10 dark:border-white/10 flex items-center justify-center hover:border-black dark:hover:border-white transition-all rounded-full"
-                aria-label="Previous"
-              >
-                <i className="fas fa-chevron-left"></i>
-              </button>
-              <button 
-                onClick={() => scroll("right")}
-                className="w-12 h-12 border border-black/10 dark:border-white/10 flex items-center justify-center hover:border-black dark:hover:border-white transition-all rounded-full"
-                aria-label="Next"
-              >
-                <i className="fas fa-chevron-right"></i>
-              </button>
+
+            {/* Controls: dots + arrows */}
+            <div className="flex items-center gap-6">
+              {/* Dot indicators */}
+              <div className="flex items-center gap-2">
+                {APP_SCREENS.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => { scrollToSlide(i); stopAutoplay(); }}
+                    aria-label={`Go to slide ${i + 1}`}
+                    className={`rounded-full transition-all duration-300 ${
+                      i === currentSlide
+                        ? "w-6 h-2 bg-black dark:bg-white"
+                        : "w-2 h-2 bg-black/20 dark:bg-white/20 hover:bg-black/50 dark:hover:bg-white/50"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              {/* Arrow buttons */}
+              <div className="flex gap-3">
+                <button
+                  onClick={() => { scroll("left"); stopAutoplay(); }}
+                  className="w-10 h-10 border border-black/10 dark:border-white/10 flex items-center justify-center hover:border-black dark:hover:border-white transition-all rounded-full text-sm"
+                  aria-label="Previous"
+                >
+                  <i className="fas fa-chevron-left"></i>
+                </button>
+                <button
+                  onClick={() => { scroll("right"); stopAutoplay(); }}
+                  className="w-10 h-10 border border-black/10 dark:border-white/10 flex items-center justify-center hover:border-black dark:hover:border-white transition-all rounded-full text-sm"
+                  aria-label="Next"
+                >
+                  <i className="fas fa-chevron-right"></i>
+                </button>
+              </div>
             </div>
           </div>
 
-          <div className="relative">
+          <div
+            className="relative"
+            onMouseEnter={() => setIsHoveringGallery(true)}
+            onMouseLeave={() => setIsHoveringGallery(false)}
+          >
             {/* Gradient Mask for sides */}
             <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-cardLight dark:from-cardDark to-transparent z-10 pointer-events-none"></div>
             <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-cardLight dark:from-cardDark to-transparent z-10 pointer-events-none"></div>
 
-            <div 
+            <div
               ref={scrollRef}
               className="flex gap-6 md:gap-8 overflow-x-auto pb-12 px-16 md:px-32 scrollbar-hide snap-x snap-mandatory scroll-smooth"
             >
-              {[
-                { icon: "fa-house", label: "Home", img: "/images/fm-dictionary/fm_dictionary_0001.webp" },
-                { icon: "fa-map-location-dot", label: "Roadmap", img: "/images/fm-dictionary/fm_dictionary_0002.webp" },
-                { icon: "fa-pen-to-square", label: "Quiz", img: "/images/fm-dictionary/fm_dictionary_0003.webp" },
-                { icon: "fa-microphone-lines", label: "Pronunciation", img: "/images/fm-dictionary/fm_dictionary_0004.webp" },
-                { icon: "fa-trophy", label: "Badges", img: "/images/fm-dictionary/fm_dictionary_0005.webp" },
-                { icon: "fa-book-bookmark", label: "Dictionary", img: "/images/fm-dictionary/fm_dictionary_0006.webp" },
-              ].map((item, index) => (
+              {APP_SCREENS.map((item, index) => (
                 <div
                   key={index}
-                  className="flex-none w-64 md:w-72 aspect-[9/19] bg-bgLight dark:bg-bgDark border border-black/10 dark:border-white/10 rounded-[2.5rem] overflow-hidden relative group hover:border-black dark:hover:border-white transition-all snap-center cursor-zoom-in"
+                  className={`screen-card flex-none w-64 md:w-72 aspect-[9/19] bg-bgLight dark:bg-bgDark border rounded-[2.5rem] overflow-hidden relative group cursor-zoom-in transition-all duration-500 snap-center ${
+                    index === currentSlide
+                      ? "border-black dark:border-white scale-[1.03] shadow-xl"
+                      : "border-black/10 dark:border-white/10 hover:border-black/40 dark:hover:border-white/40"
+                  }`}
                   onClick={() => setSelectedImg(item.img)}
                 >
                   <Image
@@ -381,6 +494,10 @@ export default function FMDictionaryPage() {
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
+                  {/* Active slide pulse ring */}
+                  {index === currentSlide && (
+                    <div className="absolute inset-0 rounded-[2.5rem] ring-2 ring-black dark:ring-white ring-offset-2 ring-offset-cardLight dark:ring-offset-cardDark pointer-events-none" />
+                  )}
                   {/* Overlay label */}
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-8 pt-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                     <div className="text-white">
@@ -388,7 +505,11 @@ export default function FMDictionaryPage() {
                         <i className={`fas ${item.icon} mr-2`}></i>
                         UI Screen
                       </div>
-                      <div className="font-display font-bold text-lg uppercase tracking-widest" data-vi={item.label} data-en={item.label}>
+                      <div
+                        className="font-display font-bold text-lg uppercase tracking-widest"
+                        data-vi={item.label}
+                        data-en={item.label}
+                      >
                         {item.label}
                       </div>
                     </div>
@@ -396,6 +517,19 @@ export default function FMDictionaryPage() {
                 </div>
               ))}
             </div>
+
+            {/* Autoplay progress bar */}
+            {!isHoveringGallery && (
+              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-black/5 dark:bg-white/5 overflow-hidden">
+                <div
+                  key={currentSlide}
+                  className="h-full bg-black dark:bg-white"
+                  style={{
+                    animation: "slideProgress 3s linear forwards",
+                  }}
+                />
+              </div>
+            )}
           </div>
         </section>
 
