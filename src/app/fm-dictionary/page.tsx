@@ -105,7 +105,7 @@ export default function FMDictionaryPage() {
       stopAutoplay();
     }
     return stopAutoplay;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isHoveringGallery]);
 
   // Scroll-triggered reveal for gallery cards
@@ -168,6 +168,14 @@ export default function FMDictionaryPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
               <a
+                href="#download"
+                className="border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-transparent hover:text-black dark:hover:bg-transparent dark:hover:text-white transition-all text-center"
+                data-vi="Tải ứng dụng ↓"
+                data-en="Download App ↓"
+              >
+                Download App ↓
+              </a>
+              <a
                 href="#features"
                 className="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all text-center"
                 data-vi="Khám phá tính năng ↓"
@@ -175,14 +183,6 @@ export default function FMDictionaryPage() {
               >
                 Explore Features ↓
               </a>
-              <Link
-                href="/fm-dictionary/privacy-policy/"
-                className="px-8 py-4 text-sm font-bold uppercase tracking-widest opacity-60 hover:opacity-100 transition-opacity text-center"
-                data-vi="Chính sách bảo mật →"
-                data-en="Privacy Policy →"
-              >
-                Privacy Policy →
-              </Link>
             </div>
           </div>
         </section>
@@ -436,11 +436,10 @@ export default function FMDictionaryPage() {
                     key={i}
                     onClick={() => { scrollToSlide(i); stopAutoplay(); }}
                     aria-label={`Go to slide ${i + 1}`}
-                    className={`rounded-full transition-all duration-300 ${
-                      i === currentSlide
+                    className={`rounded-full transition-all duration-300 ${i === currentSlide
                         ? "w-6 h-2 bg-black dark:bg-white"
                         : "w-2 h-2 bg-black/20 dark:bg-white/20 hover:bg-black/50 dark:hover:bg-white/50"
-                    }`}
+                      }`}
                   />
                 ))}
               </div>
@@ -481,11 +480,10 @@ export default function FMDictionaryPage() {
               {APP_SCREENS.map((item, index) => (
                 <div
                   key={index}
-                  className={`screen-card flex-none w-64 md:w-72 aspect-[9/19] bg-bgLight dark:bg-bgDark border rounded-[2.5rem] overflow-hidden relative group cursor-zoom-in transition-all duration-500 snap-center ${
-                    index === currentSlide
+                  className={`screen-card flex-none w-64 md:w-72 aspect-[9/19] bg-bgLight dark:bg-bgDark border rounded-[2.5rem] overflow-hidden relative group cursor-zoom-in transition-all duration-500 snap-center ${index === currentSlide
                       ? "border-black dark:border-white scale-[1.03] shadow-xl"
                       : "border-black/10 dark:border-white/10 hover:border-black/40 dark:hover:border-white/40"
-                  }`}
+                    }`}
                   onClick={() => setSelectedImg(item.img)}
                 >
                   <Image
@@ -530,6 +528,104 @@ export default function FMDictionaryPage() {
                 />
               </div>
             )}
+          </div>
+        </section>
+
+        {/* Download Section */}
+        <section
+          id="download"
+          className="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden border-t border-black/5 dark:border-white/5"
+        >
+          <div className="container mx-auto px-6 md:px-8">
+            <div className="max-w-3xl mb-16" data-aos="fade-right">
+              <p
+                className="text-xs tracking-[0.3em] uppercase mb-4 opacity-50"
+                data-vi="Tải ứng dụng"
+                data-en="Download App"
+              >
+                Download App
+              </p>
+              <h2
+                className="font-display text-4xl md:text-5xl font-bold"
+                data-vi="Trải nghiệm FM Dictionary<br>trên thiết bị di động"
+                data-en="Get FM Dictionary<br>on your mobile device"
+              >
+                Get FM Dictionary
+                <br />
+                on your mobile device
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* App Store */}
+              <div
+                className="p-8 md:p-12 border border-black/10 dark:border-white/10 flex flex-col md:flex-row gap-8 items-center md:items-start group hover:border-black dark:hover:border-white transition-all duration-300 relative overflow-hidden bg-bgLight dark:bg-bgDark"
+                data-aos="fade-up"
+              >
+                <div className="text-5xl text-black dark:text-white transition-transform duration-300 group-hover:scale-110">
+                  <i className="fab fa-apple"></i>
+                </div>
+                <div className="flex-1 text-center md:text-left">
+                  <h4 className="font-display text-2xl font-bold mb-2">
+                    App Store
+                  </h4>
+                  <p
+                    className="font-light opacity-70 leading-relaxed mb-6"
+                    data-vi="Tải ứng dụng cho các thiết bị iOS (iPhone, iPad). Yêu cầu iOS 15.0 trở lên."
+                    data-en="Download the app for iOS devices (iPhone, iPad). Requires iOS 15.0 or later."
+                  >
+                    Download the app for iOS devices (iPhone, iPad). Requires iOS 15.0 or later.
+                  </p>
+                  <a
+                    href="https://apps.apple.com/us/app/fm-dictionary/id6774868353"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 border border-black dark:border-white px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all"
+                  >
+                    <span data-vi="Tải cho iOS" data-en="Download for iOS">Download for iOS</span>
+                    <i className="fas fa-arrow-right text-[10px]"></i>
+                  </a>
+                </div>
+              </div>
+
+              {/* Google Play (Coming Soon) */}
+              <div
+                className="p-8 md:p-12 border border-black/5 dark:border-white/5 flex flex-col md:flex-row gap-8 items-center md:items-start group opacity-70 hover:opacity-100 transition-all duration-300 relative overflow-hidden bg-bgLight/50 dark:bg-bgDark/50"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <div className="text-5xl text-black/40 dark:text-white/40 transition-transform duration-300 group-hover:scale-110">
+                  <i className="fab fa-google-play"></i>
+                </div>
+                <div className="flex-1 text-center md:text-left">
+                  <div className="flex flex-col md:flex-row md:items-center gap-2 mb-2 justify-center md:justify-start">
+                    <h4 className="font-display text-2xl font-bold text-black/50 dark:text-white/50">
+                      Google Play
+                    </h4>
+                    <span
+                      className="inline-block bg-black/5 dark:bg-white/5 text-[9px] font-bold uppercase tracking-widest px-2 py-1 border border-black/10 dark:border-white/10 w-fit mx-auto md:mx-0"
+                      data-vi="Sắp ra mắt"
+                      data-en="Coming Soon"
+                    >
+                      Coming Soon
+                    </span>
+                  </div>
+                  <p
+                    className="font-light opacity-50 leading-relaxed mb-6"
+                    data-vi="Phiên bản dành cho thiết bị Android đang được phát triển và kiểm thử. Hãy quay lại sau."
+                    data-en="The version for Android devices is currently under development and testing. Stay tuned."
+                  >
+                    The version for Android devices is currently under development and testing. Stay tuned.
+                  </p>
+                  <button
+                    disabled
+                    className="inline-flex items-center gap-2 border border-black/10 dark:border-white/10 px-6 py-3 text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/40 cursor-not-allowed"
+                  >
+                    <span data-vi="Chưa khả dụng" data-en="Not Available">Not Available</span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -599,11 +695,10 @@ export default function FMDictionaryPage() {
                       {item.descEn}
                     </p>
                     <span
-                      className={`text-[10px] border px-2 py-1 uppercase font-bold tracking-widest ${
-                        item.optional
+                      className={`text-[10px] border px-2 py-1 uppercase font-bold tracking-widest ${item.optional
                           ? "border-black/20 dark:border-white/20 opacity-50"
                           : "border-black dark:border-white"
-                      }`}
+                        }`}
                       data-vi={item.tagVi}
                       data-en={item.tagEn}
                     >
@@ -722,7 +817,7 @@ export default function FMDictionaryPage() {
 
       {/* Lightbox / Modal */}
       {selectedImg && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/90 z-[1000] flex items-center justify-center p-4 md:p-10 cursor-zoom-out animate-in fade-in duration-300"
           onClick={() => setSelectedImg(null)}
         >
@@ -734,7 +829,7 @@ export default function FMDictionaryPage() {
               className="object-contain rounded-2xl shadow-2xl"
             />
           </div>
-          <button 
+          <button
             className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors text-3xl p-2"
             onClick={() => setSelectedImg(null)}
           >
