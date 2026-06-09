@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import AOS from "aos";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { Sun, Moon, List, X } from "@phosphor-icons/react";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,15 +12,13 @@ export default function Header() {
   const [lang, setLang] = useState("en");
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsScrolled(latest > 50);
+  });
 
   useEffect(() => {
-    // Scroll effect
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-
     // Theme init
     const savedTheme = localStorage.getItem("theme");
     const isDarkInit =
@@ -34,12 +33,7 @@ export default function Header() {
     const savedLang = localStorage.getItem("lang") || "en";
     setLang(savedLang);
 
-    // Enable snap scroll on HTML for Main page
-    document.documentElement.classList.add("md:snap-y", "md:snap-proximity");
-
-    return () => {
-        window.removeEventListener("scroll", handleScroll);
-    };
+    return () => {};
   }, []);
 
   // Update Lang DOM when pathname or lang changes
@@ -48,20 +42,13 @@ export default function Header() {
     
     const runUpdate = () => {
         updateLangDOM(savedLang);
-        // Important: Refresh AOS after content changes to ensure elements are visible
-        setTimeout(() => {
-            AOS.refresh();
-        }, 100);
     };
 
-    // Run multiple times to ensure hydration is complete and DOM is stable
     runUpdate();
-    const timer1 = setTimeout(runUpdate, 100);
-    const timer2 = setTimeout(runUpdate, 500);
+    const timer = setTimeout(runUpdate, 100);
 
     return () => {
-        clearTimeout(timer1);
-        clearTimeout(timer2);
+        clearTimeout(timer);
     };
   }, [pathname, lang]);
 
@@ -104,20 +91,18 @@ export default function Header() {
 
   return (
     <>
-      {/* Navbar */}
       <header
-        id="navbar"
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          isScrolled ? "glass-nav py-4" : "py-6"
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+          isScrolled ? "glass-nav py-4" : "py-8"
         }`}
       >
-        <div className="container mx-auto w-full px-6 md:px-8 flex justify-between items-center">
-          <Link href="/" className="font-display text-3xl font-bold tracking-tighter">
-            KHANG
+        <div className="container mx-auto px-6 md:px-12 lg:px-24 flex justify-between items-center">
+          <Link href="/" className="font-display text-2xl font-bold tracking-tighter">
+            KHANG.
           </Link>
 
-          <div className="flex items-center space-x-6 md:space-x-10">
-            <nav className="hidden md:flex space-x-10 text-sm tracking-widest uppercase">
+          <div className="flex items-center space-x-8 md:space-x-12">
+            <nav className="hidden md:flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em] opacity-70">
               <a href="#about" className="nav-link hover-underline" data-vi="Tóm tắt" data-en="Summary">
                 Summary
               </a>
@@ -132,105 +117,65 @@ export default function Header() {
               </a>
             </nav>
 
-            <div className="flex items-center space-x-4 md:space-x-6">
-              <div className="hidden md:flex items-center space-x-6">
+            <div className="flex items-center space-x-6">
+              <div className="hidden md:flex items-center space-x-8">
                 <button
                   onClick={toggleLang}
-                  className="text-sm font-bold tracking-widest hover:opacity-50 transition-opacity"
+                  className="text-[11px] font-bold tracking-widest hover:opacity-50 transition-opacity"
                 >
                   {lang.toUpperCase()}
                 </button>
                 <button
                   onClick={toggleTheme}
-                  className="text-xl hover:rotate-180 transition-transform duration-500"
+                  className="hover:opacity-50 transition-opacity"
                 >
-                  {isDark ? (
-                    <i className="fas fa-sun block"></i>
-                  ) : (
-                    <i className="fas fa-moon block"></i>
-                  )}
+                  {isDark ? <Sun size={20} weight="bold" /> : <Moon size={20} weight="bold" />}
                 </button>
               </div>
+              
               <button
-                onClick={() => setIsMobileMenuOpen(true)}
-                className={`md:hidden text-2xl p-2 ${isMobileMenuOpen ? "hidden" : ""}`}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden p-2"
               >
-                <i className="fas fa-bars"></i>
-              </button>
-              <button
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`md:hidden text-3xl p-2 ${isMobileMenuOpen ? "" : "hidden"}`}
-              >
-                <i className="fas fa-times"></i>
+                {isMobileMenuOpen ? <X size={24} /> : <List size={24} />}
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      <div
-        id="mobile-menu"
-        className={`fixed inset-0 bg-bgLight/98 dark:bg-bgDark/98 z-[60] flex flex-col items-center justify-start pt-32 pb-12 space-y-12 text-2xl font-display uppercase tracking-widest transition-all duration-500 w-full h-full ${
-          isMobileMenuOpen
-            ? "active opacity-100 pointer-events-auto overflow-y-auto"
-            : "opacity-0 pointer-events-none overflow-hidden"
+      {/* Mobile Menu */}
+      <motion.div
+        initial={false}
+        animate={isMobileMenuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+        className={`fixed inset-0 bg-white/95 dark:bg-black/95 z-[40] md:hidden flex flex-col items-center justify-center space-y-8 text-2xl font-display uppercase tracking-widest transition-all ${
+          isMobileMenuOpen ? "pointer-events-auto" : "pointer-events-none"
         }`}
       >
-        <nav className="flex flex-col items-center space-y-10">
-          <a
-            href="#about"
-            className="mobile-nav-link"
-            data-vi="Tóm tắt"
-            data-en="Summary"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Summary
-          </a>
-          <a
-            href="#skills"
-            className="mobile-nav-link"
-            data-vi="Kỹ năng"
-            data-en="Skills"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Skills
-          </a>
-          <a
-            href="#projects"
-            className="mobile-nav-link"
-            data-vi="Dự án"
-            data-en="Projects"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Projects
-          </a>
-          <a
-            href="#experience"
-            className="mobile-nav-link"
-            data-vi="Lộ trình"
-            data-en="Timeline"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Timeline
-          </a>
+        <nav className="flex flex-col items-center space-y-8">
+          {["about", "skills", "projects", "experience"].map((id) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              className="hover:opacity-50 transition-opacity"
+              onClick={() => setIsMobileMenuOpen(false)}
+              data-vi={id === "about" ? "Tóm tắt" : id === "skills" ? "Kỹ năng" : id === "projects" ? "Dự án" : "Lộ trình"}
+              data-en={id.charAt(0).toUpperCase() + id.slice(1)}
+            >
+              {id}
+            </a>
+          ))}
         </nav>
 
-        <div className="flex items-center space-x-12 pt-12 border-t border-black/10 dark:border-white/10 w-2/3 justify-center">
-          <button
-            onClick={toggleLang}
-            className="text-lg font-bold tracking-widest"
-          >
+        <div className="flex items-center space-x-12 pt-12 border-t border-black/5 dark:border-white/5 w-2/3 justify-center">
+          <button onClick={toggleLang} className="text-lg font-bold tracking-widest">
             {lang.toUpperCase()}
           </button>
-          <button onClick={toggleTheme} className="text-3xl">
-            {isDark ? (
-              <i className="fas fa-sun block"></i>
-            ) : (
-              <i className="fas fa-moon block"></i>
-            )}
+          <button onClick={toggleTheme}>
+            {isDark ? <Sun size={28} weight="bold" /> : <Moon size={28} weight="bold" />}
           </button>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

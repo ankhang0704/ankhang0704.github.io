@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./style.css";
-import "aos/dist/aos.css";
 
 export const metadata: Metadata = {
   title: "An Khang | Portfolio",
