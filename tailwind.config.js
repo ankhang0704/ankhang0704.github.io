@@ -8,17 +8,18 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        display: ['Space Grotesk', 'sans-serif'],
+        sans: ['var(--font-inter)', 'sans-serif'],
+        mono: ['var(--font-geist-mono)', 'monospace'],
+        display: ['var(--font-inter)', 'sans-serif'],
         serif: ['Playfair Display', 'serif'],
       },
       colors: {
-        bgLight: '#fafafa',
+        bgLight: '#fcfcfc',
         textLight: '#111111',
-        bgDark: '#0a0a0a',
-        textDark: '#ededed',
-        cardLight: '#ffffff',
-        cardDark: '#121212',
+        bgDark: '#080808',
+        textDark: '#eeeeee',
+        accent: '#000000',
+        accentDark: '#ffffff',
       },
     },
   },

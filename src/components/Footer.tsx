@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import { GithubLogo, LinkedinLogo, FacebookLogo, ArrowUp } from "@phosphor-icons/react";
 
 export default function Footer() {
@@ -22,64 +22,61 @@ export default function Footer() {
         id="contact"
         className="py-32 text-center relative overflow-hidden"
       >
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557672172-298e090bd0f1?q=80&w=1000')] bg-cover bg-center opacity-[0.02] dark:opacity-[0.01] grayscale pointer-events-none blur-[4px]"></div>
-        
         <div className="container mx-auto px-6 md:px-12 lg:px-24 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.8 }}
           >
-            <p className="text-[11px] font-bold uppercase tracking-[0.4em] opacity-40 mb-8" data-vi="Sẵn sàng hợp tác" data-en="Available for projects">Available for projects</p>
+            {/* EYEBROW 2/2 ALLOWED */}
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-40 mb-8" data-vi="Sẵn sàng hợp tác" data-en="Available for projects">Available for projects</p>
+            
             <h2
-              className="font-display text-5xl md:text-8xl font-bold mb-12 tracking-tighter"
+              className="text-4xl md:text-7xl font-bold mb-12 tracking-tighter"
               data-vi="Bắt đầu."
               data-en="Let's build."
             >
               Let's build.
             </h2>
+
             <a
               href="mailto:ankhang.nguyen0704@gmail.com"
-              className="text-2xl md:text-4xl font-serif italic border-b-2 border-black dark:border-white pb-2 hover:opacity-50 transition-all break-all"
+              className="text-xl md:text-3xl font-serif italic border-b border-black/20 dark:border-white/20 pb-1 hover:border-black dark:hover:border-white transition-all break-all"
             >
               ankhang.nguyen0704@gmail.com
             </a>
 
-            <div className="flex justify-center space-x-12 mt-20">
+            <div className="flex justify-center space-x-10 mt-20">
               <a
                 href="https://github.com/ankhang0704"
-                className="opacity-50 hover:opacity-100 hover:-translate-y-1 transition-all"
+                className="opacity-40 hover:opacity-100 transition-opacity"
                 target="_blank"
                 rel="noreferrer"
               >
-                <GithubLogo size={32} weight="bold" />
+                <GithubLogo size={28} weight="bold" />
               </a>
               <a
                 href="https://www.linkedin.com/in/khang-nguyen-0855893a7/"
-                className="opacity-50 hover:opacity-100 hover:-translate-y-1 transition-all"
+                className="opacity-40 hover:opacity-100 transition-opacity"
                 target="_blank"
                 rel="noreferrer"
               >
-                <LinkedinLogo size={32} weight="bold" />
+                <LinkedinLogo size={28} weight="bold" />
               </a>
               <a
                 href="https://www.facebook.com/ankhang0704"
-                className="opacity-50 hover:opacity-100 hover:-translate-y-1 transition-all"
+                className="opacity-40 hover:opacity-100 transition-opacity"
                 target="_blank"
                 rel="noreferrer"
               >
-                <FacebookLogo size={32} weight="bold" />
+                <FacebookLogo size={28} weight="bold" />
               </a>
             </div>
 
-            <div className="mt-32 pt-12 border-t border-black/5 dark:border-white/5 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-30">
-                © 2026 An Khang.
-              </p>
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-30" data-vi="Sản xuất bởi An Khang" data-en="Crafted by An Khang">
-                Crafted by An Khang
-              </p>
+            <div className="mt-32 pt-10 border-t border-black/[0.03] dark:border-white/[0.03] flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-[9px] font-bold uppercase tracking-[0.2em] opacity-30">
+              <p>© 2026 An Khang.</p>
+              <p data-vi="Sản xuất bởi An Khang" data-en="Crafted by An Khang">Crafted by An Khang</p>
             </div>
           </motion.div>
         </div>

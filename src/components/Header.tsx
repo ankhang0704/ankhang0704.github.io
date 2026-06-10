@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import { Sun, Moon, List, X } from "@phosphor-icons/react";
 
 export default function Header() {
@@ -97,12 +97,12 @@ export default function Header() {
         }`}
       >
         <div className="container mx-auto px-6 md:px-12 lg:px-24 flex justify-between items-center">
-          <Link href="/" className="font-display text-2xl font-bold tracking-tighter">
-            KHANG.
+          <Link href="/" className="font-sans text-xl font-bold tracking-tighter">
+            ANKHANG.
           </Link>
 
           <div className="flex items-center space-x-8 md:space-x-12">
-            <nav className="hidden md:flex space-x-8 text-[11px] font-bold uppercase tracking-[0.2em] opacity-70">
+            <nav className="hidden md:flex space-x-8 text-[10px] font-bold uppercase tracking-[0.2em] opacity-70">
               <a href="#about" className="nav-link hover-underline" data-vi="Tóm tắt" data-en="Summary">
                 Summary
               </a>

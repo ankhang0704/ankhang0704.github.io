@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import AOS from "aos";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import FMHeader from "../../../components/fm-dictionary/Header";
 import FMFooter from "../../../components/fm-dictionary/Footer";
+import { Warning, CheckCircle, PaperPlaneTilt, ArrowLeft } from "@phosphor-icons/react";
+import Link from "next/link";
 
 export default function DeleteAccountPage() {
   const [email, setEmail] = useState("");
@@ -11,36 +13,6 @@ export default function DeleteAccountPage() {
   const [confirmed, setConfirmed] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [lang, setLang] = useState("en");
-
-  useEffect(() => {
-    const savedLang = localStorage.getItem("lang") || "en";
-    setLang(savedLang);
-
-    AOS.init({
-      duration: 800,
-      easing: "ease-out-cubic",
-      once: true,
-    });
-
-    const timer = setTimeout(() => {
-      AOS.refresh();
-    }, 100);
-
-    const handleLangChange = () => {
-      setLang(localStorage.getItem("lang") || "en");
-      setTimeout(() => {
-        AOS.refresh();
-      }, 100);
-    };
-
-    window.addEventListener("langChange", handleLangChange);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener("langChange", handleLangChange);
-    };
-  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,288 +34,158 @@ export default function DeleteAccountPage() {
   };
 
   return (
-    <>
-      <div className="ambient-glow top-glow max-w-full"></div>
-      <div className="ambient-glow bottom-glow max-w-full"></div>
+    <div className="bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black min-h-screen">
+      <div className="noise-overlay" />
+      <div className="ambient-glow top-glow opacity-20 dark:opacity-10" />
+      <div className="ambient-glow bottom-glow opacity-20 dark:opacity-5" />
 
       <FMHeader />
 
-      <main className="pt-40 pb-32 w-full max-w-full">
-        <div className="container mx-auto px-6 md:px-8 max-w-4xl break-words">
+      <main className="pt-48 pb-32">
+        <div className="container mx-auto px-6 md:px-12 lg:px-24 max-w-5xl">
           {/* Hero */}
-          <div className="mb-20" data-aos="fade-up">
-            <p
-              className="text-xs tracking-[0.3em] uppercase mb-4 border-b border-black dark:border-white inline-block pb-1"
-              data-en="Account Services"
-              data-vi="Dịch vụ Tài khoản"
-            >
-              {lang === "vi" ? "Dịch vụ Tài khoản" : "Account Services"}
-            </p>
-            <h1
-              className="font-display text-5xl md:text-8xl font-bold mb-8"
-              data-en="Delete Account"
-              data-vi="Xóa Tài Khoản"
-            >
-              {lang === "vi" ? "Xóa Tài Khoản" : "Delete Account"}
-            </h1>
-            <div className="flex flex-wrap gap-8 text-[10px] uppercase tracking-widest opacity-80 font-medium">
-              <span>
-                <i className="fas fa-calendar-days text-black dark:text-white mr-2"></i>
-                <span data-en="Effective: Jan 01, 2026" data-vi="Ngày hiệu lực: 01/01/2026">
-                  {lang === "vi" ? "Ngày hiệu lực: 01/01/2026" : "Effective: Jan 01, 2026"}
-                </span>
-              </span>
-              <span>
-                <i className="fas fa-rotate text-black dark:text-white mr-2"></i>
-                <span data-en="Updated: June 04, 2026" data-vi="Cập nhật lần cuối: 04/06/2026">
-                  {lang === "vi" ? "Cập nhật lần cuối: 04/06/2026" : "Updated: June 04, 2026"}
-                </span>
-              </span>
-              <span>
-                <i className="fas fa-building text-black dark:text-white mr-2"></i>
-                <span data-en="An Khang Studio" data-vi="Đơn vị phát triển: An Khang Studio">
-                  An Khang Studio
-                </span>
-              </span>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-24"
+          >
+            <Link href="/fm-dictionary" className="inline-flex items-center space-x-2 text-[10px] font-bold uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity mb-8">
+              <ArrowLeft size={14} weight="bold" />
+              <span>Back to App</span>
+            </Link>
+
+            <div className="flex items-center space-x-3 mb-8">
+              <span className="h-[1px] w-8 bg-black dark:bg-white opacity-30"></span>
+              <p className="text-[10px] uppercase tracking-[0.3em] font-mono opacity-50" data-en="Account Services" data-vi="Dịch vụ tài khoản">Account Services</p>
             </div>
-          </div>
+            
+            <h1 className="text-5xl md:text-8xl font-bold tracking-tighter mb-12" data-en="Delete Account" data-vi="Xóa Tài Khoản">
+              Delete Account
+            </h1>
+          </motion.div>
 
-          {/* Content */}
-          <div className="space-y-12 font-light text-xl leading-relaxed opacity-90">
-            <section data-aos="fade-up">
-              <p
-                className="mb-6"
-                data-vi="Chúng tôi hiểu rằng đôi khi bạn muốn xóa tài khoản của mình. FM Dictionary tôn trọng quyền kiểm soát tuyệt đối của bạn đối với dữ liệu cá nhân. Bạn có thể xóa tài khoản trực tiếp trong ứng dụng hoặc gửi yêu cầu xóa trực tuyến bên dưới."
-                data-en="We understand that sometimes you might want to delete your account. FM Dictionary respects your absolute control over your personal data. You can delete your account directly inside the app, or submit a deletion request online below."
-              >
-                {lang === "vi"
-                  ? "Chúng tôi hiểu rằng đôi khi bạn muốn xóa tài khoản của mình. FM Dictionary tôn trọng quyền kiểm soát tuyệt đối của bạn đối với dữ liệu cá nhân. Bạn có thể xóa tài khoản trực tiếp trong ứng dụng hoặc gửi yêu cầu xóa trực tuyến bên dưới."
-                  : "We understand that sometimes you might want to delete your account. FM Dictionary respects your absolute control over your personal data. You can delete your account directly inside the app, or submit a deletion request online below."}
-              </p>
-              <p
-                data-vi="Lưu ý: Sau khi tài khoản bị xóa, toàn bộ thông tin cá nhân định danh (Email, Họ tên, Ảnh đại diện), tiến trình học tập, lịch sử từ vựng, điểm số và dữ liệu nhóm học tập của bạn sẽ bị <strong>xóa bỏ hoàn toàn, vĩnh viễn và không thể khôi phục</strong> sau 30 ngày."
-                data-en="Note: After your account is deleted, all personally identifiable information (Email, Full Name, Profile Picture), learning progress, vocabulary history, scores, and study group data will be <strong>completely, permanently deleted and cannot be recovered</strong> after 30 days."
-              >
-                {lang === "vi" ? (
-                  <>
-                    Lưu ý: Sau khi tài khoản bị xóa, toàn bộ thông tin cá nhân định danh (Email, Họ tên, Ảnh đại diện), tiến trình học tập, lịch sử từ vựng, điểm số và dữ liệu nhóm học tập của bạn sẽ bị <strong>xóa bỏ hoàn toàn, vĩnh viễn và không thể khôi phục</strong> sau 30 ngày.
-                  </>
-                ) : (
-                  <>
-                    Note: After your account is deleted, all personally identifiable information (Email, Full Name, Profile Picture), learning progress, vocabulary history, scores, and study group data will be <strong>completely, permanently deleted and cannot be recovered</strong> after 30 days.
-                  </>
-                )}
-              </p>
-            </section>
-
-            <hr className="border-black/10 dark:border-white/10" />
-
-            {/* Method 1: In-App */}
-            <section data-aos="fade-up">
-              <h2
-                className="font-display text-3xl font-bold mb-6 uppercase tracking-tighter"
-                data-vi="Cách 1: Xóa trực tiếp trong Ứng dụng (Khuyên dùng)"
-                data-en="Method 1: Delete Directly inside the App (Recommended)"
-              >
-                {lang === "vi" ? "Cách 1: Xóa trực tiếp trong Ứng dụng (Khuyên dùng)" : "Method 1: Delete Directly inside the App (Recommended)"}
-              </h2>
-              <p
-                className="mb-6"
-                data-vi="Đây là phương thức nhanh nhất và an toàn nhất để xóa dữ liệu của bạn ngay lập tức:"
-                data-en="This is the fastest and most secure method to delete your data instantly:"
-              >
-                {lang === "vi"
-                  ? "Đây là phương thức nhanh nhất và an toàn nhất để xóa dữ liệu của bạn ngay lập tức:"
-                  : "This is the fastest and most secure method to delete your data instantly:"}
-              </p>
-              <ol className="list-decimal pl-6 space-y-3 text-lg md:text-xl">
-                <li
-                  data-vi="Mở ứng dụng <strong>FM Dictionary</strong> trên điện thoại."
-                  data-en="Open the <strong>FM Dictionary</strong> app on your device."
-                >
-                  {lang === "vi" ? (
-                    <>Mở ứng dụng <strong>FM Dictionary</strong> trên điện thoại.</>
-                  ) : (
-                    <>Open the <strong>FM Dictionary</strong> app on your device.</>
-                  )}
-                </li>
-                <li
-                  data-vi="Đi tới màn hình <strong>Cài đặt (Settings)</strong>."
-                  data-en="Go to the <strong>Settings</strong> tab."
-                >
-                  {lang === "vi" ? (
-                    <>Đi tới màn hình <strong>Cài đặt (Settings)</strong>.</>
-                  ) : (
-                    <>Go to the <strong>Settings</strong> tab.</>
-                  )}
-                </li>
-                <li
-                  data-vi="Chọn phần <strong>Thông tin cá nhân (Profile)</strong> hoặc <strong>Vùng nguy hiểm (Danger Zone)</strong>."
-                  data-en="Select <strong>Profile</strong> or <strong>Danger Zone</strong>."
-                >
-                  {lang === "vi" ? (
-                    <>Chọn phần <strong>Thông tin cá nhân (Profile)</strong> hoặc <strong>Vùng nguy hiểm (Danger Zone)</strong>.</>
-                  ) : (
-                    <>Select <strong>Profile</strong> or <strong>Danger Zone</strong>.</>
-                  )}
-                </li>
-                <li
-                  data-vi="Chọn <strong>Xóa tài khoản (Delete Account)</strong> và xác nhận."
-                  data-en="Select <strong>Delete Account</strong> and confirm."
-                >
-                  {lang === "vi" ? (
-                    <>Chọn <strong>Xóa tài khoản (Delete Account)</strong> và xác nhận.</>
-                  ) : (
-                    <>Select <strong>Delete Account</strong> and confirm.</>
-                  )}
-                </li>
-              </ol>
-            </section>
-
-            {/* Method 2: Submit an Online Request */}
-            <hr className="border-black/10 dark:border-white/10" />
-
-            <section data-aos="fade-up">
-              <h2
-                className="font-display text-3xl font-bold mb-6 uppercase tracking-tighter"
-                data-vi="Cách 2: Gửi yêu cầu xóa trực tuyến"
-                data-en="Method 2: Submit an Online Request"
-              >
-                {lang === "vi" ? "Cách 2: Gửi yêu cầu xóa trực tuyến" : "Method 2: Submit an Online Request"}
-              </h2>
-              <p
-                className="mb-8"
-                data-vi="Nếu bạn không còn cài đặt ứng dụng trên thiết bị, bạn có thể điền thông tin vào mẫu dưới đây. Nút gửi sẽ mở ứng dụng email của bạn để gửi yêu cầu chính thức tới chúng tôi."
-                data-en="If you no longer have the app installed on your device, you can fill out the form below. The submit button will open your email client to send an official request to us."
-              >
-                {lang === "vi"
-                  ? "Nếu bạn không còn cài đặt ứng dụng trên thiết bị, bạn có thể điền thông tin vào mẫu dưới đây. Nút gửi sẽ mở ứng dụng email của bạn để gửi yêu cầu chính thức tới chúng tôi."
-                  : "If you no longer have the app installed on your device, you can fill out the form below. The submit button will open your email client to send an official request to us."}
-              </p>
-
-              {formSubmitted ? (
-                <div className="p-8 border border-green-500/20 bg-green-500/5 dark:bg-green-500/10 rounded-lg text-center">
-                  <i className="fas fa-circle-check text-green-500 text-4xl mb-4"></i>
-                  <h3
-                    className="font-display text-2xl font-bold mb-2 uppercase"
-                    data-vi="Đã chuẩn bị email thành công!"
-                    data-en="Email Prepared Successfully!"
-                  >
-                    {lang === "vi" ? "Đã chuẩn bị email thành công!" : "Email Prepared Successfully!"}
-                  </h3>
-                  <p
-                    className="text-lg opacity-85 mb-4"
-                    data-vi="Ứng dụng email của bạn sẽ được mở. Vui lòng bấm <strong>Gửi (Send)</strong> trong email đó để hoàn tất yêu cầu xóa tài khoản."
-                    data-en="Your email client should have opened. Please press <strong>Send</strong> in that email to complete your account deletion request."
-                  >
-                    {lang === "vi" ? (
-                      <>Ứng dụng email của bạn sẽ được mở. Vui lòng bấm <strong>Gửi (Send)</strong> trong email đó để hoàn tất yêu cầu xóa tài khoản.</>
-                    ) : (
-                      <>Your email client should have opened. Please press <strong>Send</strong> in that email to complete your account deletion request.</>
-                    )}
-                  </p>
-
-                  <div className="my-6 p-6 border border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark rounded-lg text-left text-sm font-mono space-y-2">
-                    <p className="opacity-70 text-xs uppercase tracking-wider font-sans font-bold">
-                      {lang === "vi" ? "Thông tin email gửi thủ công (nếu ứng dụng không tự mở):" : "Manual email details (if your client didn't open):"}
-                    </p>
-                    <div className="border-t border-black/10 dark:border-white/10 pt-2 space-y-1">
-                      <p><strong>To:</strong> ankhang.nguyen0704@gmail.com</p>
-                      <p><strong>Subject:</strong> FM Dictionary - Account Deletion Request</p>
-                      <p className="pt-2 font-sans font-bold text-xs uppercase opacity-70">{lang === "vi" ? "Nội dung email:" : "Body:"}</p>
-                      <div className="bg-cardLight dark:bg-cardDark p-3 rounded border border-black/5 dark:border-white/5 whitespace-pre-wrap break-words text-xs">
-                        {`Hello,\n\nPlease delete my FM Dictionary account and all associated data permanently.\n\nAccount Details:\n- Name: ${name}\n- Registered Email: ${email}\n\nI confirm that I understand this action is permanent and cannot be undone after 30 days.\n\nThank you.`}
-                      </div>
-                    </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+            {/* Left: Info */}
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="lg:col-span-5 space-y-12"
+            >
+              <div className="space-y-6 text-lg md:text-xl font-light leading-relaxed opacity-70">
+                <p data-vi="Chúng tôi hiểu rằng đôi khi bạn muốn xóa tài khoản. FM Dictionary tôn trọng quyền kiểm soát tuyệt đối của bạn đối với dữ liệu cá nhân." data-en="We understand that sometimes you might want to delete your account. FM Dictionary respects your absolute control over your personal data.">
+                  We understand that sometimes you might want to delete your account. FM Dictionary respects your absolute control over your personal data.
+                </p>
+                <div className="p-8 rounded-3xl bg-red-500/[0.03] border border-red-500/10 text-red-500/80">
+                  <div className="flex items-center space-x-3 mb-4">
+                    <Warning size={24} weight="bold" />
+                    <span className="text-sm font-bold uppercase tracking-widest" data-vi="Lưu ý quan trọng" data-en="Permanent Action">Permanent Action</span>
                   </div>
-
-                  <button
-                    onClick={() => setFormSubmitted(false)}
-                    className="text-sm underline opacity-60 hover:opacity-100 transition-opacity uppercase tracking-widest font-bold"
-                    data-vi="Gửi lại yêu cầu khác"
-                    data-en="Submit another request"
-                  >
-                    {lang === "vi" ? "Gửi lại yêu cầu khác" : "Submit another request"}
-                  </button>
+                  <p className="text-sm leading-relaxed" data-vi="Dữ liệu sẽ bị xóa vĩnh viễn và không thể khôi phục sau 30 ngày." data-en="Your data will be permanently deleted and cannot be recovered after 30 days.">Your data will be permanently deleted and cannot be recovered after 30 days.</p>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6 max-w-xl mx-auto p-6 md:p-8 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark rounded-lg">
-                  <div>
-                    <label className="block text-sm uppercase tracking-widest font-bold mb-2">
-                      <span data-vi="Họ và Tên" data-en="Full Name">
-                        {lang === "vi" ? "Họ và Tên" : "Full Name"}
-                      </span>
-                      <span className="text-red-500 ml-1">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="w-full px-4 py-3 bg-bgLight dark:bg-bgDark border border-black/15 dark:border-white/15 focus:border-black dark:focus:border-white outline-none rounded transition-colors text-base"
-                    />
-                  </div>
+              </div>
 
-                  <div>
-                    <label className="block text-sm uppercase tracking-widest font-bold mb-2">
-                      <span data-vi="Địa chỉ Email" data-en="Email Address">
-                        {lang === "vi" ? "Địa chỉ Email" : "Email Address"}
-                      </span>
-                      <span className="text-red-500 ml-1">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-4 py-3 bg-bgLight dark:bg-bgDark border border-black/15 dark:border-white/15 focus:border-black dark:focus:border-white outline-none rounded transition-colors text-base"
-                    />
-                  </div>
+              <div className="space-y-8">
+                <h3 className="text-xl font-bold tracking-tight" data-vi="Cách thực hiện trong ứng dụng" data-en="In-App Deletion Method">In-App Deletion Method</h3>
+                <ol className="space-y-4 text-sm font-medium opacity-60">
+                  <li className="flex gap-4"><span className="opacity-30">01</span> <span data-vi="Mở ứng dụng FM Dictionary" data-en="Open FM Dictionary App">Open FM Dictionary App</span></li>
+                  <li className="flex gap-4"><span className="opacity-30">02</span> <span data-vi="Vào Cài đặt > Thông tin cá nhân" data-en="Go to Settings > Profile">Go to Settings &gt; Profile</span></li>
+                  <li className="flex gap-4"><span className="opacity-30">03</span> <span data-vi="Chọn Xóa tài khoản & Xác nhận" data-en="Select Delete Account & Confirm">Select Delete Account &amp; Confirm</span></li>
+                </ol>
+              </div>
+            </motion.div>
 
-                  <div className="pt-2">
-                    <label className="flex items-start gap-3 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        required
-                        checked={confirmed}
-                        onChange={(e) => setConfirmed(e.target.checked)}
-                        className="mt-1 h-5 w-5 cursor-pointer accent-black dark:accent-white"
-                      />
-                      <span
-                        className="text-sm opacity-80 select-none leading-normal"
-                        data-vi="Tôi xác nhận rằng tôi muốn xóa vĩnh viễn tài khoản FM Dictionary và tất cả dữ liệu liên quan. Tôi hiểu rằng hành động này không thể hoàn tác sau 30 ngày."
-                        data-en="I confirm that I want to permanently delete my FM Dictionary account and all associated data. I understand that this action cannot be undone after 30 days."
-                      >
-                        {lang === "vi"
-                          ? "Tôi xác nhận rằng tôi muốn xóa vĩnh viễn tài khoản FM Dictionary và tất cả dữ liệu liên quan. Tôi hiểu rằng hành động này không thể hoàn tác sau 30 ngày."
-                          : "I confirm that I want to permanently delete my FM Dictionary account and all associated data. I understand that this action cannot be undone after 30 days."}
-                      </span>
-                    </label>
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting || !email || !name || !confirmed}
-                    className="w-full py-4 bg-black text-white dark:bg-white dark:text-black font-bold uppercase tracking-widest text-sm hover:opacity-85 active:scale-[0.98] transition-all disabled:opacity-50 disabled:pointer-events-none rounded"
-                    data-vi={isSubmitting ? "Đang xử lý..." : "Gửi yêu cầu xóa tài khoản"}
-                    data-en={isSubmitting ? "Processing..." : "Submit Deletion Request"}
+            {/* Right: Form */}
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className="lg:col-span-7"
+            >
+              <AnimatePresence mode="wait">
+                {formSubmitted ? (
+                  <motion.div 
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="p-12 lg:p-20 rounded-[40px] bg-zinc-50 dark:bg-zinc-900/50 border border-black/[0.03] dark:border-white/[0.03] text-center"
                   >
-                    {lang === "vi"
-                      ? isSubmitting
-                        ? "Đang xử lý..."
-                        : "Gửi yêu cầu xóa tài khoản"
-                      : isSubmitting
-                      ? "Processing..."
-                      : "Submit Deletion Request"}
-                  </button>
-                </form>
-              )}
-            </section>
+                    <CheckCircle size={80} weight="thin" className="mx-auto mb-8 text-green-500" />
+                    <h3 className="text-3xl font-bold mb-6 tracking-tight" data-vi="Đã sẵn sàng gửi" data-en="Ready to Send">Ready to Send</h3>
+                    <p className="text-lg font-light opacity-60 mb-10" data-vi="Ứng dụng email của bạn sẽ được mở. Vui lòng bấm Gửi để hoàn tất." data-en="Your email client should have opened. Please press Send in that email to complete the process.">Your email client should have opened. Please press Send in that email to complete the process.</p>
+                    <button 
+                      onClick={() => setFormSubmitted(false)}
+                      className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-40 hover:opacity-100 transition-opacity"
+                      data-vi="Gửi yêu cầu khác"
+                      data-en="Submit another request"
+                    >
+                      Submit another request
+                    </button>
+                  </motion.div>
+                ) : (
+                  <motion.form 
+                    key="form"
+                    onSubmit={handleSubmit}
+                    className="p-10 md:p-16 rounded-[40px] premium-card space-y-10"
+                  >
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-40 ml-1" data-vi="Họ và Tên" data-en="Full Name">Full Name</label>
+                      <input 
+                        type="text" 
+                        required 
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="John Doe"
+                        className="w-full bg-zinc-50 dark:bg-zinc-800/50 border border-black/[0.05] dark:border-white/[0.05] rounded-2xl px-6 py-4 outline-none focus:border-black dark:focus:border-white transition-colors" 
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-40 ml-1" data-vi="Email đăng ký" data-en="Registered Email">Registered Email</label>
+                      <input 
+                        type="email" 
+                        required 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="john@example.com"
+                        className="w-full bg-zinc-50 dark:bg-zinc-800/50 border border-black/[0.05] dark:border-white/[0.05] rounded-2xl px-6 py-4 outline-none focus:border-black dark:focus:border-white transition-colors" 
+                      />
+                    </div>
+
+                    <label className="flex items-start gap-4 cursor-pointer group">
+                      <div className="relative flex items-center justify-center mt-1">
+                        <input 
+                          type="checkbox" 
+                          required 
+                          checked={confirmed}
+                          onChange={(e) => setConfirmed(e.target.checked)}
+                          className="peer appearance-none w-6 h-6 border border-black/10 dark:border-white/10 rounded-lg checked:bg-black dark:checked:bg-white transition-all cursor-pointer" 
+                        />
+                        <CheckCircle size={14} weight="bold" className="absolute text-white dark:text-black opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none" />
+                      </div>
+                      <span className="text-sm font-light opacity-60 group-hover:opacity-100 transition-opacity leading-relaxed" data-vi="Tôi xác nhận muốn xóa vĩnh viễn tài khoản và dữ liệu liên quan." data-en="I confirm that I want to permanently delete my account and all associated data.">
+                        I confirm that I want to permanently delete my account and all associated data.
+                      </span>
+                    </label>
+
+                    <button 
+                      type="submit"
+                      disabled={isSubmitting || !confirmed}
+                      className="w-full py-5 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-bold uppercase tracking-[0.2em] text-[10px] flex items-center justify-center space-x-4 hover:opacity-80 transition-all disabled:opacity-30 disabled:pointer-events-none"
+                    >
+                      <PaperPlaneTilt size={18} weight="bold" />
+                      <span data-vi={isSubmitting ? "Đang xử lý..." : "Gửi yêu cầu"} data-en={isSubmitting ? "Processing..." : "Submit Request"}>Submit Request</span>
+                    </button>
+                  </motion.form>
+                )}
+              </AnimatePresence>
+            </motion.div>
           </div>
         </div>
       </main>
 
       <FMFooter />
-    </>
+    </div>
   );
 }

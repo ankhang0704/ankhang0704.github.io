@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
+import { motion } from "motion/react";
+import { GithubLogo, LinkedinLogo, FacebookLogo, ArrowUp } from "@phosphor-icons/react";
 
 export default function FMFooter() {
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -10,10 +11,7 @@ export default function FMFooter() {
     const handleScroll = () => {
       setShowBackToTop(window.scrollY > 500);
     };
-
     window.addEventListener("scroll", handleScroll);
-    handleScroll();
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -23,71 +21,65 @@ export default function FMFooter() {
 
   return (
     <>
-      <footer
-        id="contact"
-        className="py-20 text-center relative border-t border-black/10 dark:border-white/10 overflow-x-hidden"
-      >
-        <div className="container mx-auto px-6 md:px-8 relative z-10" data-aos="zoom-in">
-          <h2 className="font-display text-5xl font-bold mb-8 uppercase tracking-tighter">
-            FM Dictionary.
-          </h2>
-          <div className="flex justify-center space-x-8 mb-12 text-xl">
-            <a
-              href="mailto:ankhang.nguyen0704@gmail.com"
-              className="hover:-translate-y-2 transition-transform"
-            >
-              <i className="fas fa-envelope text-black dark:text-white"></i>
-            </a>
-            <a
-              href="https://github.com/ankhang0704"
-              className="hover:-translate-y-2 transition-transform"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <i className="fab fa-github text-black dark:text-white"></i>
-            </a>
-          </div>
-
-          <div className="flex justify-center space-x-6 text-[10px] uppercase tracking-widest mb-12 opacity-60">
-            <Link href="/fm-dictionary/support/" className="hover-underline" data-vi="Trung tâm Hỗ trợ" data-en="Support Center">
-              Support Center
-            </Link>
-            <Link href="/fm-dictionary/privacy-policy/" className="hover-underline" data-vi="Chính sách Bảo mật" data-en="Privacy Policy">
-              Privacy Policy
-            </Link>
-            <Link href="/fm-dictionary/terms-of-service/" className="hover-underline" data-vi="Điều khoản Dịch vụ" data-en="Terms of Service">
-              Terms of Service
-            </Link>
-          </div>
-
-          <div className="flex flex-col items-center space-y-4">
-              <p
-                className="text-[10px] font-medium opacity-50 uppercase tracking-[0.3em]"
-                data-vi="© 2026 FM Dictionary · Bảo lưu mọi quyền"
-                data-en="© 2026 FM Dictionary · All rights reserved"
-              >
-                © 2026 FM Dictionary · All rights reserved
+      <footer className="py-24 border-t border-black/5 dark:border-white/5 relative overflow-hidden">
+        <div className="container mx-auto px-6 md:px-12 lg:px-24 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start">
+            {/* Brand */}
+            <div className="md:col-span-4">
+              <div className="font-sans text-xl font-bold tracking-tighter mb-6 flex items-center gap-2">
+                <div className="w-8 h-8 bg-black dark:bg-white text-white dark:text-black flex items-center justify-center rounded-lg text-xs">FM</div>
+                <span>DICTIONARY.</span>
+              </div>
+              <p className="text-sm opacity-50 font-light leading-relaxed max-w-xs mb-8" data-vi="Công cụ tra cứu từ vựng Quản lý Cơ sở vật chất chuyên nghiệp, giúp nâng tầm kiến thức cộng đồng FM Việt Nam." data-en="Professional Facilities Management vocabulary lookup tool, empowering the Vietnam FM community knowledge.">
+                Professional Facilities Management vocabulary lookup tool, empowering the Vietnam FM community knowledge.
               </p>
-              
-              <Link 
-                href="/" 
-                target="_blank" 
-                className="text-[12px] opacity-40 hover:opacity-100 transition-opacity duration-300 font-light tracking-widest uppercase"
-              >
-                By An Khang Studio
-              </Link>
+            </div>
+
+            {/* Links */}
+            <div className="md:col-span-2">
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] mb-6 opacity-30">Legal</h4>
+              <ul className="space-y-4 text-sm font-medium opacity-60">
+                <li><a href="/fm-dictionary/privacy-policy" className="hover:opacity-100 transition-opacity">Privacy</a></li>
+                <li><a href="/fm-dictionary/terms-of-service" className="hover:opacity-100 transition-opacity">Terms</a></li>
+                <li><a href="/fm-dictionary/support" className="hover:opacity-100 transition-opacity">Support</a></li>
+              </ul>
+            </div>
+
+            {/* Social */}
+            <div className="md:col-span-2">
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] mb-6 opacity-30">Social</h4>
+              <div className="flex space-x-6">
+                <a href="https://github.com/ankhang0704" target="_blank" rel="noreferrer" className="opacity-40 hover:opacity-100 transition-opacity">
+                  <GithubLogo size={24} weight="bold" />
+                </a>
+                <a href="https://www.linkedin.com/in/khang-nguyen-0855893a7/" target="_blank" rel="noreferrer" className="opacity-40 hover:opacity-100 transition-opacity">
+                  <LinkedinLogo size={24} weight="bold" />
+                </a>
+              </div>
+            </div>
+
+            {/* Credits */}
+            <div className="md:col-span-4 md:text-right">
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] mb-6 opacity-30">Credits</h4>
+              <p className="text-sm font-medium mb-2" data-vi="Nội dung © Thủy Tạ" data-en="Content © Thuy Ta">Content © Thuy Ta</p>
+              <p className="text-sm font-medium opacity-40" data-vi="Ứng dụng © An Khang Studio" data-en="Application © An Khang Studio">Application © An Khang Studio</p>
+            </div>
+          </div>
+
+          <div className="mt-24 pt-10 border-t border-black/[0.03] dark:border-white/[0.03] flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-[9px] font-bold uppercase tracking-[0.2em] opacity-30">
+            <p>© 2026 An Khang Studio.</p>
+            <p data-vi="Dành riêng cho cộng đồng FM Việt Nam" data-en="Dedicated to Vietnam FM Community">Dedicated to Vietnam FM Community</p>
           </div>
         </div>
       </footer>
 
       <button
-        id="back-to-top"
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 w-12 h-12 bg-black text-white dark:bg-white dark:text-black rounded-full flex items-center justify-center transition-all duration-500 z-50 hover:scale-110 ${
-          showBackToTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        className={`fixed bottom-10 right-10 z-[60] w-14 h-14 bg-black dark:bg-white text-white dark:text-black rounded-full flex items-center justify-center transition-all duration-500 shadow-2xl hover:scale-110 ${
+          showBackToTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20 pointer-events-none"
         }`}
       >
-        <i className="fas fa-arrow-up"></i>
+        <ArrowUp size={24} weight="bold" />
       </button>
     </>
   );

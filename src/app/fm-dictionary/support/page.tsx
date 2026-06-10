@@ -1,491 +1,142 @@
 "use client";
 
-import React, { useEffect } from "react";
-import Link from "next/link";
-import AOS from "aos";
+import React from "react";
+import { motion } from "motion/react";
 import FMHeader from "../../../components/fm-dictionary/Header";
 import FMFooter from "../../../components/fm-dictionary/Footer";
+import { EnvelopeSimple, ChatCircleDots, Question, ArrowRight, ArrowLeft } from "@phosphor-icons/react";
+import Link from "next/link";
 
 export default function SupportPage() {
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      easing: "ease-out-cubic",
-      once: true,
-    });
-    
-    requestAnimationFrame(() => {
-      AOS.refresh();
-    });
-  }, []);
-
   return (
-    <>
-      <div className="ambient-glow top-glow max-w-full"></div>
-      <div className="ambient-glow bottom-glow max-w-full"></div>
+    <div className="bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black min-h-screen">
+      <div className="noise-overlay" />
+      <div className="ambient-glow top-glow opacity-20 dark:opacity-10" />
+      <div className="ambient-glow bottom-glow opacity-20 dark:opacity-5" />
 
       <FMHeader />
 
-      <main className="pt-40 pb-32 w-full max-w-full overflow-x-hidden">
-        <div className="container mx-auto px-6 md:px-8 max-w-4xl break-words overflow-x-hidden">
+      <main className="pt-48 pb-32">
+        <div className="container mx-auto px-6 md:px-12 lg:px-24 max-w-5xl">
           {/* Hero */}
-          <div className="mb-20" data-aos="fade-up">
-            <p
-              className="text-xs tracking-[0.3em] uppercase mb-4 border-b border-black dark:border-white inline-block pb-1"
-              data-en="Help Center"
-              data-vi="Trung tâm Trợ giúp"
-            >
-              Help Center
-            </p>
-            <h1
-              className="font-display text-5xl md:text-8xl font-bold mb-8"
-              data-en="Support Center"
-              data-vi="Trung tâm Trợ giúp"
-            >
-              Support Center
-            </h1>
-            <div className="flex flex-wrap gap-8 text-[10px] uppercase tracking-widest opacity-80 font-medium">
-              <span>
-                <i className="fas fa-envelope mr-2"></i>
-                <span data-en="Email: ankhang.nguyen0704@gmail.com" data-vi="Email: ankhang.nguyen0704@gmail.com">
-                  Email: ankhang.nguyen0704@gmail.com
-                </span>
-              </span>
-              <span>
-                <i className="fas fa-clock mr-2"></i>
-                <span data-en="Response: 24–48 hours" data-vi="Phản hồi: 24–48 giờ làm việc">
-                  Response: 24–48 hours
-                </span>
-              </span>
-              <span>
-                <i className="fas fa-building mr-2"></i>
-                <span data-en="An Khang Studio" data-vi="Đơn vị phát triển: An Khang Studio">
-                  An Khang Studio
-                </span>
-              </span>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-24"
+          >
+            <Link href="/fm-dictionary" className="inline-flex items-center space-x-2 text-[10px] font-bold uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity mb-8">
+              <ArrowLeft size={14} weight="bold" />
+              <span>Back to App</span>
+            </Link>
+
+            <div className="flex items-center space-x-3 mb-8">
+              <span className="h-[1px] w-8 bg-black dark:bg-white opacity-30"></span>
+              <p className="text-[10px] uppercase tracking-[0.3em] font-mono opacity-50" data-en="Help Center" data-vi="Trung tâm hỗ trợ">Help Center</p>
             </div>
+            
+            <h1 className="text-5xl md:text-8xl font-bold tracking-tighter mb-12" data-en="Support & Contact" data-vi="Hỗ trợ & Liên hệ">
+              Support & Contact
+            </h1>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-20">
+            {/* Contact Method 1 */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="p-10 md:p-12 rounded-[40px] premium-card flex flex-col justify-between group"
+            >
+              <div>
+                <div className="w-16 h-16 rounded-2xl bg-zinc-50 dark:bg-zinc-800 flex items-center justify-center mb-10 group-hover:bg-black dark:group-hover:bg-white transition-colors duration-500">
+                  <EnvelopeSimple size={32} className="group-hover:text-white dark:group-hover:text-black transition-colors" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 tracking-tight" data-vi="Email hỗ trợ" data-en="Email Support">Email Support</h3>
+                <p className="text-lg font-light opacity-60 leading-relaxed mb-8" data-vi="Gửi phản hồi, báo lỗi hoặc yêu cầu dữ liệu trực tiếp tới đội ngũ phát triển. Chúng tôi sẽ phản hồi sớm nhất có thể." data-en="Send feedback, bug reports, or data requests directly to the development team. We will respond as soon as possible.">
+                  Send feedback, bug reports, or data requests directly to the development team. We will respond as soon as possible.
+                </p>
+              </div>
+              <a href="mailto:ankhang.nguyen0704@gmail.com" className="text-sm font-bold border-b border-black/10 dark:border-white/10 pb-2 w-fit hover:border-black dark:hover:border-white transition-all">
+                ankhang.nguyen0704@gmail.com
+              </a>
+            </motion.div>
+
+            {/* Contact Method 2 */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="p-10 md:p-12 rounded-[40px] bg-black dark:bg-white text-white dark:text-black flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-16 h-16 rounded-2xl bg-white/10 dark:bg-black/10 flex items-center justify-center mb-10">
+                  <ChatCircleDots size={32} />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 tracking-tight" data-vi="Cộng đồng FM" data-en="Community">Community</h3>
+                <p className="text-lg font-light opacity-70 leading-relaxed mb-8" data-vi="Tham gia trao đổi kiến thức Quản lý Cơ sở vật chất cùng hàng ngàn chuyên gia khác trên khắp Việt Nam." data-en="Join Facility Management knowledge sharing with thousands of other professionals across Vietnam.">
+                  Join Facility Management knowledge sharing with thousands of other professionals across Vietnam.
+                </p>
+              </div>
+              <div className="text-[10px] font-bold uppercase tracking-widest opacity-40">Coming Soon</div>
+            </motion.div>
           </div>
 
-          {/* Content */}
-          <div className="space-y-12 font-light text-xl leading-relaxed opacity-90">
-            <section data-aos="fade-up">
-              <p
-                className="mb-6"
-                data-vi="Chào mừng bạn đến với Trung tâm Hỗ trợ FM Dictionary. Chúng tôi luôn ở đây để giúp bạn có trải nghiệm học tập tốt nhất. Hãy tìm câu trả lời nhanh trong phần câu hỏi thường gặp bên dưới, hoặc liên hệ trực tiếp với đội ngũ hỗ trợ của chúng tôi bất kỳ lúc nào."
-                data-en="Welcome to the FM Dictionary Support Center. We are always here to help you have the best learning experience. Find quick answers in the FAQ below, or contact our support team anytime."
-              >
-                Welcome to the FM Dictionary Support Center. We are always here to help you
-                have the best learning experience. Find quick answers in the FAQ below, or
-                contact our support team anytime.
-              </p>
-            </section>
-
-            <hr className="border-black/10 dark:border-white/10" />
-
-            <section data-aos="fade-up">
-              <h2
-                className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter"
-                data-vi="Câu hỏi thường gặp (FAQ)"
-                data-en="Frequently Asked Questions (FAQ)"
-              >
-                Frequently Asked Questions (FAQ)
-              </h2>
-
-              <div className="space-y-12">
-                {/* Account & Login */}
-                <div>
-                  <h3 className="font-display text-xl font-bold mb-6 uppercase tracking-widest flex items-center">
-                    <i className="fas fa-shield-halved text-black dark:text-white mr-3"></i>
-                    <span data-vi="Tài khoản & Đăng nhập" data-en="Account & Login">
-                      Account & Login
-                    </span>
-                  </h3>
-                  <div className="space-y-8">
-                    <div>
-                      <p
-                        className="font-bold mb-2"
-                        data-vi="Q: Tôi có thể đăng nhập bằng những phương thức nào?"
-                        data-en="Q: Which methods can I use to log in?"
-                      >
-                        Q: Which methods can I use to log in?
-                      </p>
-                      <p
-                        data-vi="FM Dictionary hỗ trợ hai phương thức đăng nhập an toàn: <strong>Google Sign-In</strong> và <strong>Apple Sign-In</strong>. Bạn không cần tạo mật khẩu riêng, giúp đăng nhập nhanh chóng và bảo mật."
-                        data-en="FM Dictionary supports two secure login methods: <strong>Google Sign-In</strong> and <strong>Apple Sign-In</strong>. No need to create a separate password, ensuring quick and secure access."
-                      >
-                        FM Dictionary supports two secure login methods:{" "}
-                        <strong>Google Sign-In</strong> and <strong>Apple Sign-In</strong>. No
-                        need to create a separate password, ensuring quick and secure access.
-                      </p>
-                    </div>
-                    <div>
-                      <p
-                        className="font-bold mb-2"
-                        data-vi="Q: Tại sao tôi không đăng nhập được?"
-                        data-en="Q: Why can't I log in?"
-                      >
-                        Q: Why can't I log in?
-                      </p>
-                      <p
-                        data-vi="Hãy kiểm tra kết nối Internet, đảm bảo dùng đúng tài khoản Google/Apple. Nếu dùng Apple Sign-In, hãy chắc chắn bạn đã chia sẻ email thật. Nếu vẫn lỗi, hãy thử cài lại ứng dụng hoặc liên hệ chúng tôi."
-                        data-en="Check your Internet connection, ensure you're using the correct Google/Apple account. If using Apple Sign-In, make sure you've shared your real email. If issues persist, try reinstalling the app or contact us."
-                      >
-                        Check your Internet connection, ensure you're using the correct
-                        Google/Apple account. If using Apple Sign-In, make sure you've shared
-                        your real email. If issues persist, try reinstalling the app or
-                        contact us.
-                      </p>
-                    </div>
-                    <div>
-                      <p
-                        className="font-bold mb-2"
-                        data-vi="Q: Tôi muốn xóa tài khoản vĩnh viễn, phải làm thế nào?"
-                        data-en="Q: How do I delete my account permanently?"
-                      >
-                        Q: How do I delete my account permanently?
-                      </p>
-                      <p
-                        className="mb-4"
-                        data-vi="Vào <strong>Cài đặt</strong> → <strong>Vùng nguy hiểm</strong> → <strong>Xóa tài khoản</strong>. Dữ liệu sẽ bị xóa vĩnh viễn và không thể phục hồi sau 30 ngày."
-                        data-en="Go to <strong>Settings</strong> → <strong>Danger Zone</strong> → <strong>Delete Account</strong>. Data will be permanently deleted and cannot be recovered after 30 days."
-                      >
-                        Go to <strong>Settings</strong> → <strong>Danger Zone</strong> →{" "}
-                        <strong>Delete Account</strong>. Data will be permanently deleted and
-                        cannot be recovered after 30 days.
-                      </p>
-                      <p className="text-sm opacity-80">
-                        <Link
-                          href="/fm-dictionary/delete-account/"
-                          className="underline hover:text-black dark:hover:text-white transition-colors"
-                          data-vi="Xem chi tiết hoặc gửi yêu cầu trực tuyến →"
-                          data-en="View details or submit an online request →"
-                        >
-                          View details or submit an online request →
-                        </Link>
-                      </p>
-                    </div>
-                  </div>
+          {/* FAQ Section */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="p-10 md:p-16 rounded-[40px] glass-card gradient-border"
+          >
+            <div className="flex items-center space-x-4 mb-12">
+              <Question size={32} weight="thin" />
+              <h2 className="text-3xl font-bold tracking-tight" data-vi="Câu hỏi thường gặp" data-en="Frequently Asked Questions">Frequently Asked Questions</h2>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+              {[
+                {
+                  qVi: "Ứng dụng có hoàn toàn miễn phí?",
+                  qEn: "Is the app completely free?",
+                  aVi: "FM Dictionary hiện tại hoàn toàn miễn phí cho cộng đồng và không có quảng cáo gây phiền nhiễu.",
+                  aEn: "FM Dictionary is currently completely free for the community and contains no intrusive ads."
+                },
+                {
+                  qVi: "Tôi có thể học khi không có mạng?",
+                  qEn: "Can I learn offline?",
+                  aVi: "Có, toàn bộ dữ liệu từ điển và tiến độ học tập được lưu trữ cục bộ để bạn học mọi lúc, mọi nơi.",
+                  aEn: "Yes, all dictionary data and learning progress are stored locally for anytime, anywhere access."
+                },
+                {
+                  qVi: "Làm sao để yêu cầu thêm từ vựng?",
+                  qEn: "How to request more terms?",
+                  aVi: "Bạn có thể gửi yêu cầu trực tiếp qua email hỗ trợ của chúng tôi để bổ sung thuật ngữ mới.",
+                  aEn: "You can send requests directly via our support email to suggest new specialized terms."
+                },
+                {
+                  qVi: "Dữ liệu của tôi có an toàn không?",
+                  qEn: "Is my data secure?",
+                  aVi: "Chúng tôi tuân thủ nghiêm ngặt các tiêu chuẩn bảo mật của Google và Apple để bảo vệ dữ liệu của bạn.",
+                  aEn: "We strictly comply with Google and Apple security standards to protect your data."
+                }
+              ].map((faq, i) => (
+                <div key={i} className="space-y-4">
+                  <h4 className="font-bold text-lg text-black dark:text-white" data-vi={faq.qVi} data-en={faq.qEn}>{faq.qEn}</h4>
+                  <p className="font-light opacity-60 leading-relaxed text-base" data-vi={faq.aVi} data-en={faq.aEn}>{faq.aEn}</p>
                 </div>
+              ))}
+            </div>
+          </motion.div>
 
-                <hr className="border-black/10 dark:border-white/10" />
-
-                {/* Learning & Features */}
-                <div>
-                  <h3 className="font-display text-xl font-bold mb-6 uppercase tracking-widest flex items-center">
-                    <i className="fas fa-book-open text-black dark:text-white mr-3"></i>
-                    <span data-vi="Học tập & Tính năng" data-en="Learning & Features">
-                      Learning & Features
-                    </span>
-                  </h3>
-                  <div className="space-y-8">
-                    <div>
-                      <p
-                        className="font-bold mb-2"
-                        data-vi="Q: Ứng dụng có bao nhiêu từ vựng và thuộc lĩnh vực nào?"
-                        data-en="Q: How many words and which fields does the app cover?"
-                      >
-                        Q: How many words and which fields does the app cover?
-                      </p>
-                      <p
-                        data-vi="Hơn 1.800 thuật ngữ chuyên ngành <strong>Quản lý cơ sở vật chất (Facility Management)</strong>: MEP, vận hành tòa nhà, HSE, tài chính FM... biên soạn bởi chuyên gia Thúy Tạ."
-                        data-en="Over 1,800 <strong>Facility Management (FM)</strong> terms: MEP, building operations, HSE, FM finance... compiled by expert Thuy Ta."
-                      >
-                        Over 1,800 <strong>Facility Management (FM)</strong> terms: MEP,
-                        building operations, HSE, FM finance... compiled by expert Thuy Ta.
-                      </p>
-                    </div>
-                    <div>
-                      <p
-                        className="font-bold mb-2"
-                        data-vi="Q: Sự khác biệt giữa Flashcard, Quiz và Smart Review là gì?"
-                        data-en="Q: What is the difference between Flashcard, Quiz, and Smart Review?"
-                      >
-                        Q: What is the difference between Flashcard, Quiz, and Smart Review?
-                      </p>
-                      <ul className="list-disc pl-6 space-y-2 text-base md:text-xl">
-                        <li data-vi="<strong>Flashcard:</strong> Học từ mới theo bộ chủ đề." data-en="<strong>Flashcard:</strong> Learn new words by topic.">
-                          <strong>Flashcard:</strong> Learn new words by topic.
-                        </li>
-                        <li data-vi="<strong>Quiz:</strong> Đánh giá nhanh kiến thức với trắc nghiệm." data-en="<strong>Quiz:</strong> Quick knowledge assessment with multiple choice.">
-                          <strong>Quiz:</strong> Quick knowledge assessment with multiple
-                          choice.
-                        </li>
-                        <li data-vi="<strong>Smart Review:</strong> Ôn tập thông minh (spaced repetition) cho từ hay quên." data-en="<strong>Smart Review:</strong> Intelligent review (spaced repetition) for often forgotten words.">
-                          <strong>Smart Review:</strong> Intelligent review (spaced
-                          repetition) for often forgotten words.
-                        </li>
-                      </ul>
-                    </div>
-                    <div>
-                      <p
-                        className="font-bold mb-2"
-                        data-vi="Q: Tính năng Luyện phát âm hoạt động như thế nào?"
-                        data-en="Q: How does the AI Pronunciation feature work?"
-                      >
-                        Q: How does the AI Pronunciation feature work?
-                      </p>
-                      <p
-                        data-vi="Sử dụng AI phân tích giọng nói thời gian thực. Nhấn giữ nút ghi âm, đọc to và nhận phản hồi chi tiết. Lưu ý cấp quyền Microphone trong cài đặt hệ thống."
-                        data-en="Uses real-time AI voice analysis. Hold the record button, speak aloud, and receive detailed feedback. Ensure Microphone permission is granted in system settings."
-                      >
-                        Uses real-time AI voice analysis. Hold the record button, speak aloud,
-                        and receive detailed feedback. Ensure Microphone permission is granted
-                        in system settings.
-                      </p>
-                    </div>
-                    <div>
-                      <p
-                        className="font-bold mb-2"
-                        data-vi="Q: Tôi có thể dùng ứng dụng khi không có mạng không?"
-                        data-en="Q: Can I use the app offline?"
-                      >
-                        Q: Can I use the app offline?
-                      </p>
-                      <p
-                        data-vi="Có. FM Dictionary hỗ trợ <strong>Offline-First</strong> cho tra cứu, flashcard và quiz. Cần mạng để luyện phát âm AI và đồng bộ đám mây."
-                        data-en="Yes. FM Dictionary supports <strong>Offline-First</strong> for lookups, flashcards, and quizzes. Network is required for AI pronunciation and cloud sync."
-                      >
-                        Yes. FM Dictionary supports <strong>Offline-First</strong> for
-                        lookups, flashcards, and quizzes. Network is required for AI
-                        pronunciation and cloud sync.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <hr className="border-black/10 dark:border-white/10" />
-
-                {/* Social Learning */}
-                <div>
-                  <h3 className="font-display text-xl font-bold mb-6 uppercase tracking-widest flex items-center">
-                    <i className="fas fa-users text-black dark:text-white mr-3"></i>
-                    <span data-vi="Nhóm học tập" data-en="Social Learning">
-                      Social Learning
-                    </span>
-                  </h3>
-                  <div className="space-y-8">
-                    <div>
-                      <p
-                        className="font-bold mb-2"
-                        data-vi="Q: Tôi tham gia nhóm học tập như thế nào?"
-                        data-en="Q: How do I join a study group?"
-                      >
-                        Q: How do I join a study group?
-                      </p>
-                      <p
-                        data-vi="Vào Menu → <strong>Nhóm học tập</strong> → Nhập <strong>mã nhóm</strong> được cung cấp. Liên hệ chúng tôi nếu muốn tạo nhóm riêng."
-                        data-en="Go to Menu → <strong>Study Groups</strong> → Enter the provided <strong>group code</strong>. Contact us to create a private group."
-                      >
-                        Go to Menu → <strong>Study Groups</strong> → Enter the provided{" "}
-                        <strong>group code</strong>. Contact us to create a private group.
-                      </p>
-                    </div>
-                    <div>
-                      <p
-                        className="font-bold mb-2"
-                        data-vi="Q: Thông tin nào của tôi được hiển thị trong nhóm?"
-                        data-en="Q: What information of mine is displayed in the group?"
-                      >
-                        Q: What information of mine is displayed in the group?
-                      </p>
-                      <p
-                        data-vi="Tên hiển thị, ảnh đại diện, điểm số và streak sẽ chỉ hiển thị với các thành viên trong cùng nhóm đó, không bao giờ hiển thị công khai."
-                        data-en="Display name, profile picture, scores, and streak will only be shown to members of the same group, never publicly."
-                      >
-                        Display name, profile picture, scores, and streak will only be shown
-                        to members of the same group, never publicly.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <hr className="border-black/10 dark:border-white/10" />
-
-                {/* Technical Support */}
-                <div>
-                  <h3 className="font-display text-xl font-bold mb-6 uppercase tracking-widest flex items-center">
-                    <i className="fas fa-gears text-black dark:text-white mr-3"></i>
-                    <span data-vi="Lỗi & Sự cố kỹ thuật" data-en="Technical Support">
-                      Technical Support
-                    </span>
-                  </h3>
-                  <div className="space-y-8">
-                    <div>
-                      <p
-                        className="font-bold mb-2"
-                        data-vi="Q: Ứng dụng bị treo hoặc crash, tôi phải làm gì?"
-                        data-en="Q: The app is frozen or crashed, what should I do?"
-                      >
-                        Q: The app is frozen or crashed, what should I do?
-                      </p>
-                      <p
-                        data-vi="Thử đóng và mở lại ứng dụng, kiểm tra cập nhật, hoặc khởi động lại thiết bị. Nếu không hết, hãy gỡ và cài lại ứng dụng (dữ liệu sẽ được khôi phục sau khi đăng nhập)."
-                        data-en="Try closing and reopening the app, checking for updates, or restarting your device. If it persists, uninstall and reinstall the app (data will be restored after login)."
-                      >
-                        Try closing and reopening the app, checking for updates, or restarting
-                        your device. If it persists, uninstall and reinstall the app (data
-                        will be restored after login).
-                      </p>
-                    </div>
-                    <div>
-                      <p
-                        className="font-bold mb-2"
-                        data-vi="Q: Điểm phát âm của tôi luôn thấp mặc dù tôi đọc đúng?"
-                        data-en="Q: My pronunciation score is always low even though I read correctly?"
-                      >
-                        Q: My pronunciation score is always low even though I read correctly?
-                      </p>
-                      <p
-                        data-vi="Đảm bảo môi trường yên tĩnh, giữ thiết bị cách miệng 15-20cm và đọc rõ ràng. Nếu vẫn thấp, hãy báo cáo từ vựng đó qua email cho chúng tôi."
-                        data-en="Ensure a quiet environment, keep the device 15-20cm from your mouth, and speak clearly. If still low, report that vocabulary to us via email."
-                      >
-                        Ensure a quiet environment, keep the device 15-20cm from your mouth,
-                        and speak clearly. If still low, report that vocabulary to us via
-                        email.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <hr className="border-black/10 dark:border-white/10" />
-
-            {/* Contact Support */}
-            <section data-aos="fade-up">
-              <h2
-                className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter"
-                data-vi="Liên hệ Hỗ trợ"
-                data-en="Contact Support"
-              >
-                Contact Support
-              </h2>
-              <div className="overflow-x-auto">
-                <table className="w-full border-collapse border border-black/10 dark:border-white/10 text-sm">
-                  <tbody>
-                    <tr className="bg-black/5 dark:bg-white/5 uppercase tracking-widest font-bold">
-                      <th
-                        className="border border-black/10 dark:border-white/10 p-4 text-left"
-                        data-vi="Kênh liên hệ"
-                        data-en="Channel"
-                      >
-                        Channel
-                      </th>
-                      <th
-                        className="border border-black/10 dark:border-white/10 p-4 text-left"
-                        data-vi="Thông tin"
-                        data-en="Information"
-                      >
-                        Information
-                      </th>
-                    </tr>
-                    <tr>
-                      <td className="border border-black/10 dark:border-white/10 p-4 font-bold">
-                        <i className="fas fa-envelope text-black dark:text-white mr-3"></i>
-                        <span data-vi="Email hỗ trợ" data-en="Support Email">
-                          Support Email
-                        </span>
-                      </td>
-                      <td className="border border-black/10 dark:border-white/10 p-4">
-                        <a href="mailto:ankhang.nguyen0704@gmail.com" className="underline">
-                          ankhang.nguyen0704@gmail.com
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="border border-black/10 dark:border-white/10 p-4 font-bold">
-                        <i className="fas fa-globe text-black dark:text-white mr-3"></i>
-                        <span data-vi="Trang chủ" data-en="Home Page">
-                          Home Page
-                        </span>
-                      </td>
-                      <td className="border border-black/10 dark:border-white/10 p-4">
-                        <a href="/fm-dictionary/" className="underline">
-                          ankhang0704.github.io/fm-dictionary/
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="border border-black/10 dark:border-white/10 p-4 font-bold">
-                        <i className="fas fa-clock text-black dark:text-white mr-3"></i>
-                        <span data-vi="Thời gian làm việc" data-en="Working Hours">
-                          Working Hours
-                        </span>
-                      </td>
-                      <td
-                        className="border border-black/10 dark:border-white/10 p-4"
-                        data-vi="Thứ Hai – Thứ Sáu, 8:00 – 17:30 (GMT+7)"
-                        data-en="Monday – Friday, 8:00 – 17:30 (GMT+7)"
-                      >
-                        Monday – Friday, 8:00 – 17:30 (GMT+7)
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-
-            <hr className="border-black/10 dark:border-white/10" />
-
-            <section data-aos="fade-up">
-              <h2
-                className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter"
-                data-vi="Khi gửi email, vui lòng cung cấp"
-                data-en="When emailing, please provide"
-              >
-                When emailing, please provide
-              </h2>
-              <div className="p-8 border border-black/10 dark:border-white/10 space-y-4 text-lg">
-                <p data-vi="• <strong>Tiêu đề:</strong> Mô tả ngắn gọn vấn đề." data-en="• <strong>Subject:</strong> Brief description of the issue.">
-                  • <strong>Subject:</strong> Brief description of the issue.
-                </p>
-                <p data-vi="• <strong>Thiết bị:</strong> Tên máy và phiên bản hệ điều hành (iOS/Android)." data-en="• <strong>Device:</strong> Model name and OS version (iOS/Android).">
-                  • <strong>Device:</strong> Model name and OS version (iOS/Android).
-                </p>
-                <p data-vi="• <strong>Mô tả:</strong> Thao tác bạn đã thực hiện dẫn đến lỗi." data-en="• <strong>Description:</strong> Steps you took leading to the error.">
-                  • <strong>Description:</strong> Steps you took leading to the error.
-                </p>
-                <p data-vi="• <strong>Ảnh chụp:</strong> Ảnh chụp màn hình lỗi (nếu có)." data-en="• <strong>Screenshot:</strong> Screenshot of the error (if any).">
-                  • <strong>Screenshot:</strong> Screenshot of the error (if any).
-                </p>
-              </div>
-            </section>
-
-            <hr className="border-black/10 dark:border-white/10" />
-
-            <section data-aos="fade-up">
-              <h3
-                className="font-display text-xl font-bold mb-4 uppercase tracking-widest"
-                data-vi="Về FM Dictionary"
-                data-en="About FM Dictionary"
-              >
-                About FM Dictionary
-              </h3>
-              <p
-                data-vi="FM Dictionary là ứng dụng từ vựng cao cấp giúp cộng đồng Quản lý Cơ sở vật chất và bất kỳ ai quan tâm đến lĩnh vực này làm chủ hơn 1.800 thuật ngữ FM chuyên ngành — được xây dựng bằng Flutter cho iOS & Android."
-                data-en="FM Dictionary is a premium vocabulary app helping the Facilities Management community and anyone interested in the field master 1,800+ specialized FM terms — built with Flutter for iOS & Android."
-              >
-                FM Dictionary is a premium vocabulary app helping the Facilities Management
-                community and anyone interested in the field master 1,800+ specialized FM
-                terms — built with Flutter for iOS & Android.
-              </p>
-            </section>
-
-            <p
-              className="text-xs opacity-50 italic text-center py-10"
-              data-vi="<em>Cảm ơn bạn đã tin tưởng và sử dụng FM Dictionary. Chúng tôi cam kết đồng hành cùng bạn trên mọi chặng đường chinh phục kiến thức chuyên ngành.</em>"
-              data-en="<em>Thank you for trusting and using FM Dictionary. We are committed to accompanying you on every journey to master specialized knowledge.</em>"
-            >
-              <em>
-                Thank you for trusting and using FM Dictionary. We are committed to
-                accompanying you on every journey to master specialized knowledge.
-              </em>
-            </p>
+          <div className="pt-32 text-center opacity-30 text-[9px] font-bold uppercase tracking-[0.3em]">
+            © 2026 An Khang Studio · Dedicated to FM Excellence
           </div>
         </div>
       </main>
 
       <FMFooter />
-    </>
+    </div>
   );
 }

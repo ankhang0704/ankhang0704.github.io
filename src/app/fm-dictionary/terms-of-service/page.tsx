@@ -1,583 +1,175 @@
 "use client";
 
-import React, { useEffect } from "react";
-import AOS from "aos";
+import React from "react";
+import { motion } from "motion/react";
 import FMHeader from "../../../components/fm-dictionary/Header";
 import FMFooter from "../../../components/fm-dictionary/Footer";
+import { CalendarBlank, ArrowsClockwise, Buildings, FileText, ShieldCheck, Scales, WarningCircle } from "@phosphor-icons/react";
 
 export default function TermsOfServicePage() {
-  useEffect(() => {
-    AOS.init({
-      duration: 1500,
-      easing: "ease-out-cubic",
-      once: true,
-      offset: 50,
-    });
-    
-    // Refresh AOS multiple times to handle hydration and dynamic content
-    AOS.refresh();
-    const t1 = setTimeout(() => AOS.refresh(), 100);
-    const t2 = setTimeout(() => AOS.refresh(), 500);
-    const t3 = setTimeout(() => AOS.refresh(), 1000);
-
-    return () => {
-        clearTimeout(t1);
-        clearTimeout(t2);
-        clearTimeout(t3);
-    };
-  }, []);
-
   return (
-    <>
-      <div className="ambient-glow top-glow max-w-full"></div>
-      <div className="ambient-glow bottom-glow max-w-full"></div>
+    <div className="bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black min-h-screen">
+      <div className="noise-overlay" />
+      <div className="ambient-glow top-glow opacity-20 dark:opacity-10" />
+      <div className="ambient-glow bottom-glow opacity-20 dark:opacity-5" />
 
       <FMHeader />
 
-      <main className="pt-40 pb-32 overflow-x-hidden w-full max-w-[100vw]">
-        <div className="container mx-auto px-6 md:px-8 max-w-4xl break-words">
+      <main className="pt-48 pb-32">
+        <div className="container mx-auto px-6 md:px-12 lg:px-24 max-w-5xl">
           {/* Hero */}
-          <div className="mb-20" data-aos="fade-up">
-            <p
-              className="text-xs tracking-[0.3em] uppercase mb-4 border-b border-black dark:border-white inline-block pb-1"
-              data-en="Legal Document"
-              data-vi="Văn bản pháp lý"
-            >
-              Legal Document
-            </p>
-            <h1
-              className="font-display text-5xl md:text-8xl font-bold mb-8"
-              data-en="Terms of Service"
-              data-vi="Điều khoản Dịch vụ"
-            >
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-24"
+          >
+            <div className="flex items-center space-x-3 mb-8">
+              <span className="h-[1px] w-8 bg-black dark:bg-white opacity-30"></span>
+              <p className="text-[10px] uppercase tracking-[0.3em] font-mono opacity-50" data-en="Legal Document" data-vi="Văn bản pháp lý">Legal Document</p>
+            </div>
+            
+            <h1 className="text-5xl md:text-8xl font-bold tracking-tighter mb-12" data-en="Terms of Service" data-vi="Điều khoản Dịch vụ">
               Terms of Service
             </h1>
-            <div className="flex flex-wrap gap-8 text-[10px] uppercase tracking-widest opacity-80 font-medium">
-              <span>
-                <i className="fas fa-calendar-days text-black dark:text-white mr-2"></i>
-                <span data-en="Effective: Jan 01, 2026" data-vi="Ngày hiệu lực: 01/01/2026">
-                  Effective: Jan 01, 2026
-                </span>
-              </span>
-              <span>
-                <i className="fas fa-rotate text-black dark:text-white mr-2"></i>
-                <span data-en="Updated: June 01, 2026" data-vi="Cập nhật lần cuối: 01/06/2026">
-                  Updated: June 01, 2026
-                </span>
-              </span>
-              <span>
-                <i className="fas fa-building text-black dark:text-white mr-2"></i>
-                <span data-en="An Khang Studio" data-vi="Đơn vị vận hành: An Khang Studio">
-                  An Khang Studio
-                </span>
-              </span>
+
+            <div className="flex flex-wrap gap-10">
+              <div className="flex items-center space-x-3 opacity-40">
+                <CalendarBlank size={16} weight="bold" />
+                <span className="text-[10px] font-bold uppercase tracking-widest" data-en="Effective: Jan 01, 2026" data-vi="Hiệu lực: 01/01/2026">Effective: Jan 01, 2026</span>
+              </div>
+              <div className="flex items-center space-x-3 opacity-40">
+                <ArrowsClockwise size={16} weight="bold" />
+                <span className="text-[10px] font-bold uppercase tracking-widest" data-en="Updated: June 01, 2026" data-vi="Cập nhật: 01/06/2026">Updated: June 01, 2026</span>
+              </div>
+              <div className="flex items-center space-x-3 opacity-40">
+                <Buildings size={16} weight="bold" />
+                <span className="text-[10px] font-bold uppercase tracking-widest">An Khang Studio</span>
+              </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Content */}
-          <div className="space-y-12 font-light text-xl leading-relaxed opacity-90">
-            <section data-aos="fade-up">
-              <p
-                className="mb-6"
-                data-vi="Chào mừng bạn đến với <strong>FM Dictionary</strong> (&quot;Ứng dụng&quot;). Ứng dụng được phát triển bởi <strong>An Khang Studio</strong> và vận hành dựa trên nền tảng nội dung chuyên môn thuộc sở hữu độc quyền của <strong>Thúy Tạ</strong>."
-                data-en="Welcome to <strong>FM Dictionary</strong> (&quot;the App&quot;). The app is developed by <strong>An Khang Studio</strong> and operates based on specialized content platform exclusively owned by <strong>Thuy Ta</strong>."
-              >
-                Welcome to <strong>FM Dictionary</strong> ("the App"). The app is developed by{" "}
-                <strong>An Khang Studio</strong> and operates based on specialized content
-                platform exclusively owned by <strong>Thuy Ta</strong>.
-              </p>
-              <p
-                data-vi="Bằng việc tải xuống, cài đặt, truy cập hoặc sử dụng Ứng dụng trên các hệ điều hành iOS và Android, bạn khẳng định rằng bạn đã đọc, hiểu và đồng ý chịu sự ràng buộc bởi các Điều khoản Dịch vụ này. Nếu bạn không đồng ý với bất kỳ điều khoản nào dưới đây, vui lòng ngừng sử dụng và gỡ cài đặt Ứng dụng ngay lập tức."
-                data-en="By downloading, installing, accessing, or using the App on iOS and Android operating systems, you confirm that you have read, understood, and agree to be bound by these Terms of Service. If you do not agree to any of the terms below, please stop using and uninstall the App immediately."
-              >
-                By downloading, installing, accessing, or using the App on iOS and Android
-                operating systems, you confirm that you have read, understood, and agree to be
-                bound by these Terms of Service. If you do not agree to any of the terms
-                below, please stop using and uninstall the App immediately.
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 1 }}
+            className="space-y-20 text-lg md:text-xl font-light leading-relaxed opacity-80"
+          >
+            <section className="space-y-8">
+              <p data-vi='Chào mừng bạn đến với <strong>FM Dictionary</strong> ("Ứng dụng"). Bằng cách cài đặt và sử dụng Ứng dụng này, bạn đồng ý tuân thủ các Điều khoản Dịch vụ sau đây. Vui lòng đọc kỹ trước khi sử dụng.' data-en='Welcome to <strong>FM Dictionary</strong> ("the App"). By installing and using this App, you agree to comply with the following Terms of Service. Please read them carefully.'>
+                Welcome to <strong>FM Dictionary</strong> ("the App"). By installing and using this App, you agree to comply with the following Terms of Service. Please read them carefully.
               </p>
             </section>
 
-            <hr className="border-black/10 dark:border-white/10" />
+            <div className="h-[1px] w-full bg-black/5 dark:bg-white/5" />
 
-            <section data-aos="fade-up">
-              <h2
-                className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter"
-                data-vi="1. Sở hữu Trí tuệ và Bản quyền Nội dung"
-                data-en="1. Intellectual Property and Content Copyright"
-              >
-                1. Intellectual Property and Content Copyright
-              </h2>
-              <p
-                className="mb-6"
-                data-vi="Toàn bộ tài nguyên và cấu trúc bên trong Ứng dụng được bảo hộ nghiêm ngặt bởi pháp luật sở hữu trí tuệ hiện hành:"
-                data-en="All resources and structures within the App are strictly protected by current intellectual property laws:"
-              >
-                All resources and structures within the App are strictly protected by current
-                intellectual property laws:
+            {/* Section 1 */}
+            <section className="space-y-12">
+              <h2 className="text-3xl font-bold tracking-tight text-black dark:text-white uppercase tracking-tighter" data-vi="1. Chấp thuận các Điều khoản" data-en="1. Acceptance of Terms">1. Acceptance of Terms</h2>
+              <p data-vi="Bằng việc truy cập hoặc sử dụng FM Dictionary, bạn xác nhận rằng bạn đã đọc, hiểu và đồng ý bị ràng buộc bởi các Điều khoản này. Nếu bạn không đồng ý với bất kỳ phần nào, vui lòng không sử dụng Ứng dụng." data-en="By accessing or using FM Dictionary, you confirm that you have read, understood, and agree to be bound by these Terms. If you do not agree with any part, please do not use the App.">
+                By accessing or using FM Dictionary, you confirm that you have read, understood, and agree to be bound by these Terms. If you do not agree with any part, please do not use the App.
               </p>
-              <ul className="space-y-6">
-                <li>
-                  <span
-                    data-vi="<strong>Bản quyền nội dung học tập:</strong> Toàn bộ cơ sở dữ liệu từ điển, định nghĩa từ vựng, ví dụ minh họa, hệ thống bài học, thuật ngữ chuyên ngành và các tài liệu giáo dục đi kèm được tích hợp trong Ứng dụng thuộc quyền sở hữu trí tuệ hợp pháp, duy nhất và toàn vẹn của <strong>Thúy Tạ</strong>."
-                    data-en="<strong>Learning Content Copyright:</strong> The entire dictionary database, vocabulary definitions, illustrative examples, lesson systems, specialized terminology, and accompanying educational materials integrated in the App are the legal, sole, and entire intellectual property of <strong>Thuy Ta</strong>."
-                  >
-                    <strong>Learning Content Copyright:</strong> The entire dictionary
-                    database, vocabulary definitions, illustrative examples, lesson systems,
-                    specialized terminology, and accompanying educational materials
-                    integrated in the App are the legal, sole, and entire intellectual
-                    property of <strong>Thuy Ta</strong>.
-                  </span>
-                </li>
-                <li>
-                  <span
-                    data-vi="<strong>Giới hạn quyền sử dụng nội dung:</strong> Người dùng chỉ được cấp quyền truy cập phi thương mại, mang tính cá nhân để phục vụ mục đích học tập cá nhân. Nghiêm cấm mọi hành vi cào dữ liệu (data scraping/crawling), sao chép, trích xuất, chỉnh sửa, phân phối, chuyển nhượng hoặc tái xuất bản một phần hay toàn bộ kho nội dung dữ liệu của Ứng dụng dưới mọi hình thức khi chưa có sự đồng ý bằng văn bản từ chủ sở hữu bản quyền."
-                    data-en="<strong>Content Usage Limits:</strong> Users are only granted personal, non-commercial access for personal learning purposes. All acts of data scraping/crawling, copying, extracting, editing, distributing, transferring, or republishing part or all of the App's data content in any form without written consent from the copyright owner are strictly prohibited."
-                  >
-                    <strong>Content Usage Limits:</strong> Users are only granted personal,
-                    non-commercial access for personal learning purposes. All acts of data
-                    scraping/crawling, copying, extracting, editing, distributing,
-                    transferring, or republishing part or all of the App's data content in
-                    any form without written consent from the copyright owner are strictly
-                    prohibited.
-                  </span>
-                </li>
-                <li>
-                  <span
-                    data-vi="<strong>Bản quyền phần mềm:</strong> Toàn bộ mã nguồn, thiết kế giao diện đồ họa, biểu tượng (logos), cấu trúc chức năng và các công nghệ cốt lõi của Ứng dụng thuộc quyền sở hữu độc quyền của <strong>An Khang Studio</strong>."
-                    data-en="<strong>Software Copyright:</strong> All source code, graphic interface design, icons (logos), functional structures, and core technologies of the App are the exclusive property of <strong>An Khang Studio</strong>."
-                  >
-                    <strong>Software Copyright:</strong> All source code, graphic interface
-                    design, icons (logos), functional structures, and core technologies of the
-                    App are the exclusive property of <strong>An Khang Studio</strong>.
-                  </span>
-                </li>
-              </ul>
             </section>
 
-            <hr className="border-black/10 dark:border-white/10" />
+            <div className="h-[1px] w-full bg-black/5 dark:bg-white/5" />
 
-            <section data-aos="fade-up">
-              <h2
-                className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter"
-                data-vi="2. Điều kiện Độ tuổi và Tài khoản Người dùng"
-                data-en="2. Age Requirements and User Accounts"
-              >
-                2. Age Requirements and User Accounts
-              </h2>
-              <div className="space-y-8">
-                <div>
-                  <h3
-                    className="font-display text-xl font-bold mb-4 uppercase tracking-widest"
-                    data-vi="2.1. Giới hạn độ tuổi"
-                    data-en="2.1. Age Limits"
-                  >
-                    2.1. Age Limits
-                  </h3>
-                  <p
-                    data-vi="Bạn phải từ mười ba (13) tuổi trở lên (hoặc độ tuổi tối thiểu theo quy định của pháp luật tại quốc gia sở tại) để tự đăng ký tài khoản và sử dụng các tính năng tương tác của Ứng dụng. Trẻ em dưới 13 tuổi chỉ được phép sử dụng Ứng dụng dưới sự giám sát và đồng ý trực tiếp từ cha mẹ hoặc người giám hộ hợp pháp."
-                    data-en="You must be thirteen (13) years of age or older (or the minimum age required by law in your home country) to register for an account and use the App's interactive features. Children under 13 are only allowed to use the App under the direct supervision and consent of a parent or legal guardian."
-                  >
-                    You must be thirteen (13) years of age or older (or the minimum age
-                    required by law in your home country) to register for an account and use
-                    the App's interactive features. Children under 13 are only allowed to use
-                    the App under the direct supervision and consent of a parent or legal
-                    guardian.
-                  </p>
+            {/* Section 2 */}
+            <section className="space-y-12">
+              <h2 className="text-3xl font-bold tracking-tight text-black dark:text-white uppercase tracking-tighter" data-vi="2. Quyền Sở hữu Trí tuệ" data-en="2. Intellectual Property Rights">2. Intellectual Property Rights</h2>
+              <div className="p-10 rounded-3xl bg-zinc-50 dark:bg-zinc-900/50 border border-black/[0.03] dark:border-white/[0.03] space-y-8">
+                <div className="flex items-center space-x-4">
+                  <FileText size={32} weight="thin" />
+                  <h4 className="text-xl font-bold uppercase tracking-widest" data-vi="Bản quyền nội dung" data-en="Content Copyright">Content Copyright</h4>
                 </div>
-                <div>
-                  <h3
-                    className="font-display text-xl font-bold mb-4 uppercase tracking-widest"
-                    data-vi="2.2. Quản lý và Bảo mật tài khoản"
-                    data-en="2.2. Account Management and Security"
-                  >
-                    2.2. Account Management and Security
-                  </h3>
-                  <p
-                    className="mb-4"
-                    data-vi="Để đồng bộ hóa tiến độ học tập và tham gia các nhóm học tập, Ứng dụng yêu cầu người dùng đăng nhập thông qua các phương thức xác thực của bên thứ ba được hỗ trợ (Google Sign-In hoặc Apple Sign-In)."
-                    data-en="To sync learning progress and participate in study groups, the App requires users to log in through supported third-party authentication methods (Google Sign-In or Apple Sign-In)."
-                  >
-                    To sync learning progress and participate in study groups, the App
-                    requires users to log in through supported third-party authentication
-                    methods (Google Sign-In or Apple Sign-In).
-                  </p>
-                  <ul className="space-y-4">
-                    <li
-                      data-vi="Bạn có trách nhiệm hoàn toàn trong việc bảo mật tài khoản cá nhân và các thiết bị cài đặt ứng dụng của mình."
-                      data-en="You are fully responsible for maintaining the security of your personal account and the devices on which the app is installed."
-                    >
-                      You are fully responsible for maintaining the security of your personal
-                      account and the devices on which the app is installed.
-                    </li>
-                    <li
-                      data-vi="Chúng tôi có quyền tạm khóa hoặc chấm dứt vĩnh viễn quyền truy cập tài khoản của bạn mà không cần báo trước nếu phát hiện bất kỳ hành vi gian lận kỹ thuật, phá hoại hệ thống hoặc vi phạm nghiêm trọng các quy định tại văn bản này."
-                      data-en="We reserve the right to temporarily suspend or permanently terminate your account access without prior notice if we detect any technical fraud, system sabotage, or serious violation of the regulations in this document."
-                    >
-                      We reserve the right to temporarily suspend or permanently terminate
-                      your account access without prior notice if we detect any technical
-                      fraud, system sabotage, or serious violation of the regulations in
-                      this document.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-            <hr className="border-black/10 dark:border-white/10" />
-
-            <section data-aos="fade-up">
-              <h2
-                className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter"
-                data-vi="3. Quy định về Nội dung do Người dùng tạo (UGC) và Tính năng Cộng đồng"
-                data-en="3. Regulations on User-Generated Content (UGC) and Community Features"
-              >
-                3. Regulations on User-Generated Content (UGC) and Community Features
-              </h2>
-              <p
-                className="mb-8 italic opacity-70"
-                data-vi="(Mục này được thiết lập nhằm tuân thủ nghiêm ngặt Hướng dẫn kiểm duyệt ứng dụng của Apple — App Store Guideline 1.2 về User-Generated Content và các quy định an toàn của Google Play)."
-                data-en="(This section is established to strictly comply with Apple's App Review Guidelines — App Store Guideline 1.2 on User-Generated Content and Google Play safety regulations)."
-              >
-                (This section is established to strictly comply with Apple's App Review
-                Guidelines — App Store Guideline 1.2 on User-Generated Content and Google
-                Play safety regulations).
-              </p>
-              <p
-                className="mb-6"
-                data-vi="Ứng dụng cung cấp tính năng &quot;Nhóm học tập (Social Learning)&quot;, cho phép người dùng hiển thị tên, ảnh đại diện và tiến trình học tập cá nhân trong các nhóm học tập nội bộ. Để đảm bảo môi trường học tập lành mạnh, chúng tôi áp dụng chính sách <strong>&quot;Không khoan nhượng&quot; (Zero Tolerance)</strong> đối với nội dung phản cảm và hành vi lạm dụng:"
-                data-en="The App provides a &quot;Social Learning Groups&quot; feature, allowing users to display their name, profile picture, and individual learning progress within internal study groups. To ensure a healthy learning environment, we apply a <strong>&quot;Zero Tolerance&quot;</strong> policy for offensive content and abusive behavior:"
-              >
-                The App provides a "Social Learning Groups" feature, allowing users to display
-                their name, profile picture, and individual learning progress within internal
-                study groups. To ensure a healthy learning environment, we apply a{" "}
-                <strong>"Zero Tolerance"</strong> policy for offensive content and abusive
-                behavior:
-              </p>
-              <div className="space-y-8">
-                <div>
-                  <h3
-                    className="font-display text-xl font-bold mb-4 uppercase tracking-widest text-red-500"
-                    data-vi="3.1. Hành vi bị nghiêm cấm"
-                    data-en="3.1. Prohibited Behavior"
-                  >
-                    3.1. Prohibited Behavior
-                  </h3>
-                  <p
-                    className="mb-4"
-                    data-vi="Khi tham gia tính năng cộng đồng, bạn tuyệt đối không được thực hiện các hành vi sau:"
-                    data-en="When participating in community features, you must absolutely not engage in the following behaviors:"
-                  >
-                    When participating in community features, you must absolutely not engage
-                    in the following behaviors:
-                  </p>
-                  <ul className="space-y-4">
-                    <li
-                      data-vi="Đặt tên hiển thị hoặc đăng tải các thông tin mang tính chất thô tục, khiêu dâm, xúc phạm, bôi nhọ, đe dọa hoặc quấy rối các thành viên khác."
-                      data-en="Using a display name or posting information that is vulgar, pornographic, offensive, defamatory, threatening, or harassing to other members."
-                    >
-                      Using a display name or posting information that is vulgar,
-                      pornographic, offensive, defamatory, threatening, or harassing to
-                      other members.
-                    </li>
-                    <li
-                      data-vi="Chia sẻ, truyền bá các nội dung kích động bạo lực, phân biệt chủng tộc, tôn giáo, vùng miền hoặc vi phạm pháp luật nước Cộng hòa Xã hội Chủ nghĩa Việt Nam và luật pháp quốc tế."
-                      data-en="Sharing or spreading content that incites violence, racism, religious or regional discrimination, or violates the laws of the Socialist Republic of Vietnam and international law."
-                    >
-                      Sharing or spreading content that incites violence, racism, religious or
-                      regional discrimination, or violates the laws of the Socialist
-                      Republic of Vietnam and international law.
-                    </li>
-                    <li
-                      data-vi="Vi phạm quyền sở hữu trí tuệ hoặc quyền bảo mật của bất kỳ cá nhân hay tổ chức nào khác."
-                      data-en="Violating the intellectual property rights or privacy rights of any other individual or organization."
-                    >
-                      Violating the intellectual property rights or privacy rights of any
-                      other individual or organization.
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h3
-                    className="font-display text-xl font-bold mb-4 uppercase tracking-widest"
-                    data-vi="3.2. Cơ chế giám sát và Xử lý vi phạm"
-                    data-en="3.2. Monitoring and Violation Handling Mechanism"
-                  >
-                    3.2. Monitoring and Violation Handling Mechanism
-                  </h3>
-                  <ul className="space-y-4">
-                    <li
-                      data-vi="Chúng tôi có toàn quyền chủ động sàng lọc, kiểm tra và gỡ bỏ ngay lập tức bất kỳ thông tin nào do người dùng tạo ra nếu xác định nội dung đó vi phạm quy định pháp luật hoặc tiêu chuẩn cộng đồng của Ứng dụng."
-                      data-en="We reserve the full right to proactively screen, inspect, and immediately remove any user-generated information if we determine that content violates legal regulations or the App's community standards."
-                    >
-                      We reserve the full right to proactively screen, inspect, and
-                      immediately remove any user-generated information if we determine that
-                      content violates legal regulations or the App's community standards.
-                    </li>
-                    <li
-                      data-vi="Ứng dụng tích hợp sẵn cơ chế cho phép người dùng báo cáo (Report) các hành vi vi phạm hoặc người dùng độc hại trực tiếp từ giao diện nhóm. Ban quản trị cam kết thẩm định và xử lý các báo cáo vi phạm trong vòng tối đa hai mươi tư (24) giờ."
-                      data-en="The App includes a built-in mechanism that allows users to report (Report) violations or malicious users directly from the group interface. The administration team is committed to reviewing and processing violation reports within a maximum of twenty-four (24) hours."
-                    >
-                      The App includes a built-in mechanism that allows users to report
-                      (Report) violations or malicious users directly from the group
-                      interface. The administration team is committed to reviewing and
-                      processing violation reports within a maximum of twenty-four (24)
-                      hours.
-                    </li>
-                    <li
-                      data-vi="Người dùng có hành vi vi phạm sẽ bị khóa tài khoản vĩnh viễn và cấm truy cập vào mọi tính năng tương tác của Ứng dụng mà không nhận được bất kỳ sự thông báo hay bồi hoàn nào."
-                      data-en="Users who commit violations will have their accounts permanently locked and be banned from all interactive features of the App without receiving any notice or reimbursement."
-                    >
-                      Users who commit violations will have their accounts permanently locked
-                      and be banned from all interactive features of the App without
-                      receiving any notice or reimbursement.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-            <hr className="border-black/10 dark:border-white/10" />
-
-            <section data-aos="fade-up">
-              <h2
-                className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter"
-                data-vi="4. Tính năng Phân tích Phát âm bằng Trí tuệ Nhân tạo (AI)"
-                data-en="4. AI Pronunciation Analysis Feature"
-              >
-                4. AI Pronunciation Analysis Feature
-              </h2>
-              <p
-                className="mb-6"
-                data-vi="Ứng dụng tích hợp công nghệ Trí tuệ nhân tạo (AI) giúp phân tích âm thanh và đánh giá phát âm tiếng Anh của người dùng. Tính năng này yêu cầu quyền truy cập vào Microphone trên thiết bị của bạn:"
-                data-en="The App integrates Artificial Intelligence (AI) technology to help analyze audio and evaluate users' English pronunciation. This feature requires access to the Microphone on your device:"
-              >
-                The App integrates Artificial Intelligence (AI) technology to help analyze
-                audio and evaluate users' English pronunciation. This feature requires access
-                to the Microphone on your device:
-              </p>
-              <ul className="space-y-4 mb-6">
-                <li
-                  data-vi="Ứng dụng chỉ thực hiện thu âm khi bạn chủ động cấp quyền hệ thống và nhấn giữ nút ghi âm trong các bài học cụ thể."
-                  data-en="The App only performs audio recording when you actively grant system permissions and press and hold the record button in specific lessons."
-                >
-                  The App only performs audio recording when you actively grant system
-                  permissions and press and hold the record button in specific lessons.
-                </li>
-                <li
-                  data-vi="Bạn hiểu và đồng ý rằng các kết quả nhận diện, chấm điểm, đánh giá và phản hồi lỗi sai từ hệ thống AI chỉ mang tính chất tham khảo, hỗ trợ cải thiện kỹ năng cá nhân. Kết quả này <strong>không mang giá trị chứng nhận pháp lý, không tương đương hoặc thay thế cho kết quả thi khảo thí chính thức</strong> của các tổ chức giáo dục toàn cầu."
-                  data-en="You understand and agree that the recognition, scoring, evaluation, and error feedback results from the AI system are for reference and personal skill improvement support only. These results <strong>do not hold legal certification value, are not equivalent to, or a substitute for official examination results</strong> from global educational organizations."
-                >
-                  You understand and agree that the recognition, scoring, evaluation, and
-                  error feedback results from the AI system are for reference and personal
-                  skill improvement support only. These results{" "}
-                  <strong>
-                    do not hold legal certification value, are not equivalent to, or a
-                    substitute for official examination results
-                  </strong>{" "}
-                  from global educational organizations.
-                </li>
-              </ul>
-            </section>
-
-            <hr className="border-black/10 dark:border-white/10" />
-
-            <section data-aos="fade-up">
-              <h2
-                className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter"
-                data-vi="5. Cam kết Dịch vụ Miễn phí"
-                data-en="5. Free Service Commitment"
-              >
-                5. Free Service Commitment
-              </h2>
-              <p
-                className="mb-6"
-                data-vi="Ở phiên bản hiện tại, <strong>FM Dictionary được cung cấp hoàn toàn miễn phí</strong> cho tất cả người dùng tải về và sử dụng các tính năng cốt lõi. Chúng tôi cam kết:"
-                data-en="In the current version, <strong>FM Dictionary is provided completely free of charge</strong> for all users to download and use core features. We commit:"
-              >
-                In the current version, <strong>FM Dictionary is provided completely free of charge</strong> for all users to download and use core features. We commit:
-              </p>
-              <ul className="space-y-4">
-                <li
-                  data-vi="Không thu bất kỳ khoản phí ẩn hay yêu cầu đăng ký gói thành viên trả phí nào trong suốt quá trình người dùng học tập và vận hành ứng dụng."
-                  data-en="Not to collect any hidden fees or require paid membership subscriptions throughout the user's learning and app operation process."
-                >
-                  Not to collect any hidden fees or require paid membership subscriptions
-                  throughout the user's learning and app operation process.
-                </li>
-                <li
-                  data-vi="Toàn bộ kho từ vựng và tiến trình học tập được mở khóa tự động mà không yêu cầu người dùng phải thực hiện giao dịch tài chính hay liên kết thẻ thanh toán."
-                  data-en="The entire vocabulary warehouse and learning progress are automatically unlocked without requiring users to perform financial transactions or link payment cards."
-                >
-                  The entire vocabulary warehouse and learning progress are automatically
-                  unlocked without requiring users to perform financial transactions or link
-                  payment cards.
-                </li>
-              </ul>
-            </section>
-
-            <hr className="border-black/10 dark:border-white/10" />
-
-            <section data-aos="fade-up">
-              <h2
-                className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter"
-                data-vi="6. Giới hạn Trách nhiệm Pháp lý"
-                data-en="6. Limitation of Liability"
-              >
-                6. Limitation of Liability
-              </h2>
-              <p
-                className="mb-6"
-                data-vi="Trong phạm vi tối đa được pháp luật cho phép, <strong>An Khang Studio</strong> và <strong>Thúy Tạ</strong> sẽ không chịu trách nhiệm đối với bất kỳ thiệt hại trực tiếp, gián tiếp, ngẫu nhiên hoặc hệ quả nào phát sinh từ:"
-                data-en="To the maximum extent permitted by law, <strong>An Khang Studio</strong> and <strong>Thuy Ta</strong> will not be liable for any direct, indirect, incidental, or consequential damages arising from:"
-              >
-                To the maximum extent permitted by law, <strong>An Khang Studio</strong> and{" "}
-                <strong>Thuy Ta</strong> will not be liable for any direct, indirect,
-                incidental, or consequential damages arising from:
-              </p>
-              <ul className="space-y-4">
-                <li
-                  data-vi="Việc người dùng sử dụng hoặc không thể sử dụng Ứng dụng do các lỗi kỹ thuật khách quan từ phía thiết bị cá nhân."
-                  data-en="User use or inability to use the App due to objective technical errors from individual devices."
-                >
-                  User use or inability to use the App due to objective technical errors from
-                  individual devices.
-                </li>
-                <li
-                  data-vi="Sự gián đoạn dịch vụ, mất kết nối, lỗi hệ thống máy chủ hoặc mất mát dữ liệu tạm thời do các nhà cung cấp dịch vụ hạ tầng bên thứ ba gây ra (bao gồm Google Firebase và Cloudflare)."
-                  data-en="Service disruption, disconnection, server system errors, or temporary data loss caused by third-party infrastructure service providers (including Google Firebase and Cloudflare)."
-                >
-                  Service disruption, disconnection, server system errors, or temporary data
-                  loss caused by third-party infrastructure service providers (including
-                  Google Firebase and Cloudflare).
-                </li>
-                <li
-                  data-vi="Bất kỳ sai sót, thiếu sót không cố ý nào về mặt nội dung định nghĩa từ điển (dù chúng tôi luôn nỗ lực tối đa để đảm bảo tính chính xác và cập nhật liên tục)."
-                  data-en="Any unintentional errors or omissions in terms of dictionary definition content (although we always make our best efforts to ensure accuracy and continuous updates)."
-                >
-                  Any unintentional errors or omissions in terms of dictionary definition
-                  content (although we always make our best efforts to ensure accuracy and
-                  continuous updates).
-                </li>
-              </ul>
-            </section>
-
-            <hr className="border-black/10 dark:border-white/10" />
-
-            <section data-aos="fade-up">
-              <h2
-                className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter"
-                data-vi="7. Luật áp dụng và Giải quyết tranh chấp"
-                data-en="7. Applicable Law and Dispute Resolution"
-              >
-                7. Applicable Law and Dispute Resolution
-              </h2>
-              <ul className="space-y-4 mb-6">
-                <li
-                  data-vi="Các Điều khoản Dịch vụ này được điều chỉnh, giải thích và thực thi hoàn toàn theo quy định của <strong>Pháp luật nước Cộng hòa Xã hội Chủ nghĩa Việt Nam</strong>."
-                  data-en="These Terms of Service are governed, interpreted, and enforced entirely in accordance with the laws of the <strong>Socialist Republic of Vietnam</strong>."
-                >
-                  These Terms of Service are governed, interpreted, and enforced entirely in
-                  accordance with the laws of the <strong>Socialist Republic of Vietnam</strong>
-                  .
-                </li>
-                <li
-                  data-vi="Mọi tranh chấp, khiếu nại phát sinh từ hoặc liên quan đến việc sử dụng Ứng dụng trước hết sẽ được giải quyết thông qua tinh thần thương lượng, hòa giải thiện chí giữa các bên."
-                  data-en="Any disputes or complaints arising from or related to the use of the App will first be resolved through a spirit of negotiation and good-faith reconciliation between the parties."
-                >
-                  Any disputes or complaints arising from or related to the use of the App
-                  will first be resolved through a spirit of negotiation and good-faith
-                  reconciliation between the parties.
-                </li>
-                <li
-                  data-vi="Trong trường hợp không thể đạt được thỏa thuận chung bằng thương lượng trong vòng sáu mươi (60) ngày kể từ ngày phát sinh tranh chấp, vụ việc sẽ được đưa ra giải quyết tại Tòa án nhân dân có thẩm quyền tại Việt Nam để phân xử theo luật định."
-                  data-en="In the event that a mutual agreement cannot be reached through negotiation within sixty (60) days from the date the dispute arose, the case will be brought for resolution at a competent People's Court in Vietnam for adjudication according to the law."
-                >
-                  In the event that a mutual agreement cannot be reached through negotiation
-                  within sixty (60) days from the date the dispute arose, the case will be
-                  brought for resolution at a competent People's Court in Vietnam for
-                  adjudication according to the law.
-                </li>
-              </ul>
-            </section>
-
-            <hr className="border-black/10 dark:border-white/10" />
-
-            <section data-aos="fade-up" className="text-red-500">
-              <h2
-                className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter"
-                data-vi="8. Thay đổi Điều khoản và Thông tin Liên hệ"
-                data-en="8. Changes to Terms and Contact Information"
-              >
-                8. Changes to Terms and Contact Information
-              </h2>
-              <div className="p-8 md:p-12 border border-red-500/20 bg-red-500/5">
-                <p
-                  className="mb-6"
-                  data-vi="Chúng tôi có quyền sửa đổi, bổ sung hoặc cập nhật các Điều khoản Dịch vụ này bất kỳ lúc nào để đáp ứng các thay đổi về công nghệ, tính năng vận hành hoặc quy định pháp lý mới từ Google và Apple. Phiên bản cập nhật mới nhất sẽ được đăng tải trực tiếp công khai trên hệ thống và ghi nhận ngày cập nhật ở phần đầu văn bản."
-                  data-en="We reserve the right to modify, supplement, or update these Terms of Service at any time to accommodate technological changes, operational features, or new legal regulations from Google and Apple. The latest updated version will be posted publicly on the system and will note the update date at the beginning of the document."
-                >
-                  We reserve the right to modify, supplement, or update these Terms of Service
-                  at any time to accommodate technological changes, operational features, or
-                  new legal regulations from Google and Apple. The latest updated version will
-                  be posted publicly on the system and will note the update date at the
-                  beginning of the document.
+                <p className="text-base md:text-lg opacity-70 leading-relaxed" data-vi="Toàn bộ nội dung bao gồm nhưng không giới hạn ở: định nghĩa từ vựng, tài liệu học tập, thuật ngữ chuyên ngành, hình ảnh, mã nguồn và giao diện người dùng đều thuộc sở hữu hợp pháp của <strong>Thúy Tạ</strong> và <strong>An Khang Studio</strong>." data-en="All content including but not limited to: vocabulary definitions, learning materials, specialized terms, images, source code, and user interface are the legal property of <strong>Thuy Ta</strong> and <strong>An Khang Studio</strong>.">
+                  All content including but not limited to: vocabulary definitions, learning materials, specialized terms, images, source code, and user interface are the legal property of <strong>Thuy Ta</strong> and <strong>An Khang Studio</strong>.
                 </p>
-                <p
-                  className="mb-6 font-bold"
-                  data-vi="Thông tin liên hệ chính thức và tiếp nhận phản ánh:"
-                  data-en="Official contact information and feedback reception:"
-                >
-                  Official contact information and feedback reception:
-                </p>
-                <ul className="space-y-4 font-bold">
-                  <li>
-                    <span
-                      data-vi="Đơn vị phát triển kỹ thuật: An Khang Studio"
-                      data-en="Technical Developer: An Khang Studio"
-                    >
-                      Technical Developer: An Khang Studio
-                    </span>
-                  </li>
-                  <li>
-                    <span
-                      data-vi="Chủ sở hữu bản quyền nội dung: Thúy Tạ (Thuy Ta)"
-                      data-en="Content Copyright Owner: Thuy Ta"
-                    >
-                      Content Copyright Owner: Thuy Ta
-                    </span>
-                  </li>
-                  <li>
-                    <span
-                      data-vi="Email hỗ trợ & Tiếp nhận báo cáo vi phạm: "
-                      data-en="Support Email & Violation Reporting: "
-                    >
-                      Support Email & Violation Reporting:{" "}
-                    </span>
-                    <a href="mailto:ankhang.nguyen0704@gmail.com" className="underline break-all">
-                      ankhang.nguyen0704@gmail.com
-                    </a>
-                  </li>
-                </ul>
+                <div className="p-6 rounded-2xl bg-black dark:bg-white text-white dark:text-black text-sm font-medium" data-vi="Nghiêm cấm mọi hành vi sao chép, trích xuất dữ liệu (scraping), phân phối lại hoặc sử dụng nội dung cho mục đích thương mại khi chưa có sự đồng ý bằng văn bản." data-en="Any act of copying, data scraping, redistributing, or using content for commercial purposes without written consent is strictly prohibited.">
+                  Any act of copying, data scraping, redistributing, or using content for commercial purposes without written consent is strictly prohibited.
+                </div>
               </div>
             </section>
 
-            <hr className="border-black/10 dark:border-white/10" />
+            <div className="h-[1px] w-full bg-black/5 dark:bg-white/5" />
 
-            <p
-              className="text-xs opacity-50 italic text-center py-10"
-              data-vi="<em>Văn bản này được thiết lập nhằm tuân thủ các nguyên tắc kiểm duyệt và bảo vệ quyền sở hữu trí tuệ nghiêm ngặt của Apple App Store và Google Play Store.</em>"
-              data-en="<em>This document is established to comply with the strict review guidelines and intellectual property protection of the Apple App Store and Google Play Store.</em>"
-            >
-              <em>
-                This document is established to comply with the strict review guidelines and
-                intellectual property protection of the Apple App Store and Google Play Store.
-              </em>
-            </p>
-          </div>
+            {/* Section 3 */}
+            <section className="space-y-12">
+              <h2 className="text-3xl font-bold tracking-tight text-black dark:text-white uppercase tracking-tighter" data-vi="3. Sử dụng Hợp lệ" data-en="3. Acceptable Use">3. Acceptable Use</h2>
+              <p data-vi="Bạn đồng ý sử dụng Ứng dụng cho mục đích học tập cá nhân và tuân thủ các quy tắc:" data-en="You agree to use the App for personal learning purposes and comply with these rules:">
+                You agree to use the App for personal learning purposes and comply with these rules:
+              </p>
+              <ul className="space-y-8">
+                {[
+                  {
+                    titleVi: "Không can thiệp hệ thống",
+                    titleEn: "No System Interference",
+                    descVi: "Không cố gắng phá vỡ các biện pháp bảo mật, gây quá tải máy chủ hoặc can thiệp vào hoạt động bình thường của Ứng dụng.",
+                    descEn: "Do not attempt to bypass security measures, overload servers, or interfere with the normal operation of the App."
+                  },
+                  {
+                    titleVi: "Tài khoản người dùng",
+                    titleEn: "User Accounts",
+                    descVi: "Bạn chịu trách nhiệm bảo mật thông tin đăng nhập từ Google/Apple Sign-In và mọi hoạt động diễn ra dưới tài khoản của bạn.",
+                    descEn: "You are responsible for securing your Google/Apple Sign-In credentials and all activities under your account."
+                  }
+                ].map((item, index) => (
+                  <li key={index} className="flex gap-6 items-start">
+                    <div className="w-1.5 h-1.5 rounded-full bg-black/20 dark:bg-white/20 mt-3 flex-shrink-0" />
+                    <div>
+                      <strong className="block text-black dark:text-white mb-2 text-xl" data-vi={item.titleVi} data-en={item.titleEn}>{item.titleEn}</strong>
+                      <span className="opacity-70 leading-relaxed block" data-vi={item.descVi} data-en={item.descEn}>{item.descEn}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <div className="h-[1px] w-full bg-black/5 dark:bg-white/5" />
+
+            {/* Section 4 */}
+            <section className="space-y-12">
+              <h2 className="text-3xl font-bold tracking-tight text-black dark:text-white uppercase tracking-tighter" data-vi="4. Miễn trừ Trách nhiệm" data-en="4. Disclaimer of Liability">4. Disclaimer of Liability</h2>
+              <div className="p-10 rounded-3xl bg-zinc-50 dark:bg-zinc-900/50 border border-black/[0.03] dark:border-white/[0.03] space-y-6">
+                <div className="flex items-center space-x-4 mb-4">
+                  <WarningCircle size={32} weight="thin" />
+                  <h4 className="text-xl font-bold uppercase tracking-widest" data-vi="Giới hạn trách nhiệm" data-en="Limitation of Liability">Limitation of Liability</h4>
+                </div>
+                <p className="text-base opacity-70 leading-relaxed" data-vi="FM Dictionary được cung cấp trên cơ sở 'nguyên trạng' (as is). Chúng tôi nỗ lực đảm bảo tính chính xác của thuật ngữ nhưng không đảm bảo rằng mọi thông tin đều hoàn hảo hoặc không có sai sót kỹ thuật." data-en="FM Dictionary is provided on an 'as is' basis. We strive for accuracy but do not guarantee that all info is perfect or free of technical errors.">
+                  FM Dictionary is provided on an 'as is' basis. We strive for accuracy but do not guarantee that all info is perfect or free of technical errors.
+                </p>
+                <p className="text-base opacity-70 leading-relaxed" data-vi="Chúng tôi không chịu trách nhiệm cho bất kỳ thiệt hại trực tiếp hoặc gián tiếp nào phát sinh từ việc sử dụng hoặc không thể sử dụng Ứng dụng." data-en="We are not liable for any direct or indirect damages arising from the use or inability to use the App.">
+                  We are not liable for any direct or indirect damages arising from the use or inability to use the App.
+                </p>
+              </div>
+            </section>
+
+            <div className="h-[1px] w-full bg-black/5 dark:bg-white/5" />
+
+            {/* Section 5 & 6 */}
+            <section className="space-y-12">
+              <h2 className="text-3xl font-bold tracking-tight text-black dark:text-white uppercase tracking-tighter" data-vi="5. Thay đổi & 6. Liên hệ" data-en="5. Changes & 6. Contact">5. Changes & 6. Contact</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div className="space-y-6">
+                  <h4 className="font-bold text-xl" data-vi="Cập nhật Điều khoản" data-en="Terms Updates">Terms Updates</h4>
+                  <p className="text-base opacity-60 leading-relaxed" data-vi="Chúng tôi có quyền sửa đổi các Điều khoản này bất kỳ lúc nào. Việc bạn tiếp tục sử dụng Ứng dụng sau khi thay đổi có nghĩa là bạn chấp thuận các Điều khoản mới." data-en="We reserve the right to modify these Terms at any time. Continued use of the App after changes means you accept the new Terms.">We reserve the right to modify these Terms at any time. Continued use of the App after changes means you accept the new Terms.</p>
+                </div>
+                <div className="space-y-6 p-8 rounded-3xl bg-zinc-50 dark:bg-zinc-900/50 border border-black/[0.03] dark:border-white/[0.03]">
+                  <h4 className="font-bold text-xl" data-vi="Hỗ trợ" data-en="Support">Support</h4>
+                  <p className="text-sm opacity-60 mb-4" data-vi="Mọi thắc mắc về Điều khoản vui lòng liên hệ:" data-en="For any questions regarding the Terms, please contact:">For any questions regarding the Terms, please contact:</p>
+                  <a href="mailto:ankhang.nguyen0704@gmail.com" className="font-bold underline text-base break-all">ankhang.nguyen0704@gmail.com</a>
+                </div>
+              </div>
+            </section>
+
+            <div className="pt-20 text-center opacity-30 text-[9px] font-bold uppercase tracking-[0.3em]">
+              © 2026 An Khang Studio · All Rights Reserved
+            </div>
+          </motion.div>
         </div>
       </main>
 
       <FMFooter />
-    </>
+    </div>
   );
 }
