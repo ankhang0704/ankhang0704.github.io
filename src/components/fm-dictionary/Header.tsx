@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, useScroll, useMotionValueEvent } from "motion/react";
-import { Sun, Moon, List, X, AppleLogo, GooglePlayLogo } from "@phosphor-icons/react";
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "motion/react";
+import { Sun, Moon, List, X } from "@phosphor-icons/react";
 
 export default function FMHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,7 +15,9 @@ export default function FMHeader() {
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setIsScrolled(latest > 50);
+    if (latest > 50 !== isScrolled) {
+      setIsScrolled(latest > 50);
+    }
   });
 
   useEffect(() => {
@@ -44,10 +46,13 @@ export default function FMHeader() {
 
   useEffect(() => {
     if (isMobileMenuOpen) {
-      document.body.classList.add("body-lock");
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.classList.remove("body-lock");
+      document.body.style.overflow = "";
     }
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isMobileMenuOpen]);
 
   const toggleTheme = () => {
@@ -82,7 +87,7 @@ export default function FMHeader() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        className={`fixed inset-x-0 top-0 z-50 transition-[padding,background-color] duration-500 ease-in-out ${
           isScrolled ? "glass-nav py-4" : "py-8"
         }`}
       >
@@ -110,7 +115,11 @@ export default function FMHeader() {
                 </button>
               </div>
               
-              <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden p-2">
+              <button 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+                className="md:hidden p-2 relative z-50"
+                aria-label="Toggle Menu"
+              >
                 {isMobileMenuOpen ? <X size={24} /> : <List size={24} />}
               </button>
             </div>
@@ -118,37 +127,41 @@ export default function FMHeader() {
         </div>
       </header>
 
-      <motion.div
-        initial={false}
-        animate={isMobileMenuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-        className={`fixed inset-0 bg-white/95 dark:bg-black/95 z-[40] md:hidden flex flex-col items-center justify-center space-y-8 text-2xl font-display uppercase tracking-widest transition-all ${
-          isMobileMenuOpen ? "pointer-events-auto" : "pointer-events-none"
-        }`}
-      >
-        <nav className="flex flex-col items-center space-y-8">
-          {["features", "tech", "download", "permissions"].map((id) => (
-            <Link
-              key={id}
-              href={`/fm-dictionary#${id}`}
-              className="hover:opacity-50 transition-opacity"
-              onClick={() => setIsMobileMenuOpen(false)}
-              data-vi={id === "features" ? "Tính năng" : id === "tech" ? "Công nghệ" : id === "download" ? "Tải về" : "Quyền hạn"}
-              data-en={id.charAt(0).toUpperCase() + id.slice(1)}
-            >
-              {id}
-            </Link>
-          ))}
-        </nav>
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 bg-white dark:bg-black z-[40] md:hidden flex flex-col items-center justify-center space-y-8 text-2xl font-display uppercase tracking-widest will-change-transform"
+          >
+            <nav className="flex flex-col items-center space-y-8">
+              {["features", "tech", "download", "permissions"].map((id) => (
+                <Link
+                  key={id}
+                  href={`/fm-dictionary#${id}`}
+                  className="hover:opacity-50 transition-opacity"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  data-vi={id === "features" ? "Tính năng" : id === "tech" ? "Công nghệ" : id === "download" ? "Tải về" : "Quyền hạn"}
+                  data-en={id.charAt(0).toUpperCase() + id.slice(1)}
+                >
+                  {id}
+                </Link>
+              ))}
+            </nav>
 
-        <div className="flex items-center space-x-12 pt-12 border-t border-black/5 dark:border-white/5 w-2/3 justify-center">
-          <button onClick={toggleLang} className="text-lg font-bold tracking-widest">
-            {lang.toUpperCase()}
-          </button>
-          <button onClick={toggleTheme}>
-            {isDark ? <Sun size={28} weight="bold" /> : <Moon size={28} weight="bold" />}
-          </button>
-        </div>
-      </motion.div>
+            <div className="flex items-center space-x-12 pt-12 border-t border-black/5 dark:border-white/5 w-2/3 justify-center">
+              <button onClick={toggleLang} className="text-lg font-bold tracking-widest">
+                {lang.toUpperCase()}
+              </button>
+              <button onClick={toggleTheme}>
+                {isDark ? <Sun size={28} weight="bold" /> : <Moon size={28} weight="bold" />}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

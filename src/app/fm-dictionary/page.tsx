@@ -339,12 +339,18 @@ export default function FMDictionaryPage() {
           </div>
 
           <div className="relative" onMouseEnter={() => setIsHoveringGallery(true)} onMouseLeave={() => setIsHoveringGallery(false)}>
-            <div ref={scrollRef} className="flex gap-6 md:gap-8 overflow-x-auto pb-24 px-[10%] md:px-[25%] scrollbar-hide snap-x snap-mandatory scroll-smooth">
+            <div ref={scrollRef} className="flex gap-6 md:gap-8 overflow-x-auto pb-24 px-[10%] md:px-[25%] scrollbar-hide snap-x snap-mandatory">
               {APP_SCREENS.map((item, index) => (
                 <motion.div
                   key={index}
                   onClick={() => setSelectedImg(item.img)}
-                  className={`screen-card flex-none w-[260px] md:w-[320px] aspect-[9/19] rounded-[32px] md:rounded-[48px] overflow-hidden relative group cursor-zoom-in snap-center transition-all duration-700 ${index === currentSlide ? "scale-100 opacity-100 shadow-[0_40px_80px_rgba(0,0,0,0.1)]" : "scale-90 opacity-40 blur-[2px]"}`}
+                  initial={false}
+                  animate={{
+                    scale: index === currentSlide ? 1 : 0.9,
+                    opacity: index === currentSlide ? 1 : 0.4,
+                  }}
+                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  className={`screen-card flex-none w-[260px] md:w-[320px] aspect-[9/19] rounded-[32px] md:rounded-[48px] overflow-hidden relative group cursor-zoom-in snap-center ${index === currentSlide ? "shadow-[0_40px_80px_rgba(0,0,0,0.1)]" : ""}`}
                 >
                   <Image src={item.img} alt={item.label} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-8 md:p-10 pt-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all">
