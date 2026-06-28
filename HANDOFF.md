@@ -1,26 +1,20 @@
-# Handoff Document
+# Project Handoff
 
-## Session Summary
-In this session, we focused on updating the project documentation and custom skills to align with the personal portfolio and FM Dictionary landing page context. 
+## Overview
+This document summarizes the recent progress and current state of the An Khang Portfolio & FM Dictionary landing page project. A comprehensive refinement pass was executed focusing on visual craftsmanship, motion consistency, and architecture stability.
 
-**Achievements:**
-1. **Skill Refactoring:** 
-   - `handoff`: Updated to focus on transferring context for the landing page project.
-   - `improve-codebase-architecture`: Completely rewritten to act as a Landing Page Architecture & Layout Governor. It now focuses on HTML structure, Tailwind CSS, mobile responsiveness, vanilla JS logic, Dark/Light mode consistency, and bilingual support (vi/en).
-2. **Documentation Updates:**
-   - `AGENTS.md`: Added a reference to `docs/design/DESIGN.md` under the Styling Rules section.
-   - `README.md`: Rewritten completely to serve as a comprehensive project summary, covering the tech stack, key features, and linking to both `AGENTS.md` and `docs/design/DESIGN.md`.
+## Achievements in the Current Session
+* **Motion & Interactions:** Removed aggressive `snap-start` scroll-snapping site-wide. Replaced "bouncy" translation hover effects (`-translate-y-2`) with premium, unhurried opacity fades. Fixed the theme toggle rotation animation in the FM Dictionary header. Standardized all AOS (Animate On Scroll) durations to `1500ms` across all pages to meet the "cinematic, deliberate, and unhurried" motion guidelines.
+* **Layout & Rhythm:** Refactored the Portfolio Timeline section (`src/app/page.tsx`) from a centered layout into an asymmetrical 2-column Grid (Year on left, Role/Description on right) to maintain left-aligned visual rhythm. Scaled up social icons in the footer and adjusted container heights for optimal balance.
+* **Bilingual Architecture Fix:** Resolved a critical logic bug in `src/app/fm-dictionary/page.tsx` where the vanilla JS language toggle (`updateLangDOM`) would permanently destroy nested `<span>` elements holding the `font-serif italic` typography style. Attributes `data-vi` and `data-en` were moved from the parent `h1` to nested `<span>` elements.
+* **Visual Taste & Color Restraint:** Removed all unapproved "colorful accents" (e.g., `text-red-500`, `text-green-500`) from utility and legal pages (Privacy Policy, Terms of Service, Delete Account), opting for monochromatic styling with opacity variations instead. 
 
-## Context & Artifacts
-- **Primary Configuration & Rules:** `AGENTS.md`
-- **Design Guidelines:** `docs/design/DESIGN.md`
-- **Project Summary:** `README.md`
+## Outstanding Items & Active Bugs
+* The foundation is solid, but the next agent should verify mobile layout functionality (specifically checking for horizontal overflow in the newly refactored Timeline Grid on narrow viewports).
+* Conduct a final review of the language toggle behavior on newly added content to ensure no further DOM destruction occurs.
 
-## Next Steps / Current Focus
-No specific active bugs or ongoing implementation were left incomplete. The next session can proceed with any new development or design tasks on the portfolio or FM dictionary. Be sure to follow the constraints in `docs/design/DESIGN.md` if any UI/UX changes are made.
+## Suggested Skills for the Next Agent
+* `improve-codebase-architecture`: Run this to perform a thorough sweep of any newly introduced layout components to ensure they conform to Grid/Flex responsiveness and Bilingual logic rules.
+* Check the existing `docs/design/` documents (e.g., `DESIGN.md`, `TASTE-SKILL.md`) for canonical truth regarding any design decisions.
 
-## Suggested Skills
-- `improve-codebase-architecture`: Use if the next task involves diagnosing layout, responsiveness, styling, or routing bugs on the landing page.
-- `taste-skill`: Use if the next task involves designing new components or sections to ensure it adheres to the minimalist/editorial anti-slop guidelines.
-
-*(Note: Latest changes have been committed locally. A `git push` was attempted but the repo is currently in a detached HEAD state, so changes were saved locally.)*
+*(All changes have been safely committed to git with message: `chore: save progress for handoff - architecture and layout improvements`)*
