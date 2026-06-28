@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { Icons } from "@/components/Icons";
 
 export default function FMFooter() {
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -25,26 +26,28 @@ export default function FMFooter() {
     <>
       <footer
         id="contact"
-        className="py-20 text-center relative border-t border-black/10 dark:border-white/10 overflow-x-hidden"
+        className="py-20 text-center min-h-[50vh] flex flex-col justify-center relative border-t border-black/10 dark:border-white/10 overflow-x-hidden"
       >
         <div className="container mx-auto px-6 md:px-8 relative z-10" data-aos="zoom-in">
           <h2 className="font-display text-5xl font-bold mb-8 uppercase tracking-tighter">
             FM Dictionary.
           </h2>
-          <div className="flex justify-center space-x-8 mb-12 text-xl">
+          <div className="flex justify-center space-x-8 mb-12 text-3xl">
             <a
               href="mailto:ankhang.nguyen0704@gmail.com"
-              className="hover:-translate-y-2 transition-transform"
+              className="hover:opacity-50 transition-opacity duration-500"
+              aria-label="Email"
             >
-              <i className="fas fa-envelope text-black dark:text-white"></i>
+              <Icons.Mail className="text-black dark:text-white" />
             </a>
             <a
               href="https://github.com/ankhang0704"
-              className="hover:-translate-y-2 transition-transform"
+              className="hover:opacity-50 transition-opacity duration-500"
               target="_blank"
               rel="noreferrer"
+              aria-label="GitHub"
             >
-              <i className="fab fa-github text-black dark:text-white"></i>
+              <Icons.Github className="text-black dark:text-white" />
             </a>
           </div>
 
@@ -57,6 +60,9 @@ export default function FMFooter() {
             </Link>
             <Link href="/fm-dictionary/terms-of-service/" className="hover-underline" data-vi="Điều khoản Dịch vụ" data-en="Terms of Service">
               Terms of Service
+            </Link>
+            <Link href="/fm-dictionary/delete-account/" className="hover-underline" data-vi="Xóa Tài khoản" data-en="Delete Account">
+              Delete Account
             </Link>
           </div>
 
@@ -86,8 +92,9 @@ export default function FMFooter() {
         className={`fixed bottom-8 right-8 w-12 h-12 bg-black text-white dark:bg-white dark:text-black rounded-full flex items-center justify-center transition-all duration-500 z-50 hover:scale-110 ${
           showBackToTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
+        aria-label="Back to top"
       >
-        <i className="fas fa-arrow-up"></i>
+        <Icons.ArrowUp />
       </button>
     </>
   );

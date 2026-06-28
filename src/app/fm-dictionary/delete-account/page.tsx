@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import FMHeader from "../../../components/fm-dictionary/Header";
 import FMFooter from "../../../components/fm-dictionary/Footer";
+import { Icons } from "../../../components/Icons";
 
 export default function DeleteAccountPage() {
   const [email, setEmail] = useState("");
@@ -18,7 +19,7 @@ export default function DeleteAccountPage() {
     setLang(savedLang);
 
     AOS.init({
-      duration: 800,
+      duration: 1500,
       easing: "ease-out-cubic",
       once: true,
     });
@@ -88,19 +89,19 @@ export default function DeleteAccountPage() {
             </h1>
             <div className="flex flex-wrap gap-8 text-[10px] uppercase tracking-widest opacity-80 font-medium">
               <span>
-                <i className="fas fa-calendar-days text-black dark:text-white mr-2"></i>
+                <Icons.Calendar size={12} className="inline mr-2" />
                 <span data-en="Effective: Jan 01, 2026" data-vi="Ngày hiệu lực: 01/01/2026">
                   {lang === "vi" ? "Ngày hiệu lực: 01/01/2026" : "Effective: Jan 01, 2026"}
                 </span>
               </span>
               <span>
-                <i className="fas fa-rotate text-black dark:text-white mr-2"></i>
+                <Icons.Refresh size={12} className="inline mr-2" />
                 <span data-en="Updated: June 04, 2026" data-vi="Cập nhật lần cuối: 04/06/2026">
                   {lang === "vi" ? "Cập nhật lần cuối: 04/06/2026" : "Updated: June 04, 2026"}
                 </span>
               </span>
               <span>
-                <i className="fas fa-building text-black dark:text-white mr-2"></i>
+                <Icons.Building size={12} className="inline mr-2" />
                 <span data-en="An Khang Studio" data-vi="Đơn vị phát triển: An Khang Studio">
                   An Khang Studio
                 </span>
@@ -223,7 +224,7 @@ export default function DeleteAccountPage() {
 
               {formSubmitted ? (
                 <div className="p-8 border border-black/20 dark:border-white/20 bg-black/5 dark:bg-white/5 rounded-lg text-center">
-                  <i className="fas fa-circle-check text-black dark:text-white text-4xl mb-4"></i>
+                  <Icons.Check size={36} className="mb-4 inline-block" />
                   <h3
                     className="font-display text-2xl font-bold mb-2 uppercase"
                     data-vi="Đã chuẩn bị email thành công!"

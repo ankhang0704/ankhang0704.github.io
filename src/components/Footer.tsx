@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { Icons } from "@/components/Icons";
 
 export default function Footer() {
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -24,7 +25,7 @@ export default function Footer() {
     <>
       <footer
         id="contact"
-        className="snap-start py-20 text-center min-h-[50vh] flex flex-col justify-center relative overflow-x-hidden"
+        className="py-20 text-center min-h-[50vh] flex flex-col justify-center relative overflow-x-hidden"
       >
         <div className="absolute left-1/2 -translate-x-1/2 top-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1557672172-298e090bd0f1?q=80&w=1000')] bg-cover bg-center opacity-[0.03] dark:opacity-[0.01] grayscale pointer-events-none blur-[4px] max-w-full"></div>
         <div className="container mx-auto px-6 md:px-8 relative z-10" data-aos="zoom-in">
@@ -45,34 +46,34 @@ export default function Footer() {
           <div className="flex justify-center space-x-8 mt-16 text-2xl">
             <a
               href="https://github.com/ankhang0704"
-              className="hover:-translate-y-2 transition-transform"
+              className="hover:opacity-50 transition-opacity duration-500"
               target="_blank"
               rel="noreferrer"
             >
-              <i className="fab fa-github text-black dark:text-white"></i>
+              <Icons.Github className="text-black dark:text-white" />
             </a>
             <a
               href="https://www.linkedin.com/in/khang-nguyen-0855893a7/"
-              className="hover:-translate-y-2 transition-transform"
+              className="hover:opacity-50 transition-opacity duration-500"
               target="_blank"
               rel="noreferrer"
             >
-              <i className="fab fa-linkedin text-black dark:text-white"></i>
+              <Icons.LinkedIn className="text-black dark:text-white" />
             </a>
             <a
               href="https://www.facebook.com/ankhang0704"
-              className="hover:-translate-y-2 transition-transform"
+              className="hover:opacity-50 transition-opacity duration-500"
               target="_blank"
               rel="noreferrer"
             >
-              <i className="fab fa-facebook text-black dark:text-white"></i>
+              <Icons.Facebook className="text-black dark:text-white" />
             </a>
           </div>
 
           <p className="mt-16 text-sm font-light opacity-50 uppercase tracking-widest">
             © 2026 An Khang.{" "}
-            <span data-vi="Portfolio Tối Giản." data-en="Minimalist Portfolio.">
-              Minimalist Portfolio.
+            <span data-vi="Portfolio Tối Giản." data-en="Portfolio.">
+              Portfolio.
             </span>
           </p>
         </div>
@@ -85,7 +86,7 @@ export default function Footer() {
           showBackToTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
-        <i className="fas fa-arrow-up"></i>
+        <Icons.ArrowUp />
       </button>
     </>
   );

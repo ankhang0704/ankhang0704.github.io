@@ -5,11 +5,12 @@ import Link from "next/link";
 import AOS from "aos";
 import FMHeader from "../../../components/fm-dictionary/Header";
 import FMFooter from "../../../components/fm-dictionary/Footer";
+import { Icons } from "../../../components/Icons";
 
 export default function SupportPage() {
   useEffect(() => {
     AOS.init({
-      duration: 800,
+      duration: 1500,
       easing: "ease-out-cubic",
       once: true,
     });
@@ -46,19 +47,19 @@ export default function SupportPage() {
             </h1>
             <div className="flex flex-wrap gap-8 text-[10px] uppercase tracking-widest opacity-80 font-medium">
               <span>
-                <i className="fas fa-envelope mr-2"></i>
+                <Icons.Mail size={12} className="inline mr-2" />
                 <span data-en="Email: ankhang.nguyen0704@gmail.com" data-vi="Email: ankhang.nguyen0704@gmail.com">
                   Email: ankhang.nguyen0704@gmail.com
                 </span>
               </span>
               <span>
-                <i className="fas fa-clock mr-2"></i>
+                <Icons.Clock size={12} className="inline mr-2" />
                 <span data-en="Response: 24–48 hours" data-vi="Phản hồi: 24–48 giờ làm việc">
                   Response: 24–48 hours
                 </span>
               </span>
               <span>
-                <i className="fas fa-building mr-2"></i>
+                <Icons.Building size={12} className="inline mr-2" />
                 <span data-en="An Khang Studio" data-vi="Đơn vị phát triển: An Khang Studio">
                   An Khang Studio
                 </span>
@@ -95,7 +96,7 @@ export default function SupportPage() {
                 {/* Account & Login */}
                 <div>
                   <h3 className="font-display text-xl font-bold mb-6 uppercase tracking-widest flex items-center">
-                    <i className="fas fa-shield-halved text-black dark:text-white mr-3"></i>
+                    <Icons.Shield size={20} className="text-black dark:text-white mr-3" />
                     <span data-vi="Tài khoản & Đăng nhập" data-en="Account & Login">
                       Account & Login
                     </span>
@@ -172,7 +173,7 @@ export default function SupportPage() {
                 {/* Learning & Features */}
                 <div>
                   <h3 className="font-display text-xl font-bold mb-6 uppercase tracking-widest flex items-center">
-                    <i className="fas fa-book-open text-black dark:text-white mr-3"></i>
+                    <Icons.Book size={20} className="text-black dark:text-white mr-3" />
                     <span data-vi="Học tập & Tính năng" data-en="Learning & Features">
                       Learning & Features
                     </span>
@@ -258,7 +259,7 @@ export default function SupportPage() {
                 {/* Social Learning */}
                 <div>
                   <h3 className="font-display text-xl font-bold mb-6 uppercase tracking-widest flex items-center">
-                    <i className="fas fa-users text-black dark:text-white mr-3"></i>
+                    <Icons.Users size={20} className="text-black dark:text-white mr-3" />
                     <span data-vi="Nhóm học tập" data-en="Social Learning">
                       Social Learning
                     </span>
@@ -304,7 +305,7 @@ export default function SupportPage() {
                 {/* Technical Support */}
                 <div>
                   <h3 className="font-display text-xl font-bold mb-6 uppercase tracking-widest flex items-center">
-                    <i className="fas fa-gears text-black dark:text-white mr-3"></i>
+                    <Icons.Settings size={20} className="text-black dark:text-white mr-3" />
                     <span data-vi="Lỗi & Sự cố kỹ thuật" data-en="Technical Support">
                       Technical Support
                     </span>
@@ -381,7 +382,7 @@ export default function SupportPage() {
                     </tr>
                     <tr>
                       <td className="border border-black/10 dark:border-white/10 p-4 font-bold">
-                        <i className="fas fa-envelope text-black dark:text-white mr-3"></i>
+                        <Icons.Mail size={16} className="text-black dark:text-white mr-3 inline" />
                         <span data-vi="Email hỗ trợ" data-en="Support Email">
                           Support Email
                         </span>
@@ -394,7 +395,7 @@ export default function SupportPage() {
                     </tr>
                     <tr>
                       <td className="border border-black/10 dark:border-white/10 p-4 font-bold">
-                        <i className="fas fa-globe text-black dark:text-white mr-3"></i>
+                        <Icons.Globe size={16} className="text-black dark:text-white mr-3 inline" />
                         <span data-vi="Trang chủ" data-en="Home Page">
                           Home Page
                         </span>
@@ -407,7 +408,7 @@ export default function SupportPage() {
                     </tr>
                     <tr>
                       <td className="border border-black/10 dark:border-white/10 p-4 font-bold">
-                        <i className="fas fa-clock text-black dark:text-white mr-3"></i>
+                        <Icons.Clock size={16} className="text-black dark:text-white mr-3 inline" />
                         <span data-vi="Thời gian làm việc" data-en="Working Hours">
                           Working Hours
                         </span>

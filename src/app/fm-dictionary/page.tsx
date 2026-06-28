@@ -6,14 +6,15 @@ import Link from "next/link";
 import Image from "next/image";
 import FMHeader from "../../components/fm-dictionary/Header";
 import FMFooter from "../../components/fm-dictionary/Footer";
+import { Icons } from "../../components/Icons";
 
 const APP_SCREENS = [
-  { icon: "fa-house", label: "Home", img: "/images/fm-dictionary/fm_dictionary_0001.webp" },
-  { icon: "fa-map-location-dot", label: "Roadmap", img: "/images/fm-dictionary/fm_dictionary_0002.webp" },
-  { icon: "fa-pen-to-square", label: "Quiz", img: "/images/fm-dictionary/fm_dictionary_0003.webp" },
-  { icon: "fa-microphone-lines", label: "Pronunciation", img: "/images/fm-dictionary/fm_dictionary_0004.webp" },
-  { icon: "fa-trophy", label: "Badges", img: "/images/fm-dictionary/fm_dictionary_0005.webp" },
-  { icon: "fa-book-bookmark", label: "Dictionary", img: "/images/fm-dictionary/fm_dictionary_0006.webp" },
+  { IconComponent: Icons.Home, label: "Home", img: "/images/fm-dictionary/fm_dictionary_0001.webp" },
+  { IconComponent: Icons.Map, label: "Roadmap", img: "/images/fm-dictionary/fm_dictionary_0002.webp" },
+  { IconComponent: Icons.Edit, label: "Quiz", img: "/images/fm-dictionary/fm_dictionary_0003.webp" },
+  { IconComponent: Icons.Microphone, label: "Pronunciation", img: "/images/fm-dictionary/fm_dictionary_0004.webp" },
+  { IconComponent: Icons.Trophy, label: "Badges", img: "/images/fm-dictionary/fm_dictionary_0005.webp" },
+  { IconComponent: Icons.Bookmark, label: "Dictionary", img: "/images/fm-dictionary/fm_dictionary_0006.webp" },
 ];
 
 export default function FMDictionaryPage() {
@@ -147,12 +148,15 @@ export default function FMDictionaryPage() {
             </p>
             <h1
               className="font-display text-5xl md:text-8xl font-bold leading-tight mb-6 md:mb-12"
-              data-vi="Làm chủ từ vựng FM.<br>Theo cách thông minh."
-              data-en="Master FM Vocab.<br>The Smart Way."
             >
-              Master FM Vocab.
-              <br />
-              <span className="font-serif italic text-6xl md:text-9xl tracking-normal">
+              <span 
+                data-vi="Làm chủ từ vựng FM.<br/>" 
+                data-en="Master FM Vocab.<br/>"
+              >
+                Master FM Vocab.
+                <br />
+              </span>
+              <span className="font-serif italic text-6xl md:text-9xl tracking-normal" data-vi="Theo cách thông minh" data-en="The Smart Way">
                 The Smart Way
               </span>
               .
@@ -268,7 +272,7 @@ export default function FMDictionaryPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
               <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up">
                 <div className="text-3xl mb-6 text-black dark:text-white">
-                  <i className="fas fa-map-location-dot"></i>
+                  <Icons.Map size={32} />
                 </div>
                 <h3 className="font-display text-xl font-bold mb-4" data-vi="Lộ trình học tập" data-en="Roadmap Learning">
                   Roadmap Learning
@@ -283,7 +287,7 @@ export default function FMDictionaryPage() {
               </div>
               <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up" data-aos-delay="100">
                 <div className="text-3xl mb-6 text-black dark:text-white">
-                  <i className="fas fa-microphone-lines"></i>
+                  <Icons.Microphone size={32} />
                 </div>
                 <h3 className="font-display text-xl font-bold mb-4" data-vi="Luyện phát âm AI" data-en="AI Pronunciation">
                   AI Pronunciation
@@ -298,7 +302,7 @@ export default function FMDictionaryPage() {
               </div>
               <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up" data-aos-delay="200">
                 <div className="text-3xl mb-6 text-black dark:text-white">
-                  <i className="fas fa-trophy"></i>
+                  <Icons.Trophy size={32} />
                 </div>
                 <h3 className="font-display text-xl font-bold mb-4" data-vi="Hệ thống huy hiệu" data-en="Achievement System">
                   Achievement System
@@ -313,7 +317,7 @@ export default function FMDictionaryPage() {
               </div>
               <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up">
                 <div className="text-3xl mb-6 text-black dark:text-white">
-                  <i className="fas fa-users-rectangle"></i>
+                  <Icons.Users size={32} />
                 </div>
                 <h3 className="font-display text-xl font-bold mb-4" data-vi="Nhóm học tập" data-en="Social Learning">
                   Social Learning
@@ -328,7 +332,7 @@ export default function FMDictionaryPage() {
               </div>
               <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up" data-aos-delay="100">
                 <div className="text-3xl mb-6 text-black dark:text-white">
-                  <i className="fas fa-book-bookmark"></i>
+                  <Icons.Bookmark size={32} />
                 </div>
                 <h3 className="font-display text-xl font-bold mb-4" data-vi="Từ điển chuyên ngành" data-en="FM Dictionary">
                   FM Dictionary
@@ -343,7 +347,7 @@ export default function FMDictionaryPage() {
               </div>
               <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up" data-aos-delay="200">
                 <div className="text-3xl mb-6 text-black dark:text-white">
-                  <i className="fas fa-language"></i>
+                  <Icons.Language size={32} />
                 </div>
                 <h3 className="font-display text-xl font-bold mb-4" data-vi="Giao diện đa ngôn ngữ" data-en="Multilingual UI">
                   Multilingual UI
@@ -412,6 +416,7 @@ export default function FMDictionaryPage() {
 
         {/* App Screens */}
         <section
+          id="gallery"
           ref={galleryRef}
           className={`py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden${galleryRevealed ? " gallery-revealed" : ""}`}
         >
@@ -449,14 +454,14 @@ export default function FMDictionaryPage() {
                   className="w-10 h-10 border border-black/10 dark:border-white/10 flex items-center justify-center hover:border-black dark:hover:border-white transition-all rounded-full text-sm"
                   aria-label="Previous"
                 >
-                  <i className="fas fa-chevron-left"></i>
+                  <Icons.ChevronLeft size={16} />
                 </button>
                 <button
                   onClick={() => { scroll("right"); stopAutoplay(); }}
                   className="w-10 h-10 border border-black/10 dark:border-white/10 flex items-center justify-center hover:border-black dark:hover:border-white transition-all rounded-full text-sm"
                   aria-label="Next"
                 >
-                  <i className="fas fa-chevron-right"></i>
+                  <Icons.ChevronRight size={16} />
                 </button>
               </div>
             </div>
@@ -497,8 +502,8 @@ export default function FMDictionaryPage() {
                   {/* Overlay label */}
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-8 pt-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                     <div className="text-white">
-                      <div className="text-[10px] mb-2 opacity-60 uppercase tracking-[0.2em] flex items-center">
-                        <i className={`fas ${item.icon} mr-2`}></i>
+                      <div className="text-[10px] mb-2 opacity-60 uppercase tracking-[0.2em] flex items-center gap-1.5">
+                        <item.IconComponent size={12} />
                         UI Screen
                       </div>
                       <div
@@ -555,7 +560,7 @@ export default function FMDictionaryPage() {
                 data-aos="fade-up"
               >
                 <div className="text-5xl text-black dark:text-white transition-transform duration-300 group-hover:scale-110">
-                  <i className="fab fa-apple"></i>
+                  <Icons.Apple size={48} />
                 </div>
                 <div className="flex-1 text-center md:text-left">
                   <h4 className="font-display text-2xl font-bold mb-2">
@@ -575,7 +580,7 @@ export default function FMDictionaryPage() {
                     className="inline-flex items-center gap-2 border border-black dark:border-white px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all"
                   >
                     <span data-vi="Tải cho iOS" data-en="Download for iOS">Download for iOS</span>
-                    <i className="fas fa-arrow-right text-[10px]"></i>
+                    <Icons.ArrowRight size={12} />
                   </a>
                 </div>
               </div>
@@ -587,7 +592,7 @@ export default function FMDictionaryPage() {
                 data-aos-delay="100"
               >
                 <div className="text-5xl text-black/40 dark:text-white/40 transition-transform duration-300 group-hover:scale-110">
-                  <i className="fab fa-google-play"></i>
+                  <Icons.GooglePlay size={48} />
                 </div>
                 <div className="flex-1 text-center md:text-left">
                   <div className="flex flex-col md:flex-row md:items-center gap-2 mb-2 justify-center md:justify-start">
@@ -640,7 +645,7 @@ export default function FMDictionaryPage() {
             <div className="space-y-6">
               {[
                 {
-                  icon: "fa-microphone-lines",
+                  IconComponent: Icons.Microphone,
                   titleVi: "Micro",
                   titleEn: "Microphone",
                   descVi: "Được sử dụng độc quyền cho tính năng luyện phát âm. Âm thanh được xử lý trên thiết bị theo thời gian thực để so sánh với âm thanh tham chiếu. Không có bản ghi nào được lưu trữ, truyền tải hoặc giữ lại sau khi phiên kết thúc.",
@@ -649,7 +654,7 @@ export default function FMDictionaryPage() {
                   tagEn: "Required for feature",
                 },
                 {
-                  icon: "fa-globe",
+                  IconComponent: Icons.Globe,
                   titleVi: "Truy cập Internet",
                   titleEn: "Internet Access",
                   descVi: "Đồng bộ hóa tiến trình học tập với Firebase, cho phép đăng nhập Google / Apple và tải các bản cập nhật nội dung. Trải nghiệm học tập cốt lõi hoạt động hoàn toàn ngoại tuyến sau khi nội dung được tải xuống.",
@@ -658,7 +663,7 @@ export default function FMDictionaryPage() {
                   tagEn: "Required for sync",
                 },
                 {
-                  icon: "fa-bell",
+                  IconComponent: Icons.Bell,
                   titleVi: "Thông báo đẩy",
                   titleEn: "Push Notifications",
                   descVi: "Gửi các lời nhắc học tập hàng ngày tùy chọn và cảnh báo chuỗi ngày để giúp bạn đi đúng hướng. Có thể tắt bất cứ lúc nào trong Cài đặt thiết bị của bạn mà không ảnh hưởng đến bất kỳ chức năng nào của Ứng dụng.",
@@ -675,7 +680,7 @@ export default function FMDictionaryPage() {
                   data-aos-delay={index * 100}
                 >
                   <div className="text-3xl text-black dark:text-white">
-                    <i className={`fas ${item.icon}`}></i>
+                    <item.IconComponent size={32} />
                   </div>
                   <div className="flex-1">
                     <h4 className="font-display text-xl font-bold mb-2" data-vi={item.titleVi} data-en={item.titleEn}>
@@ -763,7 +768,7 @@ export default function FMDictionaryPage() {
                     className="flex justify-between items-center p-4 border border-black dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all group"
                   >
                     <span className="flex items-center text-sm font-bold uppercase tracking-widest">
-                      <i className="fas fa-headset mr-3 text-black dark:text-white group-hover:text-white dark:group-hover:text-black transition-colors"></i>
+                      <Icons.Headset size={16} className="mr-3 text-black dark:text-white group-hover:text-white dark:group-hover:text-black transition-colors" />
                       <span data-vi="Hỗ trợ & Liên hệ" data-en="Support & Contact">
                         Support & Contact
                       </span>
@@ -775,7 +780,7 @@ export default function FMDictionaryPage() {
                     className="flex justify-between items-center p-4 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group"
                   >
                     <span className="flex items-center text-sm font-bold uppercase tracking-widest">
-                      <i className="fas fa-shield-halved mr-3 text-black dark:text-white"></i>
+                      <Icons.Shield size={16} className="mr-3 text-black dark:text-white" />
                       <span data-vi="Chính sách bảo mật" data-en="Privacy Policy">
                         Privacy Policy
                       </span>
@@ -787,7 +792,7 @@ export default function FMDictionaryPage() {
                     className="flex justify-between items-center p-4 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group"
                   >
                     <span className="flex items-center text-sm font-bold uppercase tracking-widest">
-                      <i className="fas fa-file-contract mr-3 text-black dark:text-white"></i>
+                      <Icons.File size={16} className="mr-3 text-black dark:text-white" />
                       <span data-vi="Điều khoản dịch vụ" data-en="Terms of Service">
                         Terms of Service
                       </span>
@@ -820,8 +825,9 @@ export default function FMDictionaryPage() {
           <button
             className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors text-3xl p-2"
             onClick={() => setSelectedImg(null)}
+            aria-label="Close"
           >
-            <i className="fas fa-times"></i>
+            <Icons.Close size={28} />
           </button>
         </div>
       )}

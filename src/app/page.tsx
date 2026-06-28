@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { Icons } from "../components/Icons";
 
 export default function Home() {
   useEffect(() => {
@@ -57,7 +58,7 @@ export default function Home() {
         {/* Hero Section */}
         <section
           id="hero"
-          className="snap-start min-h-screen flex items-center relative overflow-x-hidden pt-20"
+          className="min-h-screen flex items-center relative overflow-x-hidden pt-20"
         >
           <div className="absolute -left-32 bottom-0 w-2/3 h-2/3 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000')] bg-cover bg-center opacity-[0.05] dark:opacity-[0.02] grayscale pointer-events-none rounded-tr-full blur-[2px]"></div>
           <div
@@ -98,7 +99,7 @@ export default function Home() {
         {/* ABOUT SECTION */}
         <section
           id="about"
-          className="snap-start min-h-screen flex items-center py-20 relative overflow-x-hidden"
+          className="min-h-screen flex items-center py-20 relative overflow-x-hidden"
         >
           <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/3 h-2/3 bg-[url('https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1000')] bg-cover bg-center opacity-10 dark:opacity-[0.03] grayscale pointer-events-none rounded-l-full blur-[1px]"></div>
 
@@ -139,7 +140,7 @@ export default function Home() {
         {/* SKILLS SECTION */}
         <section
           id="skills"
-          className="snap-start min-h-screen flex items-center py-20 bg-cardLight dark:bg-cardDark overflow-x-hidden relative"
+          className="min-h-screen flex items-center py-20 bg-cardLight dark:bg-cardDark overflow-x-hidden relative"
         >
           <div className="absolute -left-20 top-0 w-1/2 h-full bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000')] bg-cover bg-center opacity-[0.04] dark:opacity-[0.02] grayscale pointer-events-none rounded-br-full blur-[2px]"></div>
           <div className="container mx-auto px-6 md:px-8">
@@ -215,15 +216,15 @@ export default function Home() {
                 </div>
                 <ul className="space-y-4 font-light text-lg mt-4">
                   <li className="flex items-center">
-                    <i className="fas fa-check text-black dark:text-white text-xs mr-3 opacity-50"></i>{" "}
+                    <Icons.Check size={12} className="text-black dark:text-white mr-3 opacity-50" />{" "}
                     HTML, CSS, JS
                   </li>
                   <li className="flex items-center">
-                    <i className="fas fa-check text-black dark:text-white text-xs mr-3 opacity-50"></i>{" "}
+                    <Icons.Check size={12} className="text-black dark:text-white mr-3 opacity-50" />{" "}
                     C# & Java
                   </li>
                   <li className="flex items-center">
-                    <i className="fas fa-check text-black dark:text-white text-xs mr-3 opacity-50"></i>{" "}
+                    <Icons.Check size={12} className="text-black dark:text-white mr-3 opacity-50" />{" "}
                     PHP & Kotlin
                   </li>
                 </ul>
@@ -243,7 +244,7 @@ export default function Home() {
                 </div>
                 <ul className="space-y-4 font-light text-lg mt-4">
                   <li className="flex items-center">
-                    <i className="fas fa-server text-black dark:text-white text-xs mr-3 opacity-50"></i>{" "}
+                    <Icons.Server size={12} className="text-black dark:text-white mr-3 opacity-50" />{" "}
                     <span
                       data-vi="IT Support (Phần cứng/Mạng)"
                       data-en="IT Support (Hardware/Network)"
@@ -252,7 +253,7 @@ export default function Home() {
                     </span>
                   </li>
                   <li className="flex items-center">
-                    <i className="fas fa-network-wired text-black dark:text-white text-xs mr-3 opacity-50"></i>{" "}
+                    <Icons.Network size={12} className="text-black dark:text-white mr-3 opacity-50" />{" "}
                     <span
                       data-vi="Quản trị mạng cơ bản"
                       data-en="Basic Network Admin"
@@ -261,7 +262,7 @@ export default function Home() {
                     </span>
                   </li>
                   <li className="flex items-center">
-                    <i className="fab fa-wordpress text-black dark:text-white text-xs mr-3 opacity-50"></i>{" "}
+                    <Icons.WordPress size={12} className="text-black dark:text-white mr-3 opacity-50" />{" "}
                     <span
                       data-vi="WordPress (Triển khai/Tối ưu)"
                       data-en="WordPress (Deploy/Optimize)"
@@ -278,7 +279,7 @@ export default function Home() {
         {/* PROJECTS SECTION */}
         <section
           id="projects"
-          className="snap-start min-h-screen flex items-center py-20 relative overflow-x-hidden"
+          className="min-h-screen flex items-center py-20 relative overflow-x-hidden"
         >
           <div className="absolute -right-32 bottom-0 w-2/3 h-full bg-[url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000')] bg-cover bg-center opacity-[0.06] dark:opacity-[0.02] grayscale pointer-events-none rounded-tl-full blur-[2px]"></div>
           <div className="container mx-auto px-6 md:px-8">
@@ -356,12 +357,12 @@ export default function Home() {
         {/* TIMELINE SECTION */}
         <section
           id="experience"
-          className="snap-start min-h-screen flex items-center py-20 bg-cardLight dark:bg-cardDark relative overflow-x-hidden"
+          className="min-h-screen flex items-center py-20 bg-cardLight dark:bg-cardDark relative overflow-x-hidden"
         >
           <div className="absolute -left-32 top-1/2 -translate-y-1/2 w-1/2 h-2/3 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000')] bg-cover bg-center opacity-[0.05] dark:opacity-[0.02] grayscale pointer-events-none rounded-r-full blur-[2px]"></div>
           <div className="container mx-auto px-6 md:px-8">
             <h2
-              className="font-display text-5xl font-bold mb-20 text-center"
+              className="font-display text-5xl font-bold mb-20"
               data-aos="fade-up"
               data-vi="Lộ Trình"
               data-en="Timeline"
@@ -369,19 +370,21 @@ export default function Home() {
               Timeline
             </h2>
 
-            <div className="max-w-3xl mx-auto">
-              <div className="timeline-container">
-                <div className="timeline-item" data-aos="fade-up">
-                  <div className="font-display text-xl font-bold">2026 - Present</div>
+            <div className="flex flex-col gap-12 max-w-4xl">
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-4 md:gap-12" data-aos="fade-up">
+                <div className="font-display text-xl font-bold opacity-70 border-b border-black/10 dark:border-white/10 md:border-none pb-2 md:pb-0">
+                  2026 - Present
+                </div>
+                <div>
                   <h4
-                    className="text-2xl font-bold mt-2 mb-2"
+                    className="text-2xl font-bold mb-2"
                     data-vi="IT Helpdesk"
                     data-en="IT Helpdesk"
                   >
                     IT Helpdesk
                   </h4>
                   <p
-                    className="font-light opacity-80"
+                    className="font-light opacity-80 text-lg leading-relaxed"
                     data-vi="Làm việc tại Bệnh Viện Mắt Bình Thuận, chịu trách nhiệm vận hành và hỗ trợ hệ thống CNTT."
                     data-en="Working at Binh Thuan Eye Hospital, responsible for operating and supporting IT systems."
                   >
@@ -389,18 +392,22 @@ export default function Home() {
                     supporting IT systems.
                   </p>
                 </div>
+              </div>
 
-                <div className="timeline-item" data-aos="fade-up" data-aos-delay="100">
-                  <div className="font-display text-xl font-bold">2022 - 2026</div>
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-4 md:gap-12" data-aos="fade-up" data-aos-delay="100">
+                <div className="font-display text-xl font-bold opacity-70 border-b border-black/10 dark:border-white/10 md:border-none pb-2 md:pb-0">
+                  2022 - 2026
+                </div>
+                <div>
                   <h4
-                    className="text-2xl font-bold mt-2 mb-2"
+                    className="text-2xl font-bold mb-2"
                     data-vi="Cử nhân Công nghệ Thông tin"
                     data-en="Bachelor of Information Technology"
                   >
                     Bachelor of Information Technology
                   </h4>
                   <p
-                    className="font-light opacity-80"
+                    className="font-light opacity-80 text-lg leading-relaxed"
                     data-vi="Hoàn thành chương trình Đại học, chuyên ngành Công nghệ thông tin với định hướng phát triển phần mềm."
                     data-en="Completed University program, majoring in Information Technology with a software development focus."
                   >

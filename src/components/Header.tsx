@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import AOS from "aos";
+import { Icons } from "@/components/Icons";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -33,9 +34,6 @@ export default function Header() {
     // Lang init
     const savedLang = localStorage.getItem("lang") || "en";
     setLang(savedLang);
-
-    // Enable snap scroll on HTML for Main page
-    document.documentElement.classList.add("md:snap-y", "md:snap-proximity");
 
     return () => {
         window.removeEventListener("scroll", handleScroll);
@@ -113,7 +111,7 @@ export default function Header() {
       >
         <div className="container mx-auto w-full px-6 md:px-8 flex justify-between items-center">
           <Link href="/" className="font-display text-3xl font-bold tracking-tighter">
-            KHANG
+            AN KHANG
           </Link>
 
           <div className="flex items-center space-x-6 md:space-x-10">
@@ -145,9 +143,9 @@ export default function Header() {
                   className="text-xl hover:rotate-180 transition-transform duration-500"
                 >
                   {isDark ? (
-                    <i className="fas fa-sun block"></i>
+                    <Icons.Sun className="block" />
                   ) : (
-                    <i className="fas fa-moon block"></i>
+                    <Icons.Moon className="block" />
                   )}
                 </button>
               </div>
@@ -155,13 +153,13 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(true)}
                 className={`md:hidden text-2xl p-2 ${isMobileMenuOpen ? "hidden" : ""}`}
               >
-                <i className="fas fa-bars"></i>
+                <Icons.Menu className="" />
               </button>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`md:hidden text-3xl p-2 ${isMobileMenuOpen ? "" : "hidden"}`}
               >
-                <i className="fas fa-times"></i>
+                <Icons.Close className="" />
               </button>
             </div>
           </div>
@@ -222,11 +220,11 @@ export default function Header() {
           >
             {lang.toUpperCase()}
           </button>
-          <button onClick={toggleTheme} className="text-3xl">
+          <button onClick={toggleTheme} className="text-3xl" aria-label="Toggle Theme">
             {isDark ? (
-              <i className="fas fa-sun block"></i>
+              <Icons.Sun className="block" />
             ) : (
-              <i className="fas fa-moon block"></i>
+              <Icons.Moon className="block" />
             )}
           </button>
         </div>
