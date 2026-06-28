@@ -33,6 +33,7 @@ This document provides the operational policy and context for AI agents working 
     - **Trailing Slashes:** Directory links must end with a trailing slash (e.g., `href="/fm-dictionary/"`).
     - **Vercel Config:** `vercel.json` must have `"trailingSlash": true` and `"cleanUrls": true` enabled.
 - **Styling Rules:**
+    - **Design System & Constraints:** See [docs/design/DESIGN.md](./docs/design/DESIGN.md) for complete guidelines on typography, colors, and motion.
     - Maintain "Ambient Glow" effect in all main sections.
     - Use `font-serif italic` (Playfair Display) for sophisticated emphasis.
     - **Font Sizing:** Synchronize all primary page content to `text-xl` and hero headers to `md:text-8xl` for consistency across Portfolio and FM Dictionary pages.
