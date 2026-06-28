@@ -253,9 +253,7 @@ export default function FMDictionaryPage() {
         <section id="features" className="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden">
           <div className="container mx-auto px-6 md:px-8">
             <div className="max-w-3xl mb-20" data-aos="fade-right">
-              <p className="text-xs tracking-[0.3em] uppercase mb-4 opacity-50" data-vi="Tính năng chính" data-en="Core Features">
-                Core Features
-              </p>
+
               <h2
                 className="font-display text-4xl md:text-6xl font-bold mb-6"
                 data-vi="Mọi thứ bạn cần<br>để làm chủ từ vựng"
@@ -538,13 +536,7 @@ export default function FMDictionaryPage() {
         >
           <div className="container mx-auto px-6 md:px-8">
             <div className="max-w-3xl mb-16" data-aos="fade-right">
-              <p
-                className="text-xs tracking-[0.3em] uppercase mb-4 opacity-50"
-                data-vi="Tải ứng dụng"
-                data-en="Download App"
-              >
-                Download App
-              </p>
+
               <h2
                 className="font-display text-4xl md:text-5xl font-bold"
                 data-vi="Trải nghiệm FM Dictionary<br>trên thiết bị di động"
@@ -633,9 +625,7 @@ export default function FMDictionaryPage() {
         <section id="permissions" className="py-32 relative overflow-x-hidden">
           <div className="container mx-auto px-6 md:px-8">
             <div className="max-w-3xl mb-16" data-aos="fade-right">
-              <p className="text-xs tracking-[0.3em] uppercase mb-4 opacity-50" data-vi="Quyền truy cập ứng dụng" data-en="App Permissions">
-                App Permissions
-              </p>
+
               <h2
                 className="font-display text-4xl md:text-5xl font-bold"
                 data-vi="Ứng dụng truy cập những gì<br>và lý do chính xác"
@@ -716,9 +706,7 @@ export default function FMDictionaryPage() {
           <div className="container mx-auto px-6 md:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
               <div data-aos="fade-right">
-                <p className="text-xs tracking-[0.3em] uppercase mb-4 opacity-50" data-vi="Về dự án" data-en="About the Project">
-                  About the Project
-                </p>
+
                 <h2
                   className="font-display text-4xl md:text-5xl font-bold mb-8"
                   data-vi="Xóa bỏ rào cản ngôn ngữ<br>trong ngành FM Việt Nam"

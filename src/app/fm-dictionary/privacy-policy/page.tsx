@@ -523,7 +523,7 @@ export default function PrivacyPolicyPage() {
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up" className="text-red-500">
+            <section data-aos="fade-up" className="text-black dark:text-white">
               <h2
                 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter"
                 data-vi="8. Liên hệ với chúng tôi"
@@ -531,7 +531,7 @@ export default function PrivacyPolicyPage() {
               >
                 8. Contact Us
               </h2>
-              <div className="p-8 md:p-12 border border-red-500/20 bg-red-500/5">
+              <div className="p-8 md:p-12 border border-black/20 dark:border-white/20 bg-black/5 dark:bg-white/5">
                 <p
                   className="mb-6"
                   data-vi="Nếu bạn có bất kỳ câu hỏi, góp ý, phản ánh nào liên quan đến Chính sách Bảo mật này hoặc muốn thực thi các quyền dữ liệu cá nhân của mình, vui lòng liên hệ với chúng tôi qua các thông tin chính thức sau:"

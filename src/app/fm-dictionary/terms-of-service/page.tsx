@@ -256,7 +256,7 @@ export default function TermsOfServicePage() {
               <div className="space-y-8">
                 <div>
                   <h3
-                    className="font-display text-xl font-bold mb-4 uppercase tracking-widest text-red-500"
+                    className="font-display text-xl font-bold mb-4 uppercase tracking-widest"
                     data-vi="3.1. Hành vi bị nghiêm cấm"
                     data-en="3.1. Prohibited Behavior"
                   >
@@ -502,7 +502,7 @@ export default function TermsOfServicePage() {
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up" className="text-red-500">
+            <section data-aos="fade-up" className="text-black dark:text-white">
               <h2
                 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter"
                 data-vi="8. Thay đổi Điều khoản và Thông tin Liên hệ"
@@ -510,7 +510,7 @@ export default function TermsOfServicePage() {
               >
                 8. Changes to Terms and Contact Information
               </h2>
-              <div className="p-8 md:p-12 border border-red-500/20 bg-red-500/5">
+              <div className="p-8 md:p-12 border border-black/20 dark:border-white/20 bg-black/5 dark:bg-white/5">
                 <p
                   className="mb-6"
                   data-vi="Chúng tôi có quyền sửa đổi, bổ sung hoặc cập nhật các Điều khoản Dịch vụ này bất kỳ lúc nào để đáp ứng các thay đổi về công nghệ, tính năng vận hành hoặc quy định pháp lý mới từ Google và Apple. Phiên bản cập nhật mới nhất sẽ được đăng tải trực tiếp công khai trên hệ thống và ghi nhận ngày cập nhật ở phần đầu văn bản."

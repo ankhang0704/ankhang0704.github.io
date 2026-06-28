@@ -222,8 +222,8 @@ export default function DeleteAccountPage() {
               </p>
 
               {formSubmitted ? (
-                <div className="p-8 border border-green-500/20 bg-green-500/5 dark:bg-green-500/10 rounded-lg text-center">
-                  <i className="fas fa-circle-check text-green-500 text-4xl mb-4"></i>
+                <div className="p-8 border border-black/20 dark:border-white/20 bg-black/5 dark:bg-white/5 rounded-lg text-center">
+                  <i className="fas fa-circle-check text-black dark:text-white text-4xl mb-4"></i>
                   <h3
                     className="font-display text-2xl font-bold mb-2 uppercase"
                     data-vi="Đã chuẩn bị email thành công!"
@@ -273,7 +273,7 @@ export default function DeleteAccountPage() {
                       <span data-vi="Họ và Tên" data-en="Full Name">
                         {lang === "vi" ? "Họ và Tên" : "Full Name"}
                       </span>
-                      <span className="text-red-500 ml-1">*</span>
+                      <span className="text-black dark:text-white opacity-50 ml-1">*</span>
                     </label>
                     <input
                       type="text"
@@ -289,7 +289,7 @@ export default function DeleteAccountPage() {
                       <span data-vi="Địa chỉ Email" data-en="Email Address">
                         {lang === "vi" ? "Địa chỉ Email" : "Email Address"}
                       </span>
-                      <span className="text-red-500 ml-1">*</span>
+                      <span className="text-black dark:text-white opacity-50 ml-1">*</span>
                     </label>
                     <input
                       type="email"
