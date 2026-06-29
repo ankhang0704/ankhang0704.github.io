@@ -60,7 +60,6 @@ export default function Home() {
           id="hero"
           className="min-h-screen flex items-center relative overflow-x-hidden pt-20"
         >
-          <div className="absolute -left-32 bottom-0 w-2/3 h-2/3 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000')] bg-cover bg-center opacity-[0.05] dark:opacity-[0.02] grayscale pointer-events-none rounded-tr-full blur-[2px]"></div>
           <div
             className="container mx-auto px-6 md:px-8 relative z-10"
             data-aos="fade-up"
@@ -101,8 +100,6 @@ export default function Home() {
           id="about"
           className="min-h-screen flex items-center py-20 relative overflow-x-hidden"
         >
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/3 h-2/3 bg-[url('https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1000')] bg-cover bg-center opacity-10 dark:opacity-[0.03] grayscale pointer-events-none rounded-l-full blur-[1px]"></div>
-
           <div className="container mx-auto px-6 md:px-8 relative z-10">
             <div className="max-w-3xl" data-aos="fade-right">
               <h2
@@ -142,7 +139,6 @@ export default function Home() {
           id="skills"
           className="min-h-screen flex items-center py-20 bg-cardLight dark:bg-cardDark overflow-x-hidden relative"
         >
-          <div className="absolute -left-20 top-0 w-1/2 h-full bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000')] bg-cover bg-center opacity-[0.04] dark:opacity-[0.02] grayscale pointer-events-none rounded-br-full blur-[2px]"></div>
           <div className="container mx-auto px-6 md:px-8">
             <h2
               className="font-display text-4xl md:text-5xl font-bold mb-16 text-center"
@@ -281,7 +277,6 @@ export default function Home() {
           id="projects"
           className="min-h-screen flex items-center py-20 relative overflow-x-hidden"
         >
-          <div className="absolute -right-32 bottom-0 w-2/3 h-full bg-[url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000')] bg-cover bg-center opacity-[0.06] dark:opacity-[0.02] grayscale pointer-events-none rounded-tl-full blur-[2px]"></div>
           <div className="container mx-auto px-6 md:px-8">
             <h2
               className="font-display text-5xl font-bold mb-20 text-center"
@@ -359,7 +354,6 @@ export default function Home() {
           id="experience"
           className="min-h-screen flex items-center py-20 bg-cardLight dark:bg-cardDark relative overflow-x-hidden"
         >
-          <div className="absolute -left-32 top-1/2 -translate-y-1/2 w-1/2 h-2/3 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000')] bg-cover bg-center opacity-[0.05] dark:opacity-[0.02] grayscale pointer-events-none rounded-r-full blur-[2px]"></div>
           <div className="container mx-auto px-6 md:px-8">
             <h2
               className="font-display text-5xl font-bold mb-20"
@@ -370,21 +364,21 @@ export default function Home() {
               Timeline
             </h2>
 
-            <div className="flex flex-col gap-12 max-w-4xl">
-              <div className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-4 md:gap-12" data-aos="fade-up">
-                <div className="font-display text-xl font-bold opacity-70 border-b border-black/10 dark:border-white/10 md:border-none pb-2 md:pb-0">
+            <div className="flex flex-col gap-12 md:gap-20 max-w-5xl">
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-4 md:gap-12 group" data-aos="fade-up">
+                <div className="font-display text-xl md:text-2xl font-bold opacity-50 border-b border-black/10 dark:border-white/10 md:border-none pb-2 md:pb-0 group-hover:opacity-100 transition-opacity duration-500">
                   2026 - Present
                 </div>
                 <div>
                   <h4
-                    className="text-2xl font-bold mb-2"
+                    className="font-display text-3xl font-bold mb-4 group-hover:translate-x-2 transition-transform duration-500"
                     data-vi="IT Helpdesk"
                     data-en="IT Helpdesk"
                   >
                     IT Helpdesk
                   </h4>
                   <p
-                    className="font-light opacity-80 text-lg leading-relaxed"
+                    className="font-light opacity-80 text-lg leading-relaxed max-w-[65ch]"
                     data-vi="Làm việc tại Bệnh Viện Mắt Bình Thuận, chịu trách nhiệm vận hành và hỗ trợ hệ thống CNTT."
                     data-en="Working at Binh Thuan Eye Hospital, responsible for operating and supporting IT systems."
                   >
@@ -394,20 +388,20 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-4 md:gap-12" data-aos="fade-up" data-aos-delay="100">
-                <div className="font-display text-xl font-bold opacity-70 border-b border-black/10 dark:border-white/10 md:border-none pb-2 md:pb-0">
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-4 md:gap-12 group" data-aos="fade-up" data-aos-delay="100">
+                <div className="font-display text-xl md:text-2xl font-bold opacity-50 border-b border-black/10 dark:border-white/10 md:border-none pb-2 md:pb-0 group-hover:opacity-100 transition-opacity duration-500">
                   2022 - 2026
                 </div>
                 <div>
                   <h4
-                    className="text-2xl font-bold mb-2"
+                    className="font-display text-3xl font-bold mb-4 group-hover:translate-x-2 transition-transform duration-500"
                     data-vi="Cử nhân Công nghệ Thông tin"
                     data-en="Bachelor of Information Technology"
                   >
                     Bachelor of Information Technology
                   </h4>
                   <p
-                    className="font-light opacity-80 text-lg leading-relaxed"
+                    className="font-light opacity-80 text-lg leading-relaxed max-w-[65ch]"
                     data-vi="Hoàn thành chương trình Đại học, chuyên ngành Công nghệ thông tin với định hướng phát triển phần mềm."
                     data-en="Completed University program, majoring in Information Technology with a software development focus."
                   >

@@ -138,7 +138,6 @@ export default function FMDictionaryPage() {
           id="hero"
           className="min-h-screen flex items-center relative overflow-x-hidden pt-32 pb-20 md:pt-20 md:pb-0"
         >
-          <div className="absolute -left-32 bottom-0 w-2/3 h-2/3 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000')] bg-cover bg-center opacity-[0.05] dark:opacity-[0.02] grayscale pointer-events-none rounded-tr-full blur-[2px]"></div>
           <div
             className="container mx-auto px-6 md:px-8 relative z-10"
             data-aos="fade-up"

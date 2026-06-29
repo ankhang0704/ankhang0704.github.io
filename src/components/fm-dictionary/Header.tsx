@@ -108,7 +108,7 @@ export default function FMHeader() {
       <header
         id="navbar"
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          isScrolled ? "glass-nav py-4" : "py-6"
+          isScrolled ? "glass-nav py-2" : "py-4"
         }`}
       >
         <div className="container mx-auto w-full px-6 md:px-8 flex justify-between items-center">

@@ -27,7 +27,6 @@ export default function Footer() {
         id="contact"
         className="py-20 text-center min-h-[50vh] flex flex-col justify-center relative overflow-x-hidden"
       >
-        <div className="absolute left-1/2 -translate-x-1/2 top-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1557672172-298e090bd0f1?q=80&w=1000')] bg-cover bg-center opacity-[0.03] dark:opacity-[0.01] grayscale pointer-events-none blur-[4px] max-w-full"></div>
         <div className="container mx-auto px-6 md:px-8 relative z-10" data-aos="zoom-in">
           <h2
             className="font-display text-5xl md:text-8xl font-bold mb-8 uppercase tracking-tighter"
@@ -70,12 +69,29 @@ export default function Footer() {
             </a>
           </div>
 
-          <p className="mt-16 text-sm font-light opacity-50 uppercase tracking-widest">
-            © 2026 An Khang.{" "}
-            <span data-vi="Portfolio Tối Giản." data-en="Portfolio.">
-              Portfolio.
-            </span>
-          </p>
+          <div className="mt-12 flex justify-center">
+            <a
+              href="/my_cv.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 border border-black dark:border-white px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all"
+            >
+              <span data-vi="Tải xuống CV" data-en="Download CV">Download CV</span>
+            </a>
+          </div>
+
+          <div className="mt-16 flex flex-col items-center gap-2">
+            <p className="text-sm font-light opacity-50 uppercase tracking-widest">
+              © 2026 An Khang
+            </p>
+            <p 
+              className="text-xs font-light opacity-30 uppercase tracking-widest"
+              data-vi="Cập nhật &middot; Tháng 6, 2026"
+              data-en="Updated &middot; June 2026"
+            >
+              Updated &middot; June 2026
+            </p>
+          </div>
         </div>
       </footer>
 
