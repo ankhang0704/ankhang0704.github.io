@@ -1,18 +1,23 @@
-# Portfolio Handoff
+# Handoff: Portfolio Redirection
 
-## Summary of Achievements
-- **Header Refinement**: Compacted the vertical padding in both the Portfolio and FM Dictionary headers (`src/components/Header.tsx`, `src/components/fm-dictionary/Header.tsx`) to feel more focused while maintaining layout width.
-- **Footer Updates**: 
-  - Added a "Download CV" button to the main Footer (`src/components/Footer.tsx`) linking to the recently relocated `public/my_cv.pdf`.
-  - Added a subtle "Updated &middot; June 2026" indicator beneath the copyright to reflect project freshness.
-- **Timeline Redesign**: Elevated the Portfolio Experience timeline (`src/app/page.tsx`) by relying on typographic scale (`font-display`, `text-3xl`), negative space, and interactive hover states (opacity fades and subtle horizontal translations) to maintain the existing portfolio identity.
-- **Background Optimization**: Removed unnecessary, blurred Unsplash background images globally from the Portfolio sections, FM Dictionary Hero, and the Footer to drastically improve page performance and confidently embrace intentional negative space. 
-- **Agent Guidelines**: Appended new aesthetic principles (Whole-page coherence, Prefer subtraction, Portfolio freshness) to the `handoff` skill (`.agents/skills/handoff/SKILL.md`).
+## Current Status
+The portfolio repository (`ankhang0704.github.io`) has been successfully updated to redirect users to the new Next.js portfolio hosted on Vercel (`https://ankhang0704.vercel.app/`). 
 
-## Current Status & Known Issues
-- There are no outstanding layout or functionality bugs. The bilingual toggle (`data-vi`/`data-en`) and Dark/Light modes are fully functional across all adjusted components.
-- The project is fully compliant with the rigorous minimalist editorial standards outlined in `docs/design/TASTE-SKILL.md`.
+### Achievements
+- Replaced the default `README.md` behavior on GitHub Pages by creating a new `index.html` at the repository root.
+- The new `index.html` implements an automatic meta-refresh to the new Vercel domain.
+- Designed the redirect page to strictly align with the project's design language specified in `docs/design/DESIGN.md` and `docs/design/TASTE-SKILL.md` (Minimalist, Architectural, Dark Mode, Ambient Glow, Playfair Display & Space Grotesk typography).
+- Adhered to the `Portfolio freshness` principle by adding an `Updated · June 2026` indicator in the redirect page footer.
 
-## Suggested Skills for Next Agent
-- **`improve-codebase-architecture`**: If there are subsequent requests to update other layouts or fix responsive bugs, invoke this skill first to audit the specific problem.
-- **`handoff`**: When concluding future adjustments, ensure the "Updated" date in the Footer is refreshed to match the current handoff month/year, per the newly established portfolio freshness principle.
+## Open Issues / Working On
+- **No active layout or functionality bugs** on the redirect page. 
+- *Note:* The main application code now resides elsewhere or is deployed via Vercel. Ensure any further changes to the Next.js portfolio codebase itself maintain the Dark/Light mode consistency and Bilingual support (data-en / data-vi) rules described in the `AGENTS.md` context.
+
+## Suggested Skills
+For the next agent picking up work on this portfolio:
+- `improve-codebase-architecture`: To audit any new pages or components added to the Next.js Vercel app to ensure layout consistency, responsive design, and adherence to the `DESIGN.md` guidelines.
+- `design-taste-frontend`: To apply strict anti-slop frontend design rules to any new components.
+
+## Recent Updates
+- Created `index.html` with Tailwind CSS, custom fonts, and redirect script.
+- Saved progress and pushed to origin.

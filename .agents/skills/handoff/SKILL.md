@@ -13,7 +13,7 @@ Write a handoff document summarising the current conversation so a fresh agent c
 3. Include a "suggested skills" section in the document, suggesting skills that the next agent should invoke.
 4. Do not duplicate content already captured in other artifacts. Reference them by path or URL instead.
 5. Redact any sensitive information.
-6. After creating the handoff document, ALWAYS execute `git add .`, `git commit -m "chore: save progress for handoff"` (or a descriptive message of the latest uncommitted changes), and `git push` to ensure all progress is safely saved to the remote repository.
+6. After creating the handoff document, ALWAYS execute `git add .`, `git commit -m "<commit_message>"` (or a descriptive message of the latest uncommitted changes), and `git push` to ensure all progress is safely saved to the remote repository.
 
 ## Design & Refinement Principles (Portfolio Maintenance)
 

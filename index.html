@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tự động chuyển hướng dự phòng -->
+    <meta http-equiv="refresh" content="2; url=https://ankhang0704.vercel.app/">
+    <link rel="canonical" href="https://ankhang0704.vercel.app/">
+    <title>Redirecting | An Khang</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Space+Grotesk:wght@700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        darkbg: '#0a0a0a',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #ededed;
+        }
+        /* Ambient Glow Background Effect */
+        .ambient-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            height: 60vh;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+    
+    <script type="text/javascript">
+        // Chuyển hướng sau 1.5s để người dùng kịp nhìn thấy thiết kế
+        setTimeout(() => {
+            window.location.href = "https://ankhang0704.vercel.app/";
+        }, 1500);
+    </script>
+</head>
+<body class="antialiased min-h-screen flex flex-col items-center justify-center relative overflow-hidden selection:bg-white/20">
+    <!-- Ambient Glow Layer -->
+    <div class="ambient-glow"></div>
+
+    <main class="relative z-10 flex flex-col items-center text-center px-6 max-w-2xl mx-auto">
+        <!-- Tiny Tag / Eyebrow -->
+        <span class="text-[10px] tracking-[0.2em] uppercase opacity-50 border border-white/10 px-3 py-1 mb-10 font-sans">
+            Status Update
+        </span>
+
+        <!-- Mixed Typography Headline -->
+        <h1 class="font-display text-4xl md:text-6xl font-bold mb-6 tracking-tight leading-tight">
+            Relocating to <br class="md:hidden" /><span class="font-serif italic font-normal text-5xl md:text-7xl">Vercel</span>
+        </h1>
+
+        <!-- Body / Subtext -->
+        <p class="font-sans text-xl opacity-80 mb-12 font-light leading-relaxed">
+            This portfolio has moved to a new domain. You are being redirected automatically to the latest architecture.
+        </p>
+
+        <!-- Sharp Button -->
+        <a href="https://ankhang0704.vercel.app/" class="inline-flex items-center justify-center border border-white/20 hover:border-white px-8 py-4 font-sans text-xs tracking-[0.2em] uppercase transition-all duration-700 hover:bg-white hover:text-black group">
+            <span>Continue</span>
+            <svg class="w-4 h-4 ml-4 transform group-hover:translate-x-1 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+        </a>
+    </main>
+
+    <!-- Footer Metadata -->
+    <footer class="absolute bottom-8 left-0 right-0 text-center z-10">
+        <div class="h-[1px] w-12 bg-white/20 mx-auto mb-4"></div>
+        <p class="font-sans text-[10px] uppercase tracking-widest opacity-50 font-medium">
+            &copy; 2026 An Khang &mdash; Software Developer<br/>
+            Updated &middot; June 2026
+        </p>
+    </footer>
+</body>
+</html>
