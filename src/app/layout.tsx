@@ -30,6 +30,9 @@ export const metadata: Metadata = {
   description: "Minimalist Portfolio",
 };
 
+import { AOSInit } from "@/components/AOSInit";
+import { AmbientGlow } from "@/components/AmbientGlow";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -38,6 +41,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark transition-colors duration-500 font-sans relative overflow-x-hidden ${inter.variable} ${spaceGrotesk.variable} ${playfair.variable}`}>
+        <AOSInit />
+        <AmbientGlow />
         {children}
       </body>
     </html>

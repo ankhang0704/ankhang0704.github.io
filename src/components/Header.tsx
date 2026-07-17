@@ -6,7 +6,11 @@ import { usePathname } from "next/navigation";
 import AOS from "aos";
 import { Icons } from "@/components/Icons";
 
-export default function Header() {
+interface HeaderProps {
+  variant?: "main" | "fm";
+}
+
+export default function Header({ variant = "main" }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [lang, setLang] = useState("en");
@@ -24,14 +28,12 @@ export default function Header() {
   };
 
   useEffect(() => {
-    // Scroll effect
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     handleScroll();
 
-    // Theme init
     const savedTheme = localStorage.getItem("theme");
     const isDarkInit =
       savedTheme === "dark" ||
@@ -41,7 +43,6 @@ export default function Header() {
     if (isDarkInit) document.documentElement.classList.add("dark");
     else document.documentElement.classList.remove("dark");
 
-    // Lang init
     const savedLang = localStorage.getItem("lang") || "en";
     setTimeout(() => setLang(savedLang), 0);
 
@@ -98,7 +99,12 @@ export default function Header() {
     setLang(newLang);
     localStorage.setItem("lang", newLang);
     updateLangDOM(newLang);
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("langChange"));
+    }
   };
+
+  const isMainPage = pathname === "/fm-dictionary" || pathname === "/fm-dictionary/";
 
   return (
     <>
@@ -110,24 +116,43 @@ export default function Header() {
         }`}
       >
         <div className="container mx-auto w-full px-6 md:px-8 flex justify-between items-center">
-          <Link href="/" className="font-display text-3xl font-bold tracking-tighter">
-            AN KHANG
+          <Link href={variant === "main" ? "/" : "/fm-dictionary/"} className="font-display text-3xl font-bold tracking-tighter">
+            {variant === "main" ? "AN KHANG" : "FM DICTIONARY"}
           </Link>
 
           <div className="flex items-center space-x-6 md:space-x-10">
             <nav className="hidden md:flex space-x-10 text-sm tracking-widest uppercase">
-              <a href="#about" className="nav-link hover-underline" data-vi="Tóm tắt" data-en="Summary">
-                Summary
-              </a>
-              <a href="#skills" className="nav-link hover-underline" data-vi="Kỹ năng" data-en="Skills">
-                Skills
-              </a>
-              <a href="#projects" className="nav-link hover-underline" data-vi="Dự án" data-en="Projects">
-                Projects
-              </a>
-              <a href="#experience" className="nav-link hover-underline" data-vi="Lộ trình" data-en="Timeline">
-                Timeline
-              </a>
+              {variant === "main" ? (
+                <>
+                  <a href="#about" className="nav-link hover-underline" data-vi="Tóm tắt" data-en="Summary">
+                    Summary
+                  </a>
+                  <a href="#skills" className="nav-link hover-underline" data-vi="Kỹ năng" data-en="Skills">
+                    Skills
+                  </a>
+                  <a href="#projects" className="nav-link hover-underline" data-vi="Dự án" data-en="Projects">
+                    Projects
+                  </a>
+                  <a href="#experience" className="nav-link hover-underline" data-vi="Lộ trình" data-en="Timeline">
+                    Timeline
+                  </a>
+                </>
+              ) : (
+                <>
+                  <Link href={isMainPage ? "#features" : "/fm-dictionary/#features"} className="nav-link hover-underline" data-vi="Tính năng" data-en="Features">
+                    Features
+                  </Link>
+                  <Link href={isMainPage ? "#gallery" : "/fm-dictionary/#gallery"} className="nav-link hover-underline" data-vi="Màn hình" data-en="Gallery">
+                    Gallery
+                  </Link>
+                  <Link href={isMainPage ? "#tech" : "/fm-dictionary/#tech"} className="nav-link hover-underline" data-vi="Công nghệ" data-en="Tech Stack">
+                    Tech Stack
+                  </Link>
+                  <Link href={isMainPage ? "#download" : "/fm-dictionary/#download"} className="nav-link hover-underline" data-vi="Tải xuống" data-en="Download">
+                    Download
+                  </Link>
+                </>
+              )}
             </nav>
 
             <div className="flex items-center space-x-4 md:space-x-6">
@@ -151,15 +176,15 @@ export default function Header() {
               </div>
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
-                className={`md:hidden text-2xl p-2 ${isMobileMenuOpen ? "hidden" : ""}`}
+                className={`md:hidden text-2xl p-2 flex items-center justify-center ${isMobileMenuOpen ? "hidden" : ""}`}
               >
-                <Icons.Menu className="" />
+                <Icons.Menu size={24} />
               </button>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`md:hidden text-3xl p-2 ${isMobileMenuOpen ? "" : "hidden"}`}
+                className={`md:hidden text-3xl p-2 flex items-center justify-center ${isMobileMenuOpen ? "" : "hidden"}`}
               >
-                <Icons.Close className="" />
+                <Icons.Close size={30} />
               </button>
             </div>
           </div>
@@ -175,42 +200,37 @@ export default function Header() {
         }`}
       >
         <nav className="flex flex-col items-center space-y-10">
-          <a
-            href="#about"
-            className="mobile-nav-link"
-            data-vi="Tóm tắt"
-            data-en="Summary"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Summary
-          </a>
-          <a
-            href="#skills"
-            className="mobile-nav-link"
-            data-vi="Kỹ năng"
-            data-en="Skills"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Skills
-          </a>
-          <a
-            href="#projects"
-            className="mobile-nav-link"
-            data-vi="Dự án"
-            data-en="Projects"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Projects
-          </a>
-          <a
-            href="#experience"
-            className="mobile-nav-link"
-            data-vi="Lộ trình"
-            data-en="Timeline"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Timeline
-          </a>
+          {variant === "main" ? (
+            <>
+              <a href="#about" className="mobile-nav-link" data-vi="Tóm tắt" data-en="Summary" onClick={() => setIsMobileMenuOpen(false)}>
+                Summary
+              </a>
+              <a href="#skills" className="mobile-nav-link" data-vi="Kỹ năng" data-en="Skills" onClick={() => setIsMobileMenuOpen(false)}>
+                Skills
+              </a>
+              <a href="#projects" className="mobile-nav-link" data-vi="Dự án" data-en="Projects" onClick={() => setIsMobileMenuOpen(false)}>
+                Projects
+              </a>
+              <a href="#experience" className="mobile-nav-link" data-vi="Lộ trình" data-en="Timeline" onClick={() => setIsMobileMenuOpen(false)}>
+                Timeline
+              </a>
+            </>
+          ) : (
+            <>
+              <Link href={isMainPage ? "#features" : "/fm-dictionary/#features"} className="mobile-nav-link" data-vi="Tính năng" data-en="Features" onClick={() => setIsMobileMenuOpen(false)}>
+                Features
+              </Link>
+              <Link href={isMainPage ? "#gallery" : "/fm-dictionary/#gallery"} className="mobile-nav-link" data-vi="Màn hình" data-en="Gallery" onClick={() => setIsMobileMenuOpen(false)}>
+                Gallery
+              </Link>
+              <Link href={isMainPage ? "#tech" : "/fm-dictionary/#tech"} className="mobile-nav-link" data-vi="Công nghệ" data-en="Tech Stack" onClick={() => setIsMobileMenuOpen(false)}>
+                Tech Stack
+              </Link>
+              <Link href={isMainPage ? "#download" : "/fm-dictionary/#download"} className="mobile-nav-link" data-vi="Tải xuống" data-en="Download" onClick={() => setIsMobileMenuOpen(false)}>
+                Download
+              </Link>
+            </>
+          )}
         </nav>
 
         <div className="flex items-center space-x-12 pt-12 border-t border-black/10 dark:border-white/10 w-2/3 justify-center">
@@ -220,7 +240,7 @@ export default function Header() {
           >
             {lang.toUpperCase()}
           </button>
-          <button onClick={toggleTheme} className="text-3xl" aria-label="Toggle Theme">
+          <button onClick={toggleTheme} className="text-3xl hover:rotate-180 transition-transform duration-500 flex items-center justify-center" aria-label="Toggle Theme">
             {isDark ? (
               <Icons.Sun className="block" />
             ) : (

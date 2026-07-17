@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import AOS from "aos";
-import FMHeader from "../../../components/fm-dictionary/Header";
-import FMFooter from "../../../components/fm-dictionary/Footer";
+
+import Header from "../../../components/Header";
+import Footer from "../../../components/Footer";
 import { Icons } from "../../../components/Icons";
 
 export default function DeleteAccountPage() {
@@ -18,27 +18,13 @@ export default function DeleteAccountPage() {
     const savedLang = localStorage.getItem("lang") || "en";
     setTimeout(() => setLang(savedLang), 0);
 
-    AOS.init({
-      duration: 1500,
-      easing: "ease-out-cubic",
-      once: true,
-    });
-
-    const timer = setTimeout(() => {
-      AOS.refresh();
-    }, 100);
-
     const handleLangChange = () => {
       setLang(localStorage.getItem("lang") || "en");
-      setTimeout(() => {
-        AOS.refresh();
-      }, 100);
     };
 
     window.addEventListener("langChange", handleLangChange);
 
     return () => {
-      clearTimeout(timer);
       window.removeEventListener("langChange", handleLangChange);
     };
   }, []);
@@ -64,10 +50,7 @@ export default function DeleteAccountPage() {
 
   return (
     <>
-      <div className="ambient-glow top-glow max-w-full"></div>
-      <div className="ambient-glow bottom-glow max-w-full"></div>
-
-      <FMHeader />
+      <Header variant="fm" />
 
       <main className="pt-40 pb-32 w-full max-w-full">
         <div className="container mx-auto px-6 md:px-8 max-w-4xl break-words">
@@ -344,7 +327,7 @@ export default function DeleteAccountPage() {
         </div>
       </main>
 
-      <FMFooter />
+      <Footer variant="fm" />
     </>
   );
 }

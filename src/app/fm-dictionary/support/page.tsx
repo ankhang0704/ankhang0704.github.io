@@ -1,31 +1,17 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import Link from "next/link";
-import AOS from "aos";
-import FMHeader from "../../../components/fm-dictionary/Header";
-import FMFooter from "../../../components/fm-dictionary/Footer";
+import Header from "../../../components/Header";
+import Footer from "../../../components/Footer";
 import { Icons } from "../../../components/Icons";
 
 export default function SupportPage() {
-  useEffect(() => {
-    AOS.init({
-      duration: 1500,
-      easing: "ease-out-cubic",
-      once: true,
-    });
-    
-    requestAnimationFrame(() => {
-      AOS.refresh();
-    });
-  }, []);
+
 
   return (
     <>
-      <div className="ambient-glow top-glow max-w-full"></div>
-      <div className="ambient-glow bottom-glow max-w-full"></div>
-
-      <FMHeader />
+      <Header variant="fm" />
 
       <main className="pt-40 pb-32 w-full max-w-full overflow-x-hidden">
         <div className="container mx-auto px-6 md:px-8 max-w-4xl break-words overflow-x-hidden">
@@ -486,7 +472,7 @@ export default function SupportPage() {
         </div>
       </main>
 
-      <FMFooter />
+      <Footer variant="fm" />
     </>
   );
 }

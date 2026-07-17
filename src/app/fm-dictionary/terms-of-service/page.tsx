@@ -1,39 +1,15 @@
 "use client";
 
-import React, { useEffect } from "react";
-import AOS from "aos";
-import FMHeader from "../../../components/fm-dictionary/Header";
-import FMFooter from "../../../components/fm-dictionary/Footer";
+import React from "react";
+import Header from "../../../components/Header";
+import Footer from "../../../components/Footer";
 import { Icons } from "../../../components/Icons";
 
 export default function TermsOfServicePage() {
-  useEffect(() => {
-    AOS.init({
-      duration: 1500,
-      easing: "ease-out-cubic",
-      once: true,
-      offset: 50,
-    });
-    
-    // Refresh AOS multiple times to handle hydration and dynamic content
-    AOS.refresh();
-    const t1 = setTimeout(() => AOS.refresh(), 100);
-    const t2 = setTimeout(() => AOS.refresh(), 500);
-    const t3 = setTimeout(() => AOS.refresh(), 1000);
-
-    return () => {
-        clearTimeout(t1);
-        clearTimeout(t2);
-        clearTimeout(t3);
-    };
-  }, []);
 
   return (
     <>
-      <div className="ambient-glow top-glow max-w-full"></div>
-      <div className="ambient-glow bottom-glow max-w-full"></div>
-
-      <FMHeader />
+      <Header variant="fm" />
 
       <main className="pt-40 pb-32 overflow-x-hidden w-full max-w-[100vw]">
         <div className="container mx-auto px-6 md:px-8 max-w-4xl break-words">
@@ -578,7 +554,7 @@ export default function TermsOfServicePage() {
         </div>
       </main>
 
-      <FMFooter />
+      <Footer variant="fm" />
     </>
   );
 }

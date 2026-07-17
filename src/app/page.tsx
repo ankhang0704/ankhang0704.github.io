@@ -2,21 +2,13 @@
 
 import React, { useEffect } from "react";
 import Image from "next/image";
-import AOS from "aos";
+
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { Icons } from "../components/Icons";
+
 
 export default function Home() {
   useEffect(() => {
-    AOS.init({
-      duration: 1500,
-      easing: "ease-out-cubic",
-      once: true,
-      offset: 50,
-    });
-    AOS.refresh();
-
     // ScrollSpy logic
     const sections = document.querySelectorAll("section[id]");
     const observerOptions = {
@@ -50,9 +42,6 @@ export default function Home() {
 
   return (
     <>
-      <div className="ambient-glow top-glow max-w-full"></div>
-      <div className="ambient-glow bottom-glow max-w-full"></div>
-
       <Header />
 
       <main>
@@ -268,6 +257,7 @@ export default function Home() {
                     src="/fm-dictionary-cover.webp"
                     alt="FM Dictionary"
                     fill
+                    sizes="(max-width: 1024px) 100vw, 60vw"
                     className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
                   />
                   <div className="absolute top-6 left-6 mix-blend-difference z-20">

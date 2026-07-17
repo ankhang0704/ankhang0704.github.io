@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import AOS from "aos";
+
 import Link from "next/link";
 import Image from "next/image";
-import FMHeader from "../../components/fm-dictionary/Header";
-import FMFooter from "../../components/fm-dictionary/Footer";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 import { Icons } from "../../components/Icons";
 
 const APP_SCREENS = [
@@ -82,14 +82,6 @@ export default function FMDictionaryPage() {
   };
 
   useEffect(() => {
-    AOS.init({
-      duration: 1500,
-      easing: "ease-out-cubic",
-      once: true,
-      offset: 50,
-    });
-    AOS.refresh();
-
     // Close on ESC
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") setSelectedImg(null);
@@ -126,10 +118,7 @@ export default function FMDictionaryPage() {
 
   return (
     <>
-      <div className="ambient-glow top-glow max-w-full"></div>
-      <div className="ambient-glow bottom-glow max-w-full"></div>
-
-      <FMHeader />
+      <Header variant="fm" />
 
       <main>
         {/* Hero Section */}
@@ -805,7 +794,7 @@ export default function FMDictionaryPage() {
         </section>
       </main>
 
-      <FMFooter />
+      <Footer variant="fm" />
 
       {/* Lightbox / Modal */}
       {selectedImg && (
