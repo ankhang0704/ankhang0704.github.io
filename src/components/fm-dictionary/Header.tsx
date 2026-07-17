@@ -13,6 +13,16 @@ export default function FMHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
+  const updateLangDOM = (currentLang: string) => {
+    document.querySelectorAll("[data-vi]").forEach((el) => {
+      const vi = el.getAttribute("data-vi");
+      const en = el.getAttribute("data-en");
+      if (vi || en) {
+          el.innerHTML = currentLang === "vi" ? (vi || "") : (en || "");
+      }
+    });
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -25,12 +35,12 @@ export default function FMHeader() {
       savedTheme === "dark" ||
       (!savedTheme &&
         window.matchMedia("(prefers-color-scheme: dark)").matches);
-    setIsDark(isDarkInit);
+    setTimeout(() => setIsDark(isDarkInit), 0);
     if (isDarkInit) document.documentElement.classList.add("dark");
     else document.documentElement.classList.remove("dark");
 
     const savedLang = localStorage.getItem("lang") || "en";
-    setLang(savedLang);
+    setTimeout(() => setLang(savedLang), 0);
 
     return () => {
         window.removeEventListener("scroll", handleScroll);
@@ -88,16 +98,6 @@ export default function FMHeader() {
     if (typeof window !== "undefined") {
       window.dispatchEvent(new Event("langChange"));
     }
-  };
-
-  const updateLangDOM = (currentLang: string) => {
-    document.querySelectorAll("[data-vi]").forEach((el) => {
-      const vi = el.getAttribute("data-vi");
-      const en = el.getAttribute("data-en");
-      if (vi || en) {
-          el.innerHTML = currentLang === "vi" ? (vi || "") : (en || "");
-      }
-    });
   };
 
   const isMainPage = pathname === "/fm-dictionary" || pathname === "/fm-dictionary/";

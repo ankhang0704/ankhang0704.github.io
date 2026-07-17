@@ -75,7 +75,7 @@ export default function PrivacyPolicyPage() {
                 data-vi='Chào mừng bạn đến với <strong>FM Dictionary</strong> ("Ứng dụng", "chúng tôi"). Chúng tôi cam kết bảo vệ quyền riêng tư của bạn và đảm bảo rằng thông tin cá nhân của bạn được xử lý một cách an toàn, minh bạch và có trách nhiệm.'
                 data-en='Welcome to <strong>FM Dictionary</strong> ("the App", "we", "our"). We are committed to protecting your privacy and ensuring that your personal information is handled in a safe, transparent, and responsible manner.'
               >
-                Welcome to <strong>FM Dictionary</strong> ("the App", "we", "our"). We are
+                Welcome to <strong>FM Dictionary</strong> (&quot;the App&quot;, &quot;we&quot;, &quot;our&quot;). We are
                 committed to protecting your privacy and ensuring that your personal
                 information is handled in a safe, transparent, and responsible manner.
               </p>
@@ -106,7 +106,7 @@ export default function PrivacyPolicyPage() {
                 data-en="We only collect and process the minimum necessary information to operate the app's core features, sync learning progress, diagnose system errors, and secure your account:"
               >
                 We only collect and process the minimum necessary information to operate the
-                app's core features, sync learning progress, diagnose system errors, and
+                app&apos;s core features, sync learning progress, diagnose system errors, and
                 secure your account:
               </p>
               <ul className="space-y-6">
@@ -181,7 +181,7 @@ export default function PrivacyPolicyPage() {
               >
                 The FM Dictionary app integrates artificial intelligence (AI) English
                 pronunciation analysis and evaluation features. This feature requires access
-                to the device's Microphone:
+                to the device&apos;s Microphone:
               </p>
               <ul className="space-y-6">
                 <li>
@@ -323,7 +323,7 @@ export default function PrivacyPolicyPage() {
                       data-en="<strong>No-Tracking Policy:</strong> The app strictly complies with Apple's App Tracking Transparency (ATT) mechanism and Google's regulations. We do not use advertising identifiers (IDFA/GAID) to track your behavior across apps and websites owned by other entities."
                     >
                       <strong>No-Tracking Policy:</strong> The app strictly complies with
-                      Apple's App Tracking Transparency (ATT) mechanism and Google's
+                      Apple&apos;s App Tracking Transparency (ATT) mechanism and Google&apos;s
                       regulations. We do not use advertising identifiers (IDFA/GAID) to track
                       your behavior across apps and websites owned by other entities.
                     </span>
@@ -478,7 +478,7 @@ export default function PrivacyPolicyPage() {
                 data-vi="6. Quyền riêng tư của trẻ em"
                 data-en="6. Children's Privacy"
               >
-                6. Children's Privacy
+                6. Children&apos;s Privacy
               </h2>
               <p
                 className="mb-6"
@@ -515,7 +515,7 @@ export default function PrivacyPolicyPage() {
                 data-en="We may update this Privacy Policy from time to time to reflect changes in the app's operational features or in accordance with new legal updates from Google and Apple. The updated version will be posted directly on this page with the latest update date at the beginning of the document. We encourage you to check this page periodically to stay informed of your rights."
               >
                 We may update this Privacy Policy from time to time to reflect changes in the
-                app's operational features or in accordance with new legal updates from
+                app&apos;s operational features or in accordance with new legal updates from
                 Google and Apple. The updated version will be posted directly on this page
                 with the latest update date at the beginning of the document. We encourage
                 you to check this page periodically to stay informed of your rights.

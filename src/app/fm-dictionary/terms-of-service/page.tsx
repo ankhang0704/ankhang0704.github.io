@@ -83,7 +83,7 @@ export default function TermsOfServicePage() {
                 data-vi="Chào mừng bạn đến với <strong>FM Dictionary</strong> (&quot;Ứng dụng&quot;). Ứng dụng được phát triển bởi <strong>An Khang Studio</strong> và vận hành dựa trên nền tảng nội dung chuyên môn thuộc sở hữu độc quyền của <strong>Thúy Tạ</strong>."
                 data-en="Welcome to <strong>FM Dictionary</strong> (&quot;the App&quot;). The app is developed by <strong>An Khang Studio</strong> and operates based on specialized content platform exclusively owned by <strong>Thuy Ta</strong>."
               >
-                Welcome to <strong>FM Dictionary</strong> ("the App"). The app is developed by{" "}
+                Welcome to <strong>FM Dictionary</strong> (&quot;the App&quot;). The app is developed by{" "}
                 <strong>An Khang Studio</strong> and operates based on specialized content
                 platform exclusively owned by <strong>Thuy Ta</strong>.
               </p>
@@ -137,7 +137,7 @@ export default function TermsOfServicePage() {
                     <strong>Content Usage Limits:</strong> Users are only granted personal,
                     non-commercial access for personal learning purposes. All acts of data
                     scraping/crawling, copying, extracting, editing, distributing,
-                    transferring, or republishing part or all of the App's data content in
+                    transferring, or republishing part or all of the App&apos;s data content in
                     any form without written consent from the copyright owner are strictly
                     prohibited.
                   </span>
@@ -180,7 +180,7 @@ export default function TermsOfServicePage() {
                   >
                     You must be thirteen (13) years of age or older (or the minimum age
                     required by law in your home country) to register for an account and use
-                    the App's interactive features. Children under 13 are only allowed to use
+                    the App&apos;s interactive features. Children under 13 are only allowed to use
                     the App under the direct supervision and consent of a parent or legal
                     guardian.
                   </p>
@@ -239,7 +239,7 @@ export default function TermsOfServicePage() {
                 data-vi="(Mục này được thiết lập nhằm tuân thủ nghiêm ngặt Hướng dẫn kiểm duyệt ứng dụng của Apple — App Store Guideline 1.2 về User-Generated Content và các quy định an toàn của Google Play)."
                 data-en="(This section is established to strictly comply with Apple's App Review Guidelines — App Store Guideline 1.2 on User-Generated Content and Google Play safety regulations)."
               >
-                (This section is established to strictly comply with Apple's App Review
+                (This section is established to strictly comply with Apple&apos;s App Review
                 Guidelines — App Store Guideline 1.2 on User-Generated Content and Google
                 Play safety regulations).
               </p>
@@ -248,10 +248,10 @@ export default function TermsOfServicePage() {
                 data-vi="Ứng dụng cung cấp tính năng &quot;Nhóm học tập (Social Learning)&quot;, cho phép người dùng hiển thị tên, ảnh đại diện và tiến trình học tập cá nhân trong các nhóm học tập nội bộ. Để đảm bảo môi trường học tập lành mạnh, chúng tôi áp dụng chính sách <strong>&quot;Không khoan nhượng&quot; (Zero Tolerance)</strong> đối với nội dung phản cảm và hành vi lạm dụng:"
                 data-en="The App provides a &quot;Social Learning Groups&quot; feature, allowing users to display their name, profile picture, and individual learning progress within internal study groups. To ensure a healthy learning environment, we apply a <strong>&quot;Zero Tolerance&quot;</strong> policy for offensive content and abusive behavior:"
               >
-                The App provides a "Social Learning Groups" feature, allowing users to display
+                The App provides a &quot;Social Learning Groups&quot; feature, allowing users to display
                 their name, profile picture, and individual learning progress within internal
                 study groups. To ensure a healthy learning environment, we apply a{" "}
-                <strong>"Zero Tolerance"</strong> policy for offensive content and abusive
+                <strong>&quot;Zero Tolerance&quot;</strong> policy for offensive content and abusive
                 behavior:
               </p>
               <div className="space-y-8">
@@ -312,7 +312,7 @@ export default function TermsOfServicePage() {
                     >
                       We reserve the full right to proactively screen, inspect, and
                       immediately remove any user-generated information if we determine that
-                      content violates legal regulations or the App's community standards.
+                      content violates legal regulations or the App&apos;s community standards.
                     </li>
                     <li
                       data-vi="Ứng dụng tích hợp sẵn cơ chế cho phép người dùng báo cáo (Report) các hành vi vi phạm hoặc người dùng độc hại trực tiếp từ giao diện nhóm. Ban quản trị cam kết thẩm định và xử lý các báo cáo vi phạm trong vòng tối đa hai mươi tư (24) giờ."
@@ -353,7 +353,7 @@ export default function TermsOfServicePage() {
                 data-en="The App integrates Artificial Intelligence (AI) technology to help analyze audio and evaluate users' English pronunciation. This feature requires access to the Microphone on your device:"
               >
                 The App integrates Artificial Intelligence (AI) technology to help analyze
-                audio and evaluate users' English pronunciation. This feature requires access
+                audio and evaluate users&apos; English pronunciation. This feature requires access
                 to the Microphone on your device:
               </p>
               <ul className="space-y-4 mb-6">
@@ -403,7 +403,7 @@ export default function TermsOfServicePage() {
                   data-en="Not to collect any hidden fees or require paid membership subscriptions throughout the user's learning and app operation process."
                 >
                   Not to collect any hidden fees or require paid membership subscriptions
-                  throughout the user's learning and app operation process.
+                  throughout the user&apos;s learning and app operation process.
                 </li>
                 <li
                   data-vi="Toàn bộ kho từ vựng và tiến trình học tập được mở khóa tự động mà không yêu cầu người dùng phải thực hiện giao dịch tài chính hay liên kết thẻ thanh toán."
@@ -495,7 +495,7 @@ export default function TermsOfServicePage() {
                 >
                   In the event that a mutual agreement cannot be reached through negotiation
                   within sixty (60) days from the date the dispute arose, the case will be
-                  brought for resolution at a competent People's Court in Vietnam for
+                  brought for resolution at a competent People&apos;s Court in Vietnam for
                   adjudication according to the law.
                 </li>
               </ul>

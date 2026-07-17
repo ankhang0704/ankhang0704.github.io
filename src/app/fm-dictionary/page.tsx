@@ -106,7 +106,6 @@ export default function FMDictionaryPage() {
       stopAutoplay();
     }
     return stopAutoplay;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isHoveringGallery]);
 
   // Scroll-triggered reveal for gallery cards
@@ -492,6 +491,7 @@ export default function FMDictionaryPage() {
                     src={item.img}
                     alt={item.label}
                     fill
+                    sizes="(max-width: 768px) 100vw, 300px"
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   {/* Active slide pulse ring */}
@@ -718,7 +718,7 @@ export default function FMDictionaryPage() {
                 >
                   Removing language barriers
                   <br />
-                  in Vietnam's FM industry
+                  in Vietnam&apos;s FM industry
                 </h2>
                 <p
                   className="font-light text-lg opacity-70 mb-6 text-justify"

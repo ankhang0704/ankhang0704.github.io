@@ -25,15 +25,15 @@ export default function Footer() {
     <>
       <footer
         id="contact"
-        className="py-20 text-center min-h-[50vh] flex flex-col justify-center relative overflow-x-hidden"
+        className="py-20 text-center min-h-[50vh] flex flex-col justify-center relative overflow-x-hidden bg-cardLight dark:bg-cardDark border-t border-black/5 dark:border-white/5"
       >
         <div className="container mx-auto px-6 md:px-8 relative z-10" data-aos="zoom-in">
           <h2
             className="font-display text-5xl md:text-8xl font-bold mb-8 uppercase tracking-tighter"
             data-vi="Bắt Đầu."
-            data-en="Let's Talk."
+            data-en="Let&apos;s Talk."
           >
-            Let's Talk.
+            Let&apos;s Talk.
           </h2>
           <a
             href="mailto:ankhang.nguyen0704@gmail.com"
@@ -45,6 +45,7 @@ export default function Footer() {
           <div className="flex justify-center space-x-8 mt-16 text-2xl">
             <a
               href="https://github.com/ankhang0704"
+              aria-label="GitHub Profile"
               className="hover:opacity-50 transition-opacity duration-500"
               target="_blank"
               rel="noreferrer"
@@ -53,6 +54,7 @@ export default function Footer() {
             </a>
             <a
               href="https://www.linkedin.com/in/khang-nguyen-0855893a7/"
+              aria-label="LinkedIn Profile"
               className="hover:opacity-50 transition-opacity duration-500"
               target="_blank"
               rel="noreferrer"
@@ -61,6 +63,7 @@ export default function Footer() {
             </a>
             <a
               href="https://www.facebook.com/ankhang0704"
+              aria-label="Facebook Profile"
               className="hover:opacity-50 transition-opacity duration-500"
               target="_blank"
               rel="noreferrer"

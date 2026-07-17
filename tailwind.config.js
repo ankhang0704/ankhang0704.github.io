@@ -8,9 +8,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        display: ['Space Grotesk', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
+        sans: ['var(--font-inter)', 'sans-serif'],
+        display: ['var(--font-space-grotesk)', 'sans-serif'],
+        serif: ['var(--font-playfair)', 'serif'],
       },
       colors: {
         bgLight: '#fafafa',

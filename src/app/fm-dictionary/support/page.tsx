@@ -125,14 +125,14 @@ export default function SupportPage() {
                         data-vi="Q: Tại sao tôi không đăng nhập được?"
                         data-en="Q: Why can't I log in?"
                       >
-                        Q: Why can't I log in?
+                        Q: Why can&apos;t I log in?
                       </p>
                       <p
                         data-vi="Hãy kiểm tra kết nối Internet, đảm bảo dùng đúng tài khoản Google/Apple. Nếu dùng Apple Sign-In, hãy chắc chắn bạn đã chia sẻ email thật. Nếu vẫn lỗi, hãy thử cài lại ứng dụng hoặc liên hệ chúng tôi."
                         data-en="Check your Internet connection, ensure you're using the correct Google/Apple account. If using Apple Sign-In, make sure you've shared your real email. If issues persist, try reinstalling the app or contact us."
                       >
-                        Check your Internet connection, ensure you're using the correct
-                        Google/Apple account. If using Apple Sign-In, make sure you've shared
+                        Check your Internet connection, ensure you&apos;re using the correct
+                        Google/Apple account. If using Apple Sign-In, make sure you&apos;ve shared
                         your real email. If issues persist, try reinstalling the app or
                         contact us.
                       </p>

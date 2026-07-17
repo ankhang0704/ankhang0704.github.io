@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
+import Image from "next/image";
 import AOS from "aos";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -92,13 +93,32 @@ export default function Home() {
               A Software Developer focused on practical solutions. Blending network systems
               and cross-platform programming.
             </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 items-start">
+              <a
+                href="#projects"
+                className="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all flex items-center justify-center w-full sm:w-auto group/btn1"
+              >
+                <span data-vi="Xem Dự Án Chọn Lọc" data-en="View Selected Works">View Selected Works</span>
+                <span className="ml-3 group-hover/btn1:translate-x-2 transition-transform duration-300">→</span>
+              </a>
+              <a
+                href="/my_cv.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-black text-white dark:bg-white dark:text-black border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:opacity-80 transition-all flex items-center justify-center w-full sm:w-auto group/btn2"
+              >
+                <span data-vi="Tải Xuống CV" data-en="Download CV">Download CV</span>
+                <span className="ml-3 group-hover/btn2:translate-y-1 transition-transform duration-300">↓</span>
+              </a>
+            </div>
           </div>
         </section>
 
         {/* ABOUT SECTION */}
         <section
           id="about"
-          className="min-h-screen flex items-center py-20 relative overflow-x-hidden"
+          className="py-32 md:py-40 bg-cardLight dark:bg-cardDark border-y border-black/5 dark:border-white/5 relative overflow-x-hidden"
         >
           <div className="container mx-auto px-6 md:px-8 relative z-10">
             <div className="max-w-3xl" data-aos="fade-right">
@@ -137,7 +157,7 @@ export default function Home() {
         {/* SKILLS SECTION */}
         <section
           id="skills"
-          className="min-h-screen flex items-center py-20 bg-cardLight dark:bg-cardDark overflow-x-hidden relative"
+          className="py-32 md:py-40 overflow-x-hidden relative"
         >
           <div className="container mx-auto px-6 md:px-8">
             <h2
@@ -149,124 +169,74 @@ export default function Home() {
               Technical Expertise
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-              <div
-                className="p-8 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-colors relative group"
-                data-aos="fade-up"
-              >
-                <div
-                  className="absolute -top-4 left-6 bg-cardLight dark:bg-cardDark px-2 text-sm font-bold uppercase tracking-widest"
-                  data-vi="Thế Mạnh Cốt Lõi"
-                  data-en="Core Strengths"
-                >
-                  Core Strengths
-                </div>
-
-                <div className="mb-8">
-                  <h3 className="text-3xl font-display font-bold mb-2">Django</h3>
-                  <p
-                    className="text-sm opacity-70 mb-2 italic"
-                    data-vi="*Dự án tốt nghiệp trọng điểm"
-                    data-en="*Core graduation project"
-                  >
-                    *Core graduation project
-                  </p>
-                  <p
-                    className="font-light opacity-80 text-sm"
-                    data-vi="Xây dựng hệ thống Backend vững chắc, xử lý logic phức tạp, API an toàn."
-                    data-en="Building robust Backend systems, handling complex logic, secure APIs."
-                  >
-                    Building robust Backend systems, handling complex logic, secure APIs.
-                  </p>
+            <div className="max-w-4xl mx-auto mt-12">
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 md:gap-12 py-10 border-t border-black/10 dark:border-white/10 group" data-aos="fade-up">
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-widest opacity-50">01 / Development</h3>
                 </div>
                 <div>
-                  <h3 className="text-3xl font-display font-bold mb-2">Flutter</h3>
+                  <h4 className="font-display text-3xl font-bold mb-4 group-hover:translate-x-2 transition-transform duration-300">Software & Mobile</h4>
                   <p
-                    className="text-sm opacity-70 mb-2 italic"
-                    data-vi="*Dự án đang phát triển"
-                    data-en="*Current development"
+                    className="font-light opacity-80 text-lg leading-relaxed mb-6"
+                    data-vi="Xây dựng hệ thống Backend vững chắc, phát triển ứng dụng di động và thiết kế các giải pháp phần mềm toàn diện."
+                    data-en="Building robust backend systems, developing mobile apps, and architecting comprehensive software solutions."
                   >
-                    *Current development
+                    Building robust backend systems, developing mobile apps, and architecting comprehensive software solutions.
                   </p>
-                  <p
-                    className="font-light opacity-80 text-sm"
-                    data-vi="Thiết kế ứng dụng Mobile mượt mà, giao diện hiện đại đa nền tảng (iOS/Android)."
-                    data-en="Designing smooth Mobile apps, modern cross-platform UI (iOS/Android)."
-                  >
-                    Designing smooth Mobile apps, modern cross-platform UI (iOS/Android).
-                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Django", "Flutter", "Next.js", "React", "C#", "Java", "PHP"].map((tech) => (
+                      <span key={tech} className="border border-black/10 dark:border-white/10 px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest opacity-60 hover:opacity-100 hover:border-black dark:hover:border-white transition-all cursor-default">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              <div
-                className="p-8 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-colors relative"
-                data-aos="fade-up"
-                data-aos-delay="100"
-              >
-                <div
-                  className="absolute -top-4 left-6 bg-cardLight dark:bg-cardDark px-2 text-sm font-bold uppercase tracking-widest"
-                  data-vi="Ngôn Ngữ & Web"
-                  data-en="Languages & Web"
-                >
-                  Languages & Web
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 md:gap-12 py-10 border-t border-black/10 dark:border-white/10 group" data-aos="fade-up" data-aos-delay="100">
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-widest opacity-50">02 / Ecosystem</h3>
                 </div>
-                <ul className="space-y-4 font-light text-lg mt-4">
-                  <li className="flex items-center">
-                    <Icons.Check size={12} className="text-black dark:text-white mr-3 opacity-50" />{" "}
-                    HTML, CSS, JS
-                  </li>
-                  <li className="flex items-center">
-                    <Icons.Check size={12} className="text-black dark:text-white mr-3 opacity-50" />{" "}
-                    C# & Java
-                  </li>
-                  <li className="flex items-center">
-                    <Icons.Check size={12} className="text-black dark:text-white mr-3 opacity-50" />{" "}
-                    PHP & Kotlin
-                  </li>
-                </ul>
+                <div>
+                  <h4 className="font-display text-3xl font-bold mb-4 group-hover:translate-x-2 transition-transform duration-300">Cloud & Databases</h4>
+                  <p
+                    className="font-light opacity-80 text-lg leading-relaxed mb-6"
+                    data-vi="Thiết kế API an toàn, quản lý cơ sở dữ liệu thời gian thực và triển khai các dịch vụ web mở rộng."
+                    data-en="Architecting secure APIs, managing real-time data, and deploying scalable web services."
+                  >
+                    Architecting secure APIs, managing real-time data, and deploying scalable web services.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {["PostgreSQL", "Firebase", "REST APIs", "Vercel", "Tailwind CSS", "Git"].map((tech) => (
+                      <span key={tech} className="border border-black/10 dark:border-white/10 px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest opacity-60 hover:opacity-100 hover:border-black dark:hover:border-white transition-all cursor-default">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
 
-              <div
-                className="p-8 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-colors relative"
-                data-aos="fade-up"
-                data-aos-delay="200"
-              >
-                <div
-                  className="absolute -top-4 left-6 bg-cardLight dark:bg-cardDark px-2 text-sm font-bold uppercase tracking-widest"
-                  data-vi="Hạ Tầng & CMS"
-                  data-en="Infrastructure & CMS"
-                >
-                  Infrastructure & CMS
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 md:gap-12 py-10 border-t border-b border-black/10 dark:border-white/10 group" data-aos="fade-up" data-aos-delay="200">
+                <div>
+                  <h3 className="text-sm font-bold uppercase tracking-widest opacity-50">03 / Infrastructure</h3>
                 </div>
-                <ul className="space-y-4 font-light text-lg mt-4">
-                  <li className="flex items-center">
-                    <Icons.Server size={12} className="text-black dark:text-white mr-3 opacity-50" />{" "}
-                    <span
-                      data-vi="IT Support (Phần cứng/Mạng)"
-                      data-en="IT Support (Hardware/Network)"
-                    >
-                      IT Support (Hardware/Network)
-                    </span>
-                  </li>
-                  <li className="flex items-center">
-                    <Icons.Network size={12} className="text-black dark:text-white mr-3 opacity-50" />{" "}
-                    <span
-                      data-vi="Quản trị mạng cơ bản"
-                      data-en="Basic Network Admin"
-                    >
-                      Basic Network Admin
-                    </span>
-                  </li>
-                  <li className="flex items-center">
-                    <Icons.WordPress size={12} className="text-black dark:text-white mr-3 opacity-50" />{" "}
-                    <span
-                      data-vi="WordPress (Triển khai/Tối ưu)"
-                      data-en="WordPress (Deploy/Optimize)"
-                    >
-                      WordPress (Deploy/Optimize)
-                    </span>
-                  </li>
-                </ul>
+                <div>
+                  <h4 className="font-display text-3xl font-bold mb-4 group-hover:translate-x-2 transition-transform duration-300">Network & IT Ops</h4>
+                  <p
+                    className="font-light opacity-80 text-lg leading-relaxed mb-6"
+                    data-vi="Nền tảng vững chắc về phần cứng, quản trị mạng cơ bản, CMS và vận hành máy chủ đảm bảo độ tin cậy của hệ thống."
+                    data-en="Deep understanding of hardware, basic network administration, CMS, and server operations to ensure reliability."
+                  >
+                    Deep understanding of hardware, basic network administration, CMS, and server operations to ensure reliability.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {["IT Support", "Cisco CCNA", "WordPress", "Hardware", "Linux"].map((tech) => (
+                      <span key={tech} className="border border-black/10 dark:border-white/10 px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest opacity-60 hover:opacity-100 hover:border-black dark:hover:border-white transition-all cursor-default">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -275,7 +245,7 @@ export default function Home() {
         {/* PROJECTS SECTION */}
         <section
           id="projects"
-          className="min-h-screen flex items-center py-20 relative overflow-x-hidden"
+          className="py-32 md:py-40 bg-cardLight dark:bg-cardDark border-y border-black/5 dark:border-white/5 relative overflow-x-hidden"
         >
           <div className="container mx-auto px-6 md:px-8">
             <h2
@@ -294,10 +264,11 @@ export default function Home() {
                   className="lg:col-span-7 overflow-hidden relative aspect-[16/10]"
                   data-aos="fade-right"
                 >
-                  <img
-                    src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1000"
+                  <Image
+                    src="/fm-dictionary-cover.webp"
                     alt="FM Dictionary"
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
+                    fill
+                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
                   />
                   <div className="absolute top-6 left-6 mix-blend-difference z-20">
                     <span className="font-serif italic text-4xl opacity-50 text-white">01</span>
@@ -352,7 +323,7 @@ export default function Home() {
         {/* TIMELINE SECTION */}
         <section
           id="experience"
-          className="min-h-screen flex items-center py-20 bg-cardLight dark:bg-cardDark relative overflow-x-hidden"
+          className="py-32 md:py-40 relative overflow-x-hidden"
         >
           <div className="container mx-auto px-6 md:px-8">
             <h2

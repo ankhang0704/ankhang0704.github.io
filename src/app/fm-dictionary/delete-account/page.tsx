@@ -16,7 +16,7 @@ export default function DeleteAccountPage() {
 
   useEffect(() => {
     const savedLang = localStorage.getItem("lang") || "en";
-    setLang(savedLang);
+    setTimeout(() => setLang(savedLang), 0);
 
     AOS.init({
       duration: 1500,
