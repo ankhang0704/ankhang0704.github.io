@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import AOS from "aos";
+import { usePathname, useRouter } from "next/navigation";
 import { Icons } from "@/components/Icons";
 
 interface HeaderProps {
@@ -13,19 +12,12 @@ interface HeaderProps {
 export default function Header({ variant = "main" }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
-  const [lang, setLang] = useState("en");
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
-  const updateLangDOM = (currentLang: string) => {
-    document.querySelectorAll("[data-vi]").forEach((el) => {
-      const vi = el.getAttribute("data-vi");
-      const en = el.getAttribute("data-en");
-      if (vi || en) {
-          el.innerHTML = currentLang === "vi" ? (vi || "") : (en || "");
-      }
-    });
-  };
+  const lang = pathname.startsWith("/vi") ? "vi" : "en";
+  const isVi = lang === "vi";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,36 +35,10 @@ export default function Header({ variant = "main" }: HeaderProps) {
     if (isDarkInit) document.documentElement.classList.add("dark");
     else document.documentElement.classList.remove("dark");
 
-    const savedLang = localStorage.getItem("lang") || "en";
-    setTimeout(() => setLang(savedLang), 0);
-
     return () => {
-        window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  // Update Lang DOM when pathname or lang changes
-  useEffect(() => {
-    const savedLang = localStorage.getItem("lang") || "en";
-    
-    const runUpdate = () => {
-        updateLangDOM(savedLang);
-        // Important: Refresh AOS after content changes to ensure elements are visible
-        setTimeout(() => {
-            AOS.refresh();
-        }, 100);
-    };
-
-    // Run multiple times to ensure hydration is complete and DOM is stable
-    runUpdate();
-    const timer1 = setTimeout(runUpdate, 100);
-    const timer2 = setTimeout(runUpdate, 500);
-
-    return () => {
-        clearTimeout(timer1);
-        clearTimeout(timer2);
-    };
-  }, [pathname, lang]);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -95,16 +61,19 @@ export default function Header({ variant = "main" }: HeaderProps) {
   };
 
   const toggleLang = () => {
-    const newLang = lang === "en" ? "vi" : "en";
-    setLang(newLang);
-    localStorage.setItem("lang", newLang);
-    updateLangDOM(newLang);
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(new Event("langChange"));
+    const targetLang = lang === "en" ? "vi" : "en";
+    let targetPath = pathname;
+    if (pathname.startsWith("/vi")) {
+      targetPath = pathname.replace(/^\/vi/, "/en");
+    } else if (pathname.startsWith("/en")) {
+      targetPath = pathname.replace(/^\/en/, "/vi");
+    } else {
+      targetPath = `/${targetLang}${pathname === "/" ? "" : pathname}`;
     }
+    router.push(targetPath);
   };
 
-  const isMainPage = pathname === "/fm-dictionary" || pathname === "/fm-dictionary/";
+  const isMainPage = pathname.includes("/fm-dictionary");
 
   return (
     <>
@@ -116,7 +85,7 @@ export default function Header({ variant = "main" }: HeaderProps) {
         }`}
       >
         <div className="container mx-auto w-full px-6 md:px-8 flex justify-between items-center">
-          <Link href={variant === "main" ? "/" : "/fm-dictionary/"} className="font-display text-3xl font-bold tracking-tighter">
+          <Link href={variant === "main" ? `/${lang}/` : `/${lang}/fm-dictionary/`} className="font-display text-3xl font-bold tracking-tighter">
             {variant === "main" ? "AN KHANG" : "FM DICTIONARY"}
           </Link>
 
@@ -124,32 +93,32 @@ export default function Header({ variant = "main" }: HeaderProps) {
             <nav className="hidden md:flex space-x-10 text-sm tracking-widest uppercase">
               {variant === "main" ? (
                 <>
-                  <a href="#about" className="nav-link hover-underline" data-vi="Tóm tắt" data-en="Summary">
-                    Summary
+                  <a href="#about" className="nav-link hover-underline">
+                    {isVi ? "Tóm tắt" : "Summary"}
                   </a>
-                  <a href="#skills" className="nav-link hover-underline" data-vi="Kỹ năng" data-en="Skills">
-                    Skills
+                  <a href="#skills" className="nav-link hover-underline">
+                    {isVi ? "Kỹ năng" : "Skills"}
                   </a>
-                  <a href="#projects" className="nav-link hover-underline" data-vi="Dự án" data-en="Projects">
-                    Projects
+                  <a href="#projects" className="nav-link hover-underline">
+                    {isVi ? "Dự án" : "Projects"}
                   </a>
-                  <a href="#experience" className="nav-link hover-underline" data-vi="Lộ trình" data-en="Timeline">
-                    Timeline
+                  <a href="#experience" className="nav-link hover-underline">
+                    {isVi ? "Lộ trình" : "Timeline"}
                   </a>
                 </>
               ) : (
                 <>
-                  <Link href={isMainPage ? "#features" : "/fm-dictionary/#features"} className="nav-link hover-underline" data-vi="Tính năng" data-en="Features">
-                    Features
+                  <Link href={isMainPage ? "#features" : `/${lang}/fm-dictionary/#features`} className="nav-link hover-underline">
+                    {isVi ? "Tính năng" : "Features"}
                   </Link>
-                  <Link href={isMainPage ? "#gallery" : "/fm-dictionary/#gallery"} className="nav-link hover-underline" data-vi="Màn hình" data-en="Gallery">
-                    Gallery
+                  <Link href={isMainPage ? "#gallery" : `/${lang}/fm-dictionary/#gallery`} className="nav-link hover-underline">
+                    {isVi ? "Màn hình" : "Gallery"}
                   </Link>
-                  <Link href={isMainPage ? "#tech" : "/fm-dictionary/#tech"} className="nav-link hover-underline" data-vi="Công nghệ" data-en="Tech Stack">
-                    Tech Stack
+                  <Link href={isMainPage ? "#tech" : `/${lang}/fm-dictionary/#tech`} className="nav-link hover-underline">
+                    {isVi ? "Công nghệ" : "Tech Stack"}
                   </Link>
-                  <Link href={isMainPage ? "#download" : "/fm-dictionary/#download"} className="nav-link hover-underline" data-vi="Tải xuống" data-en="Download">
-                    Download
+                  <Link href={isMainPage ? "#download" : `/${lang}/fm-dictionary/#download`} className="nav-link hover-underline">
+                    {isVi ? "Tải xuống" : "Download"}
                   </Link>
                 </>
               )}
@@ -160,12 +129,14 @@ export default function Header({ variant = "main" }: HeaderProps) {
                 <button
                   onClick={toggleLang}
                   className="text-sm font-bold tracking-widest hover:opacity-50 transition-opacity"
+                  aria-label="Toggle language (English / Tiếng Việt)"
                 >
                   {lang.toUpperCase()}
                 </button>
                 <button
                   onClick={toggleTheme}
                   className="text-xl hover:rotate-180 transition-transform duration-500"
+                  aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
                 >
                   {isDark ? (
                     <Icons.Sun className="block" />
@@ -177,12 +148,18 @@ export default function Header({ variant = "main" }: HeaderProps) {
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
                 className={`md:hidden text-2xl p-2 flex items-center justify-center ${isMobileMenuOpen ? "hidden" : ""}`}
+                aria-label="Open navigation menu"
+                aria-expanded={false}
+                aria-controls="mobile-menu"
               >
                 <Icons.Menu size={24} />
               </button>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`md:hidden text-3xl p-2 flex items-center justify-center ${isMobileMenuOpen ? "" : "hidden"}`}
+                aria-label="Close navigation menu"
+                aria-expanded={true}
+                aria-controls="mobile-menu"
               >
                 <Icons.Close size={30} />
               </button>
@@ -202,32 +179,32 @@ export default function Header({ variant = "main" }: HeaderProps) {
         <nav className="flex flex-col items-center space-y-10">
           {variant === "main" ? (
             <>
-              <a href="#about" className="mobile-nav-link" data-vi="Tóm tắt" data-en="Summary" onClick={() => setIsMobileMenuOpen(false)}>
-                Summary
+              <a href="#about" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                {isVi ? "Tóm tắt" : "Summary"}
               </a>
-              <a href="#skills" className="mobile-nav-link" data-vi="Kỹ năng" data-en="Skills" onClick={() => setIsMobileMenuOpen(false)}>
-                Skills
+              <a href="#skills" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                {isVi ? "Kỹ năng" : "Skills"}
               </a>
-              <a href="#projects" className="mobile-nav-link" data-vi="Dự án" data-en="Projects" onClick={() => setIsMobileMenuOpen(false)}>
-                Projects
+              <a href="#projects" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                {isVi ? "Dự án" : "Projects"}
               </a>
-              <a href="#experience" className="mobile-nav-link" data-vi="Lộ trình" data-en="Timeline" onClick={() => setIsMobileMenuOpen(false)}>
-                Timeline
+              <a href="#experience" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                {isVi ? "Lộ trình" : "Timeline"}
               </a>
             </>
           ) : (
             <>
-              <Link href={isMainPage ? "#features" : "/fm-dictionary/#features"} className="mobile-nav-link" data-vi="Tính năng" data-en="Features" onClick={() => setIsMobileMenuOpen(false)}>
-                Features
+              <Link href={isMainPage ? "#features" : `/${lang}/fm-dictionary/#features`} className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                {isVi ? "Tính năng" : "Features"}
               </Link>
-              <Link href={isMainPage ? "#gallery" : "/fm-dictionary/#gallery"} className="mobile-nav-link" data-vi="Màn hình" data-en="Gallery" onClick={() => setIsMobileMenuOpen(false)}>
-                Gallery
+              <Link href={isMainPage ? "#gallery" : `/${lang}/fm-dictionary/#gallery`} className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                {isVi ? "Màn hình" : "Gallery"}
               </Link>
-              <Link href={isMainPage ? "#tech" : "/fm-dictionary/#tech"} className="mobile-nav-link" data-vi="Công nghệ" data-en="Tech Stack" onClick={() => setIsMobileMenuOpen(false)}>
-                Tech Stack
+              <Link href={isMainPage ? "#tech" : `/${lang}/fm-dictionary/#tech`} className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                {isVi ? "Công nghệ" : "Tech Stack"}
               </Link>
-              <Link href={isMainPage ? "#download" : "/fm-dictionary/#download"} className="mobile-nav-link" data-vi="Tải xuống" data-en="Download" onClick={() => setIsMobileMenuOpen(false)}>
-                Download
+              <Link href={isMainPage ? "#download" : `/${lang}/fm-dictionary/#download`} className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                {isVi ? "Tải xuống" : "Download"}
               </Link>
             </>
           )}
@@ -237,10 +214,11 @@ export default function Header({ variant = "main" }: HeaderProps) {
           <button
             onClick={toggleLang}
             className="text-lg font-bold tracking-widest"
+            aria-label="Toggle language (English / Tiếng Việt)"
           >
             {lang.toUpperCase()}
           </button>
-          <button onClick={toggleTheme} className="text-3xl hover:rotate-180 transition-transform duration-500 flex items-center justify-center" aria-label="Toggle Theme">
+          <button onClick={toggleTheme} className="text-3xl hover:rotate-180 transition-transform duration-500 flex items-center justify-center" aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}>
             {isDark ? (
               <Icons.Sun className="block" />
             ) : (

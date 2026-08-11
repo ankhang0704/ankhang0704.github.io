@@ -1,0 +1,57 @@
+{
+  "nav": {
+    "summary": "Summary",
+    "skills": "Skills",
+    "projects": "Projects",
+    "timeline": "Timeline",
+    "features": "Features",
+    "gallery": "Gallery",
+    "tech": "Tech Stack",
+    "download": "Download"
+  },
+  "hero": {
+    "subtitle": "Backend & Flutter Developer with an IT Infrastructure background. Building offline-first mobile applications and reliable business systems.",
+    "viewProjects": "View Selected Works",
+    "downloadCV": "Download CV"
+  },
+  "about": {
+    "title": "Summary",
+    "p1": "I am a developer with a background in Network Infrastructure & IT Support. This helps me not only write code but also deeply understand how applications operate on servers and the internet.",
+    "p2": "Currently, I am deeply passionate about backend web and mobile app development. My working philosophy is to solve core business problems with the most appropriate tools, rather than chasing trends."
+  },
+  "skills": {
+    "title": "Technical Expertise",
+    "devTitle": "Software & Mobile",
+    "devDesc": "Building robust backend systems, developing mobile apps, and architecting comprehensive software solutions.",
+    "cloudTitle": "Cloud & Databases",
+    "cloudDesc": "Architecting secure APIs, managing real-time data, and deploying scalable web services.",
+    "infraTitle": "Network & IT Ops",
+    "infraDesc": "Deep understanding of hardware, basic network administration, CMS, and server operations to ensure reliability."
+  },
+  "projects": {
+    "title": "Selected Works",
+    "p1Category": "Production App · Live on App Store",
+    "p1Title": "FM Dictionary",
+    "p1Desc": "Offline-first vocabulary engine & AI pronunciation practice app for Facilities Management professionals. Published live on the App Store with Flutter, Firebase sync, and Cloudflare Workers proxy.",
+    "p1CaseStudy": "View Case Study",
+    "p2Category": "Academic Case Study · Backend & AI",
+    "p2Title": "Hotel Management System",
+    "p2Desc": "A university capstone project exploring Django REST API design, PostgreSQL query optimization, and integrating OpenAI APIs for automated customer support.",
+    "p2Source": "View Source Code",
+    "p3Category": "Production IT Ops · Infrastructure",
+    "p3Title": "IT System Reliability",
+    "p3Desc": "Hands-on IT infrastructure & server operations across 50+ workstations. Maintained 99.8% operational uptime with automated PostgreSQL backups and network firewall policies.",
+    "p3Overview": "Ops Overview"
+  },
+  "timeline": {
+    "title": "Timeline",
+    "t1Role": "IT Helpdesk",
+    "t1Desc": "Working at Binh Thuan Eye Hospital, responsible for operating, managing network infrastructure, and supporting IT systems.",
+    "t2Role": "Bachelor of Information Technology",
+    "t2Desc": "Graduated with a Bachelor's Degree in Information Technology, focusing on software development and systems."
+  },
+  "footer": {
+    "letsTalk": "Let's Talk.",
+    "updated": "Updated · August 2026"
+  }
+}

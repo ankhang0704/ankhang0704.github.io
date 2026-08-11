@@ -24,10 +24,11 @@ This document provides the operational policy and context for AI agents working 
     - Professional Timeline includes:
         - `2026 - Nay`: IT Helpdesk at Bệnh Viện Mắt Bình Thuận.
         - `2022 - 2026`: Bachelor of Information Technology.
-- **Bilingual System:**
-    - Uses `data-vi` and `data-en` attributes.
-    - Script logic in `script.js` toggles visibility and innerHTML based on selected language.
-    - Both the Main Portfolio and FM Dictionary default to English (`en`).
+- **Bilingual System (App Router i18n):**
+    - Uses native Next.js App Router `[lang]` subpaths (`/en/` and `/vi/`).
+    - Dictionaries located in `src/dictionaries/en.json` and `src/dictionaries/vi.json`.
+    - Pages render dynamic `<html lang="en">` or `<html lang="vi">` tags directly from the server.
+    - Default locale is English (`en`). All root URLs redirect or rewrite to `/en/` by default.
 - **Routing & Deployment:**
     - **Root-Relative Paths:** Use absolute paths from root (e.g., `/style.css`, `/fm-dictionary/privacy-policy.html`) for all internal links, assets, and scripts to ensure compatibility across subdirectories.
     - **Trailing Slashes:** Directory links must end with a trailing slash (e.g., `href="/fm-dictionary/"`).

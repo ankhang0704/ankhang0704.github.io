@@ -1,29 +1,37 @@
-# Handoff: Clean Architecture Refactoring (July 2026)
+# Handoff Summary — Portfolio & FM Dictionary
 
-## Conversation Summary
-In this session, we focused on cleaning up and applying Clean Architecture principles (via ponytail-audit) to the portfolio codebase, specifically eliminating severe code duplication across the Main Portfolio and FM Dictionary pages. 
+## 1. Work Accomplished
+- **FM Dictionary UI Restoration**:
+  - Restored the complete 750-line original UI of `src/app/[lang]/fm-dictionary/page.tsx` from Git commit history while preserving native App Router subpath i18n (`/en/` & `/vi/`).
+  - Restored Hero section, Stats Bar, 6 Feature cards, 8 Tech Stack items, App Screens autoplay carousel, Lightbox zoom modal, Download section, and Permissions breakdown.
+  - Removed the temporary `Offline-First & AI Sync Architecture` section per user request.
+  - Fixed horizontal scrollbar issue on the App Screens carousel by correcting `scrollbar-none` to `.scrollbar-hide` utility class in `src/app/[lang]/fm-dictionary/page.tsx`.
+- **Selected Works (Homepage) Enhancements**:
+  - Updated image zoom scale from base `scale-105` down to natural `scale-100` with subtle hover zoom `scale-[1.02]`.
+  - Added thin horizontal border dividers (`border-t border-black/10 dark:border-white/10`) between project cards.
+  - Regenerated `public/fm-dictionary-cover.webp` using `generate_image` with a high-contrast Minimalist Dark Editorial UI mockup.
+- **Full Legal & Support Documentation Restoration**:
+  - Restored full multi-section original text for all 4 subpages with native `[lang]` dynamic i18n:
+    - [src/app/[lang]/fm-dictionary/privacy-policy/page.tsx](file:///c:/Users/nguye/Github/ankhang0704.github.io/src/app/%5Blang%5D/fm-dictionary/privacy-policy/page.tsx) (600+ lines, 8 sections)
+    - [src/app/[lang]/fm-dictionary/terms-of-service/page.tsx](file:///c:/Users/nguye/Github/ankhang0704.github.io/src/app/%5Blang%5D/fm-dictionary/terms-of-service/page.tsx) (560+ lines, 8 sections)
+    - [src/app/[lang]/fm-dictionary/support/page.tsx](file:///c:/Users/nguye/Github/ankhang0704.github.io/src/app/%5Blang%5D/fm-dictionary/support/page.tsx) (470+ lines, full FAQs & contact table)
+    - [src/app/[lang]/fm-dictionary/delete-account/page.tsx](file:///c:/Users/nguye/Github/ankhang0704.github.io/src/app/%5Blang%5D/fm-dictionary/delete-account/page.tsx) (300+ lines, interactive deletion form)
+- **Ponytail Optimizations**:
+  - Cleaned up empty legacy directory `src/components/fm-dictionary/`.
+  - Updated Footer links to localized App Router paths (`href={`/${lang}/fm-dictionary/support/`}`).
+  - Updated Footer date to `August 2026` / `Tháng 8, 2026`.
+- **Verification**:
+  - Passed `npm run lint` with 0 errors and 0 warnings.
 
-### Key Achievements:
-1. **Deduplication of Header & Footer**:
-   - `src/components/fm-dictionary/Header.tsx` and `src/components/fm-dictionary/Footer.tsx` were completely deleted.
-   - The logic was consolidated into `src/components/Header.tsx` and `src/components/Footer.tsx` using a `variant="main" | "fm"` prop. 
-   - Over 300 lines of duplicate UI, theme toggling, and bilingual DOM manipulation logic were removed.
-   
-2. **Global Component Extraction**:
-   - `AOSInit`: Extracted `AOS.init()` into a global `src/components/AOSInit.tsx` client component embedded in `src/app/layout.tsx`. It handles `AOS.refresh()` smoothly across route changes.
-   - `AmbientGlow`: The repeated background glow effects were moved from 6 different page files to a unified `src/components/AmbientGlow.tsx` inside the global layout.
+---
 
-3. **Linting & Performance**:
-   - Fixed a missing `sizes` warning on the Next.js `Image` component (`/fm-dictionary-cover.webp`).
-   - Cleaned up all unused imports (0 ESLint errors/warnings remaining).
-   - Successfully passed `npm run build` and `npm run lint`.
-   - Updated Portfolio Freshness date in the Footer to July 2026.
+## 2. Current Status & Next Steps
+- **Build & Verification Status**: All 19 SSG static routes build cleanly. ESLint reports 0 errors and 0 warnings.
+- **Pending Tasks**: None. The codebase is clean, lean, and fully restored with production-grade documentation.
 
-## Known Bugs / Open Issues
-- Currently, there are no known breaking layout bugs or TypeScript errors. 
-- The native DOM manipulation logic for language (`updateLangDOM`) has been preserved intentionally per user rules.
+---
 
-## Suggested Next Steps / Skills
-- Check for opportunities to dynamically import heavy components (e.g. `next/dynamic` for AOS) if ultra-optimization is requested.
-- Review `AGENTS.md` to ensure any new patterns align with the current design system.
-- If more pages are added, continue to reuse the unified `Header` and `Footer` variants rather than creating specific ones.
+## 3. Suggested Skills for Next Agent
+- `improve-codebase-architecture`: Use when auditing landing page layout, responsiveness, or visual hierarchy.
+- `ponytail-review`: Use when reviewing code changes for over-engineering or unnecessary complexity.
+- `ponytail-gain`: Use to view measured impact scoreboard of codebase reductions.

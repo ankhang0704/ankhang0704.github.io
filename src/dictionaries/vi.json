@@ -1,0 +1,57 @@
+{
+  "nav": {
+    "summary": "Tóm tắt",
+    "skills": "Kỹ năng",
+    "projects": "Dự án",
+    "timeline": "Lộ trình",
+    "features": "Tính năng",
+    "gallery": "Màn hình",
+    "tech": "Công nghệ",
+    "download": "Tải xuống"
+  },
+  "hero": {
+    "subtitle": "Lập trình viên Backend & Flutter với nền tảng Hạ tầng IT. Xây dựng ứng dụng di động offline-first và hệ thống doanh nghiệp tin cậy.",
+    "viewProjects": "Xem Dự Án Chọn Lọc",
+    "downloadCV": "Tải Xuống CV"
+  },
+  "about": {
+    "title": "Tóm tắt",
+    "p1": "Tôi là một lập trình viên có nền tảng xuất phát từ Hệ tầng mạng & IT Support. Điều này giúp tôi không chỉ viết code mà còn hiểu rõ cách ứng dụng vận hành trên máy chủ và internet.",
+    "p2": "Hiện tại, tôi đam mê sâu sắc với lập trình web backend và mobile app. Triết lý làm việc của tôi là giải quyết vấn đề cốt lõi của doanh nghiệp bằng những công cụ phù hợp nhất, thay vì chạy theo xu hướng."
+  },
+  "skills": {
+    "title": "Năng Lực Chuyên Môn",
+    "devTitle": "Software & Mobile",
+    "devDesc": "Xây dựng hệ thống Backend vững chắc, phát triển ứng dụng di động và thiết kế các giải pháp phần mềm toàn diện.",
+    "cloudTitle": "Cloud & Databases",
+    "cloudDesc": "Thiết kế API an toàn, quản lý cơ sở dữ liệu thời gian thực và triển khai các dịch vụ web mở rộng.",
+    "infraTitle": "Network & IT Ops",
+    "infraDesc": "Nền tảng vững chắc về phần cứng, quản trị mạng cơ bản, CMS và vận hành máy chủ đảm bảo độ tin cậy của hệ thống."
+  },
+  "projects": {
+    "title": "Dự Án Chọn Lọc",
+    "p1Category": "Sản Phẩm Live · App Store",
+    "p1Title": "FM Dictionary",
+    "p1Desc": "Ứng dụng sản phẩm thực tế offline-first & luyện phát âm AI cho chuyên gia Quản lý Cơ sở vật chất. Đã phát hành trên App Store với Flutter, Firebase và Cloudflare Workers.",
+    "p1CaseStudy": "Xem Case Study",
+    "p2Category": "Đồ Án Nghiên Cứu · Backend & AI",
+    "p2Title": "Hotel Management System",
+    "p2Desc": "Dự án đồ án nghiên cứu xây dựng hệ thống đặt phòng bằng Django REST framework, thử nghiệm tối ưu hóa truy vấn cơ sở dữ liệu PostgreSQL và tích hợp API OpenAI hỗ trợ tư vấn tự động.",
+    "p2Source": "Xem Mã Nguồn GitHub",
+    "p3Category": "Hạ Tầng Thực Tế · IT Ops",
+    "p3Title": "IT System Reliability",
+    "p3Desc": "Vận hành hạ tầng CNTT thực tế cho hơn 50 máy trạm & hệ thống máy chủ. Duy trì 99.8% uptime với kịch bản tự động sao lưu PostgreSQL, tường lửa mạng và quy trình xử lý sự cố.",
+    "p3Overview": "Liên hệ Vận hành"
+  },
+  "timeline": {
+    "title": "Lộ Trình",
+    "t1Role": "IT Helpdesk",
+    "t1Desc": "Làm việc tại Bệnh Viện Mắt Bình Thuận, chịu trách nhiệm vận hành, quản trị hạ tầng mạng và hỗ trợ hệ thống CNTT toàn viện.",
+    "t2Role": "Cử nhân Công nghệ Thông tin",
+    "t2Desc": "Tốt nghiệp Đại học chuyên ngành Công nghệ Thông tin với định hướng phát triển phần mềm và hệ thống."
+  },
+  "footer": {
+    "letsTalk": "Bắt Đầu.",
+    "updated": "Cập nhật · Tháng 8, 2026"
+  }
+}

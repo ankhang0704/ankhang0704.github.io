@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
-
+import React, { useEffect, useState, useRef, use } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import { Icons } from "../../components/Icons";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { Icons } from "@/components/Icons";
 
 const APP_SCREENS = [
   { IconComponent: Icons.Home, label: "Home", img: "/images/fm-dictionary/fm_dictionary_0001.webp" },
@@ -17,7 +16,15 @@ const APP_SCREENS = [
   { IconComponent: Icons.Bookmark, label: "Dictionary", img: "/images/fm-dictionary/fm_dictionary_0006.webp" },
 ];
 
-export default function FMDictionaryPage() {
+export default function FMDictionaryPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const resolvedParams = use(params);
+  const lang = resolvedParams.lang === "vi" ? "vi" : "en";
+  const isVi = lang === "vi";
+
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isHoveringGallery, setIsHoveringGallery] = useState(false);
@@ -50,7 +57,6 @@ export default function FMDictionaryPage() {
     scrollToSlide(next);
   };
 
-  // Autoplay
   const startAutoplay = () => {
     if (autoplayRef.current) clearInterval(autoplayRef.current);
     autoplayRef.current = setInterval(() => {
@@ -82,7 +88,6 @@ export default function FMDictionaryPage() {
   };
 
   useEffect(() => {
-    // Close on ESC
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") setSelectedImg(null);
     };
@@ -90,7 +95,6 @@ export default function FMDictionaryPage() {
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
-  // Start autoplay on mount, pause when hovering gallery
   useEffect(() => {
     if (!isHoveringGallery) {
       startAutoplay();
@@ -100,7 +104,6 @@ export default function FMDictionaryPage() {
     return stopAutoplay;
   }, [isHoveringGallery]);
 
-  // Scroll-triggered reveal for gallery cards
   useEffect(() => {
     if (!galleryRef.current) return;
     const observer = new IntersectionObserver(
@@ -126,53 +129,35 @@ export default function FMDictionaryPage() {
           id="hero"
           className="min-h-screen flex items-center relative overflow-x-hidden pt-32 pb-20 md:pt-20 md:pb-0"
         >
-          <div
-            className="container mx-auto px-6 md:px-8 relative z-10"
-            data-aos="fade-up"
-          >
+          <div className="container mx-auto px-6 md:px-8 relative z-10" data-aos="fade-up">
             <p className="text-sm tracking-[0.3em] uppercase mb-6 border-b border-black dark:border-white inline-block pb-2">
               An Khang Studio · 2026
             </p>
-            <h1
-              className="font-display text-5xl md:text-8xl font-bold leading-tight mb-6 md:mb-12"
-            >
-              <span 
-                data-vi="Làm chủ từ vựng FM.<br/>" 
-                data-en="Master FM Vocab.<br/>"
-              >
-                Master FM Vocab.
-                <br />
-              </span>
-              <span className="font-serif italic text-6xl md:text-9xl tracking-normal" data-vi="Theo cách thông minh" data-en="The Smart Way">
-                The Smart Way
+            <h1 className="font-display text-5xl md:text-8xl font-bold leading-tight mb-6 md:mb-12">
+              <span>{isVi ? "Làm chủ từ vựng FM." : "Master FM Vocab."}</span>
+              <br />
+              <span className="font-serif italic text-6xl md:text-9xl tracking-normal">
+                {isVi ? "Theo cách thông minh" : "The Smart Way"}
               </span>
               .
             </h1>
-            <p
-              className="text-xl font-light max-w-2xl mb-12 opacity-80"
-              data-vi="FM Dictionary là ứng dụng từ vựng cao cấp giúp cộng đồng Quản lý Cơ sở vật chất và bất kỳ ai quan tâm đến lĩnh vực này làm chủ hơn 1.800 thuật ngữ FM chuyên ngành — được xây dựng bằng Flutter cho iOS & Android."
-              data-en="FM Dictionary is a premium vocabulary app helping the Facilities Management community and anyone interested in the field master 1,800+ specialized FM terms — built with Flutter for iOS & Android."
-            >
-              FM Dictionary is a premium vocabulary app helping the Facilities Management
-              community and anyone interested in the field master 1,800+ specialized FM
-              terms — built with Flutter for iOS & Android.
+            <p className="text-xl font-light max-w-2xl mb-12 opacity-80 leading-relaxed text-justify">
+              {isVi
+                ? "FM Dictionary là ứng dụng từ vựng cao cấp giúp cộng đồng Quản lý Cơ sở vật chất và bất kỳ ai quan tâm đến lĩnh vực này làm chủ hơn 1.800 thuật ngữ FM chuyên ngành — được xây dựng bằng Flutter cho iOS & Android."
+                : "FM Dictionary is a premium vocabulary app helping the Facilities Management community and anyone interested in the field master 1,800+ specialized FM terms — built with Flutter for iOS & Android."}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
               <a
                 href="#download"
                 className="border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-transparent hover:text-black dark:hover:bg-transparent dark:hover:text-white transition-all text-center"
-                data-vi="Tải ứng dụng ↓"
-                data-en="Download App ↓"
               >
-                Download App ↓
+                {isVi ? "Tải ứng dụng ↓" : "Download App ↓"}
               </a>
               <a
                 href="#features"
                 className="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all text-center"
-                data-vi="Khám phá tính năng ↓"
-                data-en="Explore Features ↓"
               >
-                Explore Features ↓
+                {isVi ? "Khám phá tính năng ↓" : "Explore Features ↓"}
               </a>
             </div>
           </div>
@@ -184,75 +169,50 @@ export default function FMDictionaryPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="text-center md:text-left" data-aos="fade-up" data-aos-delay="0">
                 <div className="font-display text-4xl font-bold mb-1">
-                  2<span className="text-sm align-top">+</span>
+                  1<span className="text-sm align-top"> (iOS Live)</span>
                 </div>
-                <div
-                  className="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50"
-                  data-vi="Nền tảng · iOS & Android"
-                  data-en="Platforms · iOS & Android"
-                >
-                  Platforms · iOS & Android
+                <div className="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50">
+                  {isVi ? "Nền tảng · iOS (Android Sắp ra mắt)" : "Platform · iOS (Android Coming)"}
                 </div>
               </div>
-              <div
-                className="text-center md:text-left"
-                data-aos="fade-up"
-                data-aos-delay="100"
-              >
+              <div className="text-center md:text-left" data-aos="fade-up" data-aos-delay="100">
                 <div className="font-display text-4xl font-bold mb-1">30</div>
-                <div
-                  className="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50"
-                  data-vi="Huy hiệu thành tựu"
-                  data-en="Achievement Badges"
-                >
-                  Achievement Badges
+                <div className="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50">
+                  {isVi ? "Huy hiệu thành tựu" : "Achievement Badges"}
                 </div>
               </div>
-              <div
-                className="text-center md:text-left"
-                data-aos="fade-up"
-                data-aos-delay="200"
-              >
+              <div className="text-center md:text-left" data-aos="fade-up" data-aos-delay="200">
                 <div className="font-display text-4xl font-bold mb-1">2</div>
-                <div
-                  className="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50"
-                  data-vi="Ngôn ngữ · VI & EN"
-                  data-en="Languages · VI & EN"
-                >
-                  Languages · VI & EN
+                <div className="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50">
+                  {isVi ? "Ngôn ngữ · VI & EN" : "Languages · VI & EN"}
                 </div>
               </div>
-              <div
-                className="text-center md:text-left"
-                data-aos="fade-up"
-                data-aos-delay="300"
-              >
+              <div className="text-center md:text-left" data-aos="fade-up" data-aos-delay="300">
                 <div className="font-display text-4xl font-bold mb-1">100%</div>
-                <div
-                  className="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50"
-                  data-vi="Lõi ngoại tuyến"
-                  data-en="Offline-capable Core"
-                >
-                  Offline-capable Core
+                <div className="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50">
+                  {isVi ? "Lõi ngoại tuyến" : "Offline-capable Core"}
                 </div>
               </div>
             </div>
           </div>
         </section>
 
+
+
         {/* Features Section */}
         <section id="features" className="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden">
           <div className="container mx-auto px-6 md:px-8">
             <div className="max-w-3xl mb-20" data-aos="fade-right">
-
-              <h2
-                className="font-display text-4xl md:text-6xl font-bold mb-6"
-                data-vi="Mọi thứ bạn cần<br>để làm chủ từ vựng"
-                data-en="Everything you need<br>to master vocabulary"
-              >
-                Everything you need
-                <br />
-                to master vocabulary
+              <h2 className="font-display text-4xl md:text-6xl font-bold mb-6">
+                {isVi ? (
+                  <>
+                    Mọi thứ bạn cần<br />để làm chủ từ vựng
+                  </>
+                ) : (
+                  <>
+                    Everything you need<br />to master vocabulary
+                  </>
+                )}
               </h2>
             </div>
 
@@ -261,90 +221,83 @@ export default function FMDictionaryPage() {
                 <div className="text-3xl mb-6 text-black dark:text-white">
                   <Icons.Map size={32} />
                 </div>
-                <h3 className="font-display text-xl font-bold mb-4" data-vi="Lộ trình học tập" data-en="Roadmap Learning">
-                  Roadmap Learning
+                <h3 className="font-display text-xl font-bold mb-4">
+                  {isVi ? "Lộ trình học tập" : "Roadmap Learning"}
                 </h3>
-                <p
-                  className="font-light opacity-70 leading-relaxed"
-                  data-vi="Lộ trình học tập có cấu trúc với các chương, giai đoạn và độ khó tăng dần. Theo dõi hành trình của bạn từ người mới bắt đầu đến nâng cao."
-                  data-en="Structured learning path with chapters, stages, and progressive difficulty. Track your journey from beginner to advanced."
-                >
-                  Structured learning path with chapters, stages, and progressive difficulty. Track your journey from beginner to advanced.
+                <p className="font-light opacity-70 leading-relaxed">
+                  {isVi
+                    ? "Lộ trình học tập có cấu trúc với các chương, giai đoạn và độ khó tăng dần. Theo dõi hành trình của bạn từ người mới bắt đầu đến nâng cao."
+                    : "Structured learning path with chapters, stages, and progressive difficulty. Track your journey from beginner to advanced."}
                 </p>
               </div>
+
               <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up" data-aos-delay="100">
                 <div className="text-3xl mb-6 text-black dark:text-white">
                   <Icons.Microphone size={32} />
                 </div>
-                <h3 className="font-display text-xl font-bold mb-4" data-vi="Luyện phát âm AI" data-en="AI Pronunciation">
-                  AI Pronunciation
+                <h3 className="font-display text-xl font-bold mb-4">
+                  {isVi ? "Luyện phát âm AI" : "AI Pronunciation"}
                 </h3>
-                <p
-                  className="font-light opacity-70 leading-relaxed"
-                  data-vi="Kiểm tra phát âm thời gian thực với AI. Âm thanh được xử lý bảo mật qua Cloudflare Workers và xóa ngay sau đó để bảo vệ quyền riêng tư."
-                  data-en="Real-time pronunciation checking with AI. Audio is processed securely via Cloudflare Workers and deleted immediately to ensure privacy."
-                >
-                  Real-time pronunciation checking with AI. Audio is processed securely via Cloudflare Workers and deleted immediately to ensure privacy.
+                <p className="font-light opacity-70 leading-relaxed">
+                  {isVi
+                    ? "Kiểm tra phát âm thời gian thực với AI. Âm thanh được xử lý bảo mật qua Cloudflare Workers và xóa ngay sau đó để bảo vệ quyền riêng tư."
+                    : "Real-time pronunciation checking with AI. Audio is processed securely via Cloudflare Workers and deleted immediately to ensure privacy."}
                 </p>
               </div>
+
               <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up" data-aos-delay="200">
                 <div className="text-3xl mb-6 text-black dark:text-white">
                   <Icons.Trophy size={32} />
                 </div>
-                <h3 className="font-display text-xl font-bold mb-4" data-vi="Hệ thống huy hiệu" data-en="Achievement System">
-                  Achievement System
+                <h3 className="font-display text-xl font-bold mb-4">
+                  {isVi ? "Hệ thống huy hiệu" : "Achievement System"}
                 </h3>
-                <p
-                  className="font-light opacity-70 leading-relaxed"
-                  data-vi="8 huy hiệu thành tựu độc đáo và chuỗi ngày học tập giúp duy trì động lực. Toàn bộ tiến trình được đồng bộ an toàn qua Firebase."
-                  data-en="8 unique achievement badges and daily streaks to keep you motivated. All progress is securely synced via Firebase."
-                >
-                  8 unique achievement badges and daily streaks to keep you motivated. All progress is securely synced via Firebase.
+                <p className="font-light opacity-70 leading-relaxed">
+                  {isVi
+                    ? "30 huy hiệu thành tựu độc đáo trên 8 nhóm danh mục và chuỗi ngày học giúp duy trì động lực. Toàn bộ tiến trình được đồng bộ an toàn qua Firebase."
+                    : "30 achievement badges across 8 unique categories and daily streaks to keep you motivated. All progress is securely synced via Firebase."}
                 </p>
               </div>
+
               <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up">
                 <div className="text-3xl mb-6 text-black dark:text-white">
                   <Icons.Users size={32} />
                 </div>
-                <h3 className="font-display text-xl font-bold mb-4" data-vi="Nhóm học tập" data-en="Social Learning">
-                  Social Learning
+                <h3 className="font-display text-xl font-bold mb-4">
+                  {isVi ? "Nhóm học tập" : "Social Learning"}
                 </h3>
-                <p
-                  className="font-light opacity-70 leading-relaxed"
-                  data-vi="Tham gia các nhóm học tập riêng tư để thi đua bảng xếp hạng cùng bạn bè và đồng nghiệp, thúc đẩy tinh thần học tập chuyên ngành."
-                  data-en="Join private study groups to compete on leaderboards with friends and colleagues, boosting professional learning motivation."
-                >
-                  Join private study groups to compete on leaderboards with friends and colleagues, boosting professional learning motivation.
+                <p className="font-light opacity-70 leading-relaxed">
+                  {isVi
+                    ? "Tham gia các nhóm học tập riêng tư để thi đua bảng xếp hạng cùng bạn bè và đồng nghiệp, thúc đẩy tinh thần học tập chuyên ngành."
+                    : "Join private study groups to compete on leaderboards with friends and colleagues, boosting professional learning motivation."}
                 </p>
               </div>
+
               <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up" data-aos-delay="100">
                 <div className="text-3xl mb-6 text-black dark:text-white">
                   <Icons.Bookmark size={32} />
                 </div>
-                <h3 className="font-display text-xl font-bold mb-4" data-vi="Từ điển chuyên ngành" data-en="FM Dictionary">
-                  FM Dictionary
+                <h3 className="font-display text-xl font-bold mb-4">
+                  {isVi ? "Từ điển chuyên ngành" : "FM Dictionary"}
                 </h3>
-                <p
-                  className="font-light opacity-70 leading-relaxed"
-                  data-vi="Tra cứu hơn 1.800 thuật ngữ Quản lý cơ sở vật chất với định nghĩa chi tiết, ví dụ thực tế và khả năng hoạt động ngoại tuyến hoàn toàn."
-                  data-en="Look up 1,800+ Facility Management terms with detailed definitions, real-world examples, and full offline capability."
-                >
-                  Look up 1,800+ Facility Management terms with detailed definitions, real-world examples, and full offline capability.
+                <p className="font-light opacity-70 leading-relaxed">
+                  {isVi
+                    ? "Tra cứu hơn 1.800 thuật ngữ Quản lý cơ sở vật chất với định nghĩa chi tiết, ví dụ thực tế và khả năng hoạt động ngoại tuyến hoàn toàn."
+                    : "Look up 1,800+ Facility Management terms with detailed definitions, real-world examples, and full offline capability."}
                 </p>
               </div>
+
               <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up" data-aos-delay="200">
                 <div className="text-3xl mb-6 text-black dark:text-white">
                   <Icons.Language size={32} />
                 </div>
-                <h3 className="font-display text-xl font-bold mb-4" data-vi="Giao diện đa ngôn ngữ" data-en="Multilingual UI">
-                  Multilingual UI
+                <h3 className="font-display text-xl font-bold mb-4">
+                  {isVi ? "Giao diện đa ngôn ngữ" : "Multilingual UI"}
                 </h3>
-                <p
-                  className="font-light opacity-70 leading-relaxed"
-                  data-vi="Bản địa hóa toàn bộ giao diện sang tiếng Việt và tiếng Anh thông qua easy_localization — bao gồm huy hiệu, nhãn và tất cả văn bản hệ thống."
-                  data-en="Full interface localization in Vietnamese and English via easy_localization — including badges, labels, and all system text."
-                >
-                  Full interface localization in Vietnamese and English via easy_localization — including badges, labels, and all system text.
+                <p className="font-light opacity-70 leading-relaxed">
+                  {isVi
+                    ? "Bản địa hóa toàn bộ giao diện sang tiếng Việt và tiếng Anh thông qua easy_localization — bao gồm huy hiệu, nhãn và tất cả văn bản hệ thống."
+                    : "Full interface localization in Vietnamese and English via easy_localization — including badges, labels, and all system text."}
                 </p>
               </div>
             </div>
@@ -356,17 +309,19 @@ export default function FMDictionaryPage() {
           <div className="container mx-auto px-6 md:px-8">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
               <div className="max-w-2xl" data-aos="fade-right">
-                <p className="text-xs tracking-[0.3em] uppercase mb-4 opacity-50" data-vi="Công nghệ" data-en="Tech Stack">
+                <p className="text-xs tracking-[0.3em] uppercase mb-4 opacity-50">
                   Tech Stack
                 </p>
-                <h2
-                  className="font-display text-4xl md:text-5xl font-bold"
-                  data-vi="Xây dựng với công cụ hiện đại,<br>bền bỉ theo thời gian"
-                  data-en="Built with modern tools,<br>designed to last"
-                >
-                  Built with modern tools,
-                  <br />
-                  designed to last
+                <h2 className="font-display text-4xl md:text-5xl font-bold">
+                  {isVi ? (
+                    <>
+                      Xây dựng với công cụ hiện đại,<br />bền bỉ theo thời gian
+                    </>
+                  ) : (
+                    <>
+                      Built with modern tools,<br />designed to last
+                    </>
+                  )}
                 </h2>
               </div>
             </div>
@@ -377,7 +332,7 @@ export default function FMDictionaryPage() {
                 { label: "Dart", subVi: "Ngôn ngữ", subEn: "Language" },
                 { label: "Provider", subVi: "Quản lý trạng thái", subEn: "State Management" },
                 { label: "Hive", subVi: "Lưu trữ ngoại tuyến", subEn: "Offline Storage" },
-                { label: "Firebase", subVi: "Xác thực + CS dữ liệu", subEn: "Auth + Database" },
+                { label: "Firebase", subVi: "Xác thực + CSDL", subEn: "Auth + Database" },
                 { label: "GetIt", subVi: "Tiêm phụ thuộc", subEn: "Dependency Injection" },
                 { label: "easy_localization", subVi: "Đa ngôn ngữ / VI + EN", subEn: "i18n / VI + EN" },
                 { label: "SSO", subVi: "Google / Apple", subEn: "Google / Apple" },
@@ -391,8 +346,8 @@ export default function FMDictionaryPage() {
                   <div className="w-2 h-2 rounded-full bg-black dark:bg-white"></div>
                   <div>
                     <div className="text-sm font-bold uppercase tracking-tight">{item.label}</div>
-                    <div className="text-[10px] opacity-50 uppercase" data-vi={item.subVi} data-en={item.subEn}>
-                      {item.subEn}
+                    <div className="text-[10px] opacity-50 uppercase">
+                      {isVi ? item.subVi : item.subEn}
                     </div>
                   </div>
                 </div>
@@ -401,20 +356,15 @@ export default function FMDictionaryPage() {
           </div>
         </section>
 
-        {/* App Screens */}
+        {/* App Screens Carousel / Gallery */}
         <section
           id="gallery"
           ref={galleryRef}
           className={`py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden${galleryRevealed ? " gallery-revealed" : ""}`}
         >
           <div className="container mx-auto px-6 md:px-8 mb-16 relative flex flex-col md:flex-row justify-between items-center gap-8">
-            <h2
-              className="font-display text-4xl font-bold text-center md:text-left"
-              data-aos="fade-up"
-              data-vi="Thiết kế tập trung, tối ưu quy trình"
-              data-en="Designed for focus, built for flow"
-            >
-              Designed for focus, built for flow
+            <h2 className="font-display text-4xl font-bold text-center md:text-left" data-aos="fade-up">
+              {isVi ? "Thiết kế tập trung, tối ưu quy trình" : "Designed for focus, built for flow"}
             </h2>
 
             {/* Controls: dots + arrows */}
@@ -467,47 +417,43 @@ export default function FMDictionaryPage() {
               ref={scrollRef}
               className="flex gap-6 md:gap-8 overflow-x-auto pb-12 px-16 md:px-32 scrollbar-hide snap-x snap-mandatory scroll-smooth"
             >
-              {APP_SCREENS.map((item, index) => (
-                <div
-                  key={index}
-                  className={`screen-card flex-none w-64 md:w-72 aspect-[9/19] bg-bgLight dark:bg-bgDark border rounded-[2.5rem] overflow-hidden relative group cursor-zoom-in transition-all duration-500 snap-center ${index === currentSlide
-                      ? "border-black dark:border-white scale-[1.03] shadow-xl"
-                      : "border-black/10 dark:border-white/10 hover:border-black/40 dark:hover:border-white/40"
-                    }`}
-                  onClick={() => setSelectedImg(item.img)}
-                >
-                  <Image
-                    src={item.img}
-                    alt={item.label}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 300px"
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  {/* Active slide pulse ring */}
-                  {index === currentSlide && (
-                    <div className="absolute inset-0 rounded-[2.5rem] ring-2 ring-black dark:ring-white ring-offset-2 ring-offset-cardLight dark:ring-offset-cardDark pointer-events-none" />
-                  )}
-                  {/* Overlay label */}
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-8 pt-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                    <div className="text-white">
-                      <div className="text-[10px] mb-2 opacity-60 uppercase tracking-[0.2em] flex items-center gap-1.5">
-                        <item.IconComponent size={12} />
-                        UI Screen
-                      </div>
-                      <div
-                        className="font-display font-bold text-lg uppercase tracking-widest"
-                        data-vi={item.label}
-                        data-en={item.label}
-                      >
-                        {item.label}
+              {APP_SCREENS.map((item, index) => {
+                const IconComp = item.IconComponent;
+                return (
+                  <div
+                    key={index}
+                    className={`screen-card flex-none w-64 md:w-72 aspect-[9/19] bg-bgLight dark:bg-bgDark border rounded-[2.5rem] overflow-hidden relative group cursor-zoom-in transition-all duration-500 snap-center ${index === currentSlide
+                        ? "border-black dark:border-white scale-[1.03] shadow-xl"
+                        : "border-black/10 dark:border-white/10 hover:border-black/40 dark:hover:border-white/40"
+                      }`}
+                    onClick={() => setSelectedImg(item.img)}
+                  >
+                    <Image
+                      src={item.img}
+                      alt={item.label}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 300px"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    {index === currentSlide && (
+                      <div className="absolute inset-0 rounded-[2.5rem] ring-2 ring-black dark:ring-white ring-offset-2 ring-offset-cardLight dark:ring-offset-cardDark pointer-events-none" />
+                    )}
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-8 pt-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                      <div className="text-white">
+                        <div className="text-[10px] mb-2 opacity-60 uppercase tracking-[0.2em] flex items-center gap-1.5">
+                          <IconComp size={12} />
+                          UI Screen
+                        </div>
+                        <div className="font-display font-bold text-lg uppercase tracking-widest">
+                          {item.label}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
-            {/* Autoplay progress bar */}
             {!isHoveringGallery && (
               <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-black/5 dark:bg-white/5 overflow-hidden">
                 <div
@@ -529,15 +475,16 @@ export default function FMDictionaryPage() {
         >
           <div className="container mx-auto px-6 md:px-8">
             <div className="max-w-3xl mb-16" data-aos="fade-right">
-
-              <h2
-                className="font-display text-4xl md:text-5xl font-bold"
-                data-vi="Trải nghiệm FM Dictionary<br>trên thiết bị di động"
-                data-en="Get FM Dictionary<br>on your mobile device"
-              >
-                Get FM Dictionary
-                <br />
-                on your mobile device
+              <h2 className="font-display text-4xl md:text-5xl font-bold">
+                {isVi ? (
+                  <>
+                    Trải nghiệm FM Dictionary<br />trên thiết bị di động
+                  </>
+                ) : (
+                  <>
+                    Get FM Dictionary<br />on your mobile device
+                  </>
+                )}
               </h2>
             </div>
 
@@ -554,12 +501,10 @@ export default function FMDictionaryPage() {
                   <h4 className="font-display text-2xl font-bold mb-2">
                     App Store
                   </h4>
-                  <p
-                    className="font-light opacity-70 leading-relaxed mb-6"
-                    data-vi="Tải ứng dụng cho các thiết bị iOS (iPhone, iPad). Yêu cầu iOS 15.0 trở lên."
-                    data-en="Download the app for iOS devices (iPhone, iPad). Requires iOS 15.0 or later."
-                  >
-                    Download the app for iOS devices (iPhone, iPad). Requires iOS 15.0 or later.
+                  <p className="font-light opacity-70 leading-relaxed mb-6">
+                    {isVi
+                      ? "Tải ứng dụng cho các thiết bị iOS (iPhone, iPad). Yêu cầu iOS 15.0 trở lên."
+                      : "Download the app for iOS devices (iPhone, iPad). Requires iOS 15.0 or later."}
                   </p>
                   <a
                     href="https://apps.apple.com/us/app/fm-dictionary/id6774868353"
@@ -567,7 +512,7 @@ export default function FMDictionaryPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 border border-black dark:border-white px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all"
                   >
-                    <span data-vi="Tải cho iOS" data-en="Download for iOS">Download for iOS</span>
+                    <span>{isVi ? "Tải cho iOS" : "Download for iOS"}</span>
                     <Icons.ArrowRight size={12} />
                   </a>
                 </div>
@@ -587,26 +532,20 @@ export default function FMDictionaryPage() {
                     <h4 className="font-display text-2xl font-bold text-black/50 dark:text-white/50">
                       Google Play
                     </h4>
-                    <span
-                      className="inline-block bg-black/5 dark:bg-white/5 text-[9px] font-bold uppercase tracking-widest px-2 py-1 border border-black/10 dark:border-white/10 w-fit mx-auto md:mx-0"
-                      data-vi="Sắp ra mắt"
-                      data-en="Coming Soon"
-                    >
-                      Coming Soon
+                    <span className="inline-block bg-black/5 dark:bg-white/5 text-[9px] font-bold uppercase tracking-widest px-2 py-1 border border-black/10 dark:border-white/10 w-fit mx-auto md:mx-0">
+                      {isVi ? "Sắp ra mắt" : "Coming Soon"}
                     </span>
                   </div>
-                  <p
-                    className="font-light opacity-50 leading-relaxed mb-6"
-                    data-vi="Phiên bản dành cho thiết bị Android đang được phát triển và kiểm thử. Hãy quay lại sau."
-                    data-en="The version for Android devices is currently under development and testing. Stay tuned."
-                  >
-                    The version for Android devices is currently under development and testing. Stay tuned.
+                  <p className="font-light opacity-50 leading-relaxed mb-6">
+                    {isVi
+                      ? "Phiên bản dành cho thiết bị Android đang được phát triển và kiểm thử. Hãy quay lại sau."
+                      : "The version for Android devices is currently under development and testing. Stay tuned."}
                   </p>
                   <button
                     disabled
                     className="inline-flex items-center gap-2 border border-black/10 dark:border-white/10 px-6 py-3 text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/40 cursor-not-allowed"
                   >
-                    <span data-vi="Chưa khả dụng" data-en="Not Available">Not Available</span>
+                    <span>{isVi ? "Chưa khả dụng" : "Not Available"}</span>
                   </button>
                 </div>
               </div>
@@ -618,15 +557,16 @@ export default function FMDictionaryPage() {
         <section id="permissions" className="py-32 relative overflow-x-hidden">
           <div className="container mx-auto px-6 md:px-8">
             <div className="max-w-3xl mb-16" data-aos="fade-right">
-
-              <h2
-                className="font-display text-4xl md:text-5xl font-bold"
-                data-vi="Ứng dụng truy cập những gì<br>và lý do chính xác"
-                data-en="What the app accesses<br>and exactly why"
-              >
-                What the app accesses
-                <br />
-                and exactly why
+              <h2 className="font-display text-4xl md:text-5xl font-bold">
+                {isVi ? (
+                  <>
+                    Ứng dụng truy cập những gì<br />và lý do chính xác
+                  </>
+                ) : (
+                  <>
+                    What the app accesses<br />and exactly why
+                  </>
+                )}
               </h2>
             </div>
 
@@ -636,8 +576,8 @@ export default function FMDictionaryPage() {
                   IconComponent: Icons.Microphone,
                   titleVi: "Micro",
                   titleEn: "Microphone",
-                  descVi: "Được sử dụng độc quyền cho tính năng luyện phát âm. Âm thanh được xử lý trên thiết bị theo thời gian thực để so sánh với âm thanh tham chiếu. Không có bản ghi nào được lưu trữ, truyền tải hoặc giữ lại sau khi phiên kết thúc.",
-                  descEn: "Used exclusively for the pronunciation practice feature. Audio is processed on-device in real-time for comparison with reference audio. No recording is stored, transmitted, or retained after the session ends.",
+                  descVi: "Được sử dụng độc quyền cho tính năng luyện phát âm. Âm thanh được chuyển qua Cloudflare Workers để phân tích và xóa ngay lập tức khỏi bộ nhớ. Không có bản ghi nào được lưu trữ sau khi phiên kết thúc.",
+                  descEn: "Used exclusively for the pronunciation practice feature. Audio is routed securely via Cloudflare Workers proxy for analysis and immediately deleted. No recording is stored or retained after the session ends.",
                   tagVi: "Bắt buộc cho tính năng",
                   tagEn: "Required for feature",
                 },
@@ -654,8 +594,8 @@ export default function FMDictionaryPage() {
                   IconComponent: Icons.Bell,
                   titleVi: "Thông báo đẩy",
                   titleEn: "Push Notifications",
-                  descVi: "Gửi các lời nhắc học tập hàng ngày tùy chọn và cảnh báo chuỗi ngày để giúp bạn đi đúng hướng. Có thể tắt bất cứ lúc nào trong Cài đặt thiết bị của bạn mà không ảnh hưởng đến bất kỳ chức năng nào của Ứng dụng.",
-                  descEn: "Sends optional daily learning reminders and streak alerts to keep you on track. Can be disabled at any time in your device Settings without affecting any App functionality.",
+                  descVi: "Gửi các lời nhắc học tập hàng ngày tùy chọn và cảnh báo chuỗi ngày để giúp bạn đi đúng hướng. Có thể tắt bất cứ lúc nào trong Cài đặt thiết bị của bạn.",
+                  descEn: "Sends optional daily learning reminders and streak alerts to keep you on track. Can be disabled at any time in your device Settings without affecting App functionality.",
                   tagVi: "Tùy chọn",
                   tagEn: "Optional",
                   optional: true,
@@ -671,21 +611,19 @@ export default function FMDictionaryPage() {
                     <item.IconComponent size={32} />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-display text-xl font-bold mb-2" data-vi={item.titleVi} data-en={item.titleEn}>
-                      {item.titleEn}
+                    <h4 className="font-display text-xl font-bold mb-2">
+                      {isVi ? item.titleVi : item.titleEn}
                     </h4>
-                    <p className="font-light opacity-70 leading-relaxed mb-4" data-vi={item.descVi} data-en={item.descEn}>
-                      {item.descEn}
+                    <p className="font-light opacity-70 leading-relaxed mb-4">
+                      {isVi ? item.descVi : item.descEn}
                     </p>
                     <span
                       className={`text-[10px] border px-2 py-1 uppercase font-bold tracking-widest ${item.optional
                           ? "border-black/20 dark:border-white/20 opacity-50"
                           : "border-black dark:border-white"
                         }`}
-                      data-vi={item.tagVi}
-                      data-en={item.tagEn}
                     >
-                      {item.tagEn}
+                      {isVi ? item.tagVi : item.tagEn}
                     </span>
                   </div>
                 </div>
@@ -694,96 +632,78 @@ export default function FMDictionaryPage() {
           </div>
         </section>
 
-        {/* About Section */}
+        {/* About Section & Quick Links */}
         <section className="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden">
           <div className="container mx-auto px-6 md:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
               <div data-aos="fade-right">
-
-                <h2
-                  className="font-display text-4xl md:text-5xl font-bold mb-8"
-                  data-vi="Xóa bỏ rào cản ngôn ngữ<br>trong ngành FM Việt Nam"
-                  data-en="Removing language barriers<br>in Vietnam's FM industry"
-                >
-                  Removing language barriers
-                  <br />
-                  in Vietnam&apos;s FM industry
+                <h2 className="font-display text-4xl md:text-5xl font-bold mb-8">
+                  {isVi ? (
+                    <>
+                      Xóa bỏ rào cản ngôn ngữ<br />trong ngành FM Việt Nam
+                    </>
+                  ) : (
+                    <>
+                      Removing language barriers<br />in Vietnam&apos;s FM industry
+                    </>
+                  )}
                 </h2>
-                <p
-                  className="font-light text-lg opacity-70 mb-6 text-justify"
-                  data-vi="FM Dictionary là ứng dụng từ vựng cao cấp giúp cộng đồng Quản lý Cơ sở vật chất và bất kỳ ai quan tâm đến lĩnh vực này làm chủ hơn 1.800 thuật ngữ FM chuyên ngành — được xây dựng bằng Flutter cho iOS & Android."
-                  data-en="FM Dictionary is a premium vocabulary app helping the Facilities Management community and anyone interested in the field master 1,800+ specialized FM terms — built with Flutter for iOS & Android."
-                >
-                  FM Dictionary is a premium vocabulary app helping the Facilities Management
-                  community and anyone interested in the field master 1,800+ specialized FM
-                  terms — built with Flutter for iOS & Android.
+                <p className="font-light text-lg opacity-70 mb-6 text-justify">
+                  {isVi
+                    ? "FM Dictionary là ứng dụng từ vựng cao cấp giúp cộng đồng Quản lý Cơ sở vật chất và bất kỳ ai quan tâm đến lĩnh vực này làm chủ hơn 1.800 thuật ngữ FM chuyên ngành — được xây dựng bằng Flutter cho iOS & Android."
+                    : "FM Dictionary is a premium vocabulary app helping the Facilities Management community and anyone interested in the field master 1,800+ specialized FM terms — built with Flutter for iOS & Android."}
                 </p>
-                <p
-                  className="font-light text-lg opacity-70 mb-6 text-justify"
-                  data-vi="Ứng dụng được thiết kế và phát triển bởi An Khang Studio, đại diện cho một dự án Flutter hoàn chỉnh: kiến trúc sạch, thiết kế ưu tiên ngoại tuyến và hệ thống học tập trò chơi hóa hiện đại."
-                  data-en="The app was designed and developed by An Khang Studio, representing a complete production-grade Flutter project: clean architecture, offline-first design, and modern gamified learning mechanics."
-                >
-                  The app was designed and developed by An Khang Studio, representing a
-                  complete production-grade Flutter project: clean architecture,
-                  offline-first design, and modern gamified learning mechanics.
+                <p className="font-light text-lg opacity-70 mb-6 text-justify">
+                  {isVi
+                    ? "Ứng dụng được thiết kế và phát triển bởi An Khang Studio, đại diện cho một dự án Flutter hoàn chỉnh: kiến trúc sạch, thiết kế ưu tiên ngoại tuyến và hệ thống học tập trò chơi hóa hiện đại."
+                    : "The app was designed and developed by An Khang Studio, representing a complete production-grade Flutter project: clean architecture, offline-first design, and modern gamified learning mechanics."}
                 </p>
-                <p
-                  className="text-xs opacity-80 font-medium uppercase tracking-widest"
-                  data-vi="Nội dung © Thủy Tạ · Ứng dụng © An Khang Studio"
-                  data-en="Content © Thuy Ta · Application © An Khang Studio"
-                >
+                <p className="text-xs opacity-80 font-medium uppercase tracking-widest">
                   Content © Thuy Ta · Application © An Khang Studio
                 </p>
               </div>
+
               <div className="p-8 md:p-12 border border-black dark:border-white relative" data-aos="fade-left">
-                <div
-                  className="absolute -top-4 left-6 bg-cardLight dark:bg-cardDark px-2 text-xs font-bold uppercase tracking-widest"
-                  data-vi="Khám phá thêm"
-                  data-en="Explore More"
-                >
-                  Explore More
+                <div className="absolute -top-4 left-6 bg-cardLight dark:bg-cardDark px-2 text-xs font-bold uppercase tracking-widest">
+                  {isVi ? "Khám phá thêm" : "Explore More"}
                 </div>
-                <h3 className="font-display text-2xl font-bold mb-4" data-vi="Dữ liệu & Liên hệ" data-en="Data & Contact">
-                  Data & Contact
+                <h3 className="font-display text-2xl font-bold mb-4">
+                  {isVi ? "Dữ liệu & Liên hệ" : "Data & Contact"}
                 </h3>
-                <p className="font-light opacity-70 mb-8" data-vi="Tìm hiểu về các quy định dữ liệu hoặc liên hệ về dự án." data-en="Learn about data practices or get in touch about the project.">
-                  Learn about data practices or get in touch about the project.
+                <p className="font-light opacity-70 mb-8">
+                  {isVi ? "Tìm hiểu về các quy định dữ liệu hoặc liên hệ về dự án." : "Learn about data practices or get in touch about the project."}
                 </p>
 
                 <div className="space-y-4">
                   <Link
-                    href="/fm-dictionary/support/"
+                    href={`/${lang}/fm-dictionary/support/`}
                     className="flex justify-between items-center p-4 border border-black dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all group"
                   >
                     <span className="flex items-center text-sm font-bold uppercase tracking-widest">
                       <Icons.Headset size={16} className="mr-3 text-black dark:text-white group-hover:text-white dark:group-hover:text-black transition-colors" />
-                      <span data-vi="Hỗ trợ & Liên hệ" data-en="Support & Contact">
-                        Support & Contact
-                      </span>
+                      <span>{isVi ? "Hỗ trợ & Liên hệ" : "Support & Contact"}</span>
                     </span>
                     <span className="group-hover:translate-x-2 transition-transform">→</span>
                   </Link>
+
                   <Link
-                    href="/fm-dictionary/privacy-policy/"
+                    href={`/${lang}/fm-dictionary/privacy-policy/`}
                     className="flex justify-between items-center p-4 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group"
                   >
                     <span className="flex items-center text-sm font-bold uppercase tracking-widest">
                       <Icons.Shield size={16} className="mr-3 text-black dark:text-white" />
-                      <span data-vi="Chính sách bảo mật" data-en="Privacy Policy">
-                        Privacy Policy
-                      </span>
+                      <span>{isVi ? "Chính sách bảo mật" : "Privacy Policy"}</span>
                     </span>
                     <span className="group-hover:translate-x-2 transition-transform">→</span>
                   </Link>
+
                   <Link
-                    href="/fm-dictionary/terms-of-service/"
+                    href={`/${lang}/fm-dictionary/terms-of-service/`}
                     className="flex justify-between items-center p-4 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group"
                   >
                     <span className="flex items-center text-sm font-bold uppercase tracking-widest">
                       <Icons.File size={16} className="mr-3 text-black dark:text-white" />
-                      <span data-vi="Điều khoản dịch vụ" data-en="Terms of Service">
-                        Terms of Service
-                      </span>
+                      <span>{isVi ? "Điều khoản dịch vụ" : "Terms of Service"}</span>
                     </span>
                     <span className="group-hover:translate-x-2 transition-transform">→</span>
                   </Link>

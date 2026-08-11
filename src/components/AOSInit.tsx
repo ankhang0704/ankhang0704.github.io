@@ -9,11 +9,13 @@ export const AOSInit = () => {
   const pathname = usePathname();
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-color-scheme: reduce)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     AOS.init({
-      duration: 1500,
+      duration: 500,
       easing: "ease-out-cubic",
       once: true,
       offset: 50,
+      disable: prefersReducedMotion,
     });
   }, []);
 
