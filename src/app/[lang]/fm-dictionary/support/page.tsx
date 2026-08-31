@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Icons } from "@/components/Icons";
+import { FAQItem } from "@/components/support/FAQAccordion";
 
 export default function SupportPage({
   params,
@@ -22,7 +23,7 @@ export default function SupportPage({
       <main className="pt-40 pb-32 w-full max-w-full overflow-x-hidden">
         <div className="container mx-auto px-6 md:px-8 max-w-4xl break-words overflow-x-hidden">
           {/* Hero */}
-          <div className="mb-20" data-aos="fade-up">
+          <div className="mb-20">
             <p className="text-xs tracking-[0.3em] uppercase mb-4 border-b border-black dark:border-white inline-block pb-1">
               {isVi ? "Trung tâm Trợ giúp" : "Help Center"}
             </p>
@@ -47,7 +48,7 @@ export default function SupportPage({
 
           {/* Content */}
           <div className="space-y-12 font-light text-xl leading-relaxed opacity-90">
-            <section data-aos="fade-up">
+            <section>
               <p className="mb-6">
                 {isVi
                   ? "Chào mừng bạn đến với Trung tâm Hỗ trợ FM Dictionary. Chúng tôi luôn ở đây để giúp bạn có trải nghiệm học tập tốt nhất. Hãy tìm câu trả lời nhanh trong phần câu hỏi thường gặp bên dưới, hoặc liên hệ trực tiếp với đội ngũ hỗ trợ của chúng tôi bất kỳ lúc nào."
@@ -57,7 +58,7 @@ export default function SupportPage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi ? "Câu hỏi thường gặp (FAQ)" : "Frequently Asked Questions (FAQ)"}
               </h2>
@@ -69,11 +70,11 @@ export default function SupportPage({
                     <Icons.Shield size={20} className="text-black dark:text-white mr-3" />
                     <span>{isVi ? "Tài khoản & Đăng nhập" : "Account & Login"}</span>
                   </h3>
-                  <div className="space-y-8">
-                    <div>
-                      <p className="font-bold mb-2">
-                        {isVi ? "Q: Tôi có thể đăng nhập bằng những phương thức nào?" : "Q: Which methods can I use to log in?"}
-                      </p>
+                  <div className="space-y-4">
+                    <FAQItem
+                      question={isVi ? "Tôi có thể đăng nhập bằng những phương thức nào?" : "Which methods can I use to log in?"}
+                      defaultOpen={true}
+                    >
                       <p>
                         {isVi ? (
                           <span>
@@ -85,21 +86,17 @@ export default function SupportPage({
                           </span>
                         )}
                       </p>
-                    </div>
-                    <div>
-                      <p className="font-bold mb-2">
-                        {isVi ? "Q: Tại sao tôi không đăng nhập được?" : "Q: Why can't I log in?"}
-                      </p>
+                    </FAQItem>
+
+                    <FAQItem question={isVi ? "Tại sao tôi không đăng nhập được?" : "Why can't I log in?"}>
                       <p>
                         {isVi
                           ? "Hãy kiểm tra kết nối Internet, đảm bảo dùng đúng tài khoản Google/Apple. Nếu dùng Apple Sign-In, hãy chắc chắn bạn đã chia sẻ email thật. Nếu vẫn lỗi, hãy thử cài lại ứng dụng hoặc liên hệ chúng tôi."
                           : "Check your Internet connection, ensure you're using the correct Google/Apple account. If using Apple Sign-In, make sure you've shared your real email. If issues persist, try reinstalling the app or contact us."}
                       </p>
-                    </div>
-                    <div>
-                      <p className="font-bold mb-2">
-                        {isVi ? "Q: Tôi muốn xóa tài khoản vĩnh viễn, phải làm thế nào?" : "Q: How do I delete my account permanently?"}
-                      </p>
+                    </FAQItem>
+
+                    <FAQItem question={isVi ? "Tôi muốn xóa tài khoản vĩnh viễn, phải làm thế nào?" : "How do I delete my account permanently?"}>
                       <p className="mb-4">
                         {isVi ? (
                           <span>
@@ -119,7 +116,7 @@ export default function SupportPage({
                           {isVi ? "Xem chi tiết hoặc gửi yêu cầu trực tuyến →" : "View details or submit an online request →"}
                         </Link>
                       </p>
-                    </div>
+                    </FAQItem>
                   </div>
                 </div>
 
@@ -131,11 +128,8 @@ export default function SupportPage({
                     <Icons.Book size={20} className="text-black dark:text-white mr-3" />
                     <span>{isVi ? "Học tập & Tính năng" : "Learning & Features"}</span>
                   </h3>
-                  <div className="space-y-8">
-                    <div>
-                      <p className="font-bold mb-2">
-                        {isVi ? "Q: Ứng dụng có bao nhiêu từ vựng và thuộc lĩnh vực nào?" : "Q: How many words and which fields does the app cover?"}
-                      </p>
+                  <div className="space-y-4">
+                    <FAQItem question={isVi ? "Ứng dụng có bao nhiêu từ vựng và thuộc lĩnh vực nào?" : "How many words and which fields does the app cover?"}>
                       <p>
                         {isVi ? (
                           <span>
@@ -147,12 +141,10 @@ export default function SupportPage({
                           </span>
                         )}
                       </p>
-                    </div>
-                    <div>
-                      <p className="font-bold mb-2">
-                        {isVi ? "Q: Sự khác biệt giữa Flashcard, Quiz và Smart Review là gì?" : "Q: What is the difference between Flashcard, Quiz, and Smart Review?"}
-                      </p>
-                      <ul className="list-disc pl-6 space-y-2 text-base md:text-xl">
+                    </FAQItem>
+
+                    <FAQItem question={isVi ? "Sự khác biệt giữa Flashcard, Quiz và Smart Review là gì?" : "What is the difference between Flashcard, Quiz, and Smart Review?"}>
+                      <ul className="list-disc pl-6 space-y-2 text-base md:text-lg">
                         <li>
                           {isVi ? <span><strong>Flashcard:</strong> Học từ mới theo bộ chủ đề.</span> : <span><strong>Flashcard:</strong> Learn new words by topic.</span>}
                         </li>
@@ -163,21 +155,17 @@ export default function SupportPage({
                           {isVi ? <span><strong>Smart Review:</strong> Ôn tập thông minh (spaced repetition) cho từ hay quên.</span> : <span><strong>Smart Review:</strong> Intelligent review (spaced repetition) for often forgotten words.</span>}
                         </li>
                       </ul>
-                    </div>
-                    <div>
-                      <p className="font-bold mb-2">
-                        {isVi ? "Q: Tính năng Luyện phát âm hoạt động như thế nào?" : "Q: How does the AI Pronunciation feature work?"}
-                      </p>
+                    </FAQItem>
+
+                    <FAQItem question={isVi ? "Tính năng Luyện phát âm hoạt động như thế nào?" : "How does the AI Pronunciation feature work?"}>
                       <p>
                         {isVi
                           ? "Sử dụng AI phân tích giọng nói thời gian thực. Nhấn giữ nút ghi âm, đọc to và nhận phản hồi chi tiết. Lưu ý cấp quyền Microphone trong cài đặt hệ thống."
                           : "Uses real-time AI voice analysis. Hold the record button, speak aloud, and receive detailed feedback. Ensure Microphone permission is granted in system settings."}
                       </p>
-                    </div>
-                    <div>
-                      <p className="font-bold mb-2">
-                        {isVi ? "Q: Tôi có thể dùng ứng dụng khi không có mạng không?" : "Q: Can I use the app offline?"}
-                      </p>
+                    </FAQItem>
+
+                    <FAQItem question={isVi ? "Tôi có thể dùng ứng dụng khi không có mạng không?" : "Can I use the app offline?"}>
                       <p>
                         {isVi ? (
                           <span>
@@ -189,7 +177,7 @@ export default function SupportPage({
                           </span>
                         )}
                       </p>
-                    </div>
+                    </FAQItem>
                   </div>
                 </div>
 
@@ -201,11 +189,8 @@ export default function SupportPage({
                     <Icons.Users size={20} className="text-black dark:text-white mr-3" />
                     <span>{isVi ? "Nhóm học tập" : "Social Learning"}</span>
                   </h3>
-                  <div className="space-y-8">
-                    <div>
-                      <p className="font-bold mb-2">
-                        {isVi ? "Q: Tôi tham gia nhóm học tập như thế nào?" : "Q: How do I join a study group?"}
-                      </p>
+                  <div className="space-y-4">
+                    <FAQItem question={isVi ? "Tôi tham gia nhóm học tập như thế nào?" : "How do I join a study group?"}>
                       <p>
                         {isVi ? (
                           <span>
@@ -217,17 +202,15 @@ export default function SupportPage({
                           </span>
                         )}
                       </p>
-                    </div>
-                    <div>
-                      <p className="font-bold mb-2">
-                        {isVi ? "Q: Thông tin nào của tôi được hiển thị trong nhóm?" : "Q: What information of mine is displayed in the group?"}
-                      </p>
+                    </FAQItem>
+
+                    <FAQItem question={isVi ? "Thông tin nào của tôi được hiển thị trong nhóm?" : "What information of mine is displayed in the group?"}>
                       <p>
                         {isVi
                           ? "Tên hiển thị, ảnh đại diện, điểm số và streak sẽ chỉ hiển thị với các thành viên trong cùng nhóm đó, không bao giờ hiển thị công khai."
                           : "Display name, profile picture, scores, and streak will only be shown to members of the same group, never publicly."}
                       </p>
-                    </div>
+                    </FAQItem>
                   </div>
                 </div>
 
@@ -239,27 +222,22 @@ export default function SupportPage({
                     <Icons.Settings size={20} className="text-black dark:text-white mr-3" />
                     <span>{isVi ? "Lỗi & Sự cố kỹ thuật" : "Technical Support"}</span>
                   </h3>
-                  <div className="space-y-8">
-                    <div>
-                      <p className="font-bold mb-2">
-                        {isVi ? "Q: Ứng dụng bị treo hoặc crash, tôi phải làm gì?" : "Q: The app is frozen or crashed, what should I do?"}
-                      </p>
+                  <div className="space-y-4">
+                    <FAQItem question={isVi ? "Ứng dụng bị treo hoặc crash, tôi phải làm gì?" : "The app is frozen or crashed, what should I do?"}>
                       <p>
                         {isVi
                           ? "Thử đóng và mở lại ứng dụng, kiểm tra cập nhật, hoặc khởi động lại thiết bị. Nếu không hết, hãy gỡ và cài lại ứng dụng (dữ liệu sẽ được khôi phục sau khi đăng nhập)."
                           : "Try closing and reopening the app, checking for updates, or restarting your device. If it persists, uninstall and reinstall the app (data will be restored after login)."}
                       </p>
-                    </div>
-                    <div>
-                      <p className="font-bold mb-2">
-                        {isVi ? "Q: Điểm phát âm của tôi luôn thấp mặc dù tôi đọc đúng?" : "Q: My pronunciation score is always low even though I read correctly?"}
-                      </p>
+                    </FAQItem>
+
+                    <FAQItem question={isVi ? "Điểm phát âm của tôi luôn thấp mặc dù tôi đọc đúng?" : "My pronunciation score is always low even though I read correctly?"}>
                       <p>
                         {isVi
                           ? "Đảm bảo môi trường yên tĩnh, giữ thiết bị cách miệng 15-20cm và đọc rõ ràng. Nếu vẫn thấp, hãy báo cáo từ vựng đó qua email cho chúng tôi."
                           : "Ensure a quiet environment, keep the device 15-20cm from your mouth, and speak clearly. If still low, report that vocabulary to us via email."}
                       </p>
-                    </div>
+                    </FAQItem>
                   </div>
                 </div>
               </div>
@@ -268,7 +246,7 @@ export default function SupportPage({
             <hr className="border-black/10 dark:border-white/10" />
 
             {/* Contact Support */}
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi ? "Liên hệ Hỗ trợ" : "Contact Support"}
               </h2>
@@ -280,38 +258,44 @@ export default function SupportPage({
                         {isVi ? "Kênh liên hệ" : "Channel"}
                       </th>
                       <th className="border border-black/10 dark:border-white/10 p-4 text-left">
-                        {isVi ? "Thông tin" : "Information"}
+                        {isVi ? "Thông tin" : "Details"}
+                      </th>
+                      <th className="border border-black/10 dark:border-white/10 p-4 text-left">
+                        {isVi ? "Thời gian phản hồi" : "Response Time"}
                       </th>
                     </tr>
                     <tr>
                       <td className="border border-black/10 dark:border-white/10 p-4 font-bold">
-                        <Icons.Mail size={16} className="text-black dark:text-white mr-3 inline" />
-                        <span>{isVi ? "Email hỗ trợ" : "Support Email"}</span>
+                        Email
                       </td>
                       <td className="border border-black/10 dark:border-white/10 p-4">
-                        <a href="mailto:ankhang.nguyen0704@gmail.com" className="underline">
+                        <a
+                          href="mailto:ankhang.nguyen0704@gmail.com"
+                          className="underline hover:text-black dark:hover:text-white transition-colors"
+                        >
                           ankhang.nguyen0704@gmail.com
                         </a>
                       </td>
-                    </tr>
-                    <tr>
-                      <td className="border border-black/10 dark:border-white/10 p-4 font-bold">
-                        <Icons.Globe size={16} className="text-black dark:text-white mr-3 inline" />
-                        <span>{isVi ? "Trang chủ" : "Home Page"}</span>
-                      </td>
-                      <td className="border border-black/10 dark:border-white/10 p-4">
-                        <Link href={`/${lang}/fm-dictionary/`} className="underline">
-                          ankhang0704.github.io/{lang}/fm-dictionary/
-                        </Link>
+                      <td className="border border-black/10 dark:border-white/10 p-4 opacity-80">
+                        {isVi ? "24–48 giờ làm việc" : "24–48 business hours"}
                       </td>
                     </tr>
                     <tr>
                       <td className="border border-black/10 dark:border-white/10 p-4 font-bold">
-                        <Icons.Clock size={16} className="text-black dark:text-white mr-3 inline" />
-                        <span>{isVi ? "Thời gian làm việc" : "Working Hours"}</span>
+                        GitHub Issues
                       </td>
                       <td className="border border-black/10 dark:border-white/10 p-4">
-                        {isVi ? "Thứ Hai – Thứ Sáu, 8:00 – 17:30 (GMT+7)" : "Monday – Friday, 8:00 – 17:30 (GMT+7)"}
+                        <a
+                          href="https://github.com/ankhang0704"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:text-black dark:hover:text-white transition-colors"
+                        >
+                          github.com/ankhang0704 ↗
+                        </a>
+                      </td>
+                      <td className="border border-black/10 dark:border-white/10 p-4 opacity-80">
+                        {isVi ? "3–5 ngày làm việc" : "3–5 business days"}
                       </td>
                     </tr>
                   </tbody>
@@ -321,46 +305,41 @@ export default function SupportPage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi ? "Khi gửi email, vui lòng cung cấp" : "When emailing, please provide"}
               </h2>
-              <div className="p-8 border border-black/10 dark:border-white/10 space-y-4 text-lg">
-                <p>
-                  {isVi ? <span>• <strong>Tiêu đề:</strong> Mô tả ngắn gọn vấn đề.</span> : <span>• <strong>Subject:</strong> Brief description of the issue.</span>}
-                </p>
-                <p>
-                  {isVi ? <span>• <strong>Thiết bị:</strong> Tên máy và phiên bản hệ điều hành (iOS/Android).</span> : <span>• <strong>Device:</strong> Model name and OS version (iOS/Android).</span>}
-                </p>
-                <p>
-                  {isVi ? <span>• <strong>Mô tả:</strong> Thao tác bạn đã thực hiện dẫn đến lỗi.</span> : <span>• <strong>Description:</strong> Steps you took leading to the error.</span>}
-                </p>
-                <p>
-                  {isVi ? <span>• <strong>Ảnh chụp:</strong> Ảnh chụp màn hình lỗi (nếu có).</span> : <span>• <strong>Screenshot:</strong> Screenshot of the error (if any).</span>}
-                </p>
-              </div>
+              <ul className="list-disc pl-6 space-y-3">
+                <li>
+                  {isVi
+                    ? "Địa chỉ email liên kết với tài khoản của bạn (Google / Apple ID)."
+                    : "Email address associated with your account (Google / Apple ID)."}
+                </li>
+                <li>
+                  {isVi
+                    ? "Dòng máy đang sử dụng (ví dụ: iPhone 14 Pro, Samsung Galaxy S23) và phiên bản hệ điều hành (ví dụ: iOS 17.2)."
+                    : "Device model (e.g., iPhone 14 Pro, Samsung Galaxy S23) and OS version (e.g., iOS 17.2)."}
+                </li>
+                <li>
+                  {isVi
+                    ? "Mô tả chi tiết sự cố bạn gặp phải, kèm ảnh chụp màn hình nếu có."
+                    : "Detailed description of the issue you are experiencing, with screenshots if available."}
+                </li>
+              </ul>
             </section>
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h3 className="font-display text-xl font-bold mb-4 uppercase tracking-widest">
                 {isVi ? "Về FM Dictionary" : "About FM Dictionary"}
               </h3>
-              <p>
+              <p className="opacity-80">
                 {isVi
-                  ? "FM Dictionary là ứng dụng từ vựng cao cấp giúp cộng đồng Quản lý Cơ sở vật chất và bất kỳ ai quan tâm đến lĩnh vực này làm chủ hơn 1.800 thuật ngữ FM chuyên ngành — được xây dựng bằng Flutter cho iOS & Android."
-                  : "FM Dictionary is a premium vocabulary app helping the Facilities Management community and anyone interested in the field master 1,800+ specialized FM terms — built with Flutter for iOS & Android."}
+                  ? "FM Dictionary là ứng dụng học từ vựng Quản lý cơ sở vật chất (Facility Management) được thiết kế và phát triển bởi An Khang Studio. Nội dung thuật ngữ được biên soạn bởi Thúy Tạ."
+                  : "FM Dictionary is a Facility Management vocabulary learning app designed and developed by An Khang Studio. Terminology content compiled by Thuy Ta."}
               </p>
             </section>
-
-            <p className="text-xs opacity-50 italic text-center py-10">
-              <em>
-                {isVi
-                  ? "Cảm ơn bạn đã tin tưởng và sử dụng FM Dictionary. Chúng tôi cam kết đồng hành cùng bạn trên mọi chặng đường chinh phục kiến thức chuyên ngành."
-                  : "Thank you for trusting and using FM Dictionary. We are committed to accompanying you on every journey to master specialized knowledge."}
-              </em>
-            </p>
           </div>
         </div>
       </main>

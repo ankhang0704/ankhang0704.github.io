@@ -15,11 +15,13 @@ export function ScrollSpyInit() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const id = entry.target.getAttribute("id");
-          const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+          const activeLink = document.querySelector(
+            `.nav-link[href$="#${id}"], .nav-link[href="#${id}"]`
+          );
 
           if (activeLink) {
             document
-              .querySelectorAll('.nav-link[href^="#"]')
+              .querySelectorAll('.nav-link')
               .forEach((link) => link.classList.remove("active"));
             activeLink.classList.add("active");
           }

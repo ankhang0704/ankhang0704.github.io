@@ -46,7 +46,7 @@ export default function DeleteAccountPage({
       <main className="pt-40 pb-32 w-full max-w-full">
         <div className="container mx-auto px-6 md:px-8 max-w-4xl break-words">
           {/* Hero */}
-          <div className="mb-20" data-aos="fade-up">
+          <div className="mb-20">
             <p className="text-xs tracking-[0.3em] uppercase mb-4 border-b border-black dark:border-white inline-block pb-1">
               {isVi ? "Dịch vụ Tài khoản" : "Account Services"}
             </p>
@@ -71,7 +71,7 @@ export default function DeleteAccountPage({
 
           {/* Content */}
           <div className="space-y-12 font-light text-xl leading-relaxed opacity-90">
-            <section data-aos="fade-up">
+            <section>
               <p className="mb-6">
                 {isVi
                   ? "Chúng tôi hiểu rằng đôi khi bạn muốn xóa tài khoản của mình. FM Dictionary tôn trọng quyền kiểm soát tuyệt đối của bạn đối với dữ liệu cá nhân. Bạn có thể xóa tài khoản trực tiếp trong ứng dụng hoặc gửi yêu cầu xóa trực tuyến bên dưới."
@@ -93,7 +93,7 @@ export default function DeleteAccountPage({
             <hr className="border-black/10 dark:border-white/10" />
 
             {/* Method 1: In-App */}
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-6 uppercase tracking-tighter">
                 {isVi ? "Cách 1: Xóa trực tiếp trong ứng dụng (Khuyên dùng)" : "Method 1: Delete Directly inside the App (Recommended)"}
               </h2>
@@ -121,7 +121,7 @@ export default function DeleteAccountPage({
             {/* Method 2: Submit an Online Request */}
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-6 uppercase tracking-tighter">
                 {isVi ? "Cách 2: Gửi yêu cầu xóa trực tuyến" : "Method 2: Submit an Online Request"}
               </h2>
@@ -132,7 +132,7 @@ export default function DeleteAccountPage({
               </p>
 
               {formSubmitted ? (
-                <div className="p-8 border border-black/20 dark:border-white/20 bg-black/5 dark:bg-white/5 rounded-lg text-center">
+                <div className="p-8 border border-black/20 dark:border-white/20 bg-black/5 dark:bg-white/5 text-center">
                   <Icons.Check size={36} className="mb-4 inline-block" />
                   <h3 className="font-display text-2xl font-bold mb-2 uppercase">
                     {isVi ? "Đã chuẩn bị email thành công!" : "Email Prepared Successfully!"}
@@ -145,7 +145,7 @@ export default function DeleteAccountPage({
                     )}
                   </p>
 
-                  <div className="my-6 p-6 border border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark rounded-lg text-left text-sm font-mono space-y-2">
+                  <div className="my-6 p-6 border border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark text-left text-sm font-mono space-y-2">
                     <p className="opacity-70 text-xs uppercase tracking-wider font-sans font-bold">
                       {isVi ? "Thông tin email gửi thủ công (nếu ứng dụng không tự mở):" : "Manual email details (if your client didn't open):"}
                     </p>
@@ -153,7 +153,7 @@ export default function DeleteAccountPage({
                       <p><strong>To:</strong> ankhang.nguyen0704@gmail.com</p>
                       <p><strong>Subject:</strong> FM Dictionary - Account Deletion Request</p>
                       <p className="pt-2 font-sans font-bold text-xs uppercase opacity-70">{isVi ? "Nội dung email:" : "Body:"}</p>
-                      <div className="bg-cardLight dark:bg-cardDark p-3 rounded border border-black/5 dark:border-white/5 whitespace-pre-wrap break-words text-xs">
+                      <div className="bg-cardLight dark:bg-cardDark p-3 border border-black/5 dark:border-white/5 whitespace-pre-wrap break-words text-xs">
                         {`Hello,\n\nPlease delete my FM Dictionary account and all associated data permanently.\n\nAccount Details:\n- Name: ${name}\n- Registered Email: ${email}\n\nI confirm that I understand this action is permanent and cannot be undone after 30 days.\n\nThank you.`}
                       </div>
                     </div>
@@ -167,7 +167,7 @@ export default function DeleteAccountPage({
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6 max-w-xl mx-auto p-6 md:p-8 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark rounded-lg">
+                <form onSubmit={handleSubmit} className="space-y-6 max-w-xl mx-auto p-6 md:p-8 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark">
                   <div>
                     <label className="block text-sm uppercase tracking-widest font-bold mb-2">
                       <span>{isVi ? "Họ và Tên" : "Full Name"}</span>
@@ -178,7 +178,7 @@ export default function DeleteAccountPage({
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-4 py-3 bg-bgLight dark:bg-bgDark border border-black/15 dark:border-white/15 focus:border-black dark:focus:border-white outline-none rounded transition-colors text-base"
+                      className="w-full px-4 py-3 bg-bgLight dark:bg-bgDark border border-black/15 dark:border-white/15 focus:border-black dark:focus:border-white outline-none transition-colors text-base"
                     />
                   </div>
 
@@ -192,7 +192,7 @@ export default function DeleteAccountPage({
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-4 py-3 bg-bgLight dark:bg-bgDark border border-black/15 dark:border-white/15 focus:border-black dark:focus:border-white outline-none rounded transition-colors text-base"
+                      className="w-full px-4 py-3 bg-bgLight dark:bg-bgDark border border-black/15 dark:border-white/15 focus:border-black dark:focus:border-white outline-none transition-colors text-base"
                     />
                   </div>
 
@@ -216,7 +216,7 @@ export default function DeleteAccountPage({
                   <button
                     type="submit"
                     disabled={isSubmitting || !email || !name || !confirmed}
-                    className="w-full py-4 bg-black text-white dark:bg-white dark:text-black font-bold uppercase tracking-widest text-sm hover:opacity-85 active:scale-[0.98] transition-all disabled:opacity-50 disabled:pointer-events-none rounded"
+                    className="w-full py-4 bg-black text-white dark:bg-white dark:text-black font-bold uppercase tracking-widest text-sm hover:opacity-85 active:scale-[0.98] transition-all disabled:opacity-50 disabled:pointer-events-none"
                   >
                     {isVi
                       ? isSubmitting

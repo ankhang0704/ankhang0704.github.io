@@ -1,37 +1,73 @@
-# Handoff Summary — Portfolio & FM Dictionary
+# Project Handoff: Portfolio & FM Dictionary (September 2026)
 
-## 1. Work Accomplished
-- **FM Dictionary UI Restoration**:
-  - Restored the complete 750-line original UI of `src/app/[lang]/fm-dictionary/page.tsx` from Git commit history while preserving native App Router subpath i18n (`/en/` & `/vi/`).
-  - Restored Hero section, Stats Bar, 6 Feature cards, 8 Tech Stack items, App Screens autoplay carousel, Lightbox zoom modal, Download section, and Permissions breakdown.
-  - Removed the temporary `Offline-First & AI Sync Architecture` section per user request.
-  - Fixed horizontal scrollbar issue on the App Screens carousel by correcting `scrollbar-none` to `.scrollbar-hide` utility class in `src/app/[lang]/fm-dictionary/page.tsx`.
-- **Selected Works (Homepage) Enhancements**:
-  - Updated image zoom scale from base `scale-105` down to natural `scale-100` with subtle hover zoom `scale-[1.02]`.
-  - Added thin horizontal border dividers (`border-t border-black/10 dark:border-white/10`) between project cards.
-  - Regenerated `public/fm-dictionary-cover.webp` using `generate_image` with a high-contrast Minimalist Dark Editorial UI mockup.
-- **Full Legal & Support Documentation Restoration**:
-  - Restored full multi-section original text for all 4 subpages with native `[lang]` dynamic i18n:
-    - [src/app/[lang]/fm-dictionary/privacy-policy/page.tsx](file:///c:/Users/nguye/Github/ankhang0704.github.io/src/app/%5Blang%5D/fm-dictionary/privacy-policy/page.tsx) (600+ lines, 8 sections)
-    - [src/app/[lang]/fm-dictionary/terms-of-service/page.tsx](file:///c:/Users/nguye/Github/ankhang0704.github.io/src/app/%5Blang%5D/fm-dictionary/terms-of-service/page.tsx) (560+ lines, 8 sections)
-    - [src/app/[lang]/fm-dictionary/support/page.tsx](file:///c:/Users/nguye/Github/ankhang0704.github.io/src/app/%5Blang%5D/fm-dictionary/support/page.tsx) (470+ lines, full FAQs & contact table)
-    - [src/app/[lang]/fm-dictionary/delete-account/page.tsx](file:///c:/Users/nguye/Github/ankhang0704.github.io/src/app/%5Blang%5D/fm-dictionary/delete-account/page.tsx) (300+ lines, interactive deletion form)
-- **Ponytail Optimizations**:
-  - Cleaned up empty legacy directory `src/components/fm-dictionary/`.
-  - Updated Footer links to localized App Router paths (`href={`/${lang}/fm-dictionary/support/`}`).
-  - Updated Footer date to `August 2026` / `Tháng 8, 2026`.
-- **Verification**:
-  - Passed `npm run lint` with 0 errors and 0 warnings.
+This document provides complete operational, architectural, and design context for subsequent agents taking over this project.
 
 ---
 
-## 2. Current Status & Next Steps
-- **Build & Verification Status**: All 19 SSG static routes build cleanly. ESLint reports 0 errors and 0 warnings.
-- **Pending Tasks**: None. The codebase is clean, lean, and fully restored with production-grade documentation.
+## 🎯 Project State & Overview
+
+- **Owner:** An Khang (Software Developer / IT Operations).
+- **Core Domain:** Personal Engineering Portfolio & FM Dictionary Landing Page.
+- **Current Production Year:** `2026` (Reflecting real milestones: IT Helpdesk @ Bệnh Viện Mắt Bình Thuận, SOJO Company Intern, Capstone Defense & Graduation).
+- **Next.js & SSG:** Next.js 16.2.6 (App Router) with full static generation (`21/21 static routes` compiled via `npm run build`).
+- **Design System:** Monochromatic dual theme (pure black `#0a0a0a` / pure white `#fafafa`), strict 0px border-radius geometry (`DESIGN.md`), and bespoke typography pairing (`Space Grotesk` + `Playfair Display Italic` + `Inter`).
 
 ---
 
-## 3. Suggested Skills for Next Agent
-- `improve-codebase-architecture`: Use when auditing landing page layout, responsiveness, or visual hierarchy.
-- `ponytail-review`: Use when reviewing code changes for over-engineering or unnecessary complexity.
-- `ponytail-gain`: Use to view measured impact scoreboard of codebase reductions.
+## 🚀 Key Accomplishments in This Session
+
+1. **Architectural Hybrid Timeline (`src/components/home/TimelineInteractiveView.tsx`)**:
+   - Merged the vertical timeline axis & square 0px node markers with the 2-column minimalist ledger layout.
+   - 4 synchronized chronological milestones (04/2026—Present IT Helpdesk, 01/2026—04/2026 SOJO Company, 03/2026 Graduation, 2022—2026 Bachelor of IT).
+   - Real-time GSAP scrub active line tracking.
+
+2. **Selected Works: Blueprint Spec Sheet Layout (`src/components/home/ProjectsInteractiveView.tsx`)**:
+   - Industrial engineering spec sheet design with metadata header bar (`[ PRJ-01 ] [ LIVE PRODUCTION ] [ PUBLISHED ]`).
+   - 3-point structured impact table (**PROBLEM** → **SOLVE** → **RESULT**).
+   - Direct integration with Bento Tech Badge interactive scroller/highlighter.
+
+3. **Summary Section: Architectural Editorial Spread (`src/components/home/SummaryInteractiveView.tsx`)**:
+   - Replaced boxed and redundant text elements with an authoritative 12-column Editorial Spread.
+   - Left Column (Span 4): Career Positioning Index & Anchors (`Bệnh Viện Mắt Bình Thuận`, `Cử Nhân CNTT`, `FM Dictionary`).
+   - Right Column (Span 8): Prominent Lead Statement in Space Grotesk + Playfair Display Italic + 2-paragraph narrative flow.
+
+4. **Global Typography Scale-Up & Readability**:
+   - Synchronized all body copy to `text-xl`/`text-2xl` and display headers to `text-4xl`–`text-6xl` for superior legibility.
+
+5. **Comprehensive 60 FPS Performance Optimization**:
+   - Promoted `.ambient-glow` to GPU composite layers (`transform: translate3d(0, 0, 0); will-change: transform; contain: strict; backface-visibility: hidden;`).
+   - Added `will-change: transform, opacity;` to all GSAP ScrollTrigger targets.
+   - Guarded scroll event listeners in `Header.tsx` with ref flags and `{ passive: true }`.
+
+---
+
+## 🗂️ Key Architectural Files
+
+- **`src/app/[lang]/page.tsx`**: Main landing page composing Header, Hero, Summary, Skills Bento Matrix, Selected Works, Timeline, and Footer.
+- **`src/components/home/SummaryInteractiveView.tsx`**: Editorial Spread component for Summary.
+- **`src/components/home/ProjectsInteractiveView.tsx`**: Blueprint Spec Sheet component for Selected Works.
+- **`src/components/home/TimelineInteractiveView.tsx`**: Ledger timeline component with vertical GSAP scrub line.
+- **`src/components/home/TechBadgeButton.tsx`**: Interactive bridge between Bento Skills and Project Cards.
+- **`src/components/Header.tsx`**: Scroll-preserving bilingual switcher, reading progress bar, theme switcher.
+- **`src/components/Footer.tsx`**: 1-click email copy button with floating toast and auto-freshness date stamp.
+- **`src/app/style.css`**: Global GPU layer optimizations, glassmorphism, and GSAP hardware acceleration styles.
+
+---
+
+## 🛠️ Suggested Skills for Next Agent
+
+1. **`gsap-performance`**: For ensuring all GSAP animations maintain 60 FPS on mobile and low-powered devices.
+2. **`improve-codebase-architecture`**: For auditing landing page layout, responsive design, and CSS containment.
+3. **`gsap-core`** & **`gsap-scrolltrigger`**: For any further scroll-driven interactions.
+
+---
+
+## 🧪 Verification Commands
+
+```bash
+# Verify TypeScript & ESLint (must pass with 0 errors)
+npm run lint
+
+# Verify full static site generation (21/21 routes)
+npm run build
+```

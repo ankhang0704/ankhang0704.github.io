@@ -16,7 +16,7 @@
   },
   "about": {
     "title": "Tóm tắt",
-    "p1": "Tôi là một lập trình viên có nền tảng xuất phát từ Hệ tầng mạng & IT Support. Điều này giúp tôi không chỉ viết code mà còn hiểu rõ cách ứng dụng vận hành trên máy chủ và internet.",
+    "p1": "Tôi là một lập trình viên có nền tảng xuất phát từ Hạ tầng mạng & IT Support. Điều này giúp tôi không chỉ viết code mà còn hiểu rõ cách ứng dụng vận hành trên máy chủ và internet.",
     "p2": "Hiện tại, tôi đam mê sâu sắc với lập trình web backend và mobile app. Triết lý làm việc của tôi là giải quyết vấn đề cốt lõi của doanh nghiệp bằng những công cụ phù hợp nhất, thay vì chạy theo xu hướng."
   },
   "skills": {
@@ -45,10 +45,14 @@
   },
   "timeline": {
     "title": "Lộ Trình",
-    "t1Role": "IT Helpdesk",
-    "t1Desc": "Làm việc tại Bệnh Viện Mắt Bình Thuận, chịu trách nhiệm vận hành, quản trị hạ tầng mạng và hỗ trợ hệ thống CNTT toàn viện.",
-    "t2Role": "Cử nhân Công nghệ Thông tin",
-    "t2Desc": "Tốt nghiệp Đại học chuyên ngành Công nghệ Thông tin với định hướng phát triển phần mềm và hệ thống."
+    "t1Role": "IT Helpdesk · Bệnh Viện Mắt Bình Thuận",
+    "t1Desc": "Chịu trách nhiệm vận hành, quản trị hạ tầng mạng nội bộ, máy chủ dữ liệu PostgreSQL và hỗ trợ kỹ thuật cho hơn 50 máy trạm toàn viện.",
+    "t2Role": "IT Operations Intern · SOJO Company",
+    "t2Desc": "Tham gia hỗ trợ vận hành hệ thống CNTT, giám sát thiết bị mạng và quy trình công nghệ tại SOJO Company, tích lũy kinh nghiệm thực tế về hạ tầng dịch vụ.",
+    "t3Role": "Tốt Nghiệp Cử Nhân CNTT · Graduation",
+    "t3Desc": "Bảo vệ thành công đồ án tốt nghiệp hệ thống quản lý tích hợp AI, chính thức tốt nghiệp Cử nhân Công nghệ Thông tin với định hướng phát triển phần mềm và hệ thống.",
+    "t4Role": "Cử Nhân Công Nghệ Thông Tin · Đại Học",
+    "t4Desc": "Hoàn thành chương trình cử nhân CNTT, nghiên cứu chuyên sâu về Kiến trúc phần mềm Backend (Django, Python), Lập trình ứng dụng di động (Flutter) và Quản trị mạng (Cisco CCNA)."
   },
   "footer": {
     "letsTalk": "Bắt Đầu.",

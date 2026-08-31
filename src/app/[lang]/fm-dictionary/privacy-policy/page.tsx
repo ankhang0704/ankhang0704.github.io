@@ -22,7 +22,7 @@ export default function PrivacyPolicyPage({
       <main className="pt-40 pb-32 w-full max-w-full overflow-x-hidden">
         <div className="container mx-auto px-6 md:px-8 max-w-4xl break-words overflow-x-hidden">
           {/* Hero */}
-          <div className="mb-20" data-aos="fade-up">
+          <div className="mb-20">
             <p className="text-xs tracking-[0.3em] uppercase mb-4 border-b border-black dark:border-white inline-block pb-1">
               {isVi ? "Văn bản pháp lý" : "Legal Document"}
             </p>
@@ -47,7 +47,7 @@ export default function PrivacyPolicyPage({
 
           {/* Content */}
           <div className="space-y-12 font-light text-xl leading-relaxed opacity-90">
-            <section data-aos="fade-up">
+            <section>
               <p className="mb-6">
                 {isVi ? (
                   <>
@@ -68,7 +68,7 @@ export default function PrivacyPolicyPage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi ? "1. Dữ liệu chúng tôi thu thập và mục đích sử dụng" : "1. Data Collection and Purpose of Use"}
               </h2>
@@ -127,7 +127,7 @@ export default function PrivacyPolicyPage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi
                   ? "2. Quyền truy cập thiết bị và Xử lý âm thanh (Tính năng phát âm AI)"
@@ -177,7 +177,7 @@ export default function PrivacyPolicyPage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi
                   ? "3. Dịch vụ bên thứ ba (Third-party Services) & Cam kết Dữ liệu"
@@ -261,7 +261,7 @@ export default function PrivacyPolicyPage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi ? "4. Bảo mật và Chuyển giao dữ liệu quốc tế" : "4. Security and International Data Transfer"}
               </h2>
@@ -297,7 +297,7 @@ export default function PrivacyPolicyPage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi ? "5. Quyền của người dùng và Quy trình xóa tài khoản" : "5. User Rights and Account Deletion Process"}
               </h2>
@@ -366,7 +366,7 @@ export default function PrivacyPolicyPage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi ? "6. Quyền riêng tư của trẻ em" : "6. Children's Privacy"}
               </h2>
@@ -384,7 +384,7 @@ export default function PrivacyPolicyPage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi ? "7. Thay đổi đối với Chính sách Bảo mật này" : "7. Changes to This Privacy Policy"}
               </h2>
@@ -397,7 +397,7 @@ export default function PrivacyPolicyPage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up" className="text-black dark:text-white">
+            <section className="text-black dark:text-white">
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi ? "8. Liên hệ với chúng tôi" : "8. Contact Us"}
               </h2>
@@ -426,7 +426,7 @@ export default function PrivacyPolicyPage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h3 className="font-display text-xl font-bold mb-4 uppercase tracking-widest">
                 {isVi ? "Tuyên bố về Sở hữu Trí tuệ (Copyright Notice)" : "Intellectual Property Statement (Copyright Notice)"}
               </h3>

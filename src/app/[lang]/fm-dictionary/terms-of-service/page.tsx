@@ -21,7 +21,7 @@ export default function TermsOfServicePage({
       <main className="pt-40 pb-32 overflow-x-hidden w-full max-w-[100vw]">
         <div className="container mx-auto px-6 md:px-8 max-w-4xl break-words">
           {/* Hero */}
-          <div className="mb-20" data-aos="fade-up">
+          <div className="mb-20">
             <p className="text-xs tracking-[0.3em] uppercase mb-4 border-b border-black dark:border-white inline-block pb-1">
               {isVi ? "Văn bản pháp lý" : "Legal Document"}
             </p>
@@ -46,7 +46,7 @@ export default function TermsOfServicePage({
 
           {/* Content */}
           <div className="space-y-12 font-light text-xl leading-relaxed opacity-90">
-            <section data-aos="fade-up">
+            <section>
               <p className="mb-6">
                 {isVi ? (
                   <>
@@ -67,7 +67,7 @@ export default function TermsOfServicePage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi ? "1. Sở hữu Trí tuệ và Bản quyền Nội dung" : "1. Intellectual Property and Content Copyright"}
               </h2>
@@ -115,7 +115,7 @@ export default function TermsOfServicePage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi ? "2. Điều kiện Độ tuổi và Tài khoản Người dùng" : "2. Age Requirements and User Accounts"}
               </h2>
@@ -157,7 +157,7 @@ export default function TermsOfServicePage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi
                   ? "3. Quy định về Nội dung do Người dùng tạo (UGC) và Tính năng Cộng đồng"
@@ -234,7 +234,7 @@ export default function TermsOfServicePage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi
                   ? "4. Tính năng Phân tích Phát âm bằng Trí tuệ Nhân tạo (AI)"
@@ -267,7 +267,7 @@ export default function TermsOfServicePage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi ? "5. Cam kết Dịch vụ Miễn phí" : "5. Free Service Commitment"}
               </h2>
@@ -298,7 +298,7 @@ export default function TermsOfServicePage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi ? "6. Giới hạn Trách nhiệm Pháp lý" : "6. Limitation of Liability"}
               </h2>
@@ -334,7 +334,7 @@ export default function TermsOfServicePage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up">
+            <section>
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi ? "7. Luật áp dụng và Giải quyết tranh chấp" : "7. Applicable Law and Dispute Resolution"}
               </h2>
@@ -365,7 +365,7 @@ export default function TermsOfServicePage({
 
             <hr className="border-black/10 dark:border-white/10" />
 
-            <section data-aos="fade-up" className="text-black dark:text-white">
+            <section className="text-black dark:text-white">
               <h2 className="font-display text-3xl font-bold mb-8 uppercase tracking-tighter">
                 {isVi ? "8. Thay đổi Điều khoản và Thông tin Liên hệ" : "8. Changes to Terms and Contact Information"}
               </h2>

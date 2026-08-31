@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
 import { Icons } from "@/components/Icons";
 
 interface HeaderProps {
@@ -13,17 +15,53 @@ export default function Header({ variant = "main" }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const router = useRouter();
 
   const lang = pathname.startsWith("/vi") ? "vi" : "en";
   const isVi = lang === "vi";
 
+  // Check if we are currently strictly on the root of each page variant
+  const isMainPortfolioHome =
+    pathname === `/${lang}` || pathname === `/${lang}/` || pathname === "/";
+  const isFmDictionaryHome =
+    pathname === `/${lang}/fm-dictionary` ||
+    pathname === `/${lang}/fm-dictionary/`;
+
+  useGSAP(
+    () => {
+      if (!progressBarRef.current) return;
+      gsap.fromTo(
+        progressBarRef.current,
+        { scaleX: 0 },
+        {
+          scaleX: 1,
+          ease: "none",
+          transformOrigin: "left center",
+          scrollTrigger: {
+            trigger: document.documentElement,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.15,
+          },
+        }
+      );
+    },
+    { dependencies: [pathname] }
+  );
+
+  const isScrolledRef = useRef(false);
+
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const shouldBeScrolled = window.scrollY > 50;
+      if (shouldBeScrolled !== isScrolledRef.current) {
+        isScrolledRef.current = shouldBeScrolled;
+        setIsScrolled(shouldBeScrolled);
+      }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
     const savedTheme = localStorage.getItem("theme");
@@ -48,6 +86,21 @@ export default function Header({ variant = "main" }: HeaderProps) {
     }
   }, [isMobileMenuOpen]);
 
+  // Restore scroll position after language toggle if saved
+  useEffect(() => {
+    const savedScrollY = sessionStorage.getItem("saved_scroll_y");
+    if (savedScrollY !== null) {
+      sessionStorage.removeItem("saved_scroll_y");
+      const y = parseInt(savedScrollY, 10);
+      if (!isNaN(y)) {
+        window.scrollTo({ top: y, behavior: "instant" });
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: y, behavior: "instant" });
+        });
+      }
+    }
+  }, [pathname]);
+
   const toggleTheme = () => {
     const newDark = !isDark;
     setIsDark(newDark);
@@ -70,10 +123,15 @@ export default function Header({ variant = "main" }: HeaderProps) {
     } else {
       targetPath = `/${targetLang}${pathname === "/" ? "" : pathname}`;
     }
-    router.push(targetPath);
-  };
 
-  const isMainPage = pathname.includes("/fm-dictionary");
+    const currentScrollY = window.scrollY;
+    sessionStorage.setItem("saved_scroll_y", currentScrollY.toString());
+
+    const hash = window.location.hash;
+    const search = window.location.search;
+
+    router.push(`${targetPath}${search}${hash}`, { scroll: false });
+  };
 
   return (
     <>
@@ -85,7 +143,10 @@ export default function Header({ variant = "main" }: HeaderProps) {
         }`}
       >
         <div className="container mx-auto w-full px-6 md:px-8 flex justify-between items-center">
-          <Link href={variant === "main" ? `/${lang}/` : `/${lang}/fm-dictionary/`} className="font-display text-3xl font-bold tracking-tighter">
+          <Link
+            href={variant === "main" ? `/${lang}/` : `/${lang}/fm-dictionary/`}
+            className="font-display text-3xl font-bold tracking-tighter"
+          >
             {variant === "main" ? "AN KHANG" : "FM DICTIONARY"}
           </Link>
 
@@ -93,31 +154,71 @@ export default function Header({ variant = "main" }: HeaderProps) {
             <nav className="hidden md:flex space-x-10 text-sm tracking-widest uppercase">
               {variant === "main" ? (
                 <>
-                  <a href="#about" className="nav-link hover-underline">
+                  <Link
+                    href={isMainPortfolioHome ? "#about" : `/${lang}/#about`}
+                    className="nav-link hover-underline"
+                  >
                     {isVi ? "Tóm tắt" : "Summary"}
-                  </a>
-                  <a href="#skills" className="nav-link hover-underline">
+                  </Link>
+                  <Link
+                    href={isMainPortfolioHome ? "#skills" : `/${lang}/#skills`}
+                    className="nav-link hover-underline"
+                  >
                     {isVi ? "Kỹ năng" : "Skills"}
-                  </a>
-                  <a href="#projects" className="nav-link hover-underline">
+                  </Link>
+                  <Link
+                    href={isMainPortfolioHome ? "#projects" : `/${lang}/#projects`}
+                    className="nav-link hover-underline"
+                  >
                     {isVi ? "Dự án" : "Projects"}
-                  </a>
-                  <a href="#experience" className="nav-link hover-underline">
+                  </Link>
+                  <Link
+                    href={isMainPortfolioHome ? "#experience" : `/${lang}/#experience`}
+                    className="nav-link hover-underline"
+                  >
                     {isVi ? "Lộ trình" : "Timeline"}
-                  </a>
+                  </Link>
                 </>
               ) : (
                 <>
-                  <Link href={isMainPage ? "#features" : `/${lang}/fm-dictionary/#features`} className="nav-link hover-underline">
+                  <Link
+                    href={
+                      isFmDictionaryHome
+                        ? "#features"
+                        : `/${lang}/fm-dictionary/#features`
+                    }
+                    className="nav-link hover-underline"
+                  >
                     {isVi ? "Tính năng" : "Features"}
                   </Link>
-                  <Link href={isMainPage ? "#gallery" : `/${lang}/fm-dictionary/#gallery`} className="nav-link hover-underline">
+                  <Link
+                    href={
+                      isFmDictionaryHome
+                        ? "#gallery"
+                        : `/${lang}/fm-dictionary/#gallery`
+                    }
+                    className="nav-link hover-underline"
+                  >
                     {isVi ? "Màn hình" : "Gallery"}
                   </Link>
-                  <Link href={isMainPage ? "#tech" : `/${lang}/fm-dictionary/#tech`} className="nav-link hover-underline">
+                  <Link
+                    href={
+                      isFmDictionaryHome
+                        ? "#tech"
+                        : `/${lang}/fm-dictionary/#tech`
+                    }
+                    className="nav-link hover-underline"
+                  >
                     {isVi ? "Công nghệ" : "Tech Stack"}
                   </Link>
-                  <Link href={isMainPage ? "#download" : `/${lang}/fm-dictionary/#download`} className="nav-link hover-underline">
+                  <Link
+                    href={
+                      isFmDictionaryHome
+                        ? "#download"
+                        : `/${lang}/fm-dictionary/#download`
+                    }
+                    className="nav-link hover-underline"
+                  >
                     {isVi ? "Tải xuống" : "Download"}
                   </Link>
                 </>
@@ -147,7 +248,9 @@ export default function Header({ variant = "main" }: HeaderProps) {
               </div>
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
-                className={`md:hidden text-2xl p-2 flex items-center justify-center ${isMobileMenuOpen ? "hidden" : ""}`}
+                className={`md:hidden text-2xl p-2 flex items-center justify-center ${
+                  isMobileMenuOpen ? "hidden" : ""
+                }`}
                 aria-label="Open navigation menu"
                 aria-expanded={false}
                 aria-controls="mobile-menu"
@@ -156,7 +259,9 @@ export default function Header({ variant = "main" }: HeaderProps) {
               </button>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`md:hidden text-3xl p-2 flex items-center justify-center ${isMobileMenuOpen ? "" : "hidden"}`}
+                className={`md:hidden text-3xl p-2 flex items-center justify-center ${
+                  isMobileMenuOpen ? "" : "hidden"
+                }`}
                 aria-label="Close navigation menu"
                 aria-expanded={true}
                 aria-controls="mobile-menu"
@@ -166,6 +271,12 @@ export default function Header({ variant = "main" }: HeaderProps) {
             </div>
           </div>
         </div>
+
+        {/* GSAP Reading Progress Bar */}
+        <div
+          ref={progressBarRef}
+          className="absolute bottom-0 left-0 right-0 h-[2px] bg-black dark:bg-white scale-x-0 origin-left pointer-events-none opacity-80"
+        />
       </header>
 
       <div
@@ -179,31 +290,79 @@ export default function Header({ variant = "main" }: HeaderProps) {
         <nav className="flex flex-col items-center space-y-10">
           {variant === "main" ? (
             <>
-              <a href="#about" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link
+                href={isMainPortfolioHome ? "#about" : `/${lang}/#about`}
+                className="mobile-nav-link"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 {isVi ? "Tóm tắt" : "Summary"}
-              </a>
-              <a href="#skills" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              </Link>
+              <Link
+                href={isMainPortfolioHome ? "#skills" : `/${lang}/#skills`}
+                className="mobile-nav-link"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 {isVi ? "Kỹ năng" : "Skills"}
-              </a>
-              <a href="#projects" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              </Link>
+              <Link
+                href={isMainPortfolioHome ? "#projects" : `/${lang}/#projects`}
+                className="mobile-nav-link"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 {isVi ? "Dự án" : "Projects"}
-              </a>
-              <a href="#experience" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              </Link>
+              <Link
+                href={isMainPortfolioHome ? "#experience" : `/${lang}/#experience`}
+                className="mobile-nav-link"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 {isVi ? "Lộ trình" : "Timeline"}
-              </a>
+              </Link>
             </>
           ) : (
             <>
-              <Link href={isMainPage ? "#features" : `/${lang}/fm-dictionary/#features`} className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link
+                href={
+                  isFmDictionaryHome
+                    ? "#features"
+                    : `/${lang}/fm-dictionary/#features`
+                }
+                className="mobile-nav-link"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 {isVi ? "Tính năng" : "Features"}
               </Link>
-              <Link href={isMainPage ? "#gallery" : `/${lang}/fm-dictionary/#gallery`} className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link
+                href={
+                  isFmDictionaryHome
+                    ? "#gallery"
+                    : `/${lang}/fm-dictionary/#gallery`
+                }
+                className="mobile-nav-link"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 {isVi ? "Màn hình" : "Gallery"}
               </Link>
-              <Link href={isMainPage ? "#tech" : `/${lang}/fm-dictionary/#tech`} className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link
+                href={
+                  isFmDictionaryHome
+                    ? "#tech"
+                    : `/${lang}/fm-dictionary/#tech`
+                }
+                className="mobile-nav-link"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 {isVi ? "Công nghệ" : "Tech Stack"}
               </Link>
-              <Link href={isMainPage ? "#download" : `/${lang}/fm-dictionary/#download`} className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link
+                href={
+                  isFmDictionaryHome
+                    ? "#download"
+                    : `/${lang}/fm-dictionary/#download`
+                }
+                className="mobile-nav-link"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 {isVi ? "Tải xuống" : "Download"}
               </Link>
             </>
@@ -218,7 +377,11 @@ export default function Header({ variant = "main" }: HeaderProps) {
           >
             {lang.toUpperCase()}
           </button>
-          <button onClick={toggleTheme} className="text-3xl hover:rotate-180 transition-transform duration-500 flex items-center justify-center" aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}>
+          <button
+            onClick={toggleTheme}
+            className="text-3xl hover:rotate-180 transition-transform duration-500 flex items-center justify-center"
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+          >
             {isDark ? (
               <Icons.Sun className="block" />
             ) : (

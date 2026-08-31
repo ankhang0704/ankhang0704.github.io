@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, Playfair_Display } from "next/font/google";
 import "../style.css";
-import "aos/dist/aos.css";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -47,7 +46,7 @@ export const metadata: Metadata = {
   },
 };
 
-import { AOSInit } from "@/components/AOSInit";
+import { GSAPInit } from "@/components/GSAPInit";
 import { AmbientGlow } from "@/components/AmbientGlow";
 
 export async function generateStaticParams() {
@@ -74,7 +73,7 @@ export default async function LocalizedLayout({
     url: "https://ankhang0704.vercel.app",
     sameAs: [
       "https://github.com/ankhang0704",
-      "https://www.linkedin.com/in/khang-nguyen-0855893a7/",
+      "https://www.linkedin.com/in/ankhang0704/",
     ],
   };
 
@@ -87,7 +86,7 @@ export default async function LocalizedLayout({
         />
       </head>
       <body className={`bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark transition-colors duration-500 font-sans relative overflow-x-hidden ${inter.variable} ${spaceGrotesk.variable} ${playfair.variable}`}>
-        <AOSInit />
+        <GSAPInit />
         <AmbientGlow />
         {children}
       </body>

@@ -108,6 +108,10 @@ html {
     z-index: -1;
     pointer-events: none;
     transition: background 1s ease;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    backface-visibility: hidden;
+    contain: strict;
 }
 
 @media (min-width: 768px) {
@@ -140,6 +144,16 @@ html {
         bottom: -20vw;
         left: -10vw;
     }
+}
+
+/* GPU Acceleration for Animating Components */
+.gsap-reveal,
+.gsap-bento-card,
+.gsap-project-item,
+.gsap-timeline-row,
+.timeline-line-active {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
 }
 
 /* Utility to hide scrollbar */
@@ -243,43 +257,5 @@ html {
     to   { width: 100%; }
 }
 
-/* --- Gallery Scroll-Reveal Animation --- */
-@keyframes cardRevealOpacity {
-    from {
-        opacity: 0;
-        filter: blur(4px);
-    }
-    60% {
-        filter: blur(0px);
-    }
-    to {
-        opacity: 1;
-        filter: blur(0px);
-    }
-}
-
-@keyframes cardRevealTranslate {
-    from { transform: translateY(48px) scale(0.96); }
-    to   { transform: translateY(0)    scale(1); }
-}
-
-/* Cards are invisible by default until section is revealed */
-.screen-card {
-    opacity: 0;
-}
-
-/* Once gallery-revealed is added, run both animations with stagger */
-.gallery-revealed .screen-card {
-    animation:
-        cardRevealOpacity  0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-        cardRevealTranslate 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.gallery-revealed .screen-card:nth-child(1) { animation-delay: 0ms,   0ms; }
-.gallery-revealed .screen-card:nth-child(2) { animation-delay: 100ms, 100ms; }
-.gallery-revealed .screen-card:nth-child(3) { animation-delay: 200ms, 200ms; }
-.gallery-revealed .screen-card:nth-child(4) { animation-delay: 300ms, 300ms; }
-.gallery-revealed .screen-card:nth-child(5) { animation-delay: 400ms, 400ms; }
-.gallery-revealed .screen-card:nth-child(6) { animation-delay: 500ms, 500ms; }
 
 

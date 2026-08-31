@@ -16,6 +16,7 @@ import {
   IconLanguage,
   IconChevronLeft,
   IconChevronRight,
+  IconChevronDown,
   IconArrowRight,
   IconHeadset,
   IconShield,
@@ -40,6 +41,9 @@ import {
   IconBrandWordpress,
   IconHome,
   IconEdit,
+  IconCopy,
+  IconTerminal2,
+  IconCode,
 } from "@tabler/icons-react";
 
 export const Icons = {
@@ -60,6 +64,7 @@ export const Icons = {
   Language: IconLanguage,
   ChevronLeft: IconChevronLeft,
   ChevronRight: IconChevronRight,
+  ChevronDown: IconChevronDown,
   ArrowRight: IconArrowRight,
   Headset: IconHeadset,
   Shield: IconShield,
@@ -84,4 +89,7 @@ export const Icons = {
   WordPress: IconBrandWordpress,
   Home: IconHome,
   Edit: IconEdit,
+  Copy: IconCopy,
+  Terminal: IconTerminal2,
+  Code: IconCode,
 };

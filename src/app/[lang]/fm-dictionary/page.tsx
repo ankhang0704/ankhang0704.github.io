@@ -3,6 +3,8 @@
 import React, { useEffect, useState, useRef, use } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Icons } from "@/components/Icons";
@@ -25,13 +27,156 @@ export default function FMDictionaryPage({
   const lang = resolvedParams.lang === "vi" ? "vi" : "en";
   const isVi = lang === "vi";
 
+  const pageContainerRef = useRef<HTMLDivElement>(null);
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isHoveringGallery, setIsHoveringGallery] = useState(false);
-  const [galleryRevealed, setGalleryRevealed] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const galleryRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      // 1. Hero Entrance Timeline
+      const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      heroTl
+        .fromTo(
+          ".fm-hero-badge",
+          { y: 20, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.8, delay: 0.1 }
+        )
+        .fromTo(
+          ".fm-hero-title",
+          { y: 40, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1 },
+          "-=0.5"
+        )
+        .fromTo(
+          ".fm-hero-desc",
+          { y: 20, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.8 },
+          "-=0.6"
+        )
+        .fromTo(
+          ".fm-hero-cta",
+          { y: 20, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.1 },
+          "-=0.5"
+        );
+
+      // 2. Stats Bar Stagger
+      gsap.fromTo(
+        ".fm-stat-item",
+        { y: 25, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".fm-stats-section",
+            start: "top 85%",
+            once: true,
+          },
+        }
+      );
+
+      // 3. Generic Scroll Reveals
+      const revealItems = gsap.utils.toArray<HTMLElement>(".gsap-reveal");
+      revealItems.forEach((el) => {
+        gsap.fromTo(
+          el,
+          { y: 35, autoAlpha: 0 },
+          {
+            y: 0,
+            autoAlpha: 1,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 88%",
+              once: true,
+            },
+          }
+        );
+      });
+
+      // 4. Feature Cards Stagger
+      gsap.fromTo(
+        ".fm-feature-card",
+        { y: 30, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".fm-features-grid",
+            start: "top 80%",
+            once: true,
+          },
+        }
+      );
+
+      // 5. Tech Stack Items
+      gsap.fromTo(
+        ".fm-tech-card",
+        { scale: 0.95, autoAlpha: 0 },
+        {
+          scale: 1,
+          autoAlpha: 1,
+          duration: 0.6,
+          stagger: 0.06,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".fm-tech-grid",
+            start: "top 85%",
+            once: true,
+          },
+        }
+      );
+
+      // 6. Gallery Cards Reveal
+      gsap.fromTo(
+        ".screen-card",
+        { y: 40, autoAlpha: 0, scale: 0.96 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: galleryRef.current,
+            start: "top 75%",
+            once: true,
+          },
+        }
+      );
+
+      // 7. Permissions Stagger
+      gsap.fromTo(
+        ".fm-perm-card",
+        { y: 30, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.7,
+          stagger: 0.12,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".fm-perm-grid",
+            start: "top 85%",
+            once: true,
+          },
+        }
+      );
+    },
+    { scope: pageContainerRef }
+  );
 
   const scrollToSlide = (index: number) => {
     if (!scrollRef.current) return;
@@ -104,23 +249,8 @@ export default function FMDictionaryPage({
     return stopAutoplay;
   }, [isHoveringGallery]);
 
-  useEffect(() => {
-    if (!galleryRef.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setGalleryRevealed(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(galleryRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <>
+    <div ref={pageContainerRef}>
       <Header variant="fm" />
 
       <main>
@@ -129,11 +259,11 @@ export default function FMDictionaryPage({
           id="hero"
           className="min-h-screen flex items-center relative overflow-x-hidden pt-32 pb-20 md:pt-20 md:pb-0"
         >
-          <div className="container mx-auto px-6 md:px-8 relative z-10" data-aos="fade-up">
-            <p className="text-sm tracking-[0.3em] uppercase mb-6 border-b border-black dark:border-white inline-block pb-2">
+          <div className="container mx-auto px-6 md:px-8 relative z-10">
+            <p className="fm-hero-badge text-sm tracking-[0.3em] uppercase mb-6 border-b border-black dark:border-white inline-block pb-2">
               An Khang Studio · 2026
             </p>
-            <h1 className="font-display text-5xl md:text-8xl font-bold leading-tight mb-6 md:mb-12">
+            <h1 className="fm-hero-title font-display text-5xl md:text-8xl font-bold leading-tight mb-6 md:mb-12">
               <span>{isVi ? "Làm chủ từ vựng FM." : "Master FM Vocab."}</span>
               <br />
               <span className="font-serif italic text-6xl md:text-9xl tracking-normal">
@@ -141,7 +271,7 @@ export default function FMDictionaryPage({
               </span>
               .
             </h1>
-            <p className="text-xl font-light max-w-2xl mb-12 opacity-80 leading-relaxed text-justify">
+            <p className="fm-hero-desc text-xl font-light max-w-2xl mb-12 opacity-80 leading-relaxed text-justify">
               {isVi
                 ? "FM Dictionary là ứng dụng từ vựng cao cấp giúp cộng đồng Quản lý Cơ sở vật chất và bất kỳ ai quan tâm đến lĩnh vực này làm chủ hơn 1.800 thuật ngữ FM chuyên ngành — được xây dựng bằng Flutter cho iOS & Android."
                 : "FM Dictionary is a premium vocabulary app helping the Facilities Management community and anyone interested in the field master 1,800+ specialized FM terms — built with Flutter for iOS & Android."}
@@ -149,13 +279,13 @@ export default function FMDictionaryPage({
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
               <a
                 href="#download"
-                className="border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-transparent hover:text-black dark:hover:bg-transparent dark:hover:text-white transition-all text-center"
+                className="fm-hero-cta border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-transparent hover:text-black dark:hover:bg-transparent dark:hover:text-white transition-all text-center"
               >
                 {isVi ? "Tải ứng dụng ↓" : "Download App ↓"}
               </a>
               <a
                 href="#features"
-                className="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all text-center"
+                className="fm-hero-cta border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all text-center"
               >
                 {isVi ? "Khám phá tính năng ↓" : "Explore Features ↓"}
               </a>
@@ -164,10 +294,10 @@ export default function FMDictionaryPage({
         </section>
 
         {/* Stats Bar */}
-        <section className="py-12 border-y border-black/10 dark:border-white/10 overflow-x-hidden relative">
+        <section className="fm-stats-section py-12 border-y border-black/10 dark:border-white/10 overflow-x-hidden relative">
           <div className="container mx-auto px-6 md:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="text-center md:text-left" data-aos="fade-up" data-aos-delay="0">
+              <div className="fm-stat-item text-center md:text-left">
                 <div className="font-display text-4xl font-bold mb-1">
                   1<span className="text-sm align-top"> (iOS Live)</span>
                 </div>
@@ -175,19 +305,19 @@ export default function FMDictionaryPage({
                   {isVi ? "Nền tảng · iOS (Android Sắp ra mắt)" : "Platform · iOS (Android Coming)"}
                 </div>
               </div>
-              <div className="text-center md:text-left" data-aos="fade-up" data-aos-delay="100">
+              <div className="fm-stat-item text-center md:text-left">
                 <div className="font-display text-4xl font-bold mb-1">30</div>
                 <div className="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50">
                   {isVi ? "Huy hiệu thành tựu" : "Achievement Badges"}
                 </div>
               </div>
-              <div className="text-center md:text-left" data-aos="fade-up" data-aos-delay="200">
+              <div className="fm-stat-item text-center md:text-left">
                 <div className="font-display text-4xl font-bold mb-1">2</div>
                 <div className="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50">
                   {isVi ? "Ngôn ngữ · VI & EN" : "Languages · VI & EN"}
                 </div>
               </div>
-              <div className="text-center md:text-left" data-aos="fade-up" data-aos-delay="300">
+              <div className="fm-stat-item text-center md:text-left">
                 <div className="font-display text-4xl font-bold mb-1">100%</div>
                 <div className="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50">
                   {isVi ? "Lõi ngoại tuyến" : "Offline-capable Core"}
@@ -197,12 +327,10 @@ export default function FMDictionaryPage({
           </div>
         </section>
 
-
-
         {/* Features Section */}
         <section id="features" className="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden">
           <div className="container mx-auto px-6 md:px-8">
-            <div className="max-w-3xl mb-20" data-aos="fade-right">
+            <div className="max-w-3xl mb-20 gsap-reveal">
               <h2 className="font-display text-4xl md:text-6xl font-bold mb-6">
                 {isVi ? (
                   <>
@@ -216,8 +344,8 @@ export default function FMDictionaryPage({
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
-              <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up">
+            <div className="fm-features-grid grid grid-cols-1 md:grid-cols-3 gap-1">
+              <div className="fm-feature-card p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors">
                 <div className="text-3xl mb-6 text-black dark:text-white">
                   <Icons.Map size={32} />
                 </div>
@@ -231,7 +359,7 @@ export default function FMDictionaryPage({
                 </p>
               </div>
 
-              <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up" data-aos-delay="100">
+              <div className="fm-feature-card p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors">
                 <div className="text-3xl mb-6 text-black dark:text-white">
                   <Icons.Microphone size={32} />
                 </div>
@@ -245,7 +373,7 @@ export default function FMDictionaryPage({
                 </p>
               </div>
 
-              <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up" data-aos-delay="200">
+              <div className="fm-feature-card p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors">
                 <div className="text-3xl mb-6 text-black dark:text-white">
                   <Icons.Trophy size={32} />
                 </div>
@@ -259,7 +387,7 @@ export default function FMDictionaryPage({
                 </p>
               </div>
 
-              <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up">
+              <div className="fm-feature-card p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors">
                 <div className="text-3xl mb-6 text-black dark:text-white">
                   <Icons.Users size={32} />
                 </div>
@@ -273,7 +401,7 @@ export default function FMDictionaryPage({
                 </p>
               </div>
 
-              <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up" data-aos-delay="100">
+              <div className="fm-feature-card p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors">
                 <div className="text-3xl mb-6 text-black dark:text-white">
                   <Icons.Bookmark size={32} />
                 </div>
@@ -287,7 +415,7 @@ export default function FMDictionaryPage({
                 </p>
               </div>
 
-              <div className="p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors" data-aos="fade-up" data-aos-delay="200">
+              <div className="fm-feature-card p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors">
                 <div className="text-3xl mb-6 text-black dark:text-white">
                   <Icons.Language size={32} />
                 </div>
@@ -308,7 +436,7 @@ export default function FMDictionaryPage({
         <section id="tech" className="py-32 relative overflow-x-hidden">
           <div className="container mx-auto px-6 md:px-8">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
-              <div className="max-w-2xl" data-aos="fade-right">
+              <div className="max-w-2xl gsap-reveal">
                 <p className="text-xs tracking-[0.3em] uppercase mb-4 opacity-50">
                   Tech Stack
                 </p>
@@ -326,7 +454,7 @@ export default function FMDictionaryPage({
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="fm-tech-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               {[
                 { label: "Flutter", subVi: "Khung giao diện", subEn: "UI Framework" },
                 { label: "Dart", subVi: "Ngôn ngữ", subEn: "Language" },
@@ -339,9 +467,7 @@ export default function FMDictionaryPage({
               ].map((item, index) => (
                 <div
                   key={index}
-                  className="p-6 border border-black/10 dark:border-white/10 flex items-center gap-4 group hover:border-black dark:hover:border-white transition-colors"
-                  data-aos="zoom-in"
-                  data-aos-delay={index * 50}
+                  className="fm-tech-card p-6 border border-black/10 dark:border-white/10 flex items-center gap-4 group hover:border-black dark:hover:border-white transition-colors"
                 >
                   <div className="w-2 h-2 rounded-full bg-black dark:bg-white"></div>
                   <div>
@@ -360,42 +486,42 @@ export default function FMDictionaryPage({
         <section
           id="gallery"
           ref={galleryRef}
-          className={`py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden${galleryRevealed ? " gallery-revealed" : ""}`}
+          className="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden"
         >
           <div className="container mx-auto px-6 md:px-8 mb-16 relative flex flex-col md:flex-row justify-between items-center gap-8">
-            <h2 className="font-display text-4xl font-bold text-center md:text-left" data-aos="fade-up">
+            <h2 className="gsap-reveal font-display text-4xl font-bold text-center md:text-left">
               {isVi ? "Thiết kế tập trung, tối ưu quy trình" : "Designed for focus, built for flow"}
             </h2>
 
-            {/* Controls: dots + arrows */}
+            {/* Controls: indicators + arrows */}
             <div className="flex items-center gap-6">
-              {/* Dot indicators */}
+              {/* Indicators */}
               <div className="flex items-center gap-2">
                 {APP_SCREENS.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => { scrollToSlide(i); stopAutoplay(); }}
                     aria-label={`Go to slide ${i + 1}`}
-                    className={`rounded-full transition-all duration-300 ${i === currentSlide
-                        ? "w-6 h-2 bg-black dark:bg-white"
-                        : "w-2 h-2 bg-black/20 dark:bg-white/20 hover:bg-black/50 dark:hover:bg-white/50"
+                    className={`transition-all duration-300 ${i === currentSlide
+                        ? "w-8 h-1 bg-black dark:bg-white"
+                        : "w-2 h-1 bg-black/20 dark:bg-white/20 hover:bg-black/50 dark:hover:bg-white/50"
                       }`}
                   />
                 ))}
               </div>
 
               {/* Arrow buttons */}
-              <div className="flex gap-3">
+              <div className="flex gap-2">
                 <button
                   onClick={() => { scroll("left"); stopAutoplay(); }}
-                  className="w-10 h-10 border border-black/10 dark:border-white/10 flex items-center justify-center hover:border-black dark:hover:border-white transition-all rounded-full text-sm"
+                  className="w-10 h-10 border border-black/10 dark:border-white/10 flex items-center justify-center hover:border-black dark:hover:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all text-sm"
                   aria-label="Previous"
                 >
                   <Icons.ChevronLeft size={16} />
                 </button>
                 <button
                   onClick={() => { scroll("right"); stopAutoplay(); }}
-                  className="w-10 h-10 border border-black/10 dark:border-white/10 flex items-center justify-center hover:border-black dark:hover:border-white transition-all rounded-full text-sm"
+                  className="w-10 h-10 border border-black/10 dark:border-white/10 flex items-center justify-center hover:border-black dark:hover:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all text-sm"
                   aria-label="Next"
                 >
                   <Icons.ChevronRight size={16} />
@@ -474,7 +600,7 @@ export default function FMDictionaryPage({
           className="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden border-t border-black/5 dark:border-white/5"
         >
           <div className="container mx-auto px-6 md:px-8">
-            <div className="max-w-3xl mb-16" data-aos="fade-right">
+            <div className="max-w-3xl mb-16 gsap-reveal">
               <h2 className="font-display text-4xl md:text-5xl font-bold">
                 {isVi ? (
                   <>
@@ -490,10 +616,7 @@ export default function FMDictionaryPage({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* App Store */}
-              <div
-                className="p-8 md:p-12 border border-black/10 dark:border-white/10 flex flex-col md:flex-row gap-8 items-center md:items-start group hover:border-black dark:hover:border-white transition-all duration-300 relative overflow-hidden bg-bgLight dark:bg-bgDark"
-                data-aos="fade-up"
-              >
+              <div className="gsap-reveal p-8 md:p-12 border border-black/10 dark:border-white/10 flex flex-col md:flex-row gap-8 items-center md:items-start group hover:border-black dark:hover:border-white transition-all duration-300 relative overflow-hidden bg-bgLight dark:bg-bgDark">
                 <div className="text-5xl text-black dark:text-white transition-transform duration-300 group-hover:scale-110">
                   <Icons.Apple size={48} />
                 </div>
@@ -519,11 +642,7 @@ export default function FMDictionaryPage({
               </div>
 
               {/* Google Play (Coming Soon) */}
-              <div
-                className="p-8 md:p-12 border border-black/5 dark:border-white/5 flex flex-col md:flex-row gap-8 items-center md:items-start group opacity-70 hover:opacity-100 transition-all duration-300 relative overflow-hidden bg-bgLight/50 dark:bg-bgDark/50"
-                data-aos="fade-up"
-                data-aos-delay="100"
-              >
+              <div className="gsap-reveal p-8 md:p-12 border border-black/5 dark:border-white/5 flex flex-col md:flex-row gap-8 items-center md:items-start group opacity-70 hover:opacity-100 transition-all duration-300 relative overflow-hidden bg-bgLight/50 dark:bg-bgDark/50">
                 <div className="text-5xl text-black/40 dark:text-white/40 transition-transform duration-300 group-hover:scale-110">
                   <Icons.GooglePlay size={48} />
                 </div>
@@ -556,7 +675,7 @@ export default function FMDictionaryPage({
         {/* Permissions */}
         <section id="permissions" className="py-32 relative overflow-x-hidden">
           <div className="container mx-auto px-6 md:px-8">
-            <div className="max-w-3xl mb-16" data-aos="fade-right">
+            <div className="max-w-3xl mb-16 gsap-reveal">
               <h2 className="font-display text-4xl md:text-5xl font-bold">
                 {isVi ? (
                   <>
@@ -570,7 +689,7 @@ export default function FMDictionaryPage({
               </h2>
             </div>
 
-            <div className="space-y-6">
+            <div className="fm-perm-grid space-y-6">
               {[
                 {
                   IconComponent: Icons.Microphone,
@@ -603,9 +722,7 @@ export default function FMDictionaryPage({
               ].map((item, index) => (
                 <div
                   key={index}
-                  className="p-6 md:p-8 border border-black/10 dark:border-white/10 flex flex-col md:flex-row gap-8 items-start group hover:border-black dark:hover:border-white transition-colors"
-                  data-aos="fade-up"
-                  data-aos-delay={index * 100}
+                  className="fm-perm-card p-6 md:p-8 border border-black/10 dark:border-white/10 flex flex-col md:flex-row gap-8 items-start group hover:border-black dark:hover:border-white transition-colors"
                 >
                   <div className="text-3xl text-black dark:text-white">
                     <item.IconComponent size={32} />
@@ -636,7 +753,7 @@ export default function FMDictionaryPage({
         <section className="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden">
           <div className="container mx-auto px-6 md:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
-              <div data-aos="fade-right">
+              <div className="gsap-reveal">
                 <h2 className="font-display text-4xl md:text-5xl font-bold mb-8">
                   {isVi ? (
                     <>
@@ -663,7 +780,7 @@ export default function FMDictionaryPage({
                 </p>
               </div>
 
-              <div className="p-8 md:p-12 border border-black dark:border-white relative" data-aos="fade-left">
+              <div className="gsap-reveal p-8 md:p-12 border border-black dark:border-white relative">
                 <div className="absolute -top-4 left-6 bg-cardLight dark:bg-cardDark px-2 text-xs font-bold uppercase tracking-widest">
                   {isVi ? "Khám phá thêm" : "Explore More"}
                 </div>
@@ -739,6 +856,6 @@ export default function FMDictionaryPage({
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 }
