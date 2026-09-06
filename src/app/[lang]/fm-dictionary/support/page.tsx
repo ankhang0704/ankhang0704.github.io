@@ -133,11 +133,11 @@ export default function SupportPage({
                       <p>
                         {isVi ? (
                           <span>
-                            Hơn 1.800 thuật ngữ chuyên ngành <strong>Quản lý cơ sở vật chất (Facility Management)</strong>: MEP, vận hành tòa nhà, HSE, tài chính FM... biên soạn bởi chuyên gia Thúy Tạ.
+                            1.847 thuật ngữ <strong>Facility Management (FM)</strong> bao gồm MEP, vận hành tòa nhà, HSE, tài chính FM và các chủ đề liên quan.
                           </span>
                         ) : (
                           <span>
-                            Over 1,800 <strong>Facility Management (FM)</strong> terms: MEP, building operations, HSE, FM finance... compiled by expert Thuy Ta.
+                            1,847 <strong>Facility Management (FM)</strong> terms covering MEP, building operations, HSE, FM finance, and related topics.
                           </span>
                         )}
                       </p>
@@ -169,11 +169,11 @@ export default function SupportPage({
                       <p>
                         {isVi ? (
                           <span>
-                            Có. FM Dictionary hỗ trợ <strong>Offline-First</strong> cho tra cứu, flashcard và quiz. Cần mạng để luyện phát âm AI và đồng bộ đám mây.
+                            Có. FM Dictionary có <strong>learning core local-first</strong> cho tra cứu, flashcard và quiz. Mạng được dùng cho phát âm/STT và đồng bộ cloud theo tài liệu.
                           </span>
                         ) : (
                           <span>
-                            Yes. FM Dictionary supports <strong>Offline-First</strong> for lookups, flashcards, and quizzes. Network is required for AI pronunciation and cloud sync.
+                            Yes. FM Dictionary has a <strong>local-first learning core</strong> for lookups, flashcards, and quizzes. Network is used for pronunciation/STT and documented cloud sync.
                           </span>
                         )}
                       </p>

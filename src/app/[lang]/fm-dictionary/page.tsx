@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useState, useRef, use } from "react";
-import Link from "next/link";
+import { use, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import Header from "@/components/Header";
@@ -10,12 +10,12 @@ import Footer from "@/components/Footer";
 import { Icons } from "@/components/Icons";
 
 const APP_SCREENS = [
-  { IconComponent: Icons.Home, label: "Home", img: "/images/fm-dictionary/fm_dictionary_0001.webp" },
-  { IconComponent: Icons.Map, label: "Roadmap", img: "/images/fm-dictionary/fm_dictionary_0002.webp" },
-  { IconComponent: Icons.Edit, label: "Quiz", img: "/images/fm-dictionary/fm_dictionary_0003.webp" },
-  { IconComponent: Icons.Microphone, label: "Pronunciation", img: "/images/fm-dictionary/fm_dictionary_0004.webp" },
-  { IconComponent: Icons.Trophy, label: "Badges", img: "/images/fm-dictionary/fm_dictionary_0005.webp" },
-  { IconComponent: Icons.Bookmark, label: "Dictionary", img: "/images/fm-dictionary/fm_dictionary_0006.webp" },
+  { label: "Home", img: "/images/fm-dictionary/fm_dictionary_0001.webp" },
+  { label: "Roadmap", img: "/images/fm-dictionary/fm_dictionary_0002.webp" },
+  { label: "Quiz", img: "/images/fm-dictionary/fm_dictionary_0003.webp" },
+  { label: "Pronunciation", img: "/images/fm-dictionary/fm_dictionary_0004.webp" },
+  { label: "Badges", img: "/images/fm-dictionary/fm_dictionary_0005.webp" },
+  { label: "Dictionary", img: "/images/fm-dictionary/fm_dictionary_0006.webp" },
 ];
 
 export default function FMDictionaryPage({
@@ -23,837 +23,197 @@ export default function FMDictionaryPage({
 }: {
   params: Promise<{ lang: string }>;
 }) {
-  const resolvedParams = use(params);
-  const lang = resolvedParams.lang === "vi" ? "vi" : "en";
+  const { lang: routeLang } = use(params);
+  const [selectedImg, setSelectedImg] = useState<string | null>(null);
+  const lang = routeLang === "vi" ? "vi" : "en";
   const isVi = lang === "vi";
 
-  const pageContainerRef = useRef<HTMLDivElement>(null);
-  const [selectedImg, setSelectedImg] = useState<string | null>(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isHoveringGallery, setIsHoveringGallery] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const galleryRef = useRef<HTMLElement>(null);
-
-  useGSAP(
-    () => {
-      // 1. Hero Entrance Timeline
-      const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      heroTl
-        .fromTo(
-          ".fm-hero-badge",
-          { y: 20, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.8, delay: 0.1 }
-        )
-        .fromTo(
-          ".fm-hero-title",
-          { y: 40, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 1 },
-          "-=0.5"
-        )
-        .fromTo(
-          ".fm-hero-desc",
-          { y: 20, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.8 },
-          "-=0.6"
-        )
-        .fromTo(
-          ".fm-hero-cta",
-          { y: 20, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.1 },
-          "-=0.5"
-        );
-
-      // 2. Stats Bar Stagger
-      gsap.fromTo(
-        ".fm-stat-item",
-        { y: 25, autoAlpha: 0 },
-        {
-          y: 0,
-          autoAlpha: 1,
-          duration: 0.7,
-          stagger: 0.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".fm-stats-section",
-            start: "top 85%",
-            once: true,
-          },
-        }
-      );
-
-      // 3. Generic Scroll Reveals
-      const revealItems = gsap.utils.toArray<HTMLElement>(".gsap-reveal");
-      revealItems.forEach((el) => {
-        gsap.fromTo(
-          el,
-          { y: 35, autoAlpha: 0 },
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 88%",
-              once: true,
-            },
-          }
-        );
-      });
-
-      // 4. Feature Cards Stagger
-      gsap.fromTo(
-        ".fm-feature-card",
-        { y: 30, autoAlpha: 0 },
-        {
-          y: 0,
-          autoAlpha: 1,
-          duration: 0.7,
-          stagger: 0.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".fm-features-grid",
-            start: "top 80%",
-            once: true,
-          },
-        }
-      );
-
-      // 5. Tech Stack Items
-      gsap.fromTo(
-        ".fm-tech-card",
-        { scale: 0.95, autoAlpha: 0 },
-        {
-          scale: 1,
-          autoAlpha: 1,
-          duration: 0.6,
-          stagger: 0.06,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".fm-tech-grid",
-            start: "top 85%",
-            once: true,
-          },
-        }
-      );
-
-      // 6. Gallery Cards Reveal
-      gsap.fromTo(
-        ".screen-card",
-        { y: 40, autoAlpha: 0, scale: 0.96 },
-        {
-          y: 0,
-          autoAlpha: 1,
-          scale: 1,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: galleryRef.current,
-            start: "top 75%",
-            once: true,
-          },
-        }
-      );
-
-      // 7. Permissions Stagger
-      gsap.fromTo(
-        ".fm-perm-card",
-        { y: 30, autoAlpha: 0 },
-        {
-          y: 0,
-          autoAlpha: 1,
-          duration: 0.7,
-          stagger: 0.12,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".fm-perm-grid",
-            start: "top 85%",
-            once: true,
-          },
-        }
-      );
-    },
-    { scope: pageContainerRef }
-  );
-
-  const scrollToSlide = (index: number) => {
-    if (!scrollRef.current) return;
-    const container = scrollRef.current;
-    const cards = container.querySelectorAll<HTMLElement>(".screen-card");
-    if (cards[index]) {
-      const cardLeft = cards[index].offsetLeft;
-      const containerWidth = container.clientWidth;
-      const cardWidth = cards[index].offsetWidth;
-      container.scrollTo({
-        left: cardLeft - containerWidth / 2 + cardWidth / 2,
-        behavior: "smooth",
-      });
-    }
-    setCurrentSlide(index);
-  };
-
-  const scroll = (direction: "left" | "right") => {
-    const next =
-      direction === "right"
-        ? (currentSlide + 1) % APP_SCREENS.length
-        : (currentSlide - 1 + APP_SCREENS.length) % APP_SCREENS.length;
-    scrollToSlide(next);
-  };
-
-  const startAutoplay = () => {
-    if (autoplayRef.current) clearInterval(autoplayRef.current);
-    autoplayRef.current = setInterval(() => {
-      setCurrentSlide((prev) => {
-        const next = (prev + 1) % APP_SCREENS.length;
-        if (scrollRef.current) {
-          const container = scrollRef.current;
-          const cards = container.querySelectorAll<HTMLElement>(".screen-card");
-          if (cards[next]) {
-            const cardLeft = cards[next].offsetLeft;
-            const containerWidth = container.clientWidth;
-            const cardWidth = cards[next].offsetWidth;
-            container.scrollTo({
-              left: cardLeft - containerWidth / 2 + cardWidth / 2,
-              behavior: "smooth",
-            });
-          }
-        }
-        return next;
-      });
-    }, 3000);
-  };
-
-  const stopAutoplay = () => {
-    if (autoplayRef.current) {
-      clearInterval(autoplayRef.current);
-      autoplayRef.current = null;
-    }
-  };
-
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelectedImg(null);
-    };
-    window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, []);
-
-  useEffect(() => {
-    if (!isHoveringGallery) {
-      startAutoplay();
-    } else {
-      stopAutoplay();
-    }
-    return stopAutoplay;
-  }, [isHoveringGallery]);
+  useGSAP(() => {
+    gsap.fromTo(".fm-hero-item", { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.1, ease: "power2.out" });
+    gsap.utils.toArray<HTMLElement>(".fm-reveal").forEach((element) => {
+      gsap.fromTo(element, { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.75, ease: "power2.out", scrollTrigger: { trigger: element, start: "top 85%", once: true } });
+    });
+  });
 
   return (
-    <div ref={pageContainerRef}>
+    <div>
       <Header variant="fm" />
-
       <main>
-        {/* Hero Section */}
-        <section
-          id="hero"
-          className="min-h-screen flex items-center relative overflow-x-hidden pt-32 pb-20 md:pt-20 md:pb-0"
-        >
+        <section id="hero" className="min-h-screen flex items-center relative overflow-x-hidden pt-32 pb-20 md:pt-20 md:pb-0">
           <div className="container mx-auto px-6 md:px-8 relative z-10">
-            <p className="fm-hero-badge text-sm tracking-[0.3em] uppercase mb-6 border-b border-black dark:border-white inline-block pb-2">
-              An Khang Studio · 2026
-            </p>
-            <h1 className="fm-hero-title font-display text-5xl md:text-8xl font-bold leading-tight mb-6 md:mb-12">
-              <span>{isVi ? "Làm chủ từ vựng FM." : "Master FM Vocab."}</span>
-              <br />
-              <span className="font-serif italic text-6xl md:text-9xl tracking-normal">
-                {isVi ? "Theo cách thông minh" : "The Smart Way"}
-              </span>
-              .
+            <p className="fm-hero-item text-sm tracking-[0.3em] uppercase mb-6 border-b border-black dark:border-white inline-block pb-2">An Khang Studio · 2026</p>
+            <h1 className="fm-hero-item font-display text-5xl md:text-8xl font-bold leading-tight mb-8">
+              FM <span className="font-serif italic font-normal">Dictionary.</span>
             </h1>
-            <p className="fm-hero-desc text-xl font-light max-w-2xl mb-12 opacity-80 leading-relaxed text-justify">
+            <p className="fm-hero-item text-xl font-light max-w-3xl mb-12 opacity-80 leading-relaxed text-justify">
               {isVi
-                ? "FM Dictionary là ứng dụng từ vựng cao cấp giúp cộng đồng Quản lý Cơ sở vật chất và bất kỳ ai quan tâm đến lĩnh vực này làm chủ hơn 1.800 thuật ngữ FM chuyên ngành — được xây dựng bằng Flutter cho iOS & Android."
-                : "FM Dictionary is a premium vocabulary app helping the Facilities Management community and anyone interested in the field master 1,800+ specialized FM terms — built with Flutter for iOS & Android."}
+                ? "Ứng dụng học từ vựng FM bằng Flutter với 1.847 thuật ngữ chuyên ngành, learning core local-first, dịch vụ Firebase có ranh giới rõ ràng, proxy Cloudflare và luồng luyện phát âm/STT được ghi nhận."
+                : "A Flutter FM vocabulary-learning app with 1,847 specialized terms, a local-first learning core, documented Firebase service boundaries, a Cloudflare proxy, and documented pronunciation/STT flows."}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-              <a
-                href="#download"
-                className="fm-hero-cta border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-transparent hover:text-black dark:hover:bg-transparent dark:hover:text-white transition-all text-center"
-              >
-                {isVi ? "Tải ứng dụng ↓" : "Download App ↓"}
+            <div className="fm-hero-item flex flex-col sm:flex-row gap-4 sm:gap-6">
+              <a href="https://apps.apple.com/us/app/fm-dictionary/id6774868353" target="_blank" rel="noopener noreferrer" className="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all flex items-center justify-center gap-3">
+                {isVi ? "Xem listing iOS" : "View iOS listing"}<Icons.ArrowRight size={16} />
               </a>
-              <a
-                href="#features"
-                className="fm-hero-cta border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all text-center"
-              >
-                {isVi ? "Khám phá tính năng ↓" : "Explore Features ↓"}
+              <a href="#features" className="border border-black/30 dark:border-white/30 px-8 py-4 text-sm font-bold uppercase tracking-widest hover:border-black dark:hover:border-white transition-all flex items-center justify-center">
+                {isVi ? "Khám phá tính năng" : "Explore features"}
               </a>
             </div>
           </div>
         </section>
 
-        {/* Stats Bar */}
-        <section className="fm-stats-section py-12 border-y border-black/10 dark:border-white/10 overflow-x-hidden relative">
-          <div className="container mx-auto px-6 md:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              <div className="fm-stat-item text-center md:text-left">
-                <div className="font-display text-4xl font-bold mb-1">
-                  1<span className="text-sm align-top"> (iOS Live)</span>
-                </div>
-                <div className="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50">
-                  {isVi ? "Nền tảng · iOS (Android Sắp ra mắt)" : "Platform · iOS (Android Coming)"}
-                </div>
+        <section className="py-12 border-y border-black/10 dark:border-white/10 overflow-x-hidden">
+          <div className="container mx-auto px-6 md:px-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              ["1,847", isVi ? "Thuật ngữ FM chuyên ngành" : "Specialized FM terms"],
+              ["Local-first", isVi ? "Learning core" : "Learning core"],
+              ["VI + EN", isVi ? "Ngôn ngữ giao diện" : "Interface languages"],
+              ["30", isVi ? "Huy hiệu thành tựu" : "Achievement badges"],
+            ].map(([value, label]) => (
+              <div key={value} className="fm-reveal text-center md:text-left">
+                <div className="font-display text-4xl font-bold mb-1">{value}</div>
+                <div className="text-[11px] uppercase tracking-widest opacity-50">{label}</div>
               </div>
-              <div className="fm-stat-item text-center md:text-left">
-                <div className="font-display text-4xl font-bold mb-1">30</div>
-                <div className="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50">
-                  {isVi ? "Huy hiệu thành tựu" : "Achievement Badges"}
-                </div>
-              </div>
-              <div className="fm-stat-item text-center md:text-left">
-                <div className="font-display text-4xl font-bold mb-1">2</div>
-                <div className="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50">
-                  {isVi ? "Ngôn ngữ · VI & EN" : "Languages · VI & EN"}
-                </div>
-              </div>
-              <div className="fm-stat-item text-center md:text-left">
-                <div className="font-display text-4xl font-bold mb-1">100%</div>
-                <div className="text-[11px] md:text-[10px] uppercase tracking-widest opacity-50">
-                  {isVi ? "Lõi ngoại tuyến" : "Offline-capable Core"}
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
-        {/* Features Section */}
         <section id="features" className="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden">
           <div className="container mx-auto px-6 md:px-8">
-            <div className="max-w-3xl mb-20 gsap-reveal">
-              <h2 className="font-display text-4xl md:text-6xl font-bold mb-6">
-                {isVi ? (
-                  <>
-                    Mọi thứ bạn cần<br />để làm chủ từ vựng
-                  </>
-                ) : (
-                  <>
-                    Everything you need<br />to master vocabulary
-                  </>
-                )}
-              </h2>
+            <div className="max-w-3xl mb-20 fm-reveal">
+              <h2 className="font-display text-4xl md:text-6xl font-bold">{isVi ? <>Mọi thứ cần thiết<br />để học từ vựng</> : <>A focused vocabulary<br />learning experience</>}</h2>
             </div>
-
-            <div className="fm-features-grid grid grid-cols-1 md:grid-cols-3 gap-1">
-              <div className="fm-feature-card p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors">
-                <div className="text-3xl mb-6 text-black dark:text-white">
-                  <Icons.Map size={32} />
-                </div>
-                <h3 className="font-display text-xl font-bold mb-4">
-                  {isVi ? "Lộ trình học tập" : "Roadmap Learning"}
-                </h3>
-                <p className="font-light opacity-70 leading-relaxed">
-                  {isVi
-                    ? "Lộ trình học tập có cấu trúc với các chương, giai đoạn và độ khó tăng dần. Theo dõi hành trình của bạn từ người mới bắt đầu đến nâng cao."
-                    : "Structured learning path with chapters, stages, and progressive difficulty. Track your journey from beginner to advanced."}
-                </p>
-              </div>
-
-              <div className="fm-feature-card p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors">
-                <div className="text-3xl mb-6 text-black dark:text-white">
-                  <Icons.Microphone size={32} />
-                </div>
-                <h3 className="font-display text-xl font-bold mb-4">
-                  {isVi ? "Luyện phát âm AI" : "AI Pronunciation"}
-                </h3>
-                <p className="font-light opacity-70 leading-relaxed">
-                  {isVi
-                    ? "Kiểm tra phát âm thời gian thực với AI. Âm thanh được xử lý bảo mật qua Cloudflare Workers và xóa ngay sau đó để bảo vệ quyền riêng tư."
-                    : "Real-time pronunciation checking with AI. Audio is processed securely via Cloudflare Workers and deleted immediately to ensure privacy."}
-                </p>
-              </div>
-
-              <div className="fm-feature-card p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors">
-                <div className="text-3xl mb-6 text-black dark:text-white">
-                  <Icons.Trophy size={32} />
-                </div>
-                <h3 className="font-display text-xl font-bold mb-4">
-                  {isVi ? "Hệ thống huy hiệu" : "Achievement System"}
-                </h3>
-                <p className="font-light opacity-70 leading-relaxed">
-                  {isVi
-                    ? "30 huy hiệu thành tựu độc đáo trên 8 nhóm danh mục và chuỗi ngày học giúp duy trì động lực. Toàn bộ tiến trình được đồng bộ an toàn qua Firebase."
-                    : "30 achievement badges across 8 unique categories and daily streaks to keep you motivated. All progress is securely synced via Firebase."}
-                </p>
-              </div>
-
-              <div className="fm-feature-card p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors">
-                <div className="text-3xl mb-6 text-black dark:text-white">
-                  <Icons.Users size={32} />
-                </div>
-                <h3 className="font-display text-xl font-bold mb-4">
-                  {isVi ? "Nhóm học tập" : "Social Learning"}
-                </h3>
-                <p className="font-light opacity-70 leading-relaxed">
-                  {isVi
-                    ? "Tham gia các nhóm học tập riêng tư để thi đua bảng xếp hạng cùng bạn bè và đồng nghiệp, thúc đẩy tinh thần học tập chuyên ngành."
-                    : "Join private study groups to compete on leaderboards with friends and colleagues, boosting professional learning motivation."}
-                </p>
-              </div>
-
-              <div className="fm-feature-card p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors">
-                <div className="text-3xl mb-6 text-black dark:text-white">
-                  <Icons.Bookmark size={32} />
-                </div>
-                <h3 className="font-display text-xl font-bold mb-4">
-                  {isVi ? "Từ điển chuyên ngành" : "FM Dictionary"}
-                </h3>
-                <p className="font-light opacity-70 leading-relaxed">
-                  {isVi
-                    ? "Tra cứu hơn 1.800 thuật ngữ Quản lý cơ sở vật chất với định nghĩa chi tiết, ví dụ thực tế và khả năng hoạt động ngoại tuyến hoàn toàn."
-                    : "Look up 1,800+ Facility Management terms with detailed definitions, real-world examples, and full offline capability."}
-                </p>
-              </div>
-
-              <div className="fm-feature-card p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors">
-                <div className="text-3xl mb-6 text-black dark:text-white">
-                  <Icons.Language size={32} />
-                </div>
-                <h3 className="font-display text-xl font-bold mb-4">
-                  {isVi ? "Giao diện đa ngôn ngữ" : "Multilingual UI"}
-                </h3>
-                <p className="font-light opacity-70 leading-relaxed">
-                  {isVi
-                    ? "Bản địa hóa toàn bộ giao diện sang tiếng Việt và tiếng Anh thông qua easy_localization — bao gồm huy hiệu, nhãn và tất cả văn bản hệ thống."
-                    : "Full interface localization in Vietnamese and English via easy_localization — including badges, labels, and all system text."}
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Tech Stack */}
-        <section id="tech" className="py-32 relative overflow-x-hidden">
-          <div className="container mx-auto px-6 md:px-8">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
-              <div className="max-w-2xl gsap-reveal">
-                <p className="text-xs tracking-[0.3em] uppercase mb-4 opacity-50">
-                  Tech Stack
-                </p>
-                <h2 className="font-display text-4xl md:text-5xl font-bold">
-                  {isVi ? (
-                    <>
-                      Xây dựng với công cụ hiện đại,<br />bền bỉ theo thời gian
-                    </>
-                  ) : (
-                    <>
-                      Built with modern tools,<br />designed to last
-                    </>
-                  )}
-                </h2>
-              </div>
-            </div>
-
-            <div className="fm-tech-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
               {[
-                { label: "Flutter", subVi: "Khung giao diện", subEn: "UI Framework" },
-                { label: "Dart", subVi: "Ngôn ngữ", subEn: "Language" },
-                { label: "Provider", subVi: "Quản lý trạng thái", subEn: "State Management" },
-                { label: "Hive", subVi: "Lưu trữ ngoại tuyến", subEn: "Offline Storage" },
-                { label: "Firebase", subVi: "Xác thực + CSDL", subEn: "Auth + Database" },
-                { label: "GetIt", subVi: "Tiêm phụ thuộc", subEn: "Dependency Injection" },
-                { label: "easy_localization", subVi: "Đa ngôn ngữ / VI + EN", subEn: "i18n / VI + EN" },
-                { label: "SSO", subVi: "Google / Apple", subEn: "Google / Apple" },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="fm-tech-card p-6 border border-black/10 dark:border-white/10 flex items-center gap-4 group hover:border-black dark:hover:border-white transition-colors"
-                >
-                  <div className="w-2 h-2 rounded-full bg-black dark:bg-white"></div>
-                  <div>
-                    <div className="text-sm font-bold uppercase tracking-tight">{item.label}</div>
-                    <div className="text-[10px] opacity-50 uppercase">
-                      {isVi ? item.subVi : item.subEn}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* App Screens Carousel / Gallery */}
-        <section
-          id="gallery"
-          ref={galleryRef}
-          className="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden"
-        >
-          <div className="container mx-auto px-6 md:px-8 mb-16 relative flex flex-col md:flex-row justify-between items-center gap-8">
-            <h2 className="gsap-reveal font-display text-4xl font-bold text-center md:text-left">
-              {isVi ? "Thiết kế tập trung, tối ưu quy trình" : "Designed for focus, built for flow"}
-            </h2>
-
-            {/* Controls: indicators + arrows */}
-            <div className="flex items-center gap-6">
-              {/* Indicators */}
-              <div className="flex items-center gap-2">
-                {APP_SCREENS.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => { scrollToSlide(i); stopAutoplay(); }}
-                    aria-label={`Go to slide ${i + 1}`}
-                    className={`transition-all duration-300 ${i === currentSlide
-                        ? "w-8 h-1 bg-black dark:bg-white"
-                        : "w-2 h-1 bg-black/20 dark:bg-white/20 hover:bg-black/50 dark:hover:bg-white/50"
-                      }`}
-                  />
-                ))}
-              </div>
-
-              {/* Arrow buttons */}
-              <div className="flex gap-2">
-                <button
-                  onClick={() => { scroll("left"); stopAutoplay(); }}
-                  className="w-10 h-10 border border-black/10 dark:border-white/10 flex items-center justify-center hover:border-black dark:hover:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all text-sm"
-                  aria-label="Previous"
-                >
-                  <Icons.ChevronLeft size={16} />
-                </button>
-                <button
-                  onClick={() => { scroll("right"); stopAutoplay(); }}
-                  className="w-10 h-10 border border-black/10 dark:border-white/10 flex items-center justify-center hover:border-black dark:hover:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all text-sm"
-                  aria-label="Next"
-                >
-                  <Icons.ChevronRight size={16} />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className="relative"
-            onMouseEnter={() => setIsHoveringGallery(true)}
-            onMouseLeave={() => setIsHoveringGallery(false)}
-          >
-            {/* Gradient Mask for sides */}
-            <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-cardLight dark:from-cardDark to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-cardLight dark:from-cardDark to-transparent z-10 pointer-events-none"></div>
-
-            <div
-              ref={scrollRef}
-              className="flex gap-6 md:gap-8 overflow-x-auto pb-12 px-16 md:px-32 scrollbar-hide snap-x snap-mandatory scroll-smooth"
-            >
-              {APP_SCREENS.map((item, index) => {
-                const IconComp = item.IconComponent;
+                [Icons.Map, isVi ? "Lộ trình học tập" : "Roadmap Learning", isVi ? "Các chương và giai đoạn giúp bạn theo dõi quá trình học theo từng bước." : "Chapters and stages help you follow a structured learning path."],
+                [Icons.Microphone, isVi ? "Luyện phát âm / STT" : "Pronunciation / STT", isVi ? "Luồng luyện phát âm dùng microphone và proxy Cloudflare theo boundary được ghi nhận." : "Pronunciation practice uses the microphone and the documented Cloudflare proxy boundary."],
+                [Icons.Trophy, isVi ? "Hệ thống huy hiệu" : "Achievement System", isVi ? "30 huy hiệu và chuỗi ngày học giúp duy trì động lực." : "30 achievement badges and learning streaks keep practice visible."],
+                [Icons.Bookmark, isVi ? "Từ điển chuyên ngành" : "FM Dictionary", isVi ? "Tra cứu 1.847 thuật ngữ FM với định nghĩa và ví dụ theo nội dung ứng dụng." : "Look up 1,847 FM terms with definitions and examples from the app content."],
+                [Icons.Language, isVi ? "Giao diện VI + EN" : "VI + EN interface", isVi ? "Giao diện được bản địa hóa cho tiếng Việt và tiếng Anh." : "The interface is localized for Vietnamese and English."],
+                [Icons.Home, isVi ? "Learning core local-first" : "Local-first learning core", isVi ? "Các luồng học cốt lõi ưu tiên dữ liệu local; đồng bộ và dịch vụ mạng có boundary riêng." : "Core learning flows prioritize local data, with separate sync and network service boundaries."],
+              ].map(([Icon, title, desc]) => {
+                const FeatureIcon = Icon as typeof Icons.Home;
                 return (
-                  <div
-                    key={index}
-                    className={`screen-card flex-none w-64 md:w-72 aspect-[9/19] bg-bgLight dark:bg-bgDark border rounded-[2.5rem] overflow-hidden relative group cursor-zoom-in transition-all duration-500 snap-center ${index === currentSlide
-                        ? "border-black dark:border-white scale-[1.03] shadow-xl"
-                        : "border-black/10 dark:border-white/10 hover:border-black/40 dark:hover:border-white/40"
-                      }`}
-                    onClick={() => setSelectedImg(item.img)}
-                  >
-                    <Image
-                      src={item.img}
-                      alt={item.label}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 300px"
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    {index === currentSlide && (
-                      <div className="absolute inset-0 rounded-[2.5rem] ring-2 ring-black dark:ring-white ring-offset-2 ring-offset-cardLight dark:ring-offset-cardDark pointer-events-none" />
-                    )}
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-8 pt-20 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                      <div className="text-white">
-                        <div className="text-[10px] mb-2 opacity-60 uppercase tracking-[0.2em] flex items-center gap-1.5">
-                          <IconComp size={12} />
-                          UI Screen
-                        </div>
-                        <div className="font-display font-bold text-lg uppercase tracking-widest">
-                          {item.label}
-                        </div>
-                      </div>
-                    </div>
+                  <div key={String(title)} className="fm-reveal p-8 md:p-10 border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/20 transition-colors">
+                    <div className="text-3xl mb-6"><FeatureIcon size={32} /></div>
+                    <h3 className="font-display text-xl font-bold mb-4">{String(title)}</h3>
+                    <p className="font-light opacity-70 leading-relaxed">{String(desc)}</p>
                   </div>
                 );
               })}
             </div>
-
-            {!isHoveringGallery && (
-              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-black/5 dark:bg-white/5 overflow-hidden">
-                <div
-                  key={currentSlide}
-                  className="h-full bg-black dark:bg-white"
-                  style={{
-                    animation: "slideProgress 3s linear forwards",
-                  }}
-                />
-              </div>
-            )}
           </div>
         </section>
 
-        {/* Download Section */}
-        <section
-          id="download"
-          className="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden border-t border-black/5 dark:border-white/5"
-        >
+        <section id="tech" className="py-32 relative overflow-x-hidden">
           <div className="container mx-auto px-6 md:px-8">
-            <div className="max-w-3xl mb-16 gsap-reveal">
-              <h2 className="font-display text-4xl md:text-5xl font-bold">
-                {isVi ? (
-                  <>
-                    Trải nghiệm FM Dictionary<br />trên thiết bị di động
-                  </>
-                ) : (
-                  <>
-                    Get FM Dictionary<br />on your mobile device
-                  </>
-                )}
-              </h2>
+            <div className="max-w-2xl mb-16 fm-reveal">
+              <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4 opacity-50">{isVi ? "Kiến trúc" : "Architecture"}</p>
+              <h2 className="font-display text-4xl md:text-6xl font-bold">{isVi ? "Công nghệ và ranh giới dịch vụ" : "Technology with clear boundaries"}</h2>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* App Store */}
-              <div className="gsap-reveal p-8 md:p-12 border border-black/10 dark:border-white/10 flex flex-col md:flex-row gap-8 items-center md:items-start group hover:border-black dark:hover:border-white transition-all duration-300 relative overflow-hidden bg-bgLight dark:bg-bgDark">
-                <div className="text-5xl text-black dark:text-white transition-transform duration-300 group-hover:scale-110">
-                  <Icons.Apple size={48} />
-                </div>
-                <div className="flex-1 text-center md:text-left">
-                  <h4 className="font-display text-2xl font-bold mb-2">
-                    App Store
-                  </h4>
-                  <p className="font-light opacity-70 leading-relaxed mb-6">
-                    {isVi
-                      ? "Tải ứng dụng cho các thiết bị iOS (iPhone, iPad). Yêu cầu iOS 15.0 trở lên."
-                      : "Download the app for iOS devices (iPhone, iPad). Requires iOS 15.0 or later."}
-                  </p>
-                  <a
-                    href="https://apps.apple.com/us/app/fm-dictionary/id6774868353"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 border border-black dark:border-white px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all"
-                  >
-                    <span>{isVi ? "Tải cho iOS" : "Download for iOS"}</span>
-                    <Icons.ArrowRight size={12} />
-                  </a>
-                </div>
-              </div>
-
-              {/* Google Play (Coming Soon) */}
-              <div className="gsap-reveal p-8 md:p-12 border border-black/5 dark:border-white/5 flex flex-col md:flex-row gap-8 items-center md:items-start group opacity-70 hover:opacity-100 transition-all duration-300 relative overflow-hidden bg-bgLight/50 dark:bg-bgDark/50">
-                <div className="text-5xl text-black/40 dark:text-white/40 transition-transform duration-300 group-hover:scale-110">
-                  <Icons.GooglePlay size={48} />
-                </div>
-                <div className="flex-1 text-center md:text-left">
-                  <div className="flex flex-col md:flex-row md:items-center gap-2 mb-2 justify-center md:justify-start">
-                    <h4 className="font-display text-2xl font-bold text-black/50 dark:text-white/50">
-                      Google Play
-                    </h4>
-                    <span className="inline-block bg-black/5 dark:bg-white/5 text-[9px] font-bold uppercase tracking-widest px-2 py-1 border border-black/10 dark:border-white/10 w-fit mx-auto md:mx-0">
-                      {isVi ? "Sắp ra mắt" : "Coming Soon"}
-                    </span>
-                  </div>
-                  <p className="font-light opacity-50 leading-relaxed mb-6">
-                    {isVi
-                      ? "Phiên bản dành cho thiết bị Android đang được phát triển và kiểm thử. Hãy quay lại sau."
-                      : "The version for Android devices is currently under development and testing. Stay tuned."}
-                  </p>
-                  <button
-                    disabled
-                    className="inline-flex items-center gap-2 border border-black/10 dark:border-white/10 px-6 py-3 text-xs font-bold uppercase tracking-widest text-black/40 dark:text-white/40 cursor-not-allowed"
-                  >
-                    <span>{isVi ? "Chưa khả dụng" : "Not Available"}</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Permissions */}
-        <section id="permissions" className="py-32 relative overflow-x-hidden">
-          <div className="container mx-auto px-6 md:px-8">
-            <div className="max-w-3xl mb-16 gsap-reveal">
-              <h2 className="font-display text-4xl md:text-5xl font-bold">
-                {isVi ? (
-                  <>
-                    Ứng dụng truy cập những gì<br />và lý do chính xác
-                  </>
-                ) : (
-                  <>
-                    What the app accesses<br />and exactly why
-                  </>
-                )}
-              </h2>
-            </div>
-
-            <div className="fm-perm-grid space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
-                {
-                  IconComponent: Icons.Microphone,
-                  titleVi: "Micro",
-                  titleEn: "Microphone",
-                  descVi: "Được sử dụng độc quyền cho tính năng luyện phát âm. Âm thanh được chuyển qua Cloudflare Workers để phân tích và xóa ngay lập tức khỏi bộ nhớ. Không có bản ghi nào được lưu trữ sau khi phiên kết thúc.",
-                  descEn: "Used exclusively for the pronunciation practice feature. Audio is routed securely via Cloudflare Workers proxy for analysis and immediately deleted. No recording is stored or retained after the session ends.",
-                  tagVi: "Bắt buộc cho tính năng",
-                  tagEn: "Required for feature",
-                },
-                {
-                  IconComponent: Icons.Globe,
-                  titleVi: "Truy cập Internet",
-                  titleEn: "Internet Access",
-                  descVi: "Đồng bộ hóa tiến trình học tập với Firebase, cho phép đăng nhập Google / Apple và tải các bản cập nhật nội dung. Trải nghiệm học tập cốt lõi hoạt động hoàn toàn ngoại tuyến sau khi nội dung được tải xuống.",
-                  descEn: "Syncs learning progress to Firebase, enables Google / Apple sign-in, and fetches content updates. The core learning experience works fully offline once content is downloaded.",
-                  tagVi: "Bắt buộc để đồng bộ",
-                  tagEn: "Required for sync",
-                },
-                {
-                  IconComponent: Icons.Bell,
-                  titleVi: "Thông báo đẩy",
-                  titleEn: "Push Notifications",
-                  descVi: "Gửi các lời nhắc học tập hàng ngày tùy chọn và cảnh báo chuỗi ngày để giúp bạn đi đúng hướng. Có thể tắt bất cứ lúc nào trong Cài đặt thiết bị của bạn.",
-                  descEn: "Sends optional daily learning reminders and streak alerts to keep you on track. Can be disabled at any time in your device Settings without affecting App functionality.",
-                  tagVi: "Tùy chọn",
-                  tagEn: "Optional",
-                  optional: true,
-                },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="fm-perm-card p-6 md:p-8 border border-black/10 dark:border-white/10 flex flex-col md:flex-row gap-8 items-start group hover:border-black dark:hover:border-white transition-colors"
-                >
-                  <div className="text-3xl text-black dark:text-white">
-                    <item.IconComponent size={32} />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-display text-xl font-bold mb-2">
-                      {isVi ? item.titleVi : item.titleEn}
-                    </h4>
-                    <p className="font-light opacity-70 leading-relaxed mb-4">
-                      {isVi ? item.descVi : item.descEn}
-                    </p>
-                    <span
-                      className={`text-[10px] border px-2 py-1 uppercase font-bold tracking-widest ${item.optional
-                          ? "border-black/20 dark:border-white/20 opacity-50"
-                          : "border-black dark:border-white"
-                        }`}
-                    >
-                      {isVi ? item.tagVi : item.tagEn}
-                    </span>
-                  </div>
+                ["Flutter", isVi ? "Ứng dụng mobile" : "Mobile application"],
+                ["Provider", isVi ? "Quản lý trạng thái" : "State management"],
+                ["Hive", isVi ? "Lưu trữ local" : "Local storage"],
+                ["Firebase", isVi ? "Auth + database" : "Auth + database"],
+                ["Cloudflare Workers", isVi ? "Canonical proxy" : "Canonical proxy"],
+                ["easy_localization", isVi ? "VI + EN" : "VI + EN"],
+              ].map(([label, sub]) => (
+                <div key={label} className="fm-reveal p-8 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark">
+                  <h3 className="font-display text-2xl font-bold mb-2">{label}</h3>
+                  <p className="text-xs font-mono uppercase tracking-widest opacity-50">{sub}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* About Section & Quick Links */}
-        <section className="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden">
+        <section id="gallery" className="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden">
           <div className="container mx-auto px-6 md:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
-              <div className="gsap-reveal">
-                <h2 className="font-display text-4xl md:text-5xl font-bold mb-8">
-                  {isVi ? (
-                    <>
-                      Xóa bỏ rào cản ngôn ngữ<br />trong ngành FM Việt Nam
-                    </>
-                  ) : (
-                    <>
-                      Removing language barriers<br />in Vietnam&apos;s FM industry
-                    </>
-                  )}
-                </h2>
-                <p className="font-light text-lg opacity-70 mb-6 text-justify">
-                  {isVi
-                    ? "FM Dictionary là ứng dụng từ vựng cao cấp giúp cộng đồng Quản lý Cơ sở vật chất và bất kỳ ai quan tâm đến lĩnh vực này làm chủ hơn 1.800 thuật ngữ FM chuyên ngành — được xây dựng bằng Flutter cho iOS & Android."
-                    : "FM Dictionary is a premium vocabulary app helping the Facilities Management community and anyone interested in the field master 1,800+ specialized FM terms — built with Flutter for iOS & Android."}
-                </p>
-                <p className="font-light text-lg opacity-70 mb-6 text-justify">
-                  {isVi
-                    ? "Ứng dụng được thiết kế và phát triển bởi An Khang Studio, đại diện cho một dự án Flutter hoàn chỉnh: kiến trúc sạch, thiết kế ưu tiên ngoại tuyến và hệ thống học tập trò chơi hóa hiện đại."
-                    : "The app was designed and developed by An Khang Studio, representing a complete production-grade Flutter project: clean architecture, offline-first design, and modern gamified learning mechanics."}
-                </p>
-                <p className="text-xs opacity-80 font-medium uppercase tracking-widest">
-                  Content © Thuy Ta · Application © An Khang Studio
-                </p>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
+              <div className="max-w-2xl fm-reveal">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4 opacity-50">{isVi ? "Màn hình" : "Screens"}</p>
+                <h2 className="font-display text-4xl md:text-6xl font-bold">{isVi ? "Thiết kế cho việc học" : "Designed for practice"}</h2>
               </div>
+              <p className="text-sm font-mono uppercase tracking-widest opacity-50">{isVi ? "Nhấn để phóng to" : "Click to enlarge"}</p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {APP_SCREENS.map((screen) => (
+                <button key={screen.img} type="button" onClick={() => setSelectedImg(screen.img)} className="fm-reveal aspect-[9/16] relative overflow-hidden border border-black/10 dark:border-white/10 group text-left">
+                  <Image src={screen.img} alt={`FM Dictionary ${screen.label}`} fill sizes="(max-width: 768px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <span className="absolute bottom-3 left-3 bg-black/80 text-white px-3 py-1 text-[10px] uppercase tracking-widest">{screen.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
 
-              <div className="gsap-reveal p-8 md:p-12 border border-black dark:border-white relative">
-                <div className="absolute -top-4 left-6 bg-cardLight dark:bg-cardDark px-2 text-xs font-bold uppercase tracking-widest">
-                  {isVi ? "Khám phá thêm" : "Explore More"}
+        <section id="permissions" className="py-32 relative overflow-x-hidden">
+          <div className="container mx-auto px-6 md:px-8">
+            <div className="max-w-3xl mb-16 fm-reveal">
+              <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4 opacity-50">{isVi ? "Quyền truy cập" : "Permissions"}</p>
+              <h2 className="font-display text-4xl md:text-5xl font-bold">{isVi ? "Mỗi quyền có một lý do" : "Every permission has a reason"}</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {[
+                ["Microphone", isVi ? "Dùng cho luyện phát âm/STT. Âm thanh đi qua proxy Cloudflare theo luồng được ghi nhận trong chính sách riêng tư." : "Used for pronunciation/STT. Audio follows the documented Cloudflare proxy flow described in the privacy policy."],
+                ["Internet access", isVi ? "Dùng cho Firebase sync, đăng nhập và cập nhật nội dung; learning core local-first có boundary riêng." : "Used for Firebase sync, sign-in, and content updates; the local-first learning core has a separate boundary."],
+                ["Notifications", isVi ? "Tùy chọn cho nhắc học và streak; có thể tắt trong cài đặt thiết bị." : "Optional learning reminders and streak notifications; can be disabled in device settings."],
+              ].map(([title, desc]) => (
+                <div key={title} className="fm-reveal p-8 md:p-10 border border-black/10 dark:border-white/10">
+                  <h3 className="font-display text-2xl font-bold mb-4">{title}</h3>
+                  <p className="font-light opacity-70 leading-relaxed">{desc}</p>
                 </div>
-                <h3 className="font-display text-2xl font-bold mb-4">
-                  {isVi ? "Dữ liệu & Liên hệ" : "Data & Contact"}
-                </h3>
-                <p className="font-light opacity-70 mb-8">
-                  {isVi ? "Tìm hiểu về các quy định dữ liệu hoặc liên hệ về dự án." : "Learn about data practices or get in touch about the project."}
-                </p>
+              ))}
+            </div>
+          </div>
+        </section>
 
-                <div className="space-y-4">
-                  <Link
-                    href={`/${lang}/fm-dictionary/support/`}
-                    className="flex justify-between items-center p-4 border border-black dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all group"
-                  >
-                    <span className="flex items-center text-sm font-bold uppercase tracking-widest">
-                      <Icons.Headset size={16} className="mr-3 text-black dark:text-white group-hover:text-white dark:group-hover:text-black transition-colors" />
-                      <span>{isVi ? "Hỗ trợ & Liên hệ" : "Support & Contact"}</span>
-                    </span>
-                    <span className="group-hover:translate-x-2 transition-transform">→</span>
-                  </Link>
-
-                  <Link
-                    href={`/${lang}/fm-dictionary/privacy-policy/`}
-                    className="flex justify-between items-center p-4 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group"
-                  >
-                    <span className="flex items-center text-sm font-bold uppercase tracking-widest">
-                      <Icons.Shield size={16} className="mr-3 text-black dark:text-white" />
-                      <span>{isVi ? "Chính sách bảo mật" : "Privacy Policy"}</span>
-                    </span>
-                    <span className="group-hover:translate-x-2 transition-transform">→</span>
-                  </Link>
-
-                  <Link
-                    href={`/${lang}/fm-dictionary/terms-of-service/`}
-                    className="flex justify-between items-center p-4 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group"
-                  >
-                    <span className="flex items-center text-sm font-bold uppercase tracking-widest">
-                      <Icons.File size={16} className="mr-3 text-black dark:text-white" />
-                      <span>{isVi ? "Điều khoản dịch vụ" : "Terms of Service"}</span>
-                    </span>
-                    <span className="group-hover:translate-x-2 transition-transform">→</span>
-                  </Link>
-                </div>
+        <section id="download" className="py-32 bg-cardLight dark:bg-cardDark relative overflow-x-hidden">
+          <div className="container mx-auto px-6 md:px-8">
+            <div className="max-w-3xl mb-16 fm-reveal">
+              <h2 className="font-display text-4xl md:text-5xl font-bold">{isVi ? "Truy cập dự án" : "Project access"}</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="fm-reveal p-8 md:p-12 border border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark">
+                <Icons.Apple size={48} className="mb-8" />
+                <h3 className="font-display text-2xl font-bold mb-3">iOS listing</h3>
+                <p className="font-light opacity-70 leading-relaxed mb-6">{isVi ? "Liên kết listing iOS hiện có của FM Dictionary." : "The current FM Dictionary iOS listing link."}</p>
+                <a href="https://apps.apple.com/us/app/fm-dictionary/id6774868353" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border border-black dark:border-white px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all">{isVi ? "Mở listing" : "Open listing"}<Icons.ArrowRight size={12} /></a>
+              </div>
+              <div className="fm-reveal p-8 md:p-12 border border-black/5 dark:border-white/5 bg-bgLight/50 dark:bg-bgDark/50 opacity-70">
+                <Icons.GooglePlay size={48} className="mb-8" />
+                <h3 className="font-display text-2xl font-bold mb-3">Android target</h3>
+                <p className="font-light opacity-70 leading-relaxed">{isVi ? "Android thuộc phạm vi sản phẩm; không tuyên bố public store listing trong portfolio hiện tại." : "Android is part of the product scope; this portfolio does not claim a public store listing here."}</p>
               </div>
             </div>
           </div>
         </section>
-      </main>
 
+        <section className="py-32 relative overflow-x-hidden">
+          <div className="container mx-auto px-6 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
+            <div className="fm-reveal">
+              <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4 opacity-50">FM Dictionary</p>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mb-8">{isVi ? <>Từ vựng chuyên ngành<br />cho việc học thực tế</> : <>Specialized vocabulary<br />for practical learning</>}</h2>
+              <p className="font-light text-lg opacity-70 mb-6 text-justify">{isVi ? "FM Dictionary là ứng dụng học từ vựng Facilities Management bằng Flutter với 1.847 thuật ngữ, learning core local-first và các dịch vụ Firebase/Cloudflare được mô tả theo boundary rõ ràng." : "FM Dictionary is a Flutter Facilities Management vocabulary-learning app with 1,847 terms, a local-first learning core, and clearly documented Firebase and Cloudflare service boundaries."}</p>
+              <p className="font-light text-lg opacity-70 text-justify">{isVi ? "Nội dung và luồng phát âm/STT được trình bày theo tài liệu dự án hiện có; portfolio không suy diễn thêm về khả năng offline tuyệt đối hay privacy tuyệt đối." : "The project documentation defines the content and pronunciation/STT flows; this portfolio avoids extending that into absolute offline or privacy claims."}</p>
+            </div>
+            <div className="fm-reveal space-y-3">
+              {[["Privacy Policy", "privacy-policy"], ["Terms of Service", "terms-of-service"], ["Support Center", "support"], ["Delete Account", "delete-account"]].map(([label, slug]) => {
+                return <Link key={slug} href={`/${lang}/fm-dictionary/${slug}/`} className="flex justify-between items-center p-4 border border-black/10 dark:border-white/10 hover:border-black dark:hover:border-white transition-all group"><span className="text-sm font-bold uppercase tracking-widest">{label}</span><span className="group-hover:translate-x-2 transition-transform">→</span></Link>;
+              })}
+            </div>
+          </div>
+        </section>
+      </main>
       <Footer variant="fm" />
 
-      {/* Lightbox / Modal */}
       {selectedImg && (
-        <div
-          className="fixed inset-0 bg-black/90 z-[1000] flex items-center justify-center p-4 md:p-10 cursor-zoom-out animate-in fade-in duration-300"
-          onClick={() => setSelectedImg(null)}
-        >
-          <div className="relative w-full max-w-sm aspect-[9/19] animate-in zoom-in-95 duration-300">
-            <Image
-              src={selectedImg}
-              alt="Zoomed Screenshot"
-              fill
-              className="object-contain rounded-2xl shadow-2xl"
-            />
+        <div className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-6" role="dialog" aria-modal="true" onClick={() => setSelectedImg(null)}>
+          <div className="relative w-full max-w-2xl h-[85vh]" onClick={(event) => event.stopPropagation()}>
+            <Image src={selectedImg} alt="FM Dictionary screenshot" fill sizes="90vw" className="object-contain" />
+            <button type="button" onClick={() => setSelectedImg(null)} className="absolute top-0 right-0 border border-white text-white px-4 py-2 uppercase tracking-widest text-xs">Close</button>
           </div>
-          <button
-            className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors text-3xl p-2"
-            onClick={() => setSelectedImg(null)}
-            aria-label="Close"
-          >
-            <Icons.Close size={28} />
-          </button>
         </div>
       )}
     </div>

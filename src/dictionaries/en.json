@@ -1,61 +1,120 @@
 {
   "nav": {
-    "summary": "Summary",
-    "skills": "Skills",
-    "projects": "Projects",
-    "timeline": "Timeline",
+    "summary": "Positioning",
+    "skills": "Capabilities",
+    "projects": "Selected Work",
+    "timeline": "Experience",
+    "allProjects": "All Projects",
     "features": "Features",
     "gallery": "Gallery",
     "tech": "Tech Stack",
     "download": "Download"
   },
   "hero": {
-    "subtitle": "Backend & Flutter Developer with an IT Infrastructure background. Building offline-first mobile applications and reliable business systems.",
-    "viewProjects": "View Selected Works",
+    "subtitle": "Software Developer building web, mobile, and automation tools, with hands-on IT support experience.",
+    "viewProjects": "View Selected Work",
     "downloadCV": "Download CV"
   },
   "about": {
-    "title": "Summary",
-    "p1": "I am a developer with a background in Network Infrastructure & IT Support. This helps me not only write code but also deeply understand how applications operate on servers and the internet.",
-    "p2": "Currently, I am deeply passionate about backend web and mobile app development. My working philosophy is to solve core business problems with the most appropriate tools, rather than chasing trends."
+    "label": "Short positioning",
+    "title": "Web, mobile & automation.",
+    "lead": "I build practical software with a developer's perspective and the operational context of hands-on IT support.",
+    "p1": "My work spans web applications, mobile products, and small automation tools that make recurring work easier to understand and complete.",
+    "p2": "I prefer clear scope, appropriate tools, and software that remains useful after the demo is over.",
+    "hospital": "Binh Thuan Eye Hospital",
+    "hospitalRole": "IT Helpdesk",
+    "degree": "Bachelor of Information Technology",
+    "degreeRole": "University · 2022 — 2026",
+    "fm": "FM Dictionary",
+    "fmRole": "Flutter product · 1,847 terms",
+    "tag1": "Web + Mobile",
+    "tag2": "Automation + IT Support"
   },
   "skills": {
-    "title": "Technical Expertise",
-    "devTitle": "Software & Mobile",
-    "devDesc": "Building robust backend systems, developing mobile apps, and architecting comprehensive software solutions.",
-    "cloudTitle": "Cloud & Databases",
-    "cloudDesc": "Architecting secure APIs, managing real-time data, and deploying scalable web services.",
-    "infraTitle": "Network & IT Ops",
-    "infraDesc": "Deep understanding of hardware, basic network administration, CMS, and server operations to ensure reliability."
+    "label": "Capabilities",
+    "title": "Tools for useful software",
+    "devTitle": "Web & Mobile",
+    "devDesc": "Building focused web and mobile experiences with Django, Flutter, Python, and the surrounding tools a project actually needs.",
+    "cloudTitle": "Automation & Data",
+    "cloudDesc": "Connecting practical workflows with Firebase, local data, documented service boundaries, and lightweight automation.",
+    "infraTitle": "IT Support",
+    "infraDesc": "Hands-on support experience informs how I investigate issues, communicate clearly, and keep everyday technology moving.",
+    "stackLabel": "Technologies & applied work",
+    "supportLabel": "Support practice"
   },
   "projects": {
-    "title": "Selected Works",
-    "p1Category": "Production App · Live on App Store",
-    "p1Title": "FM Dictionary",
-    "p1Desc": "Offline-first vocabulary engine & AI pronunciation practice app for Facilities Management professionals. Published live on the App Store with Flutter, Firebase sync, and Cloudflare Workers proxy.",
-    "p1CaseStudy": "View Case Study",
-    "p2Category": "Academic Case Study · Backend & AI",
-    "p2Title": "Hotel Management System",
-    "p2Desc": "A university capstone project exploring Django REST API design, PostgreSQL query optimization, and integrating OpenAI APIs for automated customer support.",
-    "p2Source": "View Source Code",
-    "p3Category": "Production IT Ops · Infrastructure",
-    "p3Title": "IT System Reliability",
-    "p3Desc": "Hands-on IT infrastructure & server operations across 50+ workstations. Maintained 99.8% operational uptime with automated PostgreSQL backups and network firewall policies.",
-    "p3Overview": "Ops Overview"
+    "label": "Selected work",
+    "title": "Projects with a clear scope",
+    "viewCaseStudy": "View Case Study",
+    "viewSource": "View Source",
+    "items": {
+      "fmDictionary": {
+        "type": "PRODUCT",
+        "status": "DOCUMENTED",
+        "category": "Products",
+        "title": "FM Dictionary",
+        "desc": "Flutter FM vocabulary-learning app with 1,847 terms, a local-first learning core, documented Firebase boundaries, Cloudflare proxy, and pronunciation/STT flows."
+      },
+      "githubVaultRelay": {
+        "type": "OPEN SOURCE",
+        "status": "REPOSITORY",
+        "category": "Open Source",
+        "title": "GitHub Vault Relay",
+        "desc": "A conservative, mobile-first GitHub sync bridge for Obsidian Mobile and desktop, using HTTPS APIs without running Git on the phone. User-triggered sync preserves ambiguous changes for review."
+      },
+      "hotelManagement": {
+        "type": "ACADEMIC CAPSTONE",
+        "status": "COMPLETED",
+        "category": "Academic",
+        "title": "Hotel Management",
+        "desc": "Django monolith with server-rendered templates and SQLite for booking, inventory, cancellation, and admin workflows, plus a RAG path using HuggingFace embeddings and FAISS."
+      },
+      "koiPhanThiet": {
+        "type": "CLIENT / COLLABORATION",
+        "status": "COMPLETED",
+        "category": "Client / Collaboration",
+        "title": "KOI Phan Thiết",
+        "desc": "WordPress collaboration from February to May 2026 covering the website layer, Polylang, multilingual menus across five languages, and page-load/performance optimization."
+      },
+      "pythonIpChecker": {
+        "type": "TOOLS / AUTOMATION",
+        "status": "UTILITY",
+        "category": "Tools / Automation",
+        "title": "Python IP Checker",
+        "desc": "Practical Python IT utility for batch IP checking instead of checking addresses manually one by one."
+      }
+    }
   },
   "timeline": {
-    "title": "Timeline",
-    "t1Role": "IT Helpdesk · Binh Thuan Eye Hospital",
-    "t1Desc": "Responsible for operating and managing internal network infrastructure, PostgreSQL server nodes, and technical support across 50+ hospital workstations.",
-    "t2Role": "IT Operations Intern · SOJO Company",
-    "t2Desc": "Assisted with IT operations, network monitoring, and technology infrastructure at SOJO Company, gaining hands-on experience in production service systems.",
-    "t3Role": "Bachelor of IT · Graduation",
-    "t3Desc": "Successfully defended the capstone management & AI system project, graduating with a Bachelor's Degree in Information Technology.",
-    "t4Role": "Bachelor of Information Technology · University",
-    "t4Desc": "Completed Bachelor of IT degree, focusing on Backend Software Architecture (Django, Python), Mobile App Development (Flutter), and Networking (Cisco CCNA)."
+    "label": "Career path",
+    "title": "Experience",
+    "items": {
+      "hospital": {
+        "role": "IT Helpdesk · Binh Thuan Eye Hospital",
+        "desc": "Current hands-on IT helpdesk work supporting users, devices, and day-to-day technology issues in a hospital environment."
+      },
+      "sojo": {
+        "role": "IT Support / IT Operations · SOJO",
+        "desc": "Worked with IT support and operations at SOJO from January to March 2026."
+      },
+      "sailingBay": {
+        "role": "IT Internship · The Sailing Bay",
+        "desc": "Earlier internship experience at The Sailing Bay; exact dates are intentionally not inferred."
+      },
+      "degree": {
+        "role": "B.S. Information Technology · University",
+        "desc": "Completed a Bachelor of Information Technology from 2022 to 2026, with work across software development, mobile applications, and information systems."
+      }
+    }
+  },
+  "allProjects": {
+    "label": "Project index",
+    "title": "View all projects",
+    "desc": "Browse the complete project list across products, open source, client collaboration, tools, and academic work.",
+    "cta": "Open project index"
   },
   "footer": {
     "letsTalk": "Let's Talk.",
-    "updated": "Updated · August 2026"
+    "updated": "Updated · September 2026"
   }
 }

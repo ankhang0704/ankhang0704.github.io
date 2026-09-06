@@ -4,9 +4,9 @@ const BASE_URL = "https://ankhang0704.vercel.app";
 
 const ROUTES = [
   "",
+  "/projects",
   "/fm-dictionary",
   "/hotel-management",
-  "/it-infrastructure",
   "/fm-dictionary/support",
   "/fm-dictionary/privacy-policy",
   "/fm-dictionary/terms-of-service",
@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ROUTES.forEach((route) => {
     LOCALES.forEach((locale) => {
       const url = `${BASE_URL}/${locale}${route}${route ? "/" : ""}`;
-      const isPriority = route === "" || route === "/fm-dictionary";
+      const isPriority = route === "" || route === "/projects" || route === "/fm-dictionary";
 
       sitemapEntries.push({
         url,

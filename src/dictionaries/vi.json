@@ -1,61 +1,120 @@
 {
   "nav": {
-    "summary": "Tóm tắt",
-    "skills": "Kỹ năng",
-    "projects": "Dự án",
-    "timeline": "Lộ trình",
+    "summary": "Định vị",
+    "skills": "Năng lực",
+    "projects": "Dự án chọn lọc",
+    "timeline": "Kinh nghiệm",
+    "allProjects": "Tất cả dự án",
     "features": "Tính năng",
     "gallery": "Màn hình",
     "tech": "Công nghệ",
     "download": "Tải xuống"
   },
   "hero": {
-    "subtitle": "Lập trình viên Backend & Flutter với nền tảng Hạ tầng IT. Xây dựng ứng dụng di động offline-first và hệ thống doanh nghiệp tin cậy.",
-    "viewProjects": "Xem Dự Án Chọn Lọc",
-    "downloadCV": "Tải Xuống CV"
+    "subtitle": "Software Developer xây dựng sản phẩm web, mobile và công cụ tự động hóa, với kinh nghiệm hỗ trợ CNTT thực tế.",
+    "viewProjects": "Xem dự án chọn lọc",
+    "downloadCV": "Tải xuống CV"
   },
   "about": {
-    "title": "Tóm tắt",
-    "p1": "Tôi là một lập trình viên có nền tảng xuất phát từ Hạ tầng mạng & IT Support. Điều này giúp tôi không chỉ viết code mà còn hiểu rõ cách ứng dụng vận hành trên máy chủ và internet.",
-    "p2": "Hiện tại, tôi đam mê sâu sắc với lập trình web backend và mobile app. Triết lý làm việc của tôi là giải quyết vấn đề cốt lõi của doanh nghiệp bằng những công cụ phù hợp nhất, thay vì chạy theo xu hướng."
+    "label": "Định vị ngắn",
+    "title": "Web, mobile & tự động hóa.",
+    "lead": "Tôi xây dựng phần mềm thực tế với góc nhìn của một developer và bối cảnh vận hành từ kinh nghiệm hỗ trợ CNTT.",
+    "p1": "Công việc của tôi trải rộng từ ứng dụng web, sản phẩm mobile đến những công cụ tự động hóa nhỏ giúp các công việc lặp lại dễ hiểu và dễ hoàn thành hơn.",
+    "p2": "Tôi ưu tiên phạm vi rõ ràng, công cụ phù hợp và phần mềm vẫn hữu ích sau khi bản demo kết thúc.",
+    "hospital": "Bệnh viện Mắt Bình Thuận",
+    "hospitalRole": "IT Helpdesk",
+    "degree": "Cử nhân Công nghệ Thông tin",
+    "degreeRole": "Đại học · 2022 — 2026",
+    "fm": "FM Dictionary",
+    "fmRole": "Sản phẩm Flutter · 1.847 thuật ngữ",
+    "tag1": "Web + Mobile",
+    "tag2": "Tự động hóa + Hỗ trợ CNTT"
   },
   "skills": {
-    "title": "Năng Lực Chuyên Môn",
-    "devTitle": "Software & Mobile",
-    "devDesc": "Xây dựng hệ thống Backend vững chắc, phát triển ứng dụng di động và thiết kế các giải pháp phần mềm toàn diện.",
-    "cloudTitle": "Cloud & Databases",
-    "cloudDesc": "Thiết kế API an toàn, quản lý cơ sở dữ liệu thời gian thực và triển khai các dịch vụ web mở rộng.",
-    "infraTitle": "Network & IT Ops",
-    "infraDesc": "Nền tảng vững chắc về phần cứng, quản trị mạng cơ bản, CMS và vận hành máy chủ đảm bảo độ tin cậy của hệ thống."
+    "label": "Năng lực",
+    "title": "Công cụ cho phần mềm hữu ích",
+    "devTitle": "Web & Mobile",
+    "devDesc": "Xây dựng trải nghiệm web và mobile tập trung với Django, Flutter, Python và những công cụ phù hợp với nhu cầu thực tế của dự án.",
+    "cloudTitle": "Tự động hóa & Dữ liệu",
+    "cloudDesc": "Kết nối quy trình thực tế với Firebase, dữ liệu local, ranh giới dịch vụ rõ ràng và các công cụ tự động hóa nhẹ.",
+    "infraTitle": "Hỗ trợ CNTT",
+    "infraDesc": "Kinh nghiệm hỗ trợ thực tế giúp tôi điều tra sự cố, giao tiếp rõ ràng và duy trì hoạt động công nghệ hằng ngày.",
+    "stackLabel": "Công nghệ & dự án áp dụng",
+    "supportLabel": "Thực hành hỗ trợ"
   },
   "projects": {
-    "title": "Dự Án Chọn Lọc",
-    "p1Category": "Sản Phẩm Live · App Store",
-    "p1Title": "FM Dictionary",
-    "p1Desc": "Ứng dụng sản phẩm thực tế offline-first & luyện phát âm AI cho chuyên gia Quản lý Cơ sở vật chất. Đã phát hành trên App Store với Flutter, Firebase và Cloudflare Workers.",
-    "p1CaseStudy": "Xem Case Study",
-    "p2Category": "Đồ Án Nghiên Cứu · Backend & AI",
-    "p2Title": "Hotel Management System",
-    "p2Desc": "Dự án đồ án nghiên cứu xây dựng hệ thống đặt phòng bằng Django REST framework, thử nghiệm tối ưu hóa truy vấn cơ sở dữ liệu PostgreSQL và tích hợp API OpenAI hỗ trợ tư vấn tự động.",
-    "p2Source": "Xem Mã Nguồn GitHub",
-    "p3Category": "Hạ Tầng Thực Tế · IT Ops",
-    "p3Title": "IT System Reliability",
-    "p3Desc": "Vận hành hạ tầng CNTT thực tế cho hơn 50 máy trạm & hệ thống máy chủ. Duy trì 99.8% uptime với kịch bản tự động sao lưu PostgreSQL, tường lửa mạng và quy trình xử lý sự cố.",
-    "p3Overview": "Liên hệ Vận hành"
+    "label": "Dự án chọn lọc",
+    "title": "Dự án với phạm vi rõ ràng",
+    "viewCaseStudy": "Xem case study",
+    "viewSource": "Xem mã nguồn",
+    "items": {
+      "fmDictionary": {
+        "type": "SẢN PHẨM",
+        "status": "ĐÃ GHI NHẬN",
+        "category": "Products",
+        "title": "FM Dictionary",
+        "desc": "Ứng dụng học từ vựng FM bằng Flutter với 1.847 thuật ngữ, learning core local-first, ranh giới Firebase được ghi nhận, proxy Cloudflare và các luồng phát âm/STT."
+      },
+      "githubVaultRelay": {
+        "type": "OPEN SOURCE",
+        "status": "REPOSITORY",
+        "category": "Open Source",
+        "title": "GitHub Vault Relay",
+        "desc": "Cầu nối đồng bộ GitHub open source, mobile-first cho Obsidian Mobile và desktop, dùng HTTPS API mà không chạy Git trên điện thoại. Sync do người dùng kích hoạt và giữ lại các thay đổi không rõ để review."
+      },
+      "hotelManagement": {
+        "type": "ĐỒ ÁN HỌC THUẬT",
+        "status": "ĐÃ HOÀN THÀNH",
+        "category": "Academic",
+        "title": "Hotel Management",
+        "desc": "Django monolith với template server-rendered và SQLite cho các luồng đặt phòng, tồn kho, hủy phòng và quản trị; kèm RAG dùng embedding HuggingFace và FAISS."
+      },
+      "koiPhanThiet": {
+        "type": "CLIENT / COLLABORATION",
+        "status": "ĐÃ HOÀN THÀNH",
+        "category": "Client / Collaboration",
+        "title": "KOI Phan Thiết",
+        "desc": "Cộng tác WordPress từ tháng 2 đến tháng 5 năm 2026, phụ trách website layer, Polylang, menu đa ngôn ngữ cho năm ngôn ngữ và tối ưu page-load/performance."
+      },
+      "pythonIpChecker": {
+        "type": "TOOLS / AUTOMATION",
+        "status": "UTILITY",
+        "category": "Tools / Automation",
+        "title": "Python IP Checker",
+        "desc": "Tiện ích Python thực tế cho IT, kiểm tra IP theo batch thay vì kiểm tra thủ công từng địa chỉ."
+      }
+    }
   },
   "timeline": {
-    "title": "Lộ Trình",
-    "t1Role": "IT Helpdesk · Bệnh Viện Mắt Bình Thuận",
-    "t1Desc": "Chịu trách nhiệm vận hành, quản trị hạ tầng mạng nội bộ, máy chủ dữ liệu PostgreSQL và hỗ trợ kỹ thuật cho hơn 50 máy trạm toàn viện.",
-    "t2Role": "IT Operations Intern · SOJO Company",
-    "t2Desc": "Tham gia hỗ trợ vận hành hệ thống CNTT, giám sát thiết bị mạng và quy trình công nghệ tại SOJO Company, tích lũy kinh nghiệm thực tế về hạ tầng dịch vụ.",
-    "t3Role": "Tốt Nghiệp Cử Nhân CNTT · Graduation",
-    "t3Desc": "Bảo vệ thành công đồ án tốt nghiệp hệ thống quản lý tích hợp AI, chính thức tốt nghiệp Cử nhân Công nghệ Thông tin với định hướng phát triển phần mềm và hệ thống.",
-    "t4Role": "Cử Nhân Công Nghệ Thông Tin · Đại Học",
-    "t4Desc": "Hoàn thành chương trình cử nhân CNTT, nghiên cứu chuyên sâu về Kiến trúc phần mềm Backend (Django, Python), Lập trình ứng dụng di động (Flutter) và Quản trị mạng (Cisco CCNA)."
+    "label": "Hành trình nghề nghiệp",
+    "title": "Kinh nghiệm",
+    "items": {
+      "hospital": {
+        "role": "IT Helpdesk · Bệnh viện Mắt Bình Thuận",
+        "desc": "Công việc IT helpdesk hiện tại, hỗ trợ người dùng, thiết bị và các vấn đề công nghệ hằng ngày trong môi trường bệnh viện."
+      },
+      "sojo": {
+        "role": "IT Support / IT Operations · SOJO",
+        "desc": "Làm việc về hỗ trợ và vận hành CNTT tại SOJO từ tháng 1 đến tháng 3 năm 2026."
+      },
+      "sailingBay": {
+        "role": "IT Internship · The Sailing Bay",
+        "desc": "Kinh nghiệm thực tập trước đây tại The Sailing Bay; không suy đoán ngày tháng cụ thể."
+      },
+      "degree": {
+        "role": "Cử nhân Công nghệ Thông tin · Đại học",
+        "desc": "Hoàn thành chương trình Cử nhân Công nghệ Thông tin từ năm 2022 đến 2026, với các môn và dự án về phát triển phần mềm, ứng dụng mobile và hệ thống thông tin."
+      }
+    }
+  },
+  "allProjects": {
+    "label": "Danh mục dự án",
+    "title": "Xem tất cả dự án",
+    "desc": "Xem toàn bộ dự án theo các nhóm sản phẩm, open source, cộng tác khách hàng, công cụ và học thuật.",
+    "cta": "Mở danh mục dự án"
   },
   "footer": {
     "letsTalk": "Bắt Đầu.",
-    "updated": "Cập nhật · Tháng 8, 2026"
+    "updated": "Cập nhật · Tháng 9, 2026"
   }
 }

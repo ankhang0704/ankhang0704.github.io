@@ -1,31 +1,39 @@
-# An Khang's Portfolio & FM Dictionary
+# An Khang Portfolio
 
-A dual-purpose repository serving as a personal Software Engineering Portfolio and a product landing page for the **FM Dictionary** app.
+Local Next.js portfolio and FM Dictionary product page for An Khang, a Software Developer working across web, mobile, automation, and hands-on IT support.
 
-## 🚀 Projects Included
+## Routes
 
-1. **Main Portfolio:** Showcases An Khang's journey and transition from IT Support to Backend (Django) and Mobile (Flutter) development.
-2. **FM Dictionary:** A premium vocabulary app built with Flutter (iOS & Android) designed to help the Facilities Management community master 1,800+ specialized FM terms.
+- Localized portfolio home: `/en/` and `/vi/`
+- Project index: `/en/projects/` and `/vi/projects/`
+- Case studies: FM Dictionary and Hotel Management
+- FM Dictionary legal/support pages remain under `/[lang]/fm-dictionary/`
 
-## 🛠 Tech Stack & Architecture
+## Project groups
 
-This project is built using a lightweight, dependency-free frontend approach:
-- **Core:** HTML5 & Vanilla JavaScript
-- **Styling:** Tailwind CSS (via CDN)
-- **Icons:** Font Awesome 6.4.0
-- **Animations:** AOS (Animate On Scroll)
+- Products: FM Dictionary
+- Open Source: GitHub Vault Relay
+- Client / Collaboration: KOI Phan Thiết
+- Tools / Automation: Python IP Checker
+- Academic: Hotel Management
 
-## ✨ Key Features
-- **Bilingual System:** Fully functional Vietnamese (`vi`) and English (`en`) language toggle without reloading the page.
-- **Theme Toggling:** Seamless Light and Dark mode transitions.
-- **Responsive Design:** Mobile-first approach using Tailwind's Flexbox and Grid utilities.
-- **Cinematic Feel:** Long-duration scroll animations and high-contrast editorial typography.
+## Local development
 
-## 📖 Documentation & Guidelines
+```bash
+npm install
+npm run dev
+```
 
-If you are contributing to or modifying this repository, please review the following documents:
-- **[Design Guidelines (DESIGN.md)](./docs/design/DESIGN.md):** The single source of truth for the project's visual identity. It outlines strict rules on typography (Space Grotesk & Playfair Display), the dual-theme monochromatic color palette, spacing, and the "minimalist architect" UX philosophy.
-- **[Agent Context (AGENTS.md)](./AGENTS.md):** The operational policy for AI agents working on this project, ensuring branding, routing, and bilingual rules are strictly followed.
+Verification commands:
 
-## 🌐 Deployment
-The project is deployed via Vercel with clean URLs and trailing slashes enabled for optimal routing across subdirectories.
+```bash
+npm run lint
+npx tsc --noEmit
+npm run build
+```
+
+The current phase is local-only. No deployment or production push is part of this work.
+
+## Design
+
+The monochromatic editorial visual system is documented in [docs/design/DESIGN.md](./docs/design/DESIGN.md). Preserve the existing visual language while keeping project claims tied to canonical source material.
