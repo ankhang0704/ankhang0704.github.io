@@ -20,7 +20,7 @@ An Khang is presented as a **Software Developer** working across web, mobile, an
 - Selected work: FM Dictionary, GitHub Vault Relay, Hotel Management.
 - The old IT infrastructure case study and unsupported reliability metrics were removed.
 - Hotel content reflects the Django monolith, server-rendered templates, SQLite, booking workflows, RAG, Groq, optional local LlamaCpp/Phi-4, and six focused tests.
-- Experience contains the current hospital helpdesk role, SOJO actual work, earlier Sailing Bay internship, and the 2022–2026 degree. No unemployment entry is created.
+- Experience contains the current hospital helpdesk role, SOJO actual work, the 08/2025–11/2025 Sailing Bay internship, and the 2022–2026 degree. No unemployment entry is created.
 - Next.js Platform is not presented as a public project.
 
 ## Verification

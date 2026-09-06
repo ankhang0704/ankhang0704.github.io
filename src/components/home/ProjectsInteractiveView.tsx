@@ -36,6 +36,10 @@ export function ProjectsInteractiveView({
             ? `/${lang}${project.href}`
             : project.href
           : undefined;
+        const externalLabel = lang === "vi" ? project.externalLabelVi ?? project.externalLabel : project.externalLabel;
+        const secondaryExternalLabel = lang === "vi"
+          ? project.secondaryExternalLabelVi ?? project.secondaryExternalLabel
+          : project.secondaryExternalLabel;
 
         return (
           <div
@@ -114,7 +118,17 @@ export function ProjectsInteractiveView({
                       rel="noopener noreferrer"
                       className="border border-black/30 dark:border-white/30 px-6 py-4 text-sm font-bold uppercase tracking-widest hover:border-black dark:hover:border-white transition-all flex items-center"
                     >
-                      {project.externalLabel ?? dict.viewSource}
+                      {externalLabel ?? dict.viewSource}
+                    </a>
+                  )}
+                  {project.secondaryExternalHref && (
+                    <a
+                      href={project.secondaryExternalHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="border border-black/20 dark:border-white/20 px-6 py-4 text-sm font-bold uppercase tracking-widest opacity-80 hover:border-black dark:hover:border-white hover:opacity-100 transition-all flex items-center"
+                    >
+                      {secondaryExternalLabel ?? dict.viewSource}
                     </a>
                   )}
                 </div>

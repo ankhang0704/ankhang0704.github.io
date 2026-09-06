@@ -39,8 +39,8 @@ export const EXPERIENCE: ExperienceDefinition[] = [
   {
     index: "03",
     contentKey: "sailingBay",
-    timeEn: "Earlier",
-    timeVi: "Trước đây",
+    timeEn: "08/2025 – 11/2025",
+    timeVi: "08/2025 – 11/2025",
     statusEn: "COMPLETED",
     statusVi: "ĐÃ HOÀN THÀNH",
     badgeEn: "Internship",

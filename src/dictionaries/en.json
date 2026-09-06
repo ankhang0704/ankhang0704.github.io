@@ -1,10 +1,10 @@
 {
   "nav": {
-    "summary": "Positioning",
-    "skills": "Capabilities",
-    "projects": "Selected Work",
+    "summary": "Summary",
+    "skills": "Skills",
+    "projects": "Work",
     "timeline": "Experience",
-    "allProjects": "All Projects",
+    "allProjects": "Projects",
     "features": "Features",
     "gallery": "Gallery",
     "tech": "Tech Stack",
@@ -43,7 +43,7 @@
     "supportLabel": "Support practice"
   },
   "projects": {
-    "label": "Selected work",
+    "label": "Work",
     "title": "Projects with a clear scope",
     "viewCaseStudy": "View Case Study",
     "viewSource": "View Source",
@@ -57,7 +57,7 @@
       },
       "githubVaultRelay": {
         "type": "OPEN SOURCE",
-        "status": "REPOSITORY",
+        "status": "Obsidian Community Plugin · Open Source",
         "category": "Open Source",
         "title": "GitHub Vault Relay",
         "desc": "A conservative, mobile-first GitHub sync bridge for Obsidian Mobile and desktop, using HTTPS APIs without running Git on the phone. User-triggered sync preserves ambiguous changes for review."
@@ -99,7 +99,7 @@
       },
       "sailingBay": {
         "role": "IT Internship · The Sailing Bay",
-        "desc": "Earlier internship experience at The Sailing Bay; exact dates are intentionally not inferred."
+        "desc": "IT internship at The Sailing Bay from August to November 2025."
       },
       "degree": {
         "role": "B.S. Information Technology · University",

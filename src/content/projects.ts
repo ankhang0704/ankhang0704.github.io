@@ -6,6 +6,10 @@ export type ProjectDefinition = {
   href?: string;
   externalHref?: string;
   externalLabel?: string;
+  externalLabelVi?: string;
+  secondaryExternalHref?: string;
+  secondaryExternalLabel?: string;
+  secondaryExternalLabelVi?: string;
   year?: string;
   tags: string[];
 };
@@ -25,8 +29,12 @@ export const PROJECTS: ProjectDefinition[] = [
     id: "project-github-vault-relay",
     code: "PRJ-02",
     contentKey: "githubVaultRelay",
-    externalHref: "https://github.com/ankhang0704/github-vault-relay",
-    externalLabel: "GitHub ↗",
+    externalHref: "https://community.obsidian.md/plugins/github-vault-relay",
+    externalLabel: "View on Obsidian ↗",
+    externalLabelVi: "Xem trên Obsidian ↗",
+    secondaryExternalHref: "https://github.com/ankhang0704/github-vault-relay",
+    secondaryExternalLabel: "GitHub ↗",
+    secondaryExternalLabelVi: "GitHub ↗",
     tags: ["Open Source", "Obsidian", "GitHub API", "Mobile-first"],
   },
   {
@@ -43,6 +51,8 @@ export const PROJECTS: ProjectDefinition[] = [
     id: "project-koi-phan-thiet",
     code: "PRJ-04",
     contentKey: "koiPhanThiet",
+    externalHref: "https://koiphanthiet.com/",
+    externalLabel: "Visit Site ↗",
     tags: ["WordPress", "Polylang", "5 languages", "Performance"],
   },
   {

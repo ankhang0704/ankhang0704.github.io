@@ -101,11 +101,11 @@ export default function Header({ variant = "main" }: HeaderProps) {
   };
 
   const mainLinks = [
-    { href: isMainPortfolioHome ? "#about" : `/${lang}/#about`, label: isVi ? "Định vị" : "Positioning" },
-    { href: isMainPortfolioHome ? "#skills" : `/${lang}/#skills`, label: isVi ? "Năng lực" : "Capabilities" },
-    { href: isMainPortfolioHome ? "#projects" : `/${lang}/#projects`, label: isVi ? "Dự án chọn lọc" : "Selected Work" },
+    { href: isMainPortfolioHome ? "#about" : `/${lang}/#about`, label: isVi ? "Tóm tắt" : "Summary" },
+    { href: isMainPortfolioHome ? "#skills" : `/${lang}/#skills`, label: isVi ? "Kỹ năng" : "Skills" },
+    { href: isMainPortfolioHome ? "#projects" : `/${lang}/#projects`, label: isVi ? "Nổi bật" : "Work" },
     { href: isMainPortfolioHome ? "#experience" : `/${lang}/#experience`, label: isVi ? "Kinh nghiệm" : "Experience" },
-    { href: `/${lang}/projects/`, label: isVi ? "Tất cả dự án" : "All Projects" },
+    { href: `/${lang}/projects/`, label: isVi ? "Dự án" : "Projects" },
   ];
   const fmLinks = [
     { href: isFmDictionaryHome ? "#features" : `/${lang}/fm-dictionary/#features`, label: isVi ? "Tính năng" : "Features" },

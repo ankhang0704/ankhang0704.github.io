@@ -1,10 +1,10 @@
 {
   "nav": {
-    "summary": "Định vị",
-    "skills": "Năng lực",
-    "projects": "Dự án chọn lọc",
+    "summary": "Tóm tắt",
+    "skills": "Kỹ năng",
+    "projects": "Nổi bật",
     "timeline": "Kinh nghiệm",
-    "allProjects": "Tất cả dự án",
+    "allProjects": "Dự án",
     "features": "Tính năng",
     "gallery": "Màn hình",
     "tech": "Công nghệ",
@@ -43,7 +43,7 @@
     "supportLabel": "Thực hành hỗ trợ"
   },
   "projects": {
-    "label": "Dự án chọn lọc",
+    "label": "Nổi bật",
     "title": "Dự án với phạm vi rõ ràng",
     "viewCaseStudy": "Xem case study",
     "viewSource": "Xem mã nguồn",
@@ -57,7 +57,7 @@
       },
       "githubVaultRelay": {
         "type": "OPEN SOURCE",
-        "status": "REPOSITORY",
+        "status": "Obsidian Community Plugin · Open Source",
         "category": "Open Source",
         "title": "GitHub Vault Relay",
         "desc": "Cầu nối đồng bộ GitHub open source, mobile-first cho Obsidian Mobile và desktop, dùng HTTPS API mà không chạy Git trên điện thoại. Sync do người dùng kích hoạt và giữ lại các thay đổi không rõ để review."
@@ -99,7 +99,7 @@
       },
       "sailingBay": {
         "role": "IT Internship · The Sailing Bay",
-        "desc": "Kinh nghiệm thực tập trước đây tại The Sailing Bay; không suy đoán ngày tháng cụ thể."
+        "desc": "Thực tập CNTT tại The Sailing Bay từ tháng 8 đến tháng 11 năm 2025."
       },
       "degree": {
         "role": "Cử nhân Công nghệ Thông tin · Đại học",
