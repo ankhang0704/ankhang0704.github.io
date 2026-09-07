@@ -20,7 +20,7 @@ export default async function ProjectsPage({
   return (
     <>
       <Header variant="main" />
-      <main className="w-full min-w-0 pt-32 pb-24 relative overflow-x-hidden">
+      <main id="main-content" className="w-full min-w-0 pt-32 pb-24 relative overflow-x-hidden">
         <section className="container mx-auto w-full min-w-0 px-6 md:px-8">
           <div className="w-full max-w-4xl min-w-0 mb-20">
             <div className="mb-6 flex items-center gap-3">

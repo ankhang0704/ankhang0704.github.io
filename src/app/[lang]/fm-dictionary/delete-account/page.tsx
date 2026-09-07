@@ -43,7 +43,7 @@ export default function DeleteAccountPage({
     <>
       <Header variant="fm" />
 
-      <main className="pt-40 pb-32 w-full max-w-full">
+      <main id="main-content" className="pt-40 pb-32 w-full max-w-full">
         <div className="container mx-auto px-6 md:px-8 max-w-4xl break-words">
           {/* Hero */}
           <div className="mb-20">
@@ -132,7 +132,7 @@ export default function DeleteAccountPage({
               </p>
 
               {formSubmitted ? (
-                <div className="p-8 border border-black/20 dark:border-white/20 bg-black/5 dark:bg-white/5 text-center">
+                <div role="status" aria-live="polite" className="p-8 border border-black/20 dark:border-white/20 bg-black/5 dark:bg-white/5 text-center">
                   <Icons.Check size={36} className="mb-4 inline-block" />
                   <h3 className="font-display text-2xl font-bold mb-2 uppercase">
                     {isVi ? "Đã chuẩn bị email thành công!" : "Email Prepared Successfully!"}
@@ -169,30 +169,32 @@ export default function DeleteAccountPage({
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6 max-w-xl mx-auto p-6 md:p-8 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark">
                   <div>
-                    <label className="block text-sm uppercase tracking-widest font-bold mb-2">
+                    <label htmlFor="delete-account-name" className="block text-sm uppercase tracking-widest font-bold mb-2">
                       <span>{isVi ? "Họ và Tên" : "Full Name"}</span>
                       <span className="text-black dark:text-white opacity-50 ml-1">*</span>
                     </label>
                     <input
                       type="text"
+                      id="delete-account-name"
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full px-4 py-3 bg-bgLight dark:bg-bgDark border border-black/15 dark:border-white/15 focus:border-black dark:focus:border-white outline-none transition-colors text-base"
+                      className="w-full px-4 py-3 bg-bgLight dark:bg-bgDark border border-black/15 dark:border-white/15 focus:border-black dark:focus:border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:focus-visible:outline-white transition-colors text-base"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm uppercase tracking-widest font-bold mb-2">
+                    <label htmlFor="delete-account-email" className="block text-sm uppercase tracking-widest font-bold mb-2">
                       <span>{isVi ? "Địa chỉ Email" : "Email Address"}</span>
                       <span className="text-black dark:text-white opacity-50 ml-1">*</span>
                     </label>
                     <input
                       type="email"
+                      id="delete-account-email"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-4 py-3 bg-bgLight dark:bg-bgDark border border-black/15 dark:border-white/15 focus:border-black dark:focus:border-white outline-none transition-colors text-base"
+                      className="w-full px-4 py-3 bg-bgLight dark:bg-bgDark border border-black/15 dark:border-white/15 focus:border-black dark:focus:border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:focus-visible:outline-white transition-colors text-base"
                     />
                   </div>
 

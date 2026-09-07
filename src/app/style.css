@@ -55,32 +55,6 @@ html {
 
 
 
-@keyframes shimmer {
-    to {
-        background-position: 200% center;
-    }
-}
-
-@keyframes fm-gallery-scroll {
-    to {
-        transform: translateX(calc(-50% - 0.5rem));
-    }
-}
-
-.fm-gallery-track {
-    animation: fm-gallery-scroll 32s linear infinite;
-}
-
-.fm-gallery:hover .fm-gallery-track {
-    animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .fm-gallery-track {
-        animation: none;
-    }
-}
-
 /* FIX LỖI TIMELINE (Cấu trúc thanh dọc và dấu chấm) */
 .timeline-container {
     border-left: 2px solid currentColor;
@@ -258,27 +232,6 @@ html {
 .mobile-nav-link:hover {
     opacity: 0.5;
     transform: translateX(10px);
-}
-
-/* --- Infinite Scroll Animation --- */
-@keyframes infinite-scroll {
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(-50%);
-    }
-}
-
-.animate-infinite-scroll {
-    display: flex;
-    width: max-content;
-    animation: infinite-scroll 40s linear infinite;
-}
-
-.animate-infinite-scroll:hover {
-    animation-play-state: paused;
 }
 
 /* --- Slideshow Progress Bar --- */

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useId, useState, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { Icons } from "@/components/Icons";
@@ -13,6 +13,7 @@ interface FAQItemProps {
 
 export function FAQItem({ question, children, defaultOpen = false }: FAQItemProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+  const contentId = `faq-${useId().replace(/:/g, "")}`;
   const contentRef = useRef<HTMLDivElement>(null);
   const iconRef = useRef<HTMLSpanElement>(null);
 
@@ -53,7 +54,7 @@ export function FAQItem({ question, children, defaultOpen = false }: FAQItemProp
         }
       }
     },
-    { dependencies: [isOpen] }
+    { dependencies: [isOpen], revertOnUpdate: true }
   );
 
   return (
@@ -63,6 +64,7 @@ export function FAQItem({ question, children, defaultOpen = false }: FAQItemProp
         onClick={() => setIsOpen(!isOpen)}
         className="w-full p-6 text-left flex justify-between items-center gap-4 group focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black dark:focus-visible:outline-white"
         aria-expanded={isOpen}
+        aria-controls={contentId}
       >
         <span className="font-bold text-lg md:text-xl group-hover:opacity-80 transition-opacity">
           {question}
@@ -76,9 +78,12 @@ export function FAQItem({ question, children, defaultOpen = false }: FAQItemProp
       </button>
 
       <div
+        id={contentId}
         ref={contentRef}
         style={{ height: defaultOpen ? "auto" : 0, opacity: defaultOpen ? 1 : 0 }}
         className="overflow-hidden"
+        aria-hidden={!isOpen}
+        inert={!isOpen}
       >
         <div className="p-6 pt-0 font-light text-base md:text-lg leading-relaxed opacity-80 border-t border-black/5 dark:border-white/5 mt-2">
           {children}

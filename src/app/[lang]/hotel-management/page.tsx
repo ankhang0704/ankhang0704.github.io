@@ -84,7 +84,7 @@ export default async function HotelManagementCaseStudy({
     <>
       <Header variant="main" />
       <CaseStudyAnimations>
-        <main className="relative overflow-x-hidden pb-24 pt-28 md:pt-32">
+        <main id="main-content" className="relative overflow-x-hidden pb-24 pt-28 md:pt-32">
           <section className="container mx-auto grid min-h-[calc(100dvh-7rem)] items-center gap-12 px-6 md:px-8 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-7">
               <div className="cs-breadcrumb mb-8 flex flex-wrap items-center gap-4">

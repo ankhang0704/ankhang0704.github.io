@@ -111,7 +111,7 @@ export default async function FMDictionaryCaseStudyPage({
     <>
       <Header variant="fm" />
 
-      <main className="w-full min-w-0 overflow-x-hidden pt-32">
+      <main id="main-content" className="w-full min-w-0 overflow-x-hidden pt-32">
         <section className="container mx-auto w-full min-w-0 px-6 pb-24 md:px-8 md:pb-32">
           <div className="max-w-5xl">
             <p className="mb-6 inline-block border-b border-black pb-2 text-xs font-bold uppercase tracking-[0.3em] dark:border-white">

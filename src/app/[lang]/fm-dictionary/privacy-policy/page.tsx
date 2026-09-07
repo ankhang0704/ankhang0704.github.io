@@ -20,7 +20,7 @@ export default function PrivacyPolicyPage({
     <>
       <Header variant="fm" />
 
-      <main className="pt-40 pb-32 w-full max-w-full overflow-x-hidden">
+      <main id="main-content" className="pt-40 pb-32 w-full max-w-full overflow-x-hidden">
         <div className="container mx-auto px-6 md:px-8 max-w-4xl break-words overflow-x-hidden">
           {/* Hero */}
           <div className="mb-20">

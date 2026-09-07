@@ -18,7 +18,7 @@ export default function TermsOfServicePage({
     <>
       <Header variant="fm" />
 
-      <main className="pt-40 pb-32 overflow-x-hidden w-full max-w-[100vw]">
+      <main id="main-content" className="pt-40 pb-32 overflow-x-hidden w-full max-w-[100vw]">
         <div className="container mx-auto px-6 md:px-8 max-w-4xl break-words">
           {/* Hero */}
           <div className="mb-20">

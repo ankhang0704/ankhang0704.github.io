@@ -70,7 +70,10 @@ export default function Footer({ variant = "main" }: FooterProps) {
   );
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    });
   };
 
   return (
@@ -104,29 +107,29 @@ export default function Footer({ variant = "main" }: FooterProps) {
                 <a
                   href="https://github.com/ankhang0704"
                   aria-label="GitHub Profile"
-                  className="footer-social-icon hover:opacity-50 transition-opacity duration-500"
+                  className="footer-social-icon inline-flex min-h-11 min-w-11 items-center justify-center hover:opacity-50 transition-opacity duration-500"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <Icons.Github className="text-black dark:text-white" />
+                  <Icons.Github className="text-black dark:text-white" aria-hidden="true" />
                 </a>
                 <a
                   href="https://www.linkedin.com/in/ankhang0704/"
                   aria-label="LinkedIn Profile"
-                  className="footer-social-icon hover:opacity-50 transition-opacity duration-500"
+                  className="footer-social-icon inline-flex min-h-11 min-w-11 items-center justify-center hover:opacity-50 transition-opacity duration-500"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <Icons.LinkedIn className="text-black dark:text-white" />
+                  <Icons.LinkedIn className="text-black dark:text-white" aria-hidden="true" />
                 </a>
                 <a
                   href="https://www.facebook.com/ankhang0704"
                   aria-label="Facebook Profile"
-                  className="footer-social-icon hover:opacity-50 transition-opacity duration-500"
+                  className="footer-social-icon inline-flex min-h-11 min-w-11 items-center justify-center hover:opacity-50 transition-opacity duration-500"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <Icons.Facebook className="text-black dark:text-white" />
+                  <Icons.Facebook className="text-black dark:text-white" aria-hidden="true" />
                 </a>
               </div>
 
@@ -159,19 +162,19 @@ export default function Footer({ variant = "main" }: FooterProps) {
               <div className="flex justify-center space-x-8 mb-12 text-3xl">
                 <a
                   href="mailto:ankhang.nguyen0704@gmail.com"
-                  className="footer-social-icon hover:opacity-50 transition-opacity duration-500"
+                  className="footer-social-icon inline-flex min-h-11 min-w-11 items-center justify-center hover:opacity-50 transition-opacity duration-500"
                   aria-label="Email"
                 >
-                  <Icons.Mail className="text-black dark:text-white" />
+                  <Icons.Mail className="text-black dark:text-white" aria-hidden="true" />
                 </a>
                 <a
                   href="https://github.com/ankhang0704"
-                  className="footer-social-icon hover:opacity-50 transition-opacity duration-500"
+                  className="footer-social-icon inline-flex min-h-11 min-w-11 items-center justify-center hover:opacity-50 transition-opacity duration-500"
                   target="_blank"
                   rel="noreferrer"
                   aria-label="GitHub"
                 >
-                  <Icons.Github className="text-black dark:text-white" />
+                  <Icons.Github className="text-black dark:text-white" aria-hidden="true" />
                 </a>
               </div>
 
@@ -215,8 +218,9 @@ export default function Footer({ variant = "main" }: FooterProps) {
           showBackToTop ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-6 pointer-events-none"
         }`}
         aria-label="Back to top"
+        tabIndex={showBackToTop ? 0 : -1}
       >
-        <Icons.ArrowUp size={20} />
+        <Icons.ArrowUp size={20} aria-hidden="true" />
       </button>
     </>
   );

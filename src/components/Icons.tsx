@@ -28,7 +28,7 @@ import {
   IconBrandGithub,
   IconBrandLinkedin,
   IconBrandFacebook,
-  // New icons for full FA migration
+  // Brand and product icons used by the portfolio system
   IconMap,
   IconTrophy,
   IconBrandApple,

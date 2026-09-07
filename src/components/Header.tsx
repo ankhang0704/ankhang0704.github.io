@@ -18,6 +18,10 @@ export default function Header({ variant = "main" }: HeaderProps) {
   const [isDark, setIsDark] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const progressBarRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
+  const firstMobileMenuLinkRef = useRef<HTMLAnchorElement>(null);
+  const wasMobileMenuOpen = useRef(false);
   const pathname = usePathname();
   const router = useRouter();
   const lang = pathname.startsWith("/vi") ? "vi" : "en";
@@ -77,14 +81,38 @@ export default function Header({ variant = "main" }: HeaderProps) {
   }, [isMobileMenuOpen]);
 
   useEffect(() => {
-    if (!isMobileMenuOpen) return;
+    if (!isMobileMenuOpen) {
+      if (wasMobileMenuOpen.current) mobileMenuButtonRef.current?.focus();
+      wasMobileMenuOpen.current = false;
+      return;
+    }
+
+    wasMobileMenuOpen.current = true;
+    const focusFrame = window.requestAnimationFrame(() => firstMobileMenuLinkRef.current?.focus());
 
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setIsMobileMenuOpen(false);
+
+      if (event.key !== "Tab" || !mobileMenuRef.current) return;
+      const focusable = Array.from(mobileMenuRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'));
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
     window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
+    return () => {
+      window.cancelAnimationFrame(focusFrame);
+      window.removeEventListener("keydown", closeOnEscape);
+    };
   }, [isMobileMenuOpen]);
 
   useEffect(() => {
@@ -159,18 +187,18 @@ export default function Header({ variant = "main" }: HeaderProps) {
 
             <div className="flex shrink-0 items-center space-x-4 md:space-x-6">
               <div className="hidden md:flex items-center space-x-6">
-                <button onClick={() => changeLang(lang === "en" ? "vi" : "en")} className="text-sm font-bold tracking-widest hover:opacity-50 transition-opacity" aria-label={lang === "en" ? "Switch to Vietnamese" : "Switch to English"}>
+                <button onClick={() => changeLang(lang === "en" ? "vi" : "en")} className="flex min-h-11 min-w-11 items-center justify-center text-sm font-bold tracking-widest hover:opacity-50 transition-opacity" aria-label={lang === "en" ? "Switch to Vietnamese" : "Switch to English"}>
                   {lang === "en" ? "VI" : "EN"}
                 </button>
-                <button onClick={toggleTheme} className="text-xl hover:rotate-180 transition-transform duration-500" aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}>
-                  {isDark ? <Icons.Sun className="block" /> : <Icons.Moon className="block" />}
+                <button onClick={toggleTheme} className="flex min-h-11 min-w-11 items-center justify-center text-xl hover:rotate-180 transition-transform duration-500" aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}>
+                  {isDark ? <Icons.Sun className="block" aria-hidden="true" /> : <Icons.Moon className="block" aria-hidden="true" />}
                 </button>
               </div>
-              <button onClick={() => setIsMobileMenuOpen(true)} className={`md:hidden text-black dark:text-white text-2xl p-2 flex items-center justify-center ${isMobileMenuOpen ? "hidden" : ""}`} aria-label="Open navigation menu" aria-expanded={isMobileMenuOpen} aria-controls="mobile-menu">
-                <Icons.Menu size={24} />
+              <button ref={mobileMenuButtonRef} onClick={() => setIsMobileMenuOpen(true)} className={`md:hidden text-black dark:text-white text-2xl p-2 flex min-h-11 min-w-11 items-center justify-center ${isMobileMenuOpen ? "hidden" : ""}`} aria-label="Open navigation menu" aria-expanded={isMobileMenuOpen} aria-controls="mobile-menu">
+                <Icons.Menu size={24} aria-hidden="true" />
               </button>
-              <button onClick={() => setIsMobileMenuOpen(false)} className={`md:hidden text-black dark:text-white text-3xl p-2 flex items-center justify-center ${isMobileMenuOpen ? "" : "hidden"}`} aria-label="Close navigation menu" aria-expanded={isMobileMenuOpen} aria-controls="mobile-menu">
-                <Icons.Close size={30} />
+              <button onClick={() => setIsMobileMenuOpen(false)} className={`md:hidden text-black dark:text-white text-3xl p-2 flex min-h-11 min-w-11 items-center justify-center ${isMobileMenuOpen ? "" : "hidden"}`} aria-label="Close navigation menu" aria-expanded={isMobileMenuOpen} aria-controls="mobile-menu">
+                <Icons.Close size={30} aria-hidden="true" />
               </button>
             </div>
           </div>
@@ -180,6 +208,7 @@ export default function Header({ variant = "main" }: HeaderProps) {
       </header>
 
       <div
+        ref={mobileMenuRef}
         id="mobile-menu"
         role="dialog"
         aria-modal="true"
@@ -189,19 +218,19 @@ export default function Header({ variant = "main" }: HeaderProps) {
         className={`fixed inset-0 bg-bgLight/98 dark:bg-bgDark/98 z-[60] flex flex-col items-center justify-start pt-32 pb-12 space-y-12 text-2xl font-display uppercase tracking-widest transition-all duration-500 w-full h-full ${isMobileMenuOpen ? "active opacity-100 pointer-events-auto overflow-y-auto" : "opacity-0 pointer-events-none overflow-hidden"}`}
       >
         <nav className="flex flex-col items-center space-y-10">
-          {links.map((link) => (
-            <Link key={`${link.section}-${link.href}`} href={link.href} className="mobile-nav-link" onClick={() => { rememberHomeSection(link.section); setIsMobileMenuOpen(false); }}>
+          {links.map((link, index) => (
+            <Link ref={index === 0 ? firstMobileMenuLinkRef : undefined} key={`${link.section}-${link.href}`} href={link.href} className="mobile-nav-link" onClick={() => { rememberHomeSection(link.section); setIsMobileMenuOpen(false); }}>
               {link.label}
             </Link>
           ))}
         </nav>
 
         <div className="flex items-center space-x-12 pt-12 border-t border-black/10 dark:border-white/10 w-2/3 justify-center">
-          <button onClick={() => changeLang(lang === "en" ? "vi" : "en")} className="text-lg font-bold tracking-widest" aria-label={lang === "en" ? "Switch to Vietnamese" : "Switch to English"}>
+          <button onClick={() => changeLang(lang === "en" ? "vi" : "en")} className="flex min-h-11 min-w-11 items-center justify-center text-lg font-bold tracking-widest" aria-label={lang === "en" ? "Switch to Vietnamese" : "Switch to English"}>
             {lang === "en" ? "VI" : "EN"}
           </button>
-          <button onClick={toggleTheme} className="text-3xl hover:rotate-180 transition-transform duration-500 flex items-center justify-center" aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}>
-            {isDark ? <Icons.Sun className="block" /> : <Icons.Moon className="block" />}
+          <button onClick={toggleTheme} className="flex min-h-11 min-w-11 items-center justify-center text-3xl hover:rotate-180 transition-transform duration-500" aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}>
+            {isDark ? <Icons.Sun className="block" aria-hidden="true" /> : <Icons.Moon className="block" aria-hidden="true" />}
           </button>
         </div>
       </div>

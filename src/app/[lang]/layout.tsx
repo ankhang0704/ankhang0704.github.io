@@ -83,6 +83,9 @@ export default async function LocalizedLayout({
         <GSAPInit />
         <ScrollSpyInit />
         <AmbientGlow />
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[200] focus:border focus:border-black focus:bg-bgLight focus:px-4 focus:py-3 focus:text-sm focus:font-bold focus:uppercase focus:tracking-widest dark:focus:border-white dark:focus:bg-bgDark">
+          {currentLang === "vi" ? "Bỏ qua đến nội dung" : "Skip to content"}
+        </a>
         {children}
       </body>
     </html>

@@ -29,6 +29,8 @@ export default function FMDictionaryPage({
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isHoveringGallery, setIsHoveringGallery] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const modalCloseRef = useRef<HTMLButtonElement>(null);
+  const selectedScreen = APP_SCREENS.find((screen) => screen.img === selectedImg);
 
   const centerSlide = (index: number) => {
     const container = scrollRef.current;
@@ -37,7 +39,7 @@ export default function FMDictionaryPage({
 
     container.scrollTo({
       left: card.offsetLeft - container.clientWidth / 2 + card.offsetWidth / 2,
-      behavior: "smooth",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
     });
   };
 
@@ -47,7 +49,7 @@ export default function FMDictionaryPage({
   };
 
   useEffect(() => {
-    if (isHoveringGallery) return;
+    if (isHoveringGallery || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const interval = window.setInterval(() => {
       setCurrentSlide((previous) => {
@@ -69,11 +71,17 @@ export default function FMDictionaryPage({
     return () => window.removeEventListener("keydown", handleEscape);
   }, []);
 
+  useEffect(() => {
+    if (!selectedImg) return;
+    const frame = window.requestAnimationFrame(() => modalCloseRef.current?.focus());
+    return () => window.cancelAnimationFrame(frame);
+  }, [selectedImg]);
+
   return (
     <div>
       <Header variant="fm" />
 
-      <main>
+      <main id="main-content">
         <section id="hero" className="relative flex min-h-[100dvh] items-center overflow-x-hidden pb-20 pt-32 md:pb-0 md:pt-20">
           <div className="container relative z-10 mx-auto w-full min-w-0 px-6 md:px-8">
             <p className="mb-6 inline-block border-b border-black pb-2 text-sm uppercase tracking-[0.3em] dark:border-white">Product case study · 2026</p>
@@ -133,7 +141,7 @@ export default function FMDictionaryPage({
                 const FeatureIcon = Icon as typeof Icons.Home;
                 return (
                   <div key={String(title)} className="border border-black/5 p-8 transition-colors hover:border-black/20 dark:border-white/5 dark:hover:border-white/20 md:p-10">
-                    <div className="mb-6"><FeatureIcon size={32} strokeWidth={1.5} /></div>
+                    <div className="mb-6"><FeatureIcon size={32} strokeWidth={1.5} aria-hidden="true" /></div>
                     <h3 className="mb-4 font-display text-xl font-bold">{String(title)}</h3>
                     <p className="font-light leading-relaxed opacity-70">{String(desc)}</p>
                   </div>
@@ -181,21 +189,33 @@ export default function FMDictionaryPage({
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
                 {APP_SCREENS.map((screen, index) => (
-                  <button key={screen.img} type="button" onClick={() => scrollToSlide(index)} aria-label={`Go to slide ${index + 1}`} className={index === currentSlide ? "h-2 w-6 bg-black dark:bg-white" : "h-2 w-2 bg-black/20 dark:bg-white/20"} />
+                  <button key={screen.img} type="button" onClick={() => scrollToSlide(index)} aria-label={`Go to slide ${index + 1}`} aria-current={index === currentSlide ? "true" : undefined} className="flex h-11 w-11 items-center justify-center">
+                    <span className={index === currentSlide ? "h-2 w-6 bg-black dark:bg-white" : "h-2 w-2 bg-black/20 dark:bg-white/20"} />
+                  </button>
                 ))}
               </div>
               <div className="flex gap-3">
-                <button type="button" onClick={() => scrollToSlide((currentSlide - 1 + APP_SCREENS.length) % APP_SCREENS.length)} aria-label="Previous screen" className="flex h-10 w-10 items-center justify-center border border-black/10 transition-colors hover:border-black dark:border-white/10 dark:hover:border-white">
+                <button type="button" onClick={() => scrollToSlide((currentSlide - 1 + APP_SCREENS.length) % APP_SCREENS.length)} aria-label="Previous screen" className="flex h-11 w-11 items-center justify-center border border-black/10 transition-colors hover:border-black dark:border-white/10 dark:hover:border-white">
                   <Icons.ChevronLeft size={16} />
                 </button>
-                <button type="button" onClick={() => scrollToSlide((currentSlide + 1) % APP_SCREENS.length)} aria-label="Next screen" className="flex h-10 w-10 items-center justify-center border border-black/10 transition-colors hover:border-black dark:border-white/10 dark:hover:border-white">
+                <button type="button" onClick={() => scrollToSlide((currentSlide + 1) % APP_SCREENS.length)} aria-label="Next screen" className="flex h-11 w-11 items-center justify-center border border-black/10 transition-colors hover:border-black dark:border-white/10 dark:hover:border-white">
                   <Icons.ChevronRight size={16} />
                 </button>
               </div>
             </div>
           </div>
 
-          <div onMouseEnter={() => setIsHoveringGallery(true)} onMouseLeave={() => setIsHoveringGallery(false)}>
+          <div
+            onMouseEnter={() => setIsHoveringGallery(true)}
+            onMouseLeave={() => setIsHoveringGallery(false)}
+            onFocusCapture={() => setIsHoveringGallery(true)}
+            onBlurCapture={(event) => {
+              if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)) {
+                setIsHoveringGallery(false);
+              }
+            }}
+            onPointerDown={() => setIsHoveringGallery(true)}
+          >
             <div ref={scrollRef} className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-6 pb-8 scrollbar-hide md:gap-8 md:px-32">
               {APP_SCREENS.map((item, index) => {
                 const IconComp = item.IconComponent;
@@ -204,7 +224,7 @@ export default function FMDictionaryPage({
                     <Image src={item.img} alt={`FM Dictionary ${item.label}`} fill sizes="(max-width: 768px) 68vw, 288px" className="object-contain transition-transform duration-500 group-hover:scale-[1.02]" />
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 pt-20 opacity-0 transition-all duration-300 group-hover:opacity-100">
                       <div className="text-white">
-                        <div className="mb-2 flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] opacity-60"><IconComp size={12} /> UI Screen</div>
+                      <div className="mb-2 flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] opacity-60"><IconComp size={12} aria-hidden="true" /> UI Screen</div>
                         <div className="font-display text-lg font-bold uppercase tracking-widest">{item.label}</div>
                       </div>
                     </div>
@@ -224,7 +244,7 @@ export default function FMDictionaryPage({
 
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
               <div className="flex flex-col items-center gap-8 border border-black/10 bg-bgLight p-8 transition-colors hover:border-black dark:border-white/10 dark:bg-bgDark dark:hover:border-white md:flex-row md:items-start md:p-12">
-                <Icons.Apple size={48} strokeWidth={1.5} />
+                <Icons.Apple size={48} strokeWidth={1.5} aria-hidden="true" />
                 <div className="flex-1 text-center md:text-left">
                   <h3 className="mb-3 font-display text-2xl font-bold">iOS listing</h3>
                   <p className="mb-6 font-light leading-relaxed opacity-70">{isVi ? "Liên kết listing iOS hiện có của FM Dictionary." : "The current FM Dictionary iOS listing link."}</p>
@@ -232,7 +252,7 @@ export default function FMDictionaryPage({
                 </div>
               </div>
               <div className="flex flex-col items-center gap-8 border border-black/5 bg-bgLight/50 p-8 opacity-70 dark:border-white/5 dark:bg-bgDark/50 md:flex-row md:items-start md:p-12">
-                <Icons.GooglePlay size={48} strokeWidth={1.5} />
+                <Icons.GooglePlay size={48} strokeWidth={1.5} aria-hidden="true" />
                 <div className="flex-1 text-center md:text-left">
                   <h3 className="mb-3 font-display text-2xl font-bold">Android target</h3>
                   <p className="font-light leading-relaxed opacity-70">{isVi ? "Android thuộc phạm vi sản phẩm; không tuyên bố public store listing trong portfolio hiện tại." : "Android is part of the product scope; this portfolio does not claim a public store listing here."}</p>
@@ -258,7 +278,7 @@ export default function FMDictionaryPage({
                 const PermissionIcon = Icon as typeof Icons.Microphone;
                 return (
                   <div key={String(title)} className="flex flex-col items-start gap-8 border border-black/10 p-6 transition-colors hover:border-black dark:border-white/10 dark:hover:border-white md:flex-row md:p-8">
-                    <PermissionIcon size={32} strokeWidth={1.5} />
+                    <PermissionIcon size={32} strokeWidth={1.5} aria-hidden="true" />
                     <div className="flex-1">
                       <h3 className="mb-2 font-display text-xl font-bold">{String(title)}</h3>
                       <p className="mb-4 font-light leading-relaxed opacity-70">{String(desc)}</p>
@@ -291,7 +311,7 @@ export default function FMDictionaryPage({
                 return (
                   <Link key={String(slug)} href={localizedPath(lang, `/fm-dictionary/${String(slug)}/`)} className="group flex items-center justify-between border border-black/10 p-4 transition-colors hover:border-black dark:border-white/10 dark:hover:border-white">
                     <span className="flex items-center gap-3 text-sm font-bold uppercase tracking-widest"><LinkIcon size={18} strokeWidth={1.5} aria-hidden="true" />{String(label)}</span>
-                    <span className="transition-transform group-hover:translate-x-2">→</span>
+                    <Icons.ArrowRight size={16} aria-hidden="true" className="transition-transform group-hover:translate-x-2" />
                   </Link>
                 );
               })}
@@ -303,10 +323,10 @@ export default function FMDictionaryPage({
       <Footer variant="fm" />
 
       {selectedImg && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-6" role="dialog" aria-modal="true" onClick={() => setSelectedImg(null)}>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-6" role="dialog" aria-modal="true" aria-label={isVi ? "Xem ảnh màn hình FM Dictionary" : "FM Dictionary screen preview"} onClick={() => setSelectedImg(null)}>
           <div className="relative h-[85vh] w-full max-w-2xl" onClick={(event) => event.stopPropagation()}>
-            <Image src={selectedImg} alt="FM Dictionary screenshot" fill sizes="90vw" className="object-contain" />
-            <button type="button" onClick={() => setSelectedImg(null)} aria-label="Close image" className="absolute right-0 top-0 border border-white px-4 py-2 text-xs uppercase tracking-widest text-white">Close</button>
+            <Image src={selectedImg} alt={`FM Dictionary ${selectedScreen?.label ?? "screen"}`} fill sizes="90vw" className="object-contain" />
+            <button ref={modalCloseRef} type="button" onClick={() => setSelectedImg(null)} aria-label="Close image" className="absolute right-0 top-0 border border-white px-4 py-2 text-xs uppercase tracking-widest text-white">Close</button>
           </div>
         </div>
       )}

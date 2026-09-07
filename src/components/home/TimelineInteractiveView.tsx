@@ -1,6 +1,7 @@
 "use client";
 
 import { EXPERIENCE } from "@/content/experience";
+import { Icons } from "@/components/Icons";
 
 type ExperienceCopy = {
   role: string;
@@ -56,7 +57,7 @@ export function TimelineInteractiveView({
               <div className="lg:col-span-8 lg:border-l lg:border-black/10 dark:lg:border-white/10 lg:pl-10 space-y-5">
                 <h4 className="font-display text-3xl md:text-4xl font-bold group-hover:translate-x-2 transition-transform duration-300 flex items-center justify-between">
                   <span>{copy.role}</span>
-                  <span className="opacity-0 group-hover:opacity-100 transition-opacity font-mono text-xl">→</span>
+                  <Icons.ArrowRight size={20} aria-hidden="true" className="opacity-0 transition-opacity group-hover:opacity-100" />
                 </h4>
 
                 <p className="font-light opacity-85 text-xl leading-relaxed text-justify max-w-[65ch]">{copy.desc}</p>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ProjectDefinition, SELECTED_PROJECTS } from "@/content/projects";
+import { Icons } from "@/components/Icons";
 import { localizedPath } from "@/lib/locale-path";
 
 export type ProjectPresentation = "feature" | "grid";
@@ -41,7 +42,7 @@ function ProjectActions({ project, dict, lang }: { project: ProjectDefinition; d
     <div className="flex flex-wrap gap-3 pt-4">
       {caseStudyHref && (
         <Link href={caseStudyHref} className="inline-flex items-center gap-3 border border-black px-5 py-3 text-xs font-bold uppercase tracking-widest transition-all hover:bg-black hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-black">
-          {dict.viewCaseStudy}<span>→</span>
+          {dict.viewCaseStudy}<Icons.ArrowRight size={16} aria-hidden="true" />
         </Link>
       )}
       {project.externalHref && (
@@ -62,7 +63,7 @@ function ProjectImage({ project, title, className = "", number }: { project: Pro
   return (
     <div className={`relative overflow-hidden border border-black/10 bg-bgLight dark:border-white/10 dark:bg-bgDark ${className}`}>
       {project.image ? (
-        <Image src={project.image} alt={title} fill sizes="(max-width: 1024px) 100vw, 60vw" className="object-cover grayscale transition-all duration-700 group-hover:grayscale-0" />
+        <Image src={project.image} alt={title} fill sizes="(max-width: 1024px) 100vw, 60vw" className="scale-105 object-cover grayscale transition-all duration-1000 group-hover:scale-100 group-hover:grayscale-0" />
       ) : (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 font-mono text-xs uppercase tracking-[0.25em] opacity-60">
           <span className="text-5xl font-serif italic">{project.code}</span>
@@ -119,7 +120,7 @@ function GridPresentation({ lang, dict, projects }: ProjectsInteractiveViewProps
                   <span className="font-mono text-xs uppercase tracking-widest opacity-50">{project.code} / {copy.category}</span>
                   <h3 className="mt-2 font-display text-2xl font-bold md:text-3xl">{copy.title}</h3>
                 </div>
-                <span className="text-xl opacity-45 transition-transform group-hover:translate-x-1">→</span>
+                <Icons.ArrowRight size={20} aria-hidden="true" className="opacity-45 transition-transform group-hover:translate-x-1" />
               </div>
               <p className="mt-4 max-w-[65ch] text-base font-light leading-relaxed opacity-75">{copy.desc}</p>
               <ProjectActions project={project} dict={dict} lang={lang} />

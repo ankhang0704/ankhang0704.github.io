@@ -78,7 +78,7 @@ export default async function GithubVaultRelayPage({
     <>
       <Header variant="main" />
 
-      <main className="w-full min-w-0 overflow-x-hidden pt-32">
+      <main id="main-content" className="w-full min-w-0 overflow-x-hidden pt-32">
         <section className="container mx-auto grid min-h-[calc(100dvh-7rem)] w-full min-w-0 items-center gap-12 px-6 pb-24 md:px-8 md:pb-32 lg:grid-cols-12 lg:gap-16">
           <div className="min-w-0 lg:col-span-7">
             <div className="mb-8 flex flex-wrap items-center gap-4">

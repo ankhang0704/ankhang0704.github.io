@@ -5,6 +5,7 @@ import { TechBadgeButton } from "@/components/home/TechBadgeButton";
 import { SummaryInteractiveView } from "@/components/home/SummaryInteractiveView";
 import { TimelineInteractiveView } from "@/components/home/TimelineInteractiveView";
 import { ProjectIndexShowcase, ProjectsShowcase } from "@/components/home/ProjectsShowcase";
+import { Icons } from "@/components/Icons";
 import { getDictionary, Locale } from "@/dictionaries/get-dictionary";
 
 export async function generateStaticParams() {
@@ -26,7 +27,7 @@ export default async function Home({
       <Header />
 
       <HomeAnimations>
-        <main>
+        <main id="main-content">
           <section id="hero" className="min-h-[100dvh] flex items-center relative overflow-x-hidden pt-20">
             <div className="container mx-auto px-6 md:px-8 relative z-10">
               <p className="hero-badge text-sm tracking-[0.3em] uppercase mb-6 border-b border-black dark:border-white inline-block pb-2">
@@ -48,7 +49,7 @@ export default async function Home({
                   className="hero-cta-btn border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all flex items-center justify-center w-full sm:w-auto group/btn1"
                 >
                   <span>{dict.hero.viewProjects}</span>
-                  <span className="ml-3 group-hover/btn1:translate-x-2 transition-transform duration-300">→</span>
+                  <Icons.ArrowRight size={16} aria-hidden="true" className="ml-3 transition-transform duration-300 group-hover/btn1:translate-x-2" />
                 </a>
                 <a
                   href="/my_cv.pdf"
@@ -58,7 +59,7 @@ export default async function Home({
                   className="hero-cta-btn bg-black text-white dark:bg-white dark:text-black border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:opacity-80 transition-all flex items-center justify-center w-full sm:w-auto group/btn2"
                 >
                   <span>{dict.hero.downloadCV}</span>
-                  <span className="ml-3 group-hover/btn2:translate-y-1 transition-transform duration-300">↓</span>
+                  <Icons.ChevronDown size={16} aria-hidden="true" className="ml-3 transition-transform duration-300 group-hover/btn2:translate-y-1" />
                 </a>
               </div>
             </div>

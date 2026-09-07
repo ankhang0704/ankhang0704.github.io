@@ -43,7 +43,7 @@ export function CopyEmailButton({
     <>
       <button
         onClick={handleCopy}
-        className={`inline-flex items-center gap-2 transition-all group ${className}`}
+        className={`inline-flex min-h-11 items-center gap-2 transition-all group ${className}`}
         title={isVi ? "Sao chép địa chỉ email" : "Copy email address"}
         aria-label={isVi ? "Sao chép email" : "Copy email"}
       >

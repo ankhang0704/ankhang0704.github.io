@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ProjectDefinition, SELECTED_PROJECTS } from "@/content/projects";
 import { ProjectsInteractiveView } from "@/components/home/ProjectsInteractiveView";
+import { Icons } from "@/components/Icons";
 import { localizedPath } from "@/lib/locale-path";
 
 type ProjectCopy = {
@@ -65,7 +66,7 @@ export function ProjectIndexShowcase({ lang, dict }: { lang: string; dict: Index
         </div>
         <div className="lg:col-span-5 lg:border-l lg:border-black/10 dark:lg:border-white/10 lg:pl-10">
           <Link href={localizedPath(lang, "/projects/")} className="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all inline-flex items-center justify-between gap-3 w-full">
-            {dict.cta}<span>→</span>
+            {dict.cta}<Icons.ArrowRight size={16} aria-hidden="true" />
           </Link>
         </div>
       </div>
