@@ -20,6 +20,13 @@ export function FAQItem({ question, children, defaultOpen = false }: FAQItemProp
     () => {
       if (!contentRef.current) return;
 
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion) {
+        gsap.set(contentRef.current, { height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 });
+        if (iconRef.current) gsap.set(iconRef.current, { rotation: isOpen ? 180 : 0 });
+        return;
+      }
+
       if (isOpen) {
         gsap.fromTo(
           contentRef.current,
@@ -54,7 +61,7 @@ export function FAQItem({ question, children, defaultOpen = false }: FAQItemProp
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full p-6 text-left flex justify-between items-center gap-4 group focus:outline-none"
+        className="w-full p-6 text-left flex justify-between items-center gap-4 group focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black dark:focus-visible:outline-white"
         aria-expanded={isOpen}
       >
         <span className="font-bold text-lg md:text-xl group-hover:opacity-80 transition-opacity">

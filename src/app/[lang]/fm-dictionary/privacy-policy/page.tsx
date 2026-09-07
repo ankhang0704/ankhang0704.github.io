@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Icons } from "@/components/Icons";
+import { localizedPath } from "@/lib/locale-path";
 
 export default function PrivacyPolicyPage({
   params,
@@ -332,11 +333,11 @@ export default function PrivacyPolicyPage({
                 <li>
                   {isVi ? (
                     <span>
-                      <strong>Quyền yêu cầu xóa tài khoản qua Web hoặc Email:</strong> Bạn có thể sử dụng <Link href={`/${lang}/fm-dictionary/delete-account/`} className="underline hover:opacity-80 transition-opacity">Trang xóa tài khoản trực tuyến</Link> của chúng tôi hoặc gửi yêu cầu trực tiếp qua email tới địa chỉ: <strong>ankhang.nguyen0704@gmail.com</strong>. Vui lòng gửi email từ chính địa chỉ email bạn đã sử dụng để đăng nhập ứng dụng để chúng tôi xác minh danh tính chính chủ.
+                      <strong>Quyền yêu cầu xóa tài khoản qua Web hoặc Email:</strong> Bạn có thể sử dụng <Link href={localizedPath(lang, "/fm-dictionary/delete-account/")} className="underline hover:opacity-80 transition-opacity">Trang xóa tài khoản trực tuyến</Link> của chúng tôi hoặc gửi yêu cầu trực tiếp qua email tới địa chỉ: <strong>ankhang.nguyen0704@gmail.com</strong>. Vui lòng gửi email từ chính địa chỉ email bạn đã sử dụng để đăng nhập ứng dụng để chúng tôi xác minh danh tính chính chủ.
                     </span>
                   ) : (
                     <span>
-                      <strong>Right to request account deletion via Web or Email:</strong> You can use our <Link href={`/${lang}/fm-dictionary/delete-account/`} className="underline hover:opacity-80 transition-opacity">Online Account Deletion Page</Link> or send an email directly to our support address at: <strong>ankhang.nguyen0704@gmail.com</strong>. Please send the email from the exact email address you used to log in to the app so we can verify your identity.
+                      <strong>Right to request account deletion via Web or Email:</strong> You can use our <Link href={localizedPath(lang, "/fm-dictionary/delete-account/")} className="underline hover:opacity-80 transition-opacity">Online Account Deletion Page</Link> or send an email directly to our support address at: <strong>ankhang.nguyen0704@gmail.com</strong>. Please send the email from the exact email address you used to log in to the app so we can verify your identity.
                     </span>
                   )}
                 </li>

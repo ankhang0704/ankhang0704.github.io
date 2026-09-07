@@ -8,6 +8,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Icons } from "@/components/Icons";
 import { CopyEmailButton } from "@/components/CopyEmailButton";
+import { localizedPath } from "@/lib/locale-path";
 
 interface FooterProps {
   variant?: "main" | "fm";
@@ -22,39 +23,41 @@ export default function Footer({ variant = "main" }: FooterProps) {
 
   useGSAP(
     () => {
-      gsap.fromTo(
-        ".footer-content",
-        { scale: 0.96, autoAlpha: 0, y: 30 },
-        {
-          scale: 1,
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.9,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: footerRef.current,
-            start: "top 85%",
-            once: true,
-          },
-        }
-      );
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.fromTo(
+          ".footer-content",
+          { scale: 0.96, autoAlpha: 0, y: 30 },
+          {
+            scale: 1,
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.9,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: footerRef.current,
+              start: "top 85%",
+              once: true,
+            },
+          }
+        );
 
-      gsap.fromTo(
-        ".footer-social-icon",
-        { y: 15, autoAlpha: 0 },
-        {
-          y: 0,
-          autoAlpha: 1,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: footerRef.current,
-            start: "top 80%",
-            once: true,
-          },
-        }
-      );
+        gsap.fromTo(
+          ".footer-social-icon",
+          { y: 15, autoAlpha: 0 },
+          {
+            y: 0,
+            autoAlpha: 1,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: footerRef.current,
+              start: "top 80%",
+              once: true,
+            },
+          }
+        );
+      }
 
       // Back to top scroll listener via ScrollTrigger without window event listener jank
       ScrollTrigger.create({
@@ -63,7 +66,7 @@ export default function Footer({ variant = "main" }: FooterProps) {
         onLeaveBack: () => setShowBackToTop(false),
       });
     },
-    { scope: footerRef, dependencies: [pathname] }
+    { scope: footerRef, dependencies: [pathname], revertOnUpdate: true }
   );
 
   const scrollToTop = () => {
@@ -172,17 +175,17 @@ export default function Footer({ variant = "main" }: FooterProps) {
                 </a>
               </div>
 
-              <div className="flex justify-center space-x-6 text-[10px] uppercase tracking-widest mb-12 opacity-60">
-                <Link href={`/${lang}/fm-dictionary/support/`} className="hover-underline">
+              <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-[10px] uppercase tracking-widest mb-12 opacity-60">
+                <Link href={localizedPath(lang, "/fm-dictionary/support/")} className="hover-underline">
                   {isVi ? "Trung tâm Hỗ trợ" : "Support Center"}
                 </Link>
-                <Link href={`/${lang}/fm-dictionary/privacy-policy/`} className="hover-underline">
+                <Link href={localizedPath(lang, "/fm-dictionary/privacy-policy/")} className="hover-underline">
                   {isVi ? "Chính sách Bảo mật" : "Privacy Policy"}
                 </Link>
-                <Link href={`/${lang}/fm-dictionary/terms-of-service/`} className="hover-underline">
+                <Link href={localizedPath(lang, "/fm-dictionary/terms-of-service/")} className="hover-underline">
                   {isVi ? "Điều khoản Dịch vụ" : "Terms of Service"}
                 </Link>
-                <Link href={`/${lang}/fm-dictionary/delete-account/`} className="hover-underline">
+                <Link href={localizedPath(lang, "/fm-dictionary/delete-account/")} className="hover-underline">
                   {isVi ? "Xóa Tài khoản" : "Delete Account"}
                 </Link>
               </div>
@@ -193,7 +196,7 @@ export default function Footer({ variant = "main" }: FooterProps) {
                 </p>
                 
                 <Link 
-                  href={`/${lang}/`} 
+                  href={localizedPath(lang, "/")}
                   className="text-[12px] opacity-80 hover:opacity-100 transition-opacity duration-300 font-medium tracking-widest uppercase"
                 >
                   By An Khang Studio

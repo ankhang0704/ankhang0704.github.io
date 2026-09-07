@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/en/it-infrastructure",
-        destination: "/en/projects/",
+        destination: "/projects/",
         permanent: true,
       },
       {

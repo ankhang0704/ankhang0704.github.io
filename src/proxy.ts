@@ -1,34 +1,36 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const locales = ["en", "vi"];
 const defaultLocale = "en";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Ignore static assets, images, and api routes
+  // Ignore static assets, images, API routes, and generated OG images.
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
+    pathname.startsWith("/-/") ||
     pathname.includes(".") ||
     pathname === "/favicon.ico"
   ) {
     return NextResponse.next();
   }
 
-  // Check if pathname already starts with a valid locale
-  const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
+  const isVietnamesePath = pathname === "/vi" || pathname.startsWith("/vi/");
+  const isEnglishPath = pathname === "/en" || pathname.startsWith("/en/");
 
-  if (pathnameHasLocale) return NextResponse.next();
+  if (isVietnamesePath) return NextResponse.next();
 
-  // Redirect root or non-locale paths to /en/...
-  const locale = defaultLocale;
-  request.nextUrl.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
-  
-  return NextResponse.redirect(request.nextUrl);
+  // Keep English canonical URLs locale-free: /en/projects/ -> /projects/.
+  if (isEnglishPath) {
+    request.nextUrl.pathname = pathname.replace(/^\/en/, "") || "/";
+    return NextResponse.redirect(request.nextUrl);
+  }
+
+  // Render English routes without exposing the internal [lang] segment.
+  request.nextUrl.pathname = `/${defaultLocale}${pathname === "/" ? "" : pathname}`;
+  return NextResponse.rewrite(request.nextUrl);
 }
 
 export const config = {

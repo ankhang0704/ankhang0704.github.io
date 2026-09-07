@@ -2,10 +2,15 @@
 
 Local Next.js portfolio and FM Dictionary product page for An Khang, a Software Developer working across web, mobile, automation, and hands-on IT support.
 
+## Live portfolio
+
+- Production site: [ankhang0704.vercel.app](https://ankhang0704.vercel.app/)
+- The root `index.html` is a fallback for GitHub Pages/static hosts and redirects visitors to Vercel.
+
 ## Routes
 
-- Localized portfolio home: `/en/` and `/vi/`
-- Project index: `/en/projects/` and `/vi/projects/`
+- Localized portfolio home: `/` and `/vi/`
+- Project index: `/projects/` and `/vi/projects/`
 - Case studies: FM Dictionary and Hotel Management
 - FM Dictionary legal/support pages remain under `/[lang]/fm-dictionary/`
 
@@ -32,7 +37,7 @@ npx tsc --noEmit
 npm run build
 ```
 
-The current phase is local-only. No deployment or production push is part of this work.
+The production portfolio is hosted on Vercel. The repository can still be run locally for development and verification.
 
 ## Design
 

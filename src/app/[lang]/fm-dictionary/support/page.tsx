@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Icons } from "@/components/Icons";
 import { FAQItem } from "@/components/support/FAQAccordion";
+import { localizedPath } from "@/lib/locale-path";
 
 export default function SupportPage({
   params,
@@ -110,7 +111,7 @@ export default function SupportPage({
                       </p>
                       <p className="text-sm opacity-80">
                         <Link
-                          href={`/${lang}/fm-dictionary/delete-account/`}
+                          href={localizedPath(lang, "/fm-dictionary/delete-account/")}
                           className="underline hover:text-black dark:hover:text-white transition-colors"
                         >
                           {isVi ? "Xem chi tiết hoặc gửi yêu cầu trực tuyến →" : "View details or submit an online request →"}

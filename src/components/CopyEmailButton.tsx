@@ -65,7 +65,7 @@ export function CopyEmailButton({
 
       {/* Floating Toast Notification */}
       {copied && (
-        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 md:left-auto md:right-8 md:translate-x-0 z-[100] border border-black dark:border-white bg-bgLight dark:bg-bgDark p-4 shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-3 duration-300">
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 md:left-auto md:right-8 md:translate-x-0 z-[100] border border-black dark:border-white bg-bgLight dark:bg-bgDark p-4 flex items-center gap-3 animate-in fade-in slide-in-from-bottom-3 duration-300">
           <div className="w-2 h-2 bg-black dark:bg-white" />
           <span className="text-xs font-mono tracking-wider font-bold">
             {isVi

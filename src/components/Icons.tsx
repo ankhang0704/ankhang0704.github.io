@@ -44,6 +44,12 @@ import {
   IconCopy,
   IconTerminal2,
   IconCode,
+  IconTrash,
+  IconFolder,
+  IconGitBranch,
+  IconCloudDownload,
+  IconCloudUpload,
+  IconDatabase,
 } from "@tabler/icons-react";
 
 export const Icons = {
@@ -92,4 +98,10 @@ export const Icons = {
   Copy: IconCopy,
   Terminal: IconTerminal2,
   Code: IconCode,
+  Trash: IconTrash,
+  Folder: IconFolder,
+  GitBranch: IconGitBranch,
+  CloudDownload: IconCloudDownload,
+  CloudUpload: IconCloudUpload,
+  Database: IconDatabase,
 };

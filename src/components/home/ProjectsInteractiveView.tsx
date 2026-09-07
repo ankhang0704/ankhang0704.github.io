@@ -1,8 +1,9 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { ProjectDefinition, SELECTED_PROJECTS } from "@/content/projects";
+import { localizedPath } from "@/lib/locale-path";
+
+export type ProjectPresentation = "feature" | "grid";
 
 type ProjectCopy = {
   type: string;
@@ -12,131 +13,126 @@ type ProjectCopy = {
   desc: string;
 };
 
+type ProjectsDictionary = {
+  viewCaseStudy: string;
+  viewSource: string;
+  items: Record<ProjectDefinition["contentKey"], ProjectCopy>;
+};
+
 interface ProjectsInteractiveViewProps {
   lang: string;
-  dict: {
-    viewCaseStudy: string;
-    viewSource: string;
-    items: Record<ProjectDefinition["contentKey"], ProjectCopy>;
-  };
+  dict: ProjectsDictionary;
   projects?: ProjectDefinition[];
+  variant?: ProjectPresentation;
 }
 
-export function ProjectsInteractiveView({
-  lang,
-  dict,
-  projects = SELECTED_PROJECTS,
-}: ProjectsInteractiveViewProps) {
+function ProjectActions({ project, dict, lang }: { project: ProjectDefinition; dict: ProjectsDictionary; lang: string }) {
+  const caseStudyHref = project.href
+    ? project.href.startsWith("/")
+      ? localizedPath(lang, project.href)
+      : project.href
+    : undefined;
+  const externalLabel = lang === "vi" ? project.externalLabelVi ?? project.externalLabel : project.externalLabel;
+  const secondaryExternalLabel = lang === "vi"
+    ? project.secondaryExternalLabelVi ?? project.secondaryExternalLabel
+    : project.secondaryExternalLabel;
+
   return (
-    <div className="space-y-24 md:space-y-36">
+    <div className="flex flex-wrap gap-3 pt-4">
+      {caseStudyHref && (
+        <Link href={caseStudyHref} className="inline-flex items-center gap-3 border border-black px-5 py-3 text-xs font-bold uppercase tracking-widest transition-all hover:bg-black hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-black">
+          {dict.viewCaseStudy}<span>→</span>
+        </Link>
+      )}
+      {project.externalHref && (
+        <a href={project.externalHref} target="_blank" rel="noopener noreferrer" className="inline-flex items-center border border-black/30 px-5 py-3 text-xs font-bold uppercase tracking-widest transition-all hover:border-black dark:border-white/30 dark:hover:border-white">
+          {externalLabel ?? dict.viewSource}
+        </a>
+      )}
+      {project.secondaryExternalHref && (
+        <a href={project.secondaryExternalHref} target="_blank" rel="noopener noreferrer" className="inline-flex items-center border border-black/20 px-5 py-3 text-xs font-bold uppercase tracking-widest opacity-80 transition-all hover:border-black hover:opacity-100 dark:border-white/20 dark:hover:border-white">
+          {secondaryExternalLabel ?? dict.viewSource}
+        </a>
+      )}
+    </div>
+  );
+}
+
+function ProjectImage({ project, title, className = "", number }: { project: ProjectDefinition; title: string; className?: string; number?: number }) {
+  return (
+    <div className={`relative overflow-hidden border border-black/10 bg-bgLight dark:border-white/10 dark:bg-bgDark ${className}`}>
+      {project.image ? (
+        <Image src={project.image} alt={title} fill sizes="(max-width: 1024px) 100vw, 60vw" className="object-cover grayscale transition-all duration-700 group-hover:grayscale-0" />
+      ) : (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 font-mono text-xs uppercase tracking-[0.25em] opacity-60">
+          <span className="text-5xl font-serif italic">{project.code}</span>
+          <span>Repository project</span>
+        </div>
+      )}
+      {project.image && number && (
+        <span aria-hidden="true" className="pointer-events-none absolute bottom-3 left-4 font-display text-5xl font-bold leading-none tracking-tighter text-white opacity-70 mix-blend-difference sm:bottom-5 sm:left-6 sm:text-7xl">
+          {String(number).padStart(2, "0")}
+        </span>
+      )}
+    </div>
+  );
+}
+
+function FeaturePresentation({ lang, dict, projects }: ProjectsInteractiveViewProps & { projects: ProjectDefinition[] }) {
+  return (
+    <div className="space-y-16 md:space-y-24">
       {projects.map((project, index) => {
         const copy = dict.items[project.contentKey];
-        const caseStudyHref = project.href
-          ? project.href.startsWith("/")
-            ? `/${lang}${project.href}`
-            : project.href
-          : undefined;
-        const externalLabel = lang === "vi" ? project.externalLabelVi ?? project.externalLabel : project.externalLabel;
-        const secondaryExternalLabel = lang === "vi"
-          ? project.secondaryExternalLabelVi ?? project.secondaryExternalLabel
-          : project.secondaryExternalLabel;
-
         return (
-          <div
-            key={project.id}
-            id={project.id}
-            className="gsap-project-item border border-black/15 dark:border-white/15 bg-cardLight dark:bg-cardDark relative overflow-hidden group scroll-mt-24 shadow-sm hover:border-black dark:hover:border-white transition-all duration-500"
-          >
-            <div className="flex flex-wrap items-center justify-between gap-4 px-6 sm:px-8 md:px-10 py-5 bg-black/5 dark:bg-white/5 border-b border-black/10 dark:border-white/10 font-mono text-sm">
-              <div className="flex items-center gap-4">
-                <span className="font-bold tracking-widest text-base">{project.code}</span>
-                <span className="opacity-30">|</span>
-                <span className="opacity-75 tracking-wider">{copy.type}</span>
+          <article key={project.id} className="group grid grid-cols-1 gap-8 border-t border-black/15 pt-8 dark:border-white/15 lg:grid-cols-12 lg:gap-12">
+            <ProjectImage project={project} title={copy.title} number={index + 1} className="aspect-[16/10] lg:col-span-7" />
+            <div className="flex flex-col justify-center space-y-5 lg:col-span-5">
+              <span className="font-mono text-xs uppercase tracking-widest opacity-50">{project.code} / {copy.category}</span>
+              <h3 className="font-display text-3xl font-bold md:text-5xl">{copy.title}</h3>
+              <p className="text-xl font-light leading-relaxed opacity-85">{copy.desc}</p>
+              <div className="flex flex-wrap gap-2.5">
+                {project.tags.map((tag) => <span key={tag} className="border border-black/15 px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider opacity-70 dark:border-white/15">{tag}</span>)}
               </div>
-              <div className="flex items-center gap-2.5">
-                <span className="w-2.5 h-2.5 bg-black dark:bg-white inline-block" />
-                <span className="font-bold tracking-wider">{copy.status}</span>
-              </div>
+              <ProjectActions project={project} dict={dict} lang={lang} />
             </div>
-
-            <div className="p-6 sm:p-10 md:p-14 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-              <div className="project-img-box lg:col-span-7 overflow-hidden relative aspect-[16/10] border border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark">
-                {project.image ? (
-                  <Image
-                    src={project.image}
-                    alt={copy.title}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 60vw"
-                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-[1.02]"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 font-mono text-xs uppercase tracking-[0.25em] opacity-60">
-                    <span className="text-5xl font-serif italic">{String(index + 1).padStart(2, "0")}</span>
-                    <span>Repository project</span>
-                  </div>
-                )}
-                <div className="absolute top-5 left-5 bg-black/80 text-white dark:bg-white/90 dark:text-black font-mono text-xs px-3 py-1.5 tracking-widest uppercase font-bold">
-                  SPEC // {String(index + 1).padStart(2, "0")}
-                </div>
-              </div>
-
-              <div className="project-info-box lg:col-span-5 space-y-6">
-                <div>
-                  <span className="text-sm font-mono uppercase tracking-[0.25em] opacity-60 block mb-2 font-bold">
-                    {copy.category}{project.year ? ` · ${project.year}` : ""}
-                  </span>
-                  <h3 className="font-display text-4xl md:text-5xl font-bold">{copy.title}</h3>
-                </div>
-
-                <p className="font-light opacity-85 text-xl leading-relaxed text-justify">{copy.desc}</p>
-
-                <div className="flex flex-wrap gap-2.5 border-t border-black/10 dark:border-white/10 pt-5">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs font-bold uppercase tracking-widest border border-black/20 dark:border-white/20 px-3.5 py-1.5 opacity-70 group-hover:border-black dark:group-hover:border-white group-hover:opacity-100 transition-all bg-bgLight dark:bg-bgDark"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex flex-wrap gap-4 pt-3">
-                  {caseStudyHref && (
-                    <Link
-                      href={caseStudyHref}
-                      className="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all flex items-center group/btn"
-                    >
-                      <span>{dict.viewCaseStudy}</span>
-                      <span className="ml-3 group-hover/btn:translate-x-1.5 transition-transform duration-300">→</span>
-                    </Link>
-                  )}
-                  {project.externalHref && (
-                    <a
-                      href={project.externalHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="border border-black/30 dark:border-white/30 px-6 py-4 text-sm font-bold uppercase tracking-widest hover:border-black dark:hover:border-white transition-all flex items-center"
-                    >
-                      {externalLabel ?? dict.viewSource}
-                    </a>
-                  )}
-                  {project.secondaryExternalHref && (
-                    <a
-                      href={project.secondaryExternalHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="border border-black/20 dark:border-white/20 px-6 py-4 text-sm font-bold uppercase tracking-widest opacity-80 hover:border-black dark:hover:border-white hover:opacity-100 transition-all flex items-center"
-                    >
-                      {secondaryExternalLabel ?? dict.viewSource}
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
+          </article>
         );
       })}
     </div>
   );
+}
+
+function GridPresentation({ lang, dict, projects }: ProjectsInteractiveViewProps & { projects: ProjectDefinition[] }) {
+  return (
+    <div className="grid grid-cols-1 gap-3 md:grid-cols-12">
+      {projects.map((project, index) => {
+        const copy = dict.items[project.contentKey];
+        const width = projects.length === 3
+          ? index === 0 ? "md:col-span-7" : index === 1 ? "md:col-span-5" : "md:col-span-12"
+          : index === 0 ? "md:col-span-7" : index === 1 ? "md:col-span-5" : "md:col-span-4";
+        return (
+          <article key={project.id} className={`${width} group border border-black/10 bg-cardLight dark:border-white/10 dark:bg-cardDark`}>
+            <ProjectImage project={project} title={copy.title} number={index + 1} className={`aspect-[16/10] ${index === 2 && projects.length === 3 ? "md:aspect-[2.4/1]" : ""}`} />
+            <div className="p-5 md:p-6">
+              <div className="flex items-start justify-between gap-5">
+                <div>
+                  <span className="font-mono text-xs uppercase tracking-widest opacity-50">{project.code} / {copy.category}</span>
+                  <h3 className="mt-2 font-display text-2xl font-bold md:text-3xl">{copy.title}</h3>
+                </div>
+                <span className="text-xl opacity-45 transition-transform group-hover:translate-x-1">→</span>
+              </div>
+              <p className="mt-4 max-w-[65ch] text-base font-light leading-relaxed opacity-75">{copy.desc}</p>
+              <ProjectActions project={project} dict={dict} lang={lang} />
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  );
+}
+
+export function ProjectsInteractiveView({ lang, dict, projects = SELECTED_PROJECTS, variant = "feature" }: ProjectsInteractiveViewProps) {
+  return variant === "grid"
+    ? <GridPresentation lang={lang} dict={dict} projects={projects} />
+    : <FeaturePresentation lang={lang} dict={dict} projects={projects} />;
 }

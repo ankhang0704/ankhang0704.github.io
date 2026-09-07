@@ -1,12 +1,10 @@
-import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { ScrollSpyInit } from "@/components/ScrollSpyInit";
 import { HomeAnimations } from "@/components/home/HomeAnimations";
 import { TechBadgeButton } from "@/components/home/TechBadgeButton";
 import { SummaryInteractiveView } from "@/components/home/SummaryInteractiveView";
 import { TimelineInteractiveView } from "@/components/home/TimelineInteractiveView";
-import { ProjectsInteractiveView } from "@/components/home/ProjectsInteractiveView";
+import { ProjectIndexShowcase, ProjectsShowcase } from "@/components/home/ProjectsShowcase";
 import { getDictionary, Locale } from "@/dictionaries/get-dictionary";
 
 export async function generateStaticParams() {
@@ -25,20 +23,19 @@ export default async function Home({
 
   return (
     <>
-      <ScrollSpyInit />
       <Header />
 
       <HomeAnimations>
         <main>
-          <section id="hero" className="min-h-screen flex items-center relative overflow-x-hidden pt-20">
+          <section id="hero" className="min-h-[100dvh] flex items-center relative overflow-x-hidden pt-20">
             <div className="container mx-auto px-6 md:px-8 relative z-10">
               <p className="hero-badge text-sm tracking-[0.3em] uppercase mb-6 border-b border-black dark:border-white inline-block pb-2">
                 Portfolio 2026
               </p>
-              <h1 className="font-display text-5xl md:text-8xl font-bold leading-tight mb-6">
+              <h1 className="font-display text-5xl md:text-8xl font-bold leading-[1.1] mb-6">
                 <span className="hero-title-line block">Software</span>
                 <span className="hero-title-line block">
-                  Developer<span className="font-serif italic text-6xl md:text-9xl ml-2 tracking-normal"> · An Khang</span>
+                  Developer<span className="font-serif italic text-6xl md:text-9xl ml-2 tracking-normal leading-[1.1] pb-1"> · An Khang</span>
                 </span>
               </h1>
               <p className="hero-subtitle text-xl font-light max-w-2xl mb-12 opacity-80 leading-relaxed">
@@ -67,7 +64,7 @@ export default async function Home({
             </div>
           </section>
 
-          <section id="about" className="py-32 md:py-40 bg-cardLight dark:bg-cardDark border-y border-black/5 dark:border-white/5 relative overflow-x-hidden">
+          <section id="about" className="scroll-mt-24 py-32 md:py-40 bg-cardLight dark:bg-cardDark border-y border-black/5 dark:border-white/5 relative overflow-x-hidden">
             <div className="container mx-auto px-6 md:px-8 relative z-10">
               <div className="max-w-3xl mb-12 gsap-reveal">
                 <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4 opacity-50">{dict.about.label}</p>
@@ -77,17 +74,13 @@ export default async function Home({
             </div>
           </section>
 
-          <section id="projects" className="py-32 md:py-40 bg-cardLight dark:bg-cardDark border-y border-black/5 dark:border-white/5 relative overflow-x-hidden">
-            <div className="container mx-auto px-6 md:px-8">
-              <div className="max-w-3xl mb-20 gsap-reveal">
-                <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4 opacity-50">{dict.projects.label}</p>
-                <h2 className="font-display text-4xl md:text-6xl font-bold">{dict.projects.title}</h2>
-              </div>
-              <ProjectsInteractiveView lang={lang} dict={dict.projects} />
-            </div>
-          </section>
+          <ProjectsShowcase
+            lang={lang}
+            projectsDict={dict.projects}
+            home
+          />
 
-          <section id="skills" className="py-32 md:py-40 overflow-x-hidden relative">
+          <section id="skills" className="scroll-mt-24 py-32 md:py-40 overflow-x-hidden relative">
             <div className="container mx-auto px-6 md:px-8">
               <div className="max-w-3xl mb-16 gsap-reveal">
                 <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4 opacity-50">{dict.skills.label}</p>
@@ -164,7 +157,7 @@ export default async function Home({
             </div>
           </section>
 
-          <section id="experience" className="py-32 md:py-40 relative overflow-x-hidden">
+          <section id="experience" className="scroll-mt-24 py-32 md:py-40 relative overflow-x-hidden">
             <div className="container mx-auto px-6 md:px-8">
               <div className="max-w-3xl mb-20 gsap-reveal">
                 <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4 opacity-50">{dict.timeline.label}</p>
@@ -174,18 +167,8 @@ export default async function Home({
             </div>
           </section>
 
-          <section id="all-projects" className="py-24 md:py-32 bg-cardLight dark:bg-cardDark border-y border-black/5 dark:border-white/5 relative overflow-x-hidden">
-            <div className="container mx-auto px-6 md:px-8 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
-              <div className="max-w-2xl gsap-reveal">
-                <p className="text-xs font-bold uppercase tracking-[0.3em] mb-4 opacity-50">{dict.allProjects.label}</p>
-                <h2 className="font-display text-4xl md:text-6xl font-bold mb-6">{dict.allProjects.title}</h2>
-                <p className="font-light text-xl leading-relaxed opacity-85">{dict.allProjects.desc}</p>
-              </div>
-              <Link href={`/${lang}/projects/`} className="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all inline-flex items-center gap-3 w-fit">
-                {dict.allProjects.cta}<span>→</span>
-              </Link>
-            </div>
-          </section>
+          <ProjectIndexShowcase lang={lang} dict={dict.allProjects} />
+
         </main>
       </HomeAnimations>
 

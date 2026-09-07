@@ -9,6 +9,11 @@ export function HomeAnimations({ children }: { children: React.ReactNode }) {
 
   useGSAP(
     () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set(".timeline-line-active", { scaleY: 1 });
+        return;
+      }
+
       // 1. Hero Entrance Timeline
       const heroTl = gsap.timeline({
         defaults: { ease: "power3.out" },
@@ -80,50 +85,7 @@ export function HomeAnimations({ children }: { children: React.ReactNode }) {
         );
       }
 
-      // 4. Project Showcase Cards (Split Reveal: Image Left + Content Right)
-      const projectCards = gsap.utils.toArray<HTMLElement>(".gsap-project-item");
-      projectCards.forEach((card) => {
-        const img = card.querySelector(".project-img-box");
-        const info = card.querySelector(".project-info-box");
-
-        if (img) {
-          gsap.fromTo(
-            img,
-            { x: -35, autoAlpha: 0 },
-            {
-              x: 0,
-              autoAlpha: 1,
-              duration: 0.9,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: card,
-                start: "top 80%",
-                once: true,
-              },
-            }
-          );
-        }
-
-        if (info) {
-          gsap.fromTo(
-            info,
-            { x: 35, autoAlpha: 0 },
-            {
-              x: 0,
-              autoAlpha: 1,
-              duration: 0.9,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: card,
-                start: "top 80%",
-                once: true,
-              },
-            }
-          );
-        }
-      });
-
-      // 5. Career Timeline Active Line Drawing on Scroll
+      // 4. Career Timeline Active Line Drawing on Scroll
       gsap.fromTo(
         ".timeline-line-active",
         { scaleY: 0 },

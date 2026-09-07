@@ -20,7 +20,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   ROUTES.forEach((route) => {
     LOCALES.forEach((locale) => {
-      const url = `${BASE_URL}/${locale}${route}${route ? "/" : ""}`;
+      const prefix = locale === "vi" ? "/vi" : "";
+      const url = `${BASE_URL}${prefix}${route}${route ? "/" : "/"}`;
       const isPriority = route === "" || route === "/projects" || route === "/fm-dictionary";
 
       sitemapEntries.push({
@@ -30,8 +31,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: isPriority ? 1.0 : 0.8,
         alternates: {
           languages: {
-            en: `${BASE_URL}/en${route}${route ? "/" : ""}`,
-            vi: `${BASE_URL}/vi${route}${route ? "/" : ""}`,
+            en: `${BASE_URL}${route}${route ? "/" : "/"}`,
+            vi: `${BASE_URL}/vi${route}${route ? "/" : "/"}`,
           },
         },
       });

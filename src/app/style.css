@@ -9,6 +9,21 @@ html {
     scrollbar-gutter: stable;
 }
 
+:where(a, button):focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html,
+    html * {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
 /* Hiệu ứng gạch dưới cho Menu (Hover) */
 .hover-underline {
     position: relative;
@@ -43,6 +58,26 @@ html {
 @keyframes shimmer {
     to {
         background-position: 200% center;
+    }
+}
+
+@keyframes fm-gallery-scroll {
+    to {
+        transform: translateX(calc(-50% - 0.5rem));
+    }
+}
+
+.fm-gallery-track {
+    animation: fm-gallery-scroll 32s linear infinite;
+}
+
+.fm-gallery:hover .fm-gallery-track {
+    animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fm-gallery-track {
+        animation: none;
     }
 }
 
@@ -109,8 +144,6 @@ html {
     pointer-events: none;
     transition: background 1s ease;
     transform: translate3d(0, 0, 0);
-    will-change: transform;
-    backface-visibility: hidden;
     contain: strict;
 }
 
@@ -146,13 +179,10 @@ html {
     }
 }
 
-/* GPU Acceleration for Animating Components */
-.gsap-reveal,
-.gsap-bento-card,
-.gsap-project-item,
-.gsap-timeline-row,
+/* Keep compositor hints only on scroll-linked transforms. */
+.scroll-progress,
 .timeline-line-active {
-    will-change: transform, opacity;
+    will-change: transform;
     backface-visibility: hidden;
 }
 
@@ -258,4 +288,4 @@ html {
 }
 
 
-
+

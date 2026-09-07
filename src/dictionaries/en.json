@@ -16,15 +16,15 @@
     "downloadCV": "Download CV"
   },
   "about": {
-    "label": "Short positioning",
+    "label": "Summary",
     "title": "Web, mobile & automation.",
     "lead": "I build practical software with a developer's perspective and the operational context of hands-on IT support.",
     "p1": "My work spans web applications, mobile products, and small automation tools that make recurring work easier to understand and complete.",
     "p2": "I prefer clear scope, appropriate tools, and software that remains useful after the demo is over.",
     "hospital": "Binh Thuan Eye Hospital",
     "hospitalRole": "IT Helpdesk",
-    "degree": "Bachelor of Information Technology",
-    "degreeRole": "University · 2022 — 2026",
+    "degree": "B.S. in Information Technology · 2022–2026",
+    "degreeRole": "",
     "fm": "FM Dictionary",
     "fmRole": "Flutter product · 1,847 terms",
     "tag1": "Web + Mobile",

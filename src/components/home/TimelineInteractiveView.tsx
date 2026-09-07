@@ -26,7 +26,7 @@ export function TimelineInteractiveView({
             key={item.index}
             className="gsap-timeline-row group relative border-t border-black/10 dark:border-white/10 py-12 md:py-16 transition-all duration-300 hover:bg-black/[0.015] dark:hover:bg-white/[0.015] px-2 sm:px-4 md:px-6"
           >
-            <div className="absolute -left-[31px] sm:-left-[39px] md:-left-[55px] top-14 w-4 h-4 bg-bgLight dark:bg-bgDark border-2 border-black dark:border-white group-hover:scale-125 group-hover:bg-black dark:group-hover:bg-white transition-all duration-300 z-10" />
+            <div className="absolute -left-[31px] sm:-left-[39px] md:-left-[55px] top-14 w-4 h-4 rounded-full bg-bgLight dark:bg-bgDark border-2 border-black dark:border-white group-hover:scale-125 group-hover:bg-black dark:group-hover:bg-white transition-all duration-300 z-10" />
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start relative z-10">
               <div className="lg:col-span-4 space-y-3.5">

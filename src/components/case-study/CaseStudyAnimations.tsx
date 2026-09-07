@@ -9,30 +9,32 @@ export function CaseStudyAnimations({ children }: { children: React.ReactNode })
 
   useGSAP(
     () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
       // 1. Header Entrance Timeline
       const headerTl = gsap.timeline({ defaults: { ease: "power3.out" } });
       headerTl
         .fromTo(
           ".cs-breadcrumb",
-          { y: 15, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.7, delay: 0.1 }
+          { y: 15 },
+          { y: 0, duration: 0.7, delay: 0.1 }
         )
         .fromTo(
           ".cs-title",
-          { y: 35, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.9 },
+          { y: 35 },
+          { y: 0, duration: 0.9 },
           "-=0.4"
         )
         .fromTo(
           ".cs-desc",
-          { y: 20, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.8 },
+          { y: 20 },
+          { y: 0, duration: 0.8 },
           "-=0.5"
         )
         .fromTo(
           ".cs-tag",
-          { scale: 0.95, autoAlpha: 0 },
-          { scale: 1, autoAlpha: 1, duration: 0.5, stagger: 0.05 },
+          { scale: 0.95 },
+          { scale: 1, duration: 0.5, stagger: 0.05 },
           "-=0.4"
         );
 

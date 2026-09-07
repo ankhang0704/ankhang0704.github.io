@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk, Playfair_Display } from "next/font/google";
 import "../style.css";
 import { GSAPInit } from "@/components/GSAPInit";
 import { AmbientGlow } from "@/components/AmbientGlow";
+import { ScrollSpyInit } from "@/components/ScrollSpyInit";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -80,6 +81,7 @@ export default async function LocalizedLayout({
       </head>
       <body className={`bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark transition-colors duration-500 font-sans relative overflow-x-hidden ${inter.variable} ${spaceGrotesk.variable} ${playfair.variable}`}>
         <GSAPInit />
+        <ScrollSpyInit />
         <AmbientGlow />
         {children}
       </body>
