@@ -24,39 +24,26 @@ export default function Footer({ variant = "main" }: FooterProps) {
   useGSAP(
     () => {
       if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        gsap.fromTo(
-          ".footer-content",
-          { scale: 0.96, autoAlpha: 0, y: 30 },
-          {
-            scale: 1,
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.9,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: footerRef.current,
-              start: "top 85%",
-              once: true,
-            },
-          }
-        );
+        const footerTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: footerRef.current,
+            start: "top 85%",
+            once: true,
+          },
+        });
 
-        gsap.fromTo(
-          ".footer-social-icon",
-          { y: 15, autoAlpha: 0 },
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: footerRef.current,
-              start: "top 80%",
-              once: true,
-            },
-          }
-        );
+        footerTl
+          .fromTo(
+            ".footer-content",
+            { scale: 0.96, autoAlpha: 0, y: 30 },
+            { scale: 1, autoAlpha: 1, y: 0, duration: 0.9, ease: "power2.out" }
+          )
+          .fromTo(
+            ".footer-social-icon",
+            { y: 15, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.1, ease: "power2.out" },
+            "-=0.4"
+          );
       }
 
       // Back to top scroll listener via ScrollTrigger without window event listener jank

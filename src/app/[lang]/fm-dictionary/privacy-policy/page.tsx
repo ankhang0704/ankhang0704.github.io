@@ -1,19 +1,17 @@
-"use client";
-
-import React, { use } from "react";
+import React from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Icons } from "@/components/Icons";
 import { localizedPath } from "@/lib/locale-path";
 
-export default function PrivacyPolicyPage({
+export default async function PrivacyPolicyPage({
   params,
 }: {
   params: Promise<{ lang: string }>;
 }) {
-  const resolvedParams = use(params);
-  const lang = resolvedParams.lang === "vi" ? "vi" : "en";
+  const { lang: routeLang } = await params;
+  const lang = routeLang === "vi" ? "vi" : "en";
   const isVi = lang === "vi";
 
   return (

@@ -63,7 +63,7 @@ function ProjectImage({ project, title, className = "", number }: { project: Pro
   return (
     <div className={`relative overflow-hidden border border-black/10 bg-bgLight dark:border-white/10 dark:bg-bgDark ${className}`}>
       {project.image ? (
-        <Image src={project.image} alt={title} fill sizes="(max-width: 1024px) 100vw, 60vw" className="scale-105 object-cover grayscale transition-all duration-1000 group-hover:scale-100 group-hover:grayscale-0" />
+        <Image src={project.image} alt={title} fill sizes="(max-width: 1024px) 100vw, 60vw" className="scale-105 object-cover transition-transform duration-500 ease-out group-hover:scale-100" />
       ) : (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 font-mono text-xs uppercase tracking-[0.25em] opacity-60">
           <span className="text-5xl font-serif italic">{project.code}</span>

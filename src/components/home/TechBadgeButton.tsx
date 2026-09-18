@@ -43,7 +43,7 @@ export function TechBadgeButton({
             : `View project utilizing: ${tech}`
           : undefined
       }
-      className={`border border-black/10 dark:border-white/10 px-3.5 py-1.5 text-[11px] font-mono uppercase tracking-wider opacity-70 hover:opacity-100 hover:border-black dark:hover:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all cursor-pointer bg-bgLight dark:bg-bgDark text-left`}
+      className={`border border-black/10 dark:border-white/10 px-3.5 py-1.5 text-[11px] font-mono uppercase tracking-wider opacity-70 hover:opacity-100 hover:border-black dark:hover:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-150 cursor-pointer bg-bgLight dark:bg-bgDark text-left`}
     >
       {tech}
       {targetId && <Icons.ChevronDown size={12} aria-hidden="true" className="ml-1.5 opacity-40" />}

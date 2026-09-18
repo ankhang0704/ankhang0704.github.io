@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function HomeAnimations({ children }: { children: React.ReactNode }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -44,24 +45,16 @@ export function HomeAnimations({ children }: { children: React.ReactNode }) {
           "-=0.5"
         );
 
-      // 2. Generic GSAP Scroll Reveals
-      const revealItems = gsap.utils.toArray<HTMLElement>(".gsap-reveal");
-      revealItems.forEach((el) => {
-        gsap.fromTo(
-          el,
-          { y: 40, autoAlpha: 0 },
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.85,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 88%",
-              once: true,
-            },
-          }
-        );
+      // 2. Generic GSAP Scroll Reveals (batched for performance)
+      ScrollTrigger.batch(".gsap-reveal", {
+        onEnter: (batch) =>
+          gsap.fromTo(
+            batch,
+            { y: 40, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.85, stagger: 0.15, ease: "power2.out" }
+          ),
+        start: "top 88%",
+        once: true,
       });
 
       // 3. Technical Expertise Bento Cards Stagger
@@ -102,24 +95,16 @@ export function HomeAnimations({ children }: { children: React.ReactNode }) {
         }
       );
 
-      // 6. Career Timeline Items Stagger
-      const timelineItems = gsap.utils.toArray<HTMLElement>(".gsap-timeline-row");
-      timelineItems.forEach((item) => {
-        gsap.fromTo(
-          item,
-          { y: 30, autoAlpha: 0 },
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: item,
-              start: "top 85%",
-              once: true,
-            },
-          }
-        );
+      // 6. Career Timeline Items Stagger (batched for performance)
+      ScrollTrigger.batch(".gsap-timeline-row", {
+        onEnter: (batch) =>
+          gsap.fromTo(
+            batch,
+            { y: 30, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.1, ease: "power2.out" }
+          ),
+        start: "top 85%",
+        once: true,
       });
     },
     { scope: containerRef }

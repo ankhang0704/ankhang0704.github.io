@@ -171,7 +171,7 @@ export default function Header({ variant = "main" }: HeaderProps) {
 
   return (
     <>
-      <header id="navbar" className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${isScrolled ? "glass-nav py-2" : "py-4"}`}>
+      <header id="navbar" className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 ${isScrolled ? "glass-nav py-2" : "py-4"}`}>
         <div className="container mx-auto flex w-full min-w-0 items-center gap-4 px-6 md:px-8">
           <Link href={variant === "main" ? localizedPath(lang, "/") : localizedPath(lang, "/fm-dictionary/")} className={`min-w-0 flex-1 truncate font-display font-bold tracking-tighter whitespace-nowrap ${variant === "fm" ? "text-2xl md:text-3xl" : "text-3xl"}`}>
             {variant === "main" ? "KHANG" : "FM DICTIONARY"}

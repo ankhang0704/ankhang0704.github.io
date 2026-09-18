@@ -16,14 +16,21 @@ export function FAQItem({ question, children, defaultOpen = false }: FAQItemProp
   const contentId = `faq-${useId().replace(/:/g, "")}`;
   const contentRef = useRef<HTMLDivElement>(null);
   const iconRef = useRef<HTMLSpanElement>(null);
+  const isFirstRender = useRef(true);
 
   useGSAP(
     () => {
       if (!contentRef.current) return;
 
+      // Skip spurious animations on initial mount
+      if (isFirstRender.current) {
+        isFirstRender.current = false;
+        return;
+      }
+
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reduceMotion) {
-        gsap.set(contentRef.current, { height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 });
+        gsap.set(contentRef.current, { height: isOpen ? "auto" : 0, autoAlpha: isOpen ? 1 : 0 });
         if (iconRef.current) gsap.set(iconRef.current, { rotation: isOpen ? 180 : 0 });
         return;
       }
@@ -31,10 +38,10 @@ export function FAQItem({ question, children, defaultOpen = false }: FAQItemProp
       if (isOpen) {
         gsap.fromTo(
           contentRef.current,
-          { height: 0, opacity: 0 },
+          { height: 0, autoAlpha: 0 },
           {
             height: "auto",
-            opacity: 1,
+            autoAlpha: 1,
             duration: 0.35,
             ease: "power2.out",
           }
@@ -45,7 +52,7 @@ export function FAQItem({ question, children, defaultOpen = false }: FAQItemProp
       } else {
         gsap.to(contentRef.current, {
           height: 0,
-          opacity: 0,
+          autoAlpha: 0,
           duration: 0.25,
           ease: "power2.inOut",
         });

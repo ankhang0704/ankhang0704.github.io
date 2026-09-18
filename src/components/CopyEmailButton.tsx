@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Icons } from "@/components/Icons";
 
 interface CopyEmailButtonProps {
@@ -17,6 +17,13 @@ export function CopyEmailButton({
   showText = true,
 }: CopyEmailButtonProps) {
   const [copied, setCopied] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
 
   const handleCopy = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -25,7 +32,8 @@ export function CopyEmailButton({
     try {
       await navigator.clipboard.writeText(email);
       setCopied(true);
-      setTimeout(() => setCopied(false), 3000);
+      if (timerRef.current) clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => setCopied(false), 3000);
     } catch {
       // Fallback
       const textArea = document.createElement("textarea");
@@ -35,7 +43,8 @@ export function CopyEmailButton({
       document.execCommand("copy");
       document.body.removeChild(textArea);
       setCopied(true);
-      setTimeout(() => setCopied(false), 3000);
+      if (timerRef.current) clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => setCopied(false), 3000);
     }
   };
 
