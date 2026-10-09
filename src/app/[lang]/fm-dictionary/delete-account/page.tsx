@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, use } from "react";
+import React, { useState, use, useRef, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Icons } from "@/components/Icons";
@@ -19,6 +19,13 @@ export default function DeleteAccountPage({
   const [confirmed, setConfirmed] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,9 +40,11 @@ export default function DeleteAccountPage({
 
     window.location.href = `mailto:ankhang.nguyen0704@gmail.com?subject=${subject}&body=${body}`;
 
-    setTimeout(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
       setFormSubmitted(true);
       setIsSubmitting(false);
+      timerRef.current = null;
     }, 800);
   };
 
@@ -160,6 +169,7 @@ export default function DeleteAccountPage({
                   </div>
 
                   <button
+                    type="button"
                     onClick={() => setFormSubmitted(false)}
                     className="text-sm underline opacity-60 hover:opacity-100 transition-opacity uppercase tracking-widest font-bold"
                   >

@@ -6,7 +6,7 @@ import { AmbientGlow } from "@/components/AmbientGlow";
 import { ScrollSpyInit } from "@/components/ScrollSpyInit";
 
 const inter = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
   weight: ["300", "400", "500"],
   display: "swap",
   variable: "--font-inter",
@@ -20,7 +20,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const playfair = Playfair_Display({
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
   style: ["italic", "normal"],
   weight: ["600", "700"],
   display: "swap",
@@ -75,11 +75,16 @@ export default async function LocalizedLayout({
   };
 
   return (
-    <html lang={currentLang} className="scroll-smooth">
+    <html lang={currentLang} className="scroll-smooth" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var s=localStorage.getItem('theme');var d=s==='dark'||(!s&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(d){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}}catch(e){}})();`,
+          }}
+        />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body className={`bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark transition-colors duration-500 font-sans relative overflow-x-hidden ${inter.variable} ${spaceGrotesk.variable} ${playfair.variable}`}>
+      <body className={`bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark font-sans relative overflow-x-hidden ${inter.variable} ${spaceGrotesk.variable} ${playfair.variable}`}>
         <GSAPInit />
         <ScrollSpyInit />
         <AmbientGlow />

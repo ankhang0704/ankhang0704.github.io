@@ -30,6 +30,7 @@ export default function FMDictionaryPage({
   const [isHoveringGallery, setIsHoveringGallery] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const modalCloseRef = useRef<HTMLButtonElement>(null);
+  const lastActiveElementRef = useRef<HTMLElement | null>(null);
   const selectedScreen = APP_SCREENS.find((screen) => screen.img === selectedImg);
 
   const centerSlide = (index: number) => {
@@ -52,6 +53,7 @@ export default function FMDictionaryPage({
     if (isHoveringGallery || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const interval = window.setInterval(() => {
+      if (document.hidden) return;
       setCurrentSlide((previous) => {
         const next = (previous + 1) % APP_SCREENS.length;
         window.requestAnimationFrame(() => centerSlide(next));
@@ -63,18 +65,34 @@ export default function FMDictionaryPage({
   }, [isHoveringGallery]);
 
   useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setSelectedImg(null);
+    if (!selectedImg) {
+      if (lastActiveElementRef.current) {
+        lastActiveElementRef.current.focus();
+        lastActiveElementRef.current = null;
+      }
+      return;
+    }
+
+    lastActiveElementRef.current = document.activeElement as HTMLElement | null;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelectedImg(null);
+      } else if (event.key === "Tab") {
+        event.preventDefault();
+        modalCloseRef.current?.focus();
+      }
     };
 
-    window.addEventListener("keydown", handleEscape);
-    return () => window.removeEventListener("keydown", handleEscape);
-  }, []);
-
-  useEffect(() => {
-    if (!selectedImg) return;
+    document.body.classList.add("body-lock");
+    window.addEventListener("keydown", handleKeyDown);
     const frame = window.requestAnimationFrame(() => modalCloseRef.current?.focus());
-    return () => window.cancelAnimationFrame(frame);
+
+    return () => {
+      document.body.classList.remove("body-lock");
+      window.removeEventListener("keydown", handleKeyDown);
+      window.cancelAnimationFrame(frame);
+    };
   }, [selectedImg]);
 
   return (
@@ -220,7 +238,7 @@ export default function FMDictionaryPage({
               {APP_SCREENS.map((item, index) => {
                 const IconComp = item.IconComponent;
                 return (
-                  <button key={item.img} type="button" onClick={() => setSelectedImg(item.img)} className={`screen-card group relative aspect-[9/19] w-[68vw] max-w-[17rem] flex-none snap-center overflow-hidden border bg-bgLight text-left transition-all duration-500 dark:bg-bgDark md:w-72 ${index === currentSlide ? "border-black dark:border-white" : "border-black/10 dark:border-white/10 hover:border-black/40 dark:hover:border-white/40"}`}>
+                  <button key={item.img} type="button" onClick={() => setSelectedImg(item.img)} className={`screen-card group relative aspect-[9/19] w-[68vw] max-w-[17rem] flex-none snap-center overflow-hidden border bg-bgLight text-left transition-[border-color,transform] duration-300 dark:bg-bgDark md:w-72 ${index === currentSlide ? "border-black dark:border-white" : "border-black/10 dark:border-white/10 hover:border-black/40 dark:hover:border-white/40"}`}>
                     <Image src={item.img} alt={`FM Dictionary ${item.label}`} fill sizes="(max-width: 768px) 68vw, 288px" className="object-contain transition-transform duration-500 group-hover:scale-[1.02]" />
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 pt-20 opacity-0 transition-all duration-300 group-hover:opacity-100">
                       <div className="text-white">
@@ -326,7 +344,7 @@ export default function FMDictionaryPage({
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-6" role="dialog" aria-modal="true" aria-label={isVi ? "Xem ảnh màn hình FM Dictionary" : "FM Dictionary screen preview"} onClick={() => setSelectedImg(null)}>
           <div className="relative h-[85vh] w-full max-w-2xl" onClick={(event) => event.stopPropagation()}>
             <Image src={selectedImg} alt={`FM Dictionary ${selectedScreen?.label ?? "screen"}`} fill sizes="90vw" className="object-contain" />
-            <button ref={modalCloseRef} type="button" onClick={() => setSelectedImg(null)} aria-label="Close image" className="absolute right-0 top-0 border border-white px-4 py-2 text-xs uppercase tracking-widest text-white">Close</button>
+            <button ref={modalCloseRef} type="button" onClick={() => setSelectedImg(null)} aria-label={isVi ? "Đóng ảnh màn hình" : "Close preview"} className="absolute right-0 top-0 border border-white px-4 py-2 text-xs uppercase tracking-widest text-white">{isVi ? "Đóng" : "Close"}</button>
           </div>
         </div>
       )}

@@ -89,7 +89,7 @@ export default async function Home({
               </div>
 
               <div className="gsap-bento-grid grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl">
-                <div className="gsap-bento-card lg:col-span-7 p-8 sm:p-10 md:p-14 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between relative overflow-hidden group hover:border-black dark:hover:border-white transition-colors duration-500">
+                <div className="gsap-bento-card lg:col-span-7 p-8 sm:p-10 md:p-14 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between relative overflow-hidden group hover:border-black dark:hover:border-white transition-[border-color] duration-300">
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-8">
                       <span className="text-sm font-bold uppercase tracking-[0.25em] opacity-70">01 / Software</span>
@@ -116,7 +116,7 @@ export default async function Home({
                   <div className="absolute -bottom-6 -right-2 font-serif italic text-9xl opacity-[0.03] dark:opacity-[0.05] select-none pointer-events-none">01</div>
                 </div>
 
-                <div className="gsap-bento-card lg:col-span-5 p-8 sm:p-10 md:p-14 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between relative overflow-hidden group hover:border-black dark:hover:border-white transition-colors duration-500">
+                <div className="gsap-bento-card lg:col-span-5 p-8 sm:p-10 md:p-14 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between relative overflow-hidden group hover:border-black dark:hover:border-white transition-[border-color] duration-300">
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-8">
                       <span className="text-sm font-bold uppercase tracking-[0.25em] opacity-70">02 / Systems</span>
@@ -136,7 +136,7 @@ export default async function Home({
                   <div className="absolute -bottom-6 -right-2 font-serif italic text-9xl opacity-[0.03] dark:opacity-[0.05] select-none pointer-events-none">02</div>
                 </div>
 
-                <div className="gsap-bento-card lg:col-span-12 p-8 sm:p-10 md:p-14 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark relative overflow-hidden group hover:border-black dark:hover:border-white transition-colors duration-500">
+                <div className="gsap-bento-card lg:col-span-12 p-8 sm:p-10 md:p-14 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark relative overflow-hidden group hover:border-black dark:hover:border-white transition-[border-color] duration-300">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
                     <div className="lg:col-span-5">
                       <div className="flex items-center space-x-3 mb-4"><span className="text-sm font-bold uppercase tracking-[0.25em] opacity-70">03 / Support</span></div>

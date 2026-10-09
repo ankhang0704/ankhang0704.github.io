@@ -15,7 +15,7 @@ export function HomeAnimations({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      // 1. Hero Entrance Timeline
+      // 1. Hero Entrance Timeline (crisp, zero initial delay)
       const heroTl = gsap.timeline({
         defaults: { ease: "power3.out" },
       });
@@ -23,26 +23,26 @@ export function HomeAnimations({ children }: { children: React.ReactNode }) {
       heroTl
         .fromTo(
           ".hero-badge",
-          { y: 25, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.8, delay: 0.1 }
+          { y: 20, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.6 }
         )
         .fromTo(
           ".hero-title-line",
-          { y: 45, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.9, stagger: 0.12 },
-          "-=0.5"
+          { y: 30, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.1 },
+          "-=0.4"
         )
         .fromTo(
           ".hero-subtitle",
-          { y: 25, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.8 },
-          "-=0.6"
+          { y: 20, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.6 },
+          "-=0.45"
         )
         .fromTo(
           ".hero-cta-btn",
-          { y: 20, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.1 },
-          "-=0.5"
+          { y: 15, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.5, stagger: 0.08 },
+          "-=0.4"
         );
 
       // 2. Generic GSAP Scroll Reveals (batched for performance)
@@ -95,7 +95,7 @@ export function HomeAnimations({ children }: { children: React.ReactNode }) {
         }
       );
 
-      // 6. Career Timeline Items Stagger (batched for performance)
+      // 5. Career Timeline Items Stagger (batched for performance)
       ScrollTrigger.batch(".gsap-timeline-row", {
         onEnter: (batch) =>
           gsap.fromTo(

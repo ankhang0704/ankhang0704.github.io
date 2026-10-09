@@ -85,7 +85,7 @@ function FeaturePresentation({ lang, dict, projects }: ProjectsInteractiveViewPr
       {projects.map((project, index) => {
         const copy = dict.items[project.contentKey];
         return (
-          <article key={project.id} className="group grid grid-cols-1 gap-8 border-t border-black/15 pt-8 dark:border-white/15 lg:grid-cols-12 lg:gap-12">
+          <article key={project.id} id={project.id} className="group grid grid-cols-1 gap-8 border-t border-black/15 pt-8 dark:border-white/15 lg:grid-cols-12 lg:gap-12 scroll-mt-24">
             <ProjectImage project={project} title={copy.title} number={index + 1} className="aspect-[16/10] lg:col-span-7" />
             <div className="flex flex-col justify-center space-y-5 lg:col-span-5">
               <span className="font-mono text-xs uppercase tracking-widest opacity-50">{project.code} / {copy.category}</span>
@@ -112,7 +112,7 @@ function GridPresentation({ lang, dict, projects }: ProjectsInteractiveViewProps
           ? index === 0 ? "md:col-span-7" : index === 1 ? "md:col-span-5" : "md:col-span-12"
           : index === 0 ? "md:col-span-7" : index === 1 ? "md:col-span-5" : "md:col-span-4";
         return (
-          <article key={project.id} className={`${width} group border border-black/10 bg-cardLight dark:border-white/10 dark:bg-cardDark`}>
+          <article key={project.id} id={project.id} className={`${width} group border border-black/10 bg-cardLight dark:border-white/10 dark:bg-cardDark scroll-mt-24`}>
             <ProjectImage project={project} title={copy.title} number={index + 1} className={`aspect-[16/10] ${index === 2 && projects.length === 3 ? "md:aspect-[2.4/1]" : ""}`} />
             <div className="p-5 md:p-6">
               <div className="flex items-start justify-between gap-5">

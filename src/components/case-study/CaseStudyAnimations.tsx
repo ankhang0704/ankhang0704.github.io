@@ -11,31 +11,31 @@ export function CaseStudyAnimations({ children }: { children: React.ReactNode })
     () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      // 1. Header Entrance Timeline
+      // 1. Header Entrance Timeline (crisp, zero initial delay)
       const headerTl = gsap.timeline({ defaults: { ease: "power3.out" } });
       headerTl
         .fromTo(
           ".cs-breadcrumb",
           { y: 15, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.7, delay: 0.1 }
+          { y: 0, autoAlpha: 1, duration: 0.5 }
         )
         .fromTo(
           ".cs-title",
-          { y: 35, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.9 },
-          "-=0.4"
+          { y: 25, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.7 },
+          "-=0.3"
         )
         .fromTo(
           ".cs-desc",
-          { y: 20, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.8 },
-          "-=0.5"
+          { y: 15, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.6 },
+          "-=0.4"
         )
         .fromTo(
           ".cs-tag",
           { scale: 0.95, autoAlpha: 0 },
-          { scale: 1, autoAlpha: 1, duration: 0.5, stagger: 0.05 },
-          "-=0.4"
+          { scale: 1, autoAlpha: 1, duration: 0.4, stagger: 0.04 },
+          "-=0.3"
         );
 
       // 2. Architecture Diagram Stagger

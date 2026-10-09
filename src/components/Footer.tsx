@@ -199,12 +199,13 @@ export default function Footer({ variant = "main" }: FooterProps) {
 
       {/* Sharp Architectural Back to Top Button */}
       <button
+        type="button"
         id="back-to-top"
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 w-12 h-12 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black flex items-center justify-center transition-all duration-500 z-50 hover:opacity-80 active:scale-95 ${
+        className={`fixed bottom-8 right-8 w-12 h-12 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black flex items-center justify-center transition-[opacity,transform] duration-300 z-50 hover:opacity-80 active:scale-95 ${
           showBackToTop ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-6 pointer-events-none"
         }`}
-        aria-label="Back to top"
+        aria-label={isVi ? "Cuộn lên đầu trang" : "Back to top"}
         tabIndex={showBackToTop ? 0 : -1}
       >
         <Icons.ArrowUp size={20} aria-hidden="true" />
