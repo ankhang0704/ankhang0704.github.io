@@ -23,26 +23,33 @@ export function HomeAnimations({ children }: { children: React.ReactNode }) {
       heroTl
         .fromTo(
           ".hero-badge",
-          { y: 20, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.6 }
+          { y: 16, autoAlpha: 0, immediateRender: true },
+          { y: 0, autoAlpha: 1, duration: 0.5, clearProps: "transform,opacity" }
         )
         .fromTo(
           ".hero-title-line",
-          { y: 30, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.1 },
-          "-=0.4"
+          { y: 24, autoAlpha: 0, immediateRender: true },
+          { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.08, clearProps: "transform,opacity" },
+          "-=0.35"
         )
         .fromTo(
           ".hero-subtitle",
-          { y: 20, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.6 },
-          "-=0.45"
+          { y: 16, autoAlpha: 0, immediateRender: true },
+          { y: 0, autoAlpha: 1, duration: 0.5, clearProps: "transform,opacity" },
+          "-=0.4"
         )
         .fromTo(
           ".hero-cta-btn",
-          { y: 15, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.5, stagger: 0.08 },
-          "-=0.4"
+          { y: 14, autoAlpha: 0, immediateRender: true },
+          {
+            y: 0,
+            autoAlpha: 1,
+            duration: 0.45,
+            stagger: 0.08,
+            ease: "power2.out",
+            clearProps: "transform,opacity",
+          },
+          "-=0.35"
         );
 
       // 2. Generic GSAP Scroll Reveals (batched for performance)

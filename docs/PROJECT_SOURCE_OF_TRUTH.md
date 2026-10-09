@@ -7,7 +7,7 @@ This is the current factual reference for Vault Relay. When this document confli
 | Fact | Canonical value | Evidence |
 | :--- | :--- | :--- |
 | Plugin/package | `github-vault-relay` | `manifest.json`, `package.json` |
-| Release | `1.0.5` | `manifest.json`, `package.json`, Git tag `1.0.5` after release |
+| Release | `1.2.1` | `manifest.json`, `package.json`, Git tag `1.2.1` after release |
 | Minimum Obsidian version | `1.11.4` | `manifest.json`, `tests/manifest.test.ts` |
 | Mobile | Supported; `isDesktopOnly: false` | `manifest.json`, `tests/manifest.test.ts` |
 | Remote service | GitHub REST/Git Data API over HTTPS | `src/github/githubClient.ts` |

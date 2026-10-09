@@ -16,25 +16,25 @@ export function CaseStudyAnimations({ children }: { children: React.ReactNode })
       headerTl
         .fromTo(
           ".cs-breadcrumb",
-          { y: 15, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.5 }
+          { y: 15, autoAlpha: 0, immediateRender: true },
+          { y: 0, autoAlpha: 1, duration: 0.5, clearProps: "transform,opacity" }
         )
         .fromTo(
           ".cs-title",
-          { y: 25, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.7 },
+          { y: 25, autoAlpha: 0, immediateRender: true },
+          { y: 0, autoAlpha: 1, duration: 0.7, clearProps: "transform,opacity" },
           "-=0.3"
         )
         .fromTo(
           ".cs-desc",
-          { y: 15, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.6 },
+          { y: 15, autoAlpha: 0, immediateRender: true },
+          { y: 0, autoAlpha: 1, duration: 0.6, clearProps: "transform,opacity" },
           "-=0.4"
         )
         .fromTo(
           ".cs-tag",
-          { scale: 0.95, autoAlpha: 0 },
-          { scale: 1, autoAlpha: 1, duration: 0.4, stagger: 0.04 },
+          { scale: 0.95, autoAlpha: 0, immediateRender: true },
+          { scale: 1, autoAlpha: 1, duration: 0.4, stagger: 0.04, clearProps: "transform,opacity" },
           "-=0.3"
         );
 

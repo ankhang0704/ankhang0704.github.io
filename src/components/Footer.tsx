@@ -137,7 +137,7 @@ export default function Footer({ variant = "main" }: FooterProps) {
                   © 2026 An Khang
                 </p>
                 <p className="text-xs font-medium opacity-80 uppercase tracking-widest">
-                  {isVi ? "Cập nhật · Tháng 9, 2026" : "Updated · September 2026"}
+                  {isVi ? "Cập nhật · Tháng 10, 2026" : "Updated · October 2026"}
                 </p>
               </div>
             </>

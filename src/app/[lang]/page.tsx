@@ -46,7 +46,7 @@ export default async function Home({
               <div className="flex flex-col sm:flex-row gap-4 items-start">
                 <a
                   href="#projects"
-                  className="hero-cta-btn border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all flex items-center justify-center w-full sm:w-auto group/btn1"
+                  className="hero-cta-btn border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 flex items-center justify-center w-full sm:w-auto group/btn1"
                 >
                   <span>{dict.hero.viewProjects}</span>
                   <Icons.ArrowRight size={16} aria-hidden="true" className="ml-3 transition-transform duration-300 group-hover/btn1:translate-x-2" />
@@ -56,7 +56,7 @@ export default async function Home({
                   download="Nguyen-An-Khang-CV.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hero-cta-btn bg-black text-white dark:bg-white dark:text-black border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:opacity-80 transition-all flex items-center justify-center w-full sm:w-auto group/btn2"
+                  className="hero-cta-btn bg-black text-white dark:bg-white dark:text-black border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:opacity-80 transition-opacity duration-200 flex items-center justify-center w-full sm:w-auto group/btn2"
                 >
                   <span>{dict.hero.downloadCV}</span>
                   <Icons.ChevronDown size={16} aria-hidden="true" className="ml-3 transition-transform duration-300 group-hover/btn2:translate-y-1" />

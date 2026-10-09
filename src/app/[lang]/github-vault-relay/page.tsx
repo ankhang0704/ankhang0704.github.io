@@ -125,7 +125,7 @@ export default async function GithubVaultRelayPage({
         <section className="border-y border-black/10 bg-cardLight py-12 dark:border-white/10 dark:bg-cardDark">
           <div className="container mx-auto grid grid-cols-2 gap-px border-l border-black/10 px-6 dark:border-white/10 md:grid-cols-4 md:px-8">
             {[
-              ["1.0.5", isVi ? "Stable release" : "Stable release"],
+              ["1.2.1", isVi ? "Stable release" : "Stable release"],
               ["1.11.4", isVi ? "Obsidian tối thiểu" : "Minimum Obsidian"],
               ["44", isVi ? "File test" : "Test files"],
               ["478", isVi ? "Test đã pass" : "Passing tests"],
@@ -236,7 +236,7 @@ export default async function GithubVaultRelayPage({
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {[
               ["npm run verify", isVi ? "ESLint, typecheck, Vitest và production build trong quality gate." : "ESLint, typecheck, Vitest and production build in the quality gate."],
-              ["1.0.5", isVi ? "Release tag có release assets được SHA-256 verify và attestation." : "Release tag with SHA-256 verified assets and attestation."],
+              ["1.2.1", isVi ? "Release tag có release assets được SHA-256 verify và attestation." : "Release tag with SHA-256 verified assets and attestation."],
               ["Windows + iPhone", isVi ? "Manual release-gate acceptance đã ghi nhận cho settings, hidden paths, normal files và restart." : "Manual release-gate acceptance recorded for settings, hidden paths, normal files and restart."],
             ].map(([label, text]) => (
               <article key={label} className="border border-black/10 p-8 dark:border-white/10 md:p-10">
