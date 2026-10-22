@@ -3,33 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="2; url=https://ankhang0704.vercel.app/">
-    <link rel="canonical" href="https://ankhang0704.vercel.app/">
     <title>Redirecting | An Khang</title>
-
+    <meta http-equiv="refresh" content="1; url=https://ankhang0704.pages.dev/">
+    <link rel="canonical" href="https://ankhang0704.pages.dev/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Space+Grotesk:wght@700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
-
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                    },
-                    colors: { darkbg: '#0a0a0a' }
-                }
-            }
-        }
+        // Instant client-side redirect preserving full path, query and hash
+        const targetHost = "https://ankhang0704.pages.dev";
+        const targetUrl = targetHost + window.location.pathname + window.location.search + window.location.hash;
+        window.location.replace(targetUrl);
     </script>
-
     <style>
-        body { background-color: #0a0a0a; color: #ededed; }
+        * { box-sizing: border-box; }
+        body {
+            background-color: #0a0a0a;
+            color: #ededed;
+            font-family: 'Inter', -apple-system, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
         .ambient-glow {
             position: absolute;
             top: 50%;
@@ -37,50 +39,95 @@
             transform: translate(-50%, -50%);
             width: 60vw;
             height: 60vh;
-            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
             border-radius: 50%;
             filter: blur(80px);
-            z-index: 0;
             pointer-events: none;
+            z-index: 0;
+        }
+        .content {
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+        }
+        .badge {
+            display: inline-block;
+            font-family: monospace;
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+        }
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 700;
+            margin: 0 0 1.25rem 0;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+        p {
+            font-weight: 300;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0 auto 2.5rem auto;
+            max-width: 520px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid #ffffff;
+            background: #ffffff;
+            color: #000000;
+            padding: 14px 32px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+        .btn:hover {
+            background: transparent;
+            color: #ffffff;
+        }
+        .footer {
+            position: absolute;
+            bottom: 2rem;
+            left: 0;
+            right: 0;
+            font-family: monospace;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
         }
     </style>
-
-    <script>
-        setTimeout(() => {
-            window.location.href = "https://ankhang0704.vercel.app/";
-        }, 1500);
-    </script>
 </head>
-<body class="antialiased min-h-screen flex flex-col items-center justify-center relative overflow-hidden selection:bg-white/20">
-    <div class="ambient-glow"></div>
-
-    <main class="relative z-10 flex flex-col items-center text-center px-6 max-w-2xl mx-auto">
-        <span class="text-[10px] tracking-[0.2em] uppercase opacity-50 border border-white/10 px-3 py-1 mb-10 font-sans">
-            Status Update
-        </span>
-
-        <h1 class="font-display text-4xl md:text-6xl font-bold mb-6 tracking-tight leading-tight">
-            Relocating to <br class="md:hidden" /><span class="font-serif italic font-normal text-5xl md:text-7xl">Vercel</span>
-        </h1>
-
-        <p class="font-sans text-xl opacity-80 mb-12 font-light leading-relaxed">
-            This portfolio has moved to a new domain. You are being redirected automatically to the latest architecture.
-        </p>
-
-        <a href="https://ankhang0704.vercel.app/" class="inline-flex items-center justify-center border border-white/20 hover:border-white px-8 py-4 font-sans text-xs tracking-[0.2em] uppercase transition-all duration-700 hover:bg-white hover:text-black group">
-            <span>Continue</span>
-            <svg class="w-4 h-4 ml-4 transform group-hover:translate-x-1 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-            </svg>
+<body>
+    <div class="ambient-glow" aria-hidden="true"></div>
+    <main class="content">
+        <span class="badge">Cloudflare Pages Migration</span>
+        <h1>Relocating to Cloudflare</h1>
+        <p>This portfolio has permanently moved to our high-performance Cloudflare Edge deployment. Redirecting automatically...</p>
+        <a id="redirect-cta" href="https://ankhang0704.pages.dev/" class="btn">
+            <span>Continue to Portfolio</span>
+            <span aria-hidden="true">&rarr;</span>
         </a>
     </main>
-
-    <footer class="absolute bottom-8 left-0 right-0 text-center z-10">
-        <div class="h-[1px] w-12 bg-white/20 mx-auto mb-4"></div>
-        <p class="font-sans text-[10px] uppercase tracking-widest opacity-50 font-medium">
-            &copy; 2026 An Khang &mdash; Software Developer<br/>
-            Updated &middot; June 2026
-        </p>
+    <footer class="footer">
+        &copy; 2026 An Khang &middot; ankhang0704.pages.dev
     </footer>
+    <script>
+        const cta = document.getElementById("redirect-cta");
+        if (cta && typeof targetUrl !== "undefined") {
+            cta.href = targetUrl;
+        }
+    </script>
 </body>
 </html>
