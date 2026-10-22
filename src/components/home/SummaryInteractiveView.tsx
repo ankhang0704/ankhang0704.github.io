@@ -28,7 +28,7 @@ export function SummaryInteractiveView({ dict }: SummaryInteractiveViewProps) {
               <span className="w-2 h-2 bg-black dark:bg-white mt-2 flex-shrink-0" />
               <div>
                 <span className="text-base sm:text-lg font-bold block leading-snug">{title}</span>
-                {subtitle && <span className="opacity-70 text-xs sm:text-sm block mt-0.5">{subtitle}</span>}
+                {subtitle && <span className="opacity-80 text-xs sm:text-sm block mt-0.5">{subtitle}</span>}
               </div>
             </div>
           ))}

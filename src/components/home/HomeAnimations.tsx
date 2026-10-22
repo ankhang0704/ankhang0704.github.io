@@ -24,7 +24,7 @@ export function HomeAnimations({ children }: { children: React.ReactNode }) {
 
       // 1. Hero Entrance Timeline (crisp, zero initial delay, strictly single-invocation)
       if (isRecentEntrance) {
-        gsap.set([".hero-badge", ".hero-title-line", ".hero-subtitle", ".hero-cta-btn"], {
+        gsap.set([".hero-title-line", ".hero-subtitle", ".hero-cta-btn"], {
           y: 0,
           autoAlpha: 1,
           clearProps: "transform,opacity",
@@ -37,15 +37,9 @@ export function HomeAnimations({ children }: { children: React.ReactNode }) {
 
         heroTl
           .fromTo(
-            ".hero-badge",
-            { y: 16, autoAlpha: 0, immediateRender: true },
-            { y: 0, autoAlpha: 1, duration: 0.5, clearProps: "transform,opacity" }
-          )
-          .fromTo(
             ".hero-title-line",
             { y: 24, autoAlpha: 0, immediateRender: true },
-            { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.08, clearProps: "transform,opacity" },
-            "-=0.35"
+            { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.08, clearProps: "transform,opacity" }
           )
           .fromTo(
             ".hero-subtitle",

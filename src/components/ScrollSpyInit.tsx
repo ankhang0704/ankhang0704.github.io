@@ -7,6 +7,7 @@ export function ScrollSpyInit() {
   const pathname = usePathname();
 
   useEffect(() => {
+    // 1. Accessible smooth hash link clicks
     const onHashLinkClick = (event: MouseEvent) => {
       const anchor = event.target instanceof Element
         ? event.target.closest<HTMLAnchorElement>('a[href^="#"]')
@@ -31,6 +32,7 @@ export function ScrollSpyInit() {
 
     document.addEventListener("click", onHashLinkClick, true);
 
+    // 2. Pending cross-page hash / section restoration
     try {
       const hash = window.location.hash ? window.location.hash.slice(1) : null;
       const targetId = sessionStorage.getItem("pending_section") || hash;
@@ -55,6 +57,7 @@ export function ScrollSpyInit() {
       }
     } catch {}
 
+    // 3. Native IntersectionObserver ScrollSpy
     const sections = Array.from(document.querySelectorAll<HTMLElement>("section[id]"));
     if (sections.length === 0) {
       return () => {
@@ -62,36 +65,13 @@ export function ScrollSpyInit() {
       };
     }
 
-    const targetSectionIds = new Set(
-      sections.map((section) => section.dataset.navSection || section.id)
-    );
     const links = Array.from(
       document.querySelectorAll<HTMLAnchorElement>(".nav-link[data-section]")
-    ).filter((link) => {
-      const section = link.dataset.section;
-      return section && targetSectionIds.has(section);
-    });
+    );
 
-    let frame = 0;
-    let needsMeasure = false;
-    let cachedOffsets: Array<{ id: string; navSection: string | null; top: number }> = [];
-
-    const measureOffsets = () => {
-      cachedOffsets = sections
-        .map((section) => {
-          const rect = section.getBoundingClientRect();
-          return {
-            id: section.id,
-            navSection: section.dataset.navSection ?? null,
-            top: rect.top + window.scrollY,
-          };
-        })
-        .sort((a, b) => a.top - b.top);
-    };
-
-    const setActive = (sectionId: string | null) => {
+    const setActive = (activeSectionId: string | null) => {
       links.forEach((link) => {
-        const active = Boolean(sectionId && link.dataset.section === sectionId);
+        const active = Boolean(activeSectionId && link.dataset.section === activeSectionId);
         link.classList.toggle("active", active);
         if (active) {
           link.setAttribute("aria-current", "location");
@@ -101,69 +81,46 @@ export function ScrollSpyInit() {
       });
     };
 
-    const update = () => {
-      const marker = window.scrollY + window.innerHeight * 0.25;
-      let currentSectionId: string | null = null;
-      for (let i = 0; i < cachedOffsets.length; i++) {
-        const item = cachedOffsets[i];
-        if (item.top <= marker) {
-          currentSectionId = item.navSection ?? item.id;
-        }
-      }
+    const visibleSections = new Map<HTMLElement, number>();
 
-      const atBottom = window.innerHeight + window.scrollY >= (document.documentElement.scrollHeight - 50);
-      if (atBottom && cachedOffsets.length > 0) {
-        const last = cachedOffsets[cachedOffsets.length - 1];
-        currentSectionId = last.navSection ?? last.id;
-      }
-
-      setActive(currentSectionId);
-    };
-
-    const scheduleUpdate = (measure = false) => {
-      if (measure) needsMeasure = true;
-      if (!frame) {
-        frame = window.requestAnimationFrame(() => {
-          frame = 0;
-          if (needsMeasure) {
-            measureOffsets();
-            needsMeasure = false;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target as HTMLElement;
+          if (entry.isIntersecting) {
+            visibleSections.set(el, entry.boundingClientRect.top);
+          } else {
+            visibleSections.delete(el);
           }
-          update();
         });
+
+        if (visibleSections.size > 0) {
+          let topEl: HTMLElement | null = null;
+          let minTop = Infinity;
+          visibleSections.forEach((top, el) => {
+            const currentTop = el.getBoundingClientRect().top;
+            if (Math.abs(currentTop) < minTop) {
+              minTop = Math.abs(currentTop);
+              topEl = el;
+            }
+          });
+          if (topEl) {
+            const sectionId = (topEl as HTMLElement).dataset.navSection || (topEl as HTMLElement).id;
+            setActive(sectionId);
+          }
+        }
+      },
+      {
+        rootMargin: "-20% 0px -65% 0px",
+        threshold: [0, 0.2, 0.5],
       }
-    };
+    );
 
-    const onScroll = () => {
-      scheduleUpdate(false);
-    };
-
-    const onResize = () => {
-      scheduleUpdate(true);
-    };
-
-    // Initial measurement without reading offsetTop in scroll handler
-    measureOffsets();
-    update();
-
-    // Re-measure when layout changes (fonts, images, dynamic DOM changes)
-    let resizeObserver: ResizeObserver | null = null;
-    if (typeof ResizeObserver !== "undefined") {
-      resizeObserver = new ResizeObserver(() => {
-        scheduleUpdate(true);
-      });
-      resizeObserver.observe(document.body);
-    }
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
+    sections.forEach((sec) => observer.observe(sec));
 
     return () => {
       document.removeEventListener("click", onHashLinkClick, true);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
-      resizeObserver?.disconnect();
-      if (frame) window.cancelAnimationFrame(frame);
+      observer.disconnect();
     };
   }, [pathname]);
 

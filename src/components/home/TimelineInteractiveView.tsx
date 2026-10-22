@@ -30,7 +30,7 @@ export function TimelineInteractiveView({
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start relative z-10">
               <div className="lg:col-span-4 space-y-3.5">
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-sm opacity-50 font-bold">{item.index} /</span>
+                  <span className="font-mono text-sm opacity-75 font-bold">{item.index} /</span>
                   <span className="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1 opacity-80 font-medium">
                     {isVi ? item.badgeVi : item.badgeEn}
                   </span>
@@ -46,7 +46,7 @@ export function TimelineInteractiveView({
                     <span>{isVi ? item.statusVi : item.statusEn}</span>
                   </div>
                 ) : (
-                  <span className="text-xs font-mono uppercase tracking-widest opacity-50 block font-medium">
+                  <span className="text-xs font-mono uppercase tracking-widest opacity-75 block font-medium">
                     {isVi ? item.statusVi : item.statusEn}
                   </span>
                 )}
@@ -64,7 +64,7 @@ export function TimelineInteractiveView({
                   {item.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="border border-black/15 dark:border-white/15 px-3.5 py-1.5 text-xs font-mono uppercase tracking-wider opacity-70 group-hover:opacity-100 transition-opacity bg-bgLight dark:bg-bgDark"
+                      className="border border-black/15 dark:border-white/15 px-3.5 py-1.5 text-xs font-mono uppercase tracking-wider opacity-80 group-hover:opacity-100 transition-opacity bg-bgLight dark:bg-bgDark"
                     >
                       {tag}
                     </span>
