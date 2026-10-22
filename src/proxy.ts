@@ -17,17 +17,22 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Redirect old FM Dictionary app landing and legal routes to new cloudflare pages deployment
+  // Handle legacy FM Dictionary subpaths:
   const normalizedPath = pathname.replace(/^\/(en|vi)/, "");
-  if (normalizedPath === "/fm-dictionary" || normalizedPath.startsWith("/fm-dictionary/")) {
-    if (normalizedPath.startsWith("/fm-dictionary/case-study")) {
-      // Preserve internal engineering case study
-    } else if (normalizedPath.includes("privacy-policy")) {
-      return NextResponse.redirect(new URL("https://fm-dictionary.pages.dev/privacy/"));
-    } else if (normalizedPath.includes("terms-of-service")) {
-      return NextResponse.redirect(new URL("https://fm-dictionary.pages.dev/terms/"));
-    } else {
-      return NextResponse.redirect(new URL("https://fm-dictionary.pages.dev/"));
+  if (normalizedPath === "/fm-dictionary/case-study" || normalizedPath.startsWith("/fm-dictionary/case-study/")) {
+    const isVi = pathname.startsWith("/vi");
+    const targetUrl = new URL(isVi ? "/vi/fm-dictionary/" : "/fm-dictionary/", request.url);
+    return NextResponse.redirect(targetUrl, 308);
+  }
+  if (normalizedPath.startsWith("/fm-dictionary/")) {
+    if (normalizedPath.includes("privacy-policy")) {
+      return NextResponse.redirect(new URL("https://fm-dictionary.pages.dev/privacy/"), 308);
+    }
+    if (normalizedPath.includes("terms-of-service")) {
+      return NextResponse.redirect(new URL("https://fm-dictionary.pages.dev/terms/"), 308);
+    }
+    if (normalizedPath.includes("support") || normalizedPath.includes("delete-account")) {
+      return NextResponse.redirect(new URL("https://fm-dictionary.pages.dev/"), 308);
     }
   }
 

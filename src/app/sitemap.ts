@@ -5,7 +5,7 @@ const BASE_URL = "https://ankhang0704.vercel.app";
 const ROUTES = [
   "",
   "/projects",
-  "/fm-dictionary/case-study",
+  "/fm-dictionary",
   "/hotel-management",
   "/github-vault-relay",
 ];

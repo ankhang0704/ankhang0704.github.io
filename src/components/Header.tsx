@@ -86,8 +86,8 @@ export default function Header({ variant = "main" }: HeaderProps = {}) {
     `${localePrefix}/hotel-management/`,
     `${localePrefix}/github-vault-relay`,
     `${localePrefix}/github-vault-relay/`,
-    `${localePrefix}/fm-dictionary/case-study`,
-    `${localePrefix}/fm-dictionary/case-study/`,
+    `${localePrefix}/fm-dictionary`,
+    `${localePrefix}/fm-dictionary/`,
   ].includes(pathname);
 
   useGSAP(

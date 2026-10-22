@@ -15,20 +15,20 @@ const nextConfig: NextConfig = {
         destination: "/vi/projects/",
         permanent: true,
       },
-      // FM Dictionary App & Legal Redirects -> New Domain (https://fm-dictionary.pages.dev/)
+      // Legacy FM Dictionary case-study URL consolidation -> canonical /fm-dictionary/
       {
-        source: "/fm-dictionary",
-        destination: "https://fm-dictionary.pages.dev/",
+        source: "/fm-dictionary/case-study",
+        destination: "/fm-dictionary/",
         permanent: true,
       },
       {
-        source: "/en/fm-dictionary",
-        destination: "https://fm-dictionary.pages.dev/",
+        source: "/en/fm-dictionary/case-study",
+        destination: "/fm-dictionary/",
         permanent: true,
       },
       {
-        source: "/vi/fm-dictionary",
-        destination: "https://fm-dictionary.pages.dev/",
+        source: "/vi/fm-dictionary/case-study",
+        destination: "/vi/fm-dictionary/",
         permanent: true,
       },
       {

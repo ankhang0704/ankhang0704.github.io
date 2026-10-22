@@ -25,7 +25,7 @@ export const PROJECTS: ProjectDefinition[] = [
     code: "PRJ-01",
     contentKey: "fmDictionary",
     image: "/fm-dictionary-editorial-cover.webp",
-    href: "/fm-dictionary/case-study/",
+    href: "/fm-dictionary/",
     externalHref: "https://fm-dictionary.pages.dev/",
     externalLabel: "Website ↗",
     externalLabelVi: "Website ↗",

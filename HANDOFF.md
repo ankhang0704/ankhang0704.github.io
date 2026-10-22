@@ -2,43 +2,40 @@
 
 ## 🎯 Summary of Achievements
 
-This session focused on full-stack performance profiling, eliminating UX bottlenecks, resolving animation stuttering, eliminating double entrance animations on page load, migrating external app landing routes, building editorial error boundary pages, and refining art direction grounded in `checklist-design` and `taste-skill`:
+This session focused on full-stack performance profiling, eliminating UX bottlenecks, resolving animation stuttering, eliminating double entrance animations on page load, migrating external app landing routes, building editorial error boundary pages, harmonizing case study routing, and redesigning architecture diagrams grounded in `checklist-design` and `taste-skill`:
 
-1. **Complete Typography Streamlining (2-Font Precision System)**:
+1. **FM Dictionary Case Study Canonicalization & URL Consolidation**:
+   - Consolidated the FM Dictionary case study route from `/fm-dictionary/case-study/` to `/fm-dictionary/` (and `/vi/fm-dictionary/`), harmonizing it with the sibling case studies (`/github-vault-relay/` and `/hotel-management/`).
+   - Configured permanent 308 redirects in [next.config.ts](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/next.config.ts) and [src/proxy.ts](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/proxy.ts) forwarding all legacy `/fm-dictionary/case-study/` traffic to the canonical `/fm-dictionary/` route.
+   - Preserved external legal & app redirects (`/privacy-policy/`, `/terms-of-service/`, `/support/`, `/delete-account/`) pointing to the official production site `https://fm-dictionary.pages.dev/`.
+   - Updated [sitemap.ts](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/sitemap.ts), [Header.tsx](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/Header.tsx), and [projects.ts](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/content/projects.ts).
+
+2. **Unified Architectural Hero Standard Across All 3 Case Studies**:
+   - Replaced awkward inline breadcrumbs (`[← Về trang chủ] Open source plugin`) with a minimalist, structured anchor row:
+     - Left: Clean index back-link (`← Index / Category`)
+     - Right: Verified status and year badge (`2026 · VERIFIED ARCHITECTURE`).
+   - Standardized on a 2-column editorial hero (`col-span-7` typography & CTAs, `col-span-5` precision engineering preview frame).
+   - Added uniform 4-column KPI evidence strips (`border-y border-black/10 divide-x divide-black/10`) below the hero on all 3 case studies.
+
+3. **Architectural Blueprint & Diagram Redesign (`taste-skill` & `DESIGN.md`)**:
+   - **FM Dictionary**: Replaced basic cards with a **3-Tier Multi-Boundary Blueprint** (Client Edge Local Core, Cloudflare Edge Gateway, Firebase Async Persistence) + embedded the verified `/fm-offline-architecture.webp` schematic.
+   - **Hotel Management**: Replaced primitive ASCII/unicode text boxes with a **Modular Two-Tier Architectural Schema** (Django 5.x MVT Monolith with ACID transactions & ORM tuning, decoupled Semantic Inquiry Bus, FAISS Vector RAG Assistant).
+   - **GitHub Vault Relay**: Replaced static cards with a **Connected 6-Stage Cryptographic Sync Pipeline** with explicit data artifact outputs and state classification matrix.
+
+4. **Complete Typography Streamlining (2-Font Precision System)**:
    - Eliminated `Playfair Display` and all `font-serif` occurrences across the codebase.
    - Standardized on a cohesive 2-font system: **`Space Grotesk`** (architectural display headers) + **`Inter`** (crisp body typography), cutting font request overhead and eliminating the "editorial shortcut" AI cliché.
-   - Refactored headings across Hero, 404, 500 Error, and all Case Study pages (`FM Dictionary`, `GitHub Vault Relay`, `Hotel Management`).
 
-2. **Grounded Visual Proof & Technical Viewport Frames**:
+5. **Grounded Visual Proof & Technical Viewport Frames**:
    - Replaced generic static thumbnails and oversized watermark numbers with **Precision Engineering Viewports** in [ProjectsInteractiveView.tsx](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/home/ProjectsInteractiveView.tsx):
      - Viewport chrome header with status indicator and project code.
      - Verified engineering spec badges for each project (e.g. `1,847 Terms · Hive Offline · Cloudflare STT Proxy`, `Django 5 + SQLite · FAISS Vector RAG`, `Obsidian Plugin · GitHub REST API`).
-     - Grounded, truthful technical proof with zero marketing exaggeration.
 
-3. **Holistic Motion Upgrade with Native GSAP (Option A across all sections & screens)**:
-   - **Hero**: Curtain reveal using masked overflow containers (`yPercent: 110` -> `0`, `ease: "power4.out"`), followed by subtitle focus and CTA entrance.
-   - **About**: Dual-axis compositional reveal separating credentials column (`x: -24` -> `0`) and narrative (`y: 30` -> `0`).
-   - **Projects**: Staggered card entrance combined with subtle scroll parallax on preview images (`yPercent: -4` to `4` scrub).
-   - **Skills Matrix**: Construction-style 3-column stagger (`Primary`, `Practical`, `Operations & Support`).
-   - **Timeline**: Continuous line-drawing scrub synchronized with horizontal milestone glides.
-   - **Case Studies**: Enhanced [CaseStudyAnimations.tsx](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/CaseStudyAnimations.tsx) with parallax on `.cs-cover-img` and circuit-like stagger on `.cs-diagram-node`.
-
-4. **ScrollSpy Modernization & Performance**:
-   - Refactored [ScrollSpyInit.tsx](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ScrollSpyInit.tsx) from 171 lines of manual scroll/resize listeners, window offset calculations, and DOM measurements to a native, high-performance `IntersectionObserver` with `rootMargin: "-20% 0px -65% 0px"`.
-   - Preserved accessible smooth scrolling, tabindex focus management, and cross-route session pending scroll restoration.
-
-5. **FM Dictionary App Landing & Legal Routes Clean Up & Permanent Redirects**:
-   - Deleted obsolete mobile app landing and legal subpages: `/fm-dictionary/`, `/fm-dictionary/support/`, `/fm-dictionary/privacy-policy/`, `/fm-dictionary/terms-of-service/`, `/fm-dictionary/delete-account/`, as well as `src/components/support/FAQAccordion.tsx` and legacy public assets.
-   - Retained [src/app/[lang]/fm-dictionary/case-study/page.tsx](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/[lang]/fm-dictionary/case-study/page.tsx) as part of core portfolio project evidence.
-   - Configured permanent 308 redirects in [next.config.ts](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/next.config.ts) and [src/proxy.ts](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/proxy.ts) to `https://fm-dictionary.pages.dev/`.
-   - Updated [src/app/sitemap.ts](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/sitemap.ts) to reflect the active 15 static canonical pages.
-
-6. **Architectural, Monochromatic 404 & Error Boundaries**:
-   - Built custom bilingual [src/app/[lang]/not-found.tsx](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/[lang]/not-found.tsx) and [src/app/not-found.tsx](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/not-found.tsx).
-   - Created client error boundary [src/app/[lang]/error.tsx](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/[lang]/error.tsx) with retry and return actions.
+6. **Holistic Motion Upgrade with Native GSAP (Option A across all sections & screens)**:
+   - Hero curtain reveal, dual-axis About reveal, project image scroll parallax scrub, 3-column skills matrix stagger, continuous timeline line-drawing, and circuit-like case study node highlights.
 
 7. **Build Verification**:
-   - Verified clean production build: `npm run build` succeeds in ~3.9s across all 15 static pages without errors.
+   - Clean production build: `npm run build` succeeds in ~4.0s across all 15 static canonical pages without errors or warnings.
 
 ---
 
