@@ -3,88 +3,93 @@
   "trailingSlash": true,
   "redirects": [
     {
-      "source": "/fm-dictionary/case-study",
+      "source": "/fm-dictionary/case-study/:path*",
       "destination": "/fm-dictionary/",
       "permanent": true
     },
     {
-      "source": "/en/fm-dictionary/case-study",
+      "source": "/en/fm-dictionary/case-study/:path*",
       "destination": "/fm-dictionary/",
       "permanent": true
     },
     {
-      "source": "/vi/fm-dictionary/case-study",
+      "source": "/vi/fm-dictionary/case-study/:path*",
       "destination": "/vi/fm-dictionary/",
       "permanent": true
     },
     {
-      "source": "/fm-dictionary/privacy-policy",
+      "source": "/fm-dictionary/privacy-policy/:path*",
       "destination": "https://fm-dictionary.pages.dev/privacy/",
       "permanent": true
     },
     {
-      "source": "/en/fm-dictionary/privacy-policy",
+      "source": "/en/fm-dictionary/privacy-policy/:path*",
       "destination": "https://fm-dictionary.pages.dev/privacy/",
       "permanent": true
     },
     {
-      "source": "/vi/fm-dictionary/privacy-policy",
+      "source": "/vi/fm-dictionary/privacy-policy/:path*",
       "destination": "https://fm-dictionary.pages.dev/privacy/",
       "permanent": true
     },
     {
-      "source": "/fm-dictionary/terms-of-service",
+      "source": "/fm-dictionary/terms-of-service/:path*",
       "destination": "https://fm-dictionary.pages.dev/terms/",
       "permanent": true
     },
     {
-      "source": "/en/fm-dictionary/terms-of-service",
+      "source": "/en/fm-dictionary/terms-of-service/:path*",
       "destination": "https://fm-dictionary.pages.dev/terms/",
       "permanent": true
     },
     {
-      "source": "/vi/fm-dictionary/terms-of-service",
+      "source": "/vi/fm-dictionary/terms-of-service/:path*",
       "destination": "https://fm-dictionary.pages.dev/terms/",
       "permanent": true
     },
     {
-      "source": "/fm-dictionary/support",
+      "source": "/fm-dictionary/support/:path*",
       "destination": "https://fm-dictionary.pages.dev/",
       "permanent": true
     },
     {
-      "source": "/en/fm-dictionary/support",
+      "source": "/en/fm-dictionary/support/:path*",
       "destination": "https://fm-dictionary.pages.dev/",
       "permanent": true
     },
     {
-      "source": "/vi/fm-dictionary/support",
+      "source": "/vi/fm-dictionary/support/:path*",
       "destination": "https://fm-dictionary.pages.dev/",
       "permanent": true
     },
     {
-      "source": "/fm-dictionary/delete-account",
+      "source": "/fm-dictionary/delete-account/:path*",
       "destination": "https://fm-dictionary.pages.dev/",
       "permanent": true
     },
     {
-      "source": "/en/fm-dictionary/delete-account",
+      "source": "/en/fm-dictionary/delete-account/:path*",
       "destination": "https://fm-dictionary.pages.dev/",
       "permanent": true
     },
     {
-      "source": "/vi/fm-dictionary/delete-account",
+      "source": "/vi/fm-dictionary/delete-account/:path*",
       "destination": "https://fm-dictionary.pages.dev/",
       "permanent": true
     },
     {
-      "source": "/en/it-infrastructure",
+      "source": "/en/it-infrastructure/:path*",
       "destination": "/projects/",
       "permanent": true
     },
     {
-      "source": "/vi/it-infrastructure",
+      "source": "/vi/it-infrastructure/:path*",
       "destination": "/vi/projects/",
+      "permanent": true
+    },
+    {
+      "source": "/it-infrastructure/:path*",
+      "destination": "/projects/",
       "permanent": true
     }
   ]
