@@ -34,8 +34,10 @@ This session focused on full-stack performance profiling, eliminating UX bottlen
 6. **Holistic Motion Upgrade with Native GSAP (Option A across all sections & screens)**:
    - Hero curtain reveal, dual-axis About reveal, project image scroll parallax scrub, 3-column skills matrix stagger, continuous timeline line-drawing, and circuit-like case study node highlights.
 
-7. **Build Verification**:
-   - Clean production build: `npm run build` succeeds in ~4.0s across all 15 static canonical pages without errors or warnings.
+7. **Build & CI/CD Deployment Verification**:
+   - Resolved CI lint check failure on Vercel by ignoring `.agents/**` in [eslint.config.mjs](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/eslint.config.mjs) and registering GSAP's `ScrollTrigger` in [CaseStudyAnimations.tsx](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/CaseStudyAnimations.tsx).
+   - Clean production build: `npm run build` succeeds in ~4.0s across all 15 static canonical pages; `npm run lint` completes with 0 errors and 0 warnings.
+   - Vercel production deployment verified live (`HTTP/1.1 200 OK` on `https://ankhang0704.vercel.app/vi/fm-dictionary/` and `https://ankhang0704.vercel.app/fm-dictionary/`, with 308 redirects properly preserving `/case-study/` legacy routes).
 
 ---
 
