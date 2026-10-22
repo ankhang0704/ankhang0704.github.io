@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk, Playfair_Display } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "../style.css";
 import { GSAPInit } from "@/components/GSAPInit";
 import { AmbientGlow } from "@/components/AmbientGlow";
@@ -17,14 +17,6 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["500", "700"],
   display: "swap",
   variable: "--font-space-grotesk",
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin", "vietnamese"],
-  style: ["italic", "normal"],
-  weight: ["600", "700"],
-  display: "swap",
-  variable: "--font-playfair",
 });
 
 export const metadata: Metadata = {
@@ -84,7 +76,7 @@ export default async function LocalizedLayout({
         />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body className={`bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark font-sans relative overflow-x-hidden ${inter.variable} ${spaceGrotesk.variable} ${playfair.variable}`}>
+      <body className={`bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark font-sans relative overflow-x-hidden ${inter.variable} ${spaceGrotesk.variable}`}>
         <GSAPInit />
         <ScrollSpyInit />
         <AmbientGlow />

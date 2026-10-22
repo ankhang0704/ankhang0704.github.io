@@ -31,9 +31,13 @@ export default async function Home({
           <section id="hero" className="min-h-[100dvh] flex items-center relative overflow-x-hidden pt-20">
             <div className="container mx-auto px-6 md:px-8 relative z-10">
               <h1 className="font-display text-5xl md:text-8xl font-bold leading-[1.1] mb-6">
-                <span className="hero-title-line block">Software</span>
-                <span className="hero-title-line block">
-                  Developer<span className="font-serif italic text-6xl md:text-9xl ml-2 tracking-normal leading-[1.1] pb-1"> · An Khang</span>
+                <span className="block overflow-hidden pb-2">
+                  <span className="hero-title-line block">Software</span>
+                </span>
+                <span className="block overflow-hidden pb-2">
+                  <span className="hero-title-line block">
+                    Developer<span className="font-light text-4xl sm:text-5xl md:text-7xl ml-3 tracking-tight opacity-80 inline-block">· An Khang</span>
+                  </span>
                 </span>
               </h1>
               <p className="hero-subtitle text-xl font-light max-w-2xl mb-12 opacity-80 leading-relaxed">

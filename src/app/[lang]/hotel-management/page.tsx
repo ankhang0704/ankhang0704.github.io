@@ -106,7 +106,7 @@ export default async function HotelManagementCaseStudy({
               <h1 className="cs-title max-w-4xl font-display text-5xl font-bold leading-[0.95] md:text-8xl">
                 Hotel
                 <br />
-                <span className="font-serif text-6xl font-normal italic leading-[1.1] tracking-normal md:text-9xl">
+                <span className="font-light opacity-90 leading-[1.1] tracking-tight">
                   Management.
                 </span>
               </h1>
@@ -145,7 +145,7 @@ export default async function HotelManagementCaseStudy({
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 42vw"
-                  className="object-cover grayscale"
+                  className="cs-cover-img object-cover grayscale transition-all duration-700 hover:grayscale-0"
                 />
               </div>
               <figcaption className="mt-3 text-xs leading-relaxed opacity-50">

@@ -92,7 +92,7 @@ export default async function GithubVaultRelayPage({
             <h1 className="max-w-4xl break-words font-display text-5xl font-bold leading-[0.95] md:text-8xl">
               GitHub
               <br />
-              <span className="whitespace-nowrap font-serif text-6xl font-normal italic leading-[1.1] tracking-normal md:text-8xl">Vault Relay.</span>
+              <span className="whitespace-nowrap font-light opacity-90 leading-[1.1] tracking-tight">Vault Relay.</span>
             </h1>
             <p className="mt-8 max-w-2xl text-xl font-light leading-relaxed opacity-80 md:text-2xl">
               {isVi
@@ -116,7 +116,7 @@ export default async function GithubVaultRelayPage({
 
           <figure className="min-w-0 lg:col-span-5">
             <div className="relative aspect-[4/3] overflow-hidden border border-black/15 dark:border-white/15">
-              <Image src="/github-vault-relay-cover.webp" alt={isVi ? "Ảnh bìa biên tập cho GitHub Vault Relay" : "Editorial cover for GitHub Vault Relay"} fill priority sizes="(max-width: 1024px) 100vw, 42vw" className="object-cover grayscale transition-all duration-700 hover:grayscale-0" />
+              <Image src="/github-vault-relay-cover.webp" alt={isVi ? "Ảnh bìa biên tập cho GitHub Vault Relay" : "Editorial cover for GitHub Vault Relay"} fill priority sizes="(max-width: 1024px) 100vw, 42vw" className="cs-cover-img object-cover grayscale transition-all duration-700 hover:grayscale-0" />
             </div>
             <figcaption className="mt-3 text-xs leading-relaxed opacity-50">{isVi ? "Ảnh bìa portfolio, không phải ảnh chụp giao diện plugin." : "Portfolio cover, not a screenshot of the plugin UI."}</figcaption>
           </figure>

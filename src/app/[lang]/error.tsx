@@ -38,7 +38,7 @@ export default function ErrorBoundary({
           </div>
 
           <h1 className="font-display text-7xl sm:text-8xl md:text-9xl font-bold tracking-tight leading-none mb-6">
-            500<span className="font-serif italic text-6xl sm:text-7xl md:text-8xl font-normal ml-3 opacity-60">!</span>
+            500<span className="font-light text-6xl sm:text-7xl md:text-8xl ml-3 opacity-60">!</span>
           </h1>
 
           <p className="font-display text-2xl sm:text-3xl font-bold mb-6 tracking-tight">

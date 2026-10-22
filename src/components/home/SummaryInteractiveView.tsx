@@ -16,8 +16,8 @@ interface SummaryInteractiveViewProps {
 
 export function SummaryInteractiveView({ dict }: SummaryInteractiveViewProps) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-      <div className="lg:col-span-4 space-y-8">
+    <div className="summary-container grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+      <div className="summary-credentials lg:col-span-4 space-y-8">
         <div className="border-t border-black/10 dark:border-white/10 pt-6 space-y-5 font-mono opacity-90">
           {[
             [dict.hospital, dict.hospitalRole],
@@ -46,7 +46,7 @@ export function SummaryInteractiveView({ dict }: SummaryInteractiveViewProps) {
         </div>
       </div>
 
-      <div className="lg:col-span-8 space-y-10 lg:border-l lg:border-black/10 dark:lg:border-white/10 lg:pl-12">
+      <div className="summary-narrative lg:col-span-8 space-y-10 lg:border-l lg:border-black/10 dark:lg:border-white/10 lg:pl-12">
         <p className="font-display text-3xl sm:text-4xl font-light leading-relaxed text-justify tracking-tight">
           {dict.lead}
         </p>

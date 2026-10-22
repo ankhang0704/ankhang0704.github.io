@@ -12,6 +12,11 @@ export type ProjectDefinition = {
   secondaryExternalLabelVi?: string;
   year?: string;
   tags: string[];
+  specs?: string[];
+  statusBadge?: {
+    en: string;
+    vi: string;
+  };
 };
 
 export const PROJECTS: ProjectDefinition[] = [
@@ -27,6 +32,11 @@ export const PROJECTS: ProjectDefinition[] = [
     secondaryExternalHref: "https://apps.apple.com/us/app/fm-dictionary/id6774868353",
     secondaryExternalLabel: "App Store ↗",
     tags: ["Flutter", "Firebase", "Hive", "Cloudflare Workers", "1,847 terms"],
+    specs: ["1,847 Terms", "Hive Offline", "Cloudflare STT Proxy"],
+    statusBadge: {
+      en: "PRODUCTION · APP STORE",
+      vi: "SẢN PHẨM · APP STORE",
+    },
   },
   {
     id: "project-github-vault-relay",
@@ -38,6 +48,11 @@ export const PROJECTS: ProjectDefinition[] = [
     externalLabel: "View on Obsidian ↗",
     externalLabelVi: "Xem trên Obsidian ↗",
     tags: ["Open Source", "Obsidian", "GitHub API", "Mobile-first"],
+    specs: ["Obsidian Plugin", "GitHub REST API", "Direct Tree Sync"],
+    statusBadge: {
+      en: "OPEN SOURCE · RELEASED",
+      vi: "MÃ NGUỒN MỞ · COMMUNITY",
+    },
   },
   {
     id: "project-hotel-management",
@@ -48,6 +63,11 @@ export const PROJECTS: ProjectDefinition[] = [
     externalHref: "https://github.com/ankhang0704/QuanLyKhachSan_AI",
     externalLabel: "GitHub ↗",
     tags: ["Django", "SQLite", "Server-rendered", "RAG", "FAISS"],
+    specs: ["Django 5 + SQLite", "FAISS Vector RAG", "Server-Rendered"],
+    statusBadge: {
+      en: "ACADEMIC CAPSTONE",
+      vi: "ĐỒ ÁN TỐT NGHIỆP",
+    },
   },
   {
     id: "project-koi-phan-thiet",
@@ -57,6 +77,11 @@ export const PROJECTS: ProjectDefinition[] = [
     externalHref: "https://koiphanthiet.com/",
     externalLabel: "Visit Site ↗",
     tags: ["WordPress", "Polylang", "5 languages", "Performance"],
+    specs: ["WordPress + Polylang", "5 Languages", "High Performance"],
+    statusBadge: {
+      en: "COMMERCIAL CLIENT",
+      vi: "DỰ ÁN KHÁCH HÀNG",
+    },
   },
   {
     id: "project-python-ip-checker",
@@ -67,6 +92,11 @@ export const PROJECTS: ProjectDefinition[] = [
     externalHref: "https://github.com/ankhang0704/python-ip-checker",
     externalLabel: "GitHub ↗",
     tags: ["Python", "IT Utility", "Batch Checking"],
+    specs: ["Python 3 Socket/Ping", "Subnet Scanner", "CSV Export"],
+    statusBadge: {
+      en: "INTERNAL IT UTILITY",
+      vi: "CÔNG CỤ NỘI BỘ CNTT",
+    },
   },
 ];
 

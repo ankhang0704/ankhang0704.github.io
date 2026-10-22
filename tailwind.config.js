@@ -10,7 +10,6 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-inter)', 'sans-serif'],
         display: ['var(--font-space-grotesk)', 'sans-serif'],
-        serif: ['var(--font-playfair)', 'serif'],
       },
       colors: {
         bgLight: '#fafafa',

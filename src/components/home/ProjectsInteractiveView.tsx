@@ -59,22 +59,64 @@ function ProjectActions({ project, dict, lang }: { project: ProjectDefinition; d
   );
 }
 
-function ProjectImage({ project, title, className = "", number }: { project: ProjectDefinition; title: string; className?: string; number?: number }) {
+function ProjectImage({
+  project,
+  title,
+  className = "",
+  lang,
+}: {
+  project: ProjectDefinition;
+  title: string;
+  className?: string;
+  lang?: string;
+}) {
+  const isVi = lang === "vi";
+  const statusLabel = project.statusBadge ? (isVi ? project.statusBadge.vi : project.statusBadge.en) : null;
+
   return (
-    <div className={`relative overflow-hidden border border-black/10 bg-bgLight dark:border-white/10 dark:bg-bgDark ${className}`}>
-      {project.image ? (
-        <Image src={project.image} alt={title} fill sizes="(max-width: 1024px) 100vw, 60vw" className="scale-105 object-cover transition-transform duration-500 ease-out group-hover:scale-100" />
-      ) : (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 font-mono text-xs uppercase tracking-[0.25em] opacity-60">
-          <span className="text-5xl font-serif italic">{project.code}</span>
-          <span>Repository project</span>
+    <div className={`relative overflow-hidden border border-black/10 bg-bgLight dark:border-white/10 dark:bg-bgDark flex flex-col ${className}`}>
+      {/* Precision Engineering Viewport Header */}
+      <div className="flex items-center justify-between px-3.5 py-2 border-b border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark z-10 text-[10px] font-mono uppercase tracking-wider">
+        <div className="flex items-center gap-2">
+          <span className="w-1.5 h-1.5 bg-black dark:bg-white inline-block" />
+          <span className="opacity-90 font-bold">{project.code}</span>
         </div>
-      )}
-      {project.image && number && (
-        <span aria-hidden="true" className="pointer-events-none absolute bottom-3 left-4 font-display text-5xl font-bold leading-none tracking-tighter text-white opacity-70 mix-blend-difference sm:bottom-5 sm:left-6 sm:text-7xl">
-          {String(number).padStart(2, "0")}
-        </span>
-      )}
+        {statusLabel && (
+          <span className="opacity-75 tracking-widest">{statusLabel}</span>
+        )}
+      </div>
+
+      {/* Viewport Image Area */}
+      <div className="relative flex-1 w-full min-h-[220px] overflow-hidden">
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={title}
+            fill
+            sizes="(max-width: 1024px) 100vw, 60vw"
+            className="gsap-project-img scale-105 object-cover transition-transform duration-700 ease-out group-hover:scale-100"
+          />
+        ) : (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 font-mono text-xs uppercase tracking-[0.25em] opacity-60">
+            <span className="text-3xl font-mono font-bold tracking-tight opacity-75">{project.code}</span>
+            <span>Documented Repository</span>
+          </div>
+        )}
+
+        {/* Real Engineering Specs Badge Overlay */}
+        {project.specs && project.specs.length > 0 && (
+          <div className="absolute bottom-2.5 left-2.5 right-2.5 flex flex-wrap gap-1.5 z-10 pointer-events-none">
+            {project.specs.map((spec) => (
+              <span
+                key={spec}
+                className="bg-black/80 dark:bg-white/90 text-white dark:text-black text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 border border-white/20 dark:border-black/20 backdrop-blur-sm font-semibold"
+              >
+                {spec}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -82,17 +124,17 @@ function ProjectImage({ project, title, className = "", number }: { project: Pro
 function FeaturePresentation({ lang, dict, projects }: ProjectsInteractiveViewProps & { projects: ProjectDefinition[] }) {
   return (
     <div className="space-y-16 md:space-y-24">
-      {projects.map((project, index) => {
+      {projects.map((project) => {
         const copy = dict.items[project.contentKey];
         return (
-          <article key={project.id} id={project.id} className="group grid grid-cols-1 gap-8 border-t border-black/15 pt-8 dark:border-white/15 lg:grid-cols-12 lg:gap-12 scroll-mt-24">
-            <ProjectImage project={project} title={copy.title} number={index + 1} className="aspect-[16/10] lg:col-span-7" />
+          <article key={project.id} id={project.id} className="gsap-project-card group grid grid-cols-1 gap-8 border-t border-black/15 pt-8 dark:border-white/15 lg:grid-cols-12 lg:gap-12 scroll-mt-24">
+            <ProjectImage project={project} title={copy.title} lang={lang} className="aspect-[16/10] lg:col-span-7" />
             <div className="flex flex-col justify-center space-y-5 lg:col-span-5">
-              <span className="font-mono text-xs uppercase tracking-widest opacity-50">{project.code} / {copy.category}</span>
+              <span className="font-mono text-xs uppercase tracking-widest opacity-60">{project.code} / {copy.category}</span>
               <h3 className="font-display text-3xl font-bold md:text-5xl">{copy.title}</h3>
               <p className="text-xl font-light leading-relaxed opacity-85">{copy.desc}</p>
               <div className="flex flex-wrap gap-2.5">
-                {project.tags.map((tag) => <span key={tag} className="border border-black/15 px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider opacity-70 dark:border-white/15">{tag}</span>)}
+                {project.tags.map((tag) => <span key={tag} className="border border-black/15 px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider opacity-75 dark:border-white/15">{tag}</span>)}
               </div>
               <ProjectActions project={project} dict={dict} lang={lang} />
             </div>
@@ -105,24 +147,26 @@ function FeaturePresentation({ lang, dict, projects }: ProjectsInteractiveViewPr
 
 function GridPresentation({ lang, dict, projects }: ProjectsInteractiveViewProps & { projects: ProjectDefinition[] }) {
   return (
-    <div className="grid grid-cols-1 gap-3 md:grid-cols-12">
+    <div className="gsap-projects-grid grid grid-cols-1 gap-4 md:grid-cols-12">
       {projects.map((project, index) => {
         const copy = dict.items[project.contentKey];
         const width = projects.length === 3
           ? index === 0 ? "md:col-span-7" : index === 1 ? "md:col-span-5" : "md:col-span-12"
           : index === 0 ? "md:col-span-7" : index === 1 ? "md:col-span-5" : "md:col-span-4";
         return (
-          <article key={project.id} id={project.id} className={`${width} group border border-black/10 bg-cardLight dark:border-white/10 dark:bg-cardDark scroll-mt-24`}>
-            <ProjectImage project={project} title={copy.title} number={index + 1} className={`aspect-[16/10] ${index === 2 && projects.length === 3 ? "md:aspect-[2.4/1]" : ""}`} />
-            <div className="p-5 md:p-6">
-              <div className="flex items-start justify-between gap-5">
-                <div>
-                  <span className="font-mono text-xs uppercase tracking-widest opacity-50">{project.code} / {copy.category}</span>
-                  <h3 className="mt-2 font-display text-2xl font-bold md:text-3xl">{copy.title}</h3>
+          <article key={project.id} id={project.id} className={`gsap-project-card ${width} group border border-black/10 bg-cardLight dark:border-white/10 dark:bg-cardDark scroll-mt-24 flex flex-col justify-between hover:border-black dark:hover:border-white transition-colors duration-300`}>
+            <ProjectImage project={project} title={copy.title} lang={lang} className={`aspect-[16/10] ${index === 2 && projects.length === 3 ? "md:aspect-[2.4/1]" : ""}`} />
+            <div className="p-5 md:p-6 flex flex-col flex-1 justify-between">
+              <div>
+                <div className="flex items-start justify-between gap-5">
+                  <div>
+                    <span className="font-mono text-xs uppercase tracking-widest opacity-60">{project.code} / {copy.category}</span>
+                    <h3 className="mt-2 font-display text-2xl font-bold md:text-3xl">{copy.title}</h3>
+                  </div>
+                  <Icons.ArrowRight size={20} aria-hidden="true" className="opacity-50 transition-transform group-hover:translate-x-1" />
                 </div>
-                <Icons.ArrowRight size={20} aria-hidden="true" className="opacity-45 transition-transform group-hover:translate-x-1" />
+                <p className="mt-4 max-w-[65ch] text-base font-light leading-relaxed opacity-80">{copy.desc}</p>
               </div>
-              <p className="mt-4 max-w-[65ch] text-base font-light leading-relaxed opacity-75">{copy.desc}</p>
               <ProjectActions project={project} dict={dict} lang={lang} />
             </div>
           </article>

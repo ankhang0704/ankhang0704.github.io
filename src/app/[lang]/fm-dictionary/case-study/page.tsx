@@ -118,7 +118,7 @@ export default async function FMDictionaryCaseStudyPage({
               {isVi ? "Engineering case study · Evidence pack" : "Engineering case study · Evidence pack"}
             </p>
             <h1 className="mb-8 break-words font-display text-5xl font-bold leading-[1.05] md:text-8xl">
-              FM <span className="font-serif font-normal italic">Dictionary.</span>
+              FM <span className="font-light opacity-90">Dictionary.</span>
             </h1>
             <p className="max-w-3xl text-xl font-light leading-relaxed opacity-80 md:text-2xl">
               {isVi
