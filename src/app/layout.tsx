@@ -32,11 +32,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "An Khang | Software Developer",
   description: "An Khang — Software Developer building web, mobile, and automation tools with hands-on IT support experience.",
-  metadataBase: new URL("https://ankhang0704.vercel.app"),
+  metadataBase: new URL("https://ankhang0704.pages.dev"),
   openGraph: {
     title: "An Khang | Software Developer",
     description: "Software Developer building web, mobile, and automation tools with hands-on IT support experience.",
-    url: "https://ankhang0704.vercel.app",
+    url: "https://ankhang0704.pages.dev",
     siteName: "An Khang Portfolio",
     locale: "en_US",
     type: "website",

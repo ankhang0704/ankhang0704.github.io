@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 
 export const dynamic = "force-static";
 
-const BASE_URL = "https://ankhang0704.vercel.app";
+const BASE_URL = "https://ankhang0704.pages.dev";
 
 const ROUTES = [
   "",
