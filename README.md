@@ -4,8 +4,8 @@ Local Next.js portfolio and FM Dictionary product page for An Khang, a Software 
 
 ## Live portfolio
 
-- Production site: [ankhang0704.vercel.app](https://ankhang0704.vercel.app/)
-- The root `index.html` is a fallback for GitHub Pages/static hosts and redirects visitors to Vercel.
+- Production site: [ankhang0704.pages.dev](https://ankhang0704.pages.dev/)
+- The root `index.html` is a fallback for GitHub Pages and redirects visitors to Cloudflare Pages.
 
 ## Routes
 
@@ -37,7 +37,7 @@ npx tsc --noEmit
 npm run build
 ```
 
-The production portfolio is hosted on Vercel. The repository can still be run locally for development and verification.
+The production portfolio is hosted on Cloudflare Pages. The repository can still be run locally for development and verification.
 
 ## Design
 

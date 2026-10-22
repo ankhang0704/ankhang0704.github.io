@@ -14,7 +14,7 @@ This milestone fully migrates `ankhang0704.github.io` from a server-driven Edge 
 - Completely removed `src/proxy.ts` (Next.js Edge Middleware).
 - Transitioned `next.config.ts` to `output: "export"`, `trailingSlash: true`, and `images: { unoptimized: true }`.
 - Static build outputs pure HTML/CSS/JS directly into the `out/` folder.
-- Configured edge redirects via `public/_redirects` (for Cloudflare Pages) and `vercel.json` (for Vercel).
+- Configured edge redirects via `public/_redirects` (for Cloudflare Pages).
 
 ### 3. Route Flattening & Backward Compatibility:
 - Flattened routes to canonical paths: `/`, `/projects/`, `/fm-dictionary/`, `/github-vault-relay/`, `/hotel-management/`.

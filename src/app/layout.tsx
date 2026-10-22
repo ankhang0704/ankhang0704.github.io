@@ -60,7 +60,7 @@ export default function RootLayout({
     jobTitle: "Software Developer",
     knowsAbout: ["Web Development", "Mobile Development", "Automation", "IT Support", "Django", "Flutter"],
     email: "mailto:ankhang.nguyen0704@gmail.com",
-    url: "https://ankhang0704.vercel.app",
+    url: "https://ankhang0704.pages.dev",
     sameAs: [
       "https://github.com/ankhang0704",
       "https://www.linkedin.com/in/ankhang0704/",

@@ -10,7 +10,7 @@ This document provides the operational policy and context for AI agents working 
 
 ## 🛠 Tech Stack & Architecture (Static Export & Zero-Latency)
 - **Frontend Engine:** Next.js (Static HTML Export `output: "export"`), React 19, TypeScript 5, Tailwind CSS.
-- **Delivery Model:** 100% Static HTML/CSS/JS export (`out/` directory), deployable to Cloudflare Pages, Vercel Static, or GitHub Pages with zero serverless cold starts and zero edge middleware latency.
+- **Delivery Model:** 100% Static HTML/CSS/JS export (`out/` directory), deployed natively to Cloudflare Pages (`https://ankhang0704.pages.dev/`) with zero serverless cold starts and zero edge middleware latency.
 - **Bilingual System:** Zero-latency client-side state via `LanguageContext` (`src/context/LanguageContext.tsx`) with `useSyncExternalStore` + `localStorage` + `user_lang_change` event. Toggles immediately in 0ms without page reloads or network fetches.
 - **Icons:** Monochromatic Tabler Icons via `@tabler/icons-react`.
 - **Animations:** Native GPU-accelerated viewport triggers (`RevealOnScroll` via native `IntersectionObserver`), React Bits micro-interactions (`DecryptedText`, `SpotlightCard`, `MagneticButton`), and zero runtime animation dependencies (GSAP removed for maximum performance).
@@ -30,7 +30,7 @@ This document provides the operational policy and context for AI agents working 
     - **Static Output:** `next.config.ts` uses `output: "export"`, `trailingSlash: true`, and `images: { unoptimized: true }`.
     - **Canonical Routes:** `/`, `/projects/`, `/fm-dictionary/`, `/github-vault-relay/`, `/hotel-management/`.
     - **Vietnamese Static Aliases:** `/vi/`, `/vi/projects/`, `/vi/fm-dictionary/`, `/vi/github-vault-relay/`, `/vi/hotel-management/` for bookmark & direct link compatibility.
-    - **Edge Redirects:** Handled via `public/_redirects` (for Cloudflare Pages) and `vercel.json` (for Vercel).
+    - **Edge Redirects:** Handled via `public/_redirects` (for Cloudflare Pages) and `404.html` (for GitHub Pages redirection).
 - **Styling Rules:**
     - Cohesive 2-font system: `Space Grotesk` (display) + `Inter` (body).
     - Monochromatic palette (`text-black dark:text-white`).
