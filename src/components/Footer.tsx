@@ -7,6 +7,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Icons } from "@/components/Icons";
 import { CopyEmailButton } from "@/components/CopyEmailButton";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface FooterProps {
   variant?: "main";
@@ -14,10 +15,9 @@ interface FooterProps {
 
 export default function Footer({ variant = "main" }: FooterProps = {}) {
   void variant;
+  const { isVi } = useLanguage();
   const [showBackToTop, setShowBackToTop] = useState(false);
   const pathname = usePathname();
-  const lang = pathname.startsWith("/vi") ? "vi" : "en";
-  const isVi = lang === "vi";
   const footerRef = useRef<HTMLElement>(null);
 
   useGSAP(

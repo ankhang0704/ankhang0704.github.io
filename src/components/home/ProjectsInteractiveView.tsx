@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProjectDefinition, SELECTED_PROJECTS } from "@/content/projects";
 import { Icons } from "@/components/Icons";
-import { localizedPath } from "@/lib/locale-path";
+import { useLanguage } from "@/context/LanguageContext";
 
 export type ProjectPresentation = "feature" | "grid";
 
@@ -21,18 +21,14 @@ type ProjectsDictionary = {
 };
 
 interface ProjectsInteractiveViewProps {
-  lang: string;
-  dict: ProjectsDictionary;
+  lang?: string;
+  dict?: ProjectsDictionary;
   projects?: ProjectDefinition[];
   variant?: ProjectPresentation;
 }
 
 function ProjectActions({ project, dict, lang }: { project: ProjectDefinition; dict: ProjectsDictionary; lang: string }) {
-  const caseStudyHref = project.href
-    ? project.href.startsWith("/")
-      ? localizedPath(lang, project.href)
-      : project.href
-    : undefined;
+  const caseStudyHref = project.href;
   const externalLabel = lang === "vi" ? project.externalLabelVi ?? project.externalLabel : project.externalLabel;
   const secondaryExternalLabel = lang === "vi"
     ? project.secondaryExternalLabelVi ?? project.secondaryExternalLabel
@@ -121,7 +117,7 @@ function ProjectImage({
   );
 }
 
-function FeaturePresentation({ lang, dict, projects }: ProjectsInteractiveViewProps & { projects: ProjectDefinition[] }) {
+function FeaturePresentation({ lang, dict, projects }: { lang: string; dict: ProjectsDictionary; projects: ProjectDefinition[] }) {
   return (
     <div className="space-y-16 md:space-y-24">
       {projects.map((project) => {
@@ -145,7 +141,7 @@ function FeaturePresentation({ lang, dict, projects }: ProjectsInteractiveViewPr
   );
 }
 
-function GridPresentation({ lang, dict, projects }: ProjectsInteractiveViewProps & { projects: ProjectDefinition[] }) {
+function GridPresentation({ lang, dict, projects }: { lang: string; dict: ProjectsDictionary; projects: ProjectDefinition[] }) {
   return (
     <div className="gsap-projects-grid grid grid-cols-1 gap-4 md:grid-cols-12">
       {projects.map((project, index) => {
@@ -176,7 +172,16 @@ function GridPresentation({ lang, dict, projects }: ProjectsInteractiveViewProps
   );
 }
 
-export function ProjectsInteractiveView({ lang, dict, projects = SELECTED_PROJECTS, variant = "feature" }: ProjectsInteractiveViewProps) {
+export function ProjectsInteractiveView({
+  lang: propLang,
+  dict: propDict,
+  projects = SELECTED_PROJECTS,
+  variant = "feature",
+}: ProjectsInteractiveViewProps) {
+  const { lang: contextLang, dict: contextDict } = useLanguage();
+  const lang = propLang ?? contextLang;
+  const dict = propDict ?? contextDict.projects;
+
   return variant === "grid"
     ? <GridPresentation lang={lang} dict={dict} projects={projects} />
     : <FeaturePresentation lang={lang} dict={dict} projects={projects} />;

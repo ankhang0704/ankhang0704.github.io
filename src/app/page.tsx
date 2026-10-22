@@ -1,3 +1,5 @@
+"use client";
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { HomeAnimations } from "@/components/home/HomeAnimations";
@@ -6,21 +8,10 @@ import { SummaryInteractiveView } from "@/components/home/SummaryInteractiveView
 import { TimelineInteractiveView } from "@/components/home/TimelineInteractiveView";
 import { ProjectIndexShowcase, ProjectsShowcase } from "@/components/home/ProjectsShowcase";
 import { Icons } from "@/components/Icons";
-import { getDictionary, Locale } from "@/dictionaries/get-dictionary";
+import { useLanguage } from "@/context/LanguageContext";
 
-export async function generateStaticParams() {
-  return [{ lang: "en" }, { lang: "vi" }];
-}
-
-export default async function Home({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
-  const { lang } = await params;
-  const locale = (lang === "vi" ? "vi" : "en") as Locale;
-  const dict = await getDictionary(locale);
-  const isVi = locale === "vi";
+export default function Home() {
+  const { lang, dict, isVi } = useLanguage();
 
   return (
     <>
@@ -155,7 +146,6 @@ export default async function Home({
           </section>
 
           <ProjectIndexShowcase lang={lang} dict={dict.allProjects} />
-
         </main>
       </HomeAnimations>
 

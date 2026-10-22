@@ -8,12 +8,13 @@ This document provides the operational policy and context for AI agents working 
     - **Main Portfolio:** Highlighting An Khang's transition from IT Support to Backend (Django) and Mobile (Flutter) development.
     - **FM Dictionary:** A premium vocabulary app helping the Facilities Management community and anyone interested in the field master 1,847 specialized FM terms — built with Flutter for iOS & Android.
 
-## 🛠 Tech Stack
-- **Frontend:** Next.js App Router, React, TypeScript, and Tailwind CSS compiled through the project build.
-- **Icons:** Tabler Icons via `@tabler/icons-react`.
-- **Animations:** GSAP with `@gsap/react` and ScrollTrigger.
-- **Styling:** Minimalist, Editorial-style, Dark/Light Mode support.
-- **Logic:** React client components and TypeScript for theme toggling, bilingual support, interactions, and scroll effects.
+## 🛠 Tech Stack & Architecture (Static Export & Zero-Latency)
+- **Frontend Engine:** Next.js (Static HTML Export `output: "export"`), React 19, TypeScript 5, Tailwind CSS.
+- **Delivery Model:** 100% Static HTML/CSS/JS export (`out/` directory), deployable to Cloudflare Pages, Vercel Static, or GitHub Pages with zero serverless cold starts and zero edge middleware latency.
+- **Bilingual System:** Zero-latency client-side state via `LanguageContext` (`src/context/LanguageContext.tsx`) with `useSyncExternalStore` + `localStorage` + `user_lang_change` event. Toggles immediately in 0ms without page reloads or network fetches.
+- **Icons:** Monochromatic Tabler Icons via `@tabler/icons-react`.
+- **Animations:** GPU-accelerated viewport triggers (`RevealOnScroll` via native `IntersectionObserver`) and GSAP for specialized scrubbed interactions.
+- **Styling:** Minimalist editorial aesthetic, Dark/Light Mode support via `ThemeContext`.
 
 ## 📏 Standards & Rules
 - **Branding:**
@@ -25,30 +26,22 @@ This document provides the operational policy and context for AI agents working 
     - Professional Timeline includes:
         - `2026 - Nay`: IT Helpdesk at Bệnh Viện Mắt Bình Thuận.
         - `2022 - 2026`: Bachelor of Information Technology.
-- **Bilingual System (App Router i18n):**
-    - Uses the native Next.js App Router `[lang]` segment. English is exposed through locale-free canonical URLs and Vietnamese through `/vi/` paths.
-    - Dictionaries located in `src/dictionaries/en.json` and `src/dictionaries/vi.json`.
-    - Pages render dynamic `<html lang="en">` or `<html lang="vi">` tags directly from the server.
-    - Default locale is English (`en`). Root and unprefixed URLs are internally rewritten to English while `/en/*` redirects to the locale-free canonical path.
 - **Routing & Deployment:**
-    - **Internal Links & Assets:** Use Next.js `Link` with `localizedPath` for internal routes and root-relative paths for public assets (e.g., `/my_cv.pdf`).
-    - **Trailing Slashes:** Directory links must end with a trailing slash (e.g., `href="/fm-dictionary/"`).
-    - **Vercel Config:** `vercel.json` must have `"trailingSlash": true` and `"cleanUrls": true` enabled.
+    - **Static Output:** `next.config.ts` uses `output: "export"`, `trailingSlash: true`, and `images: { unoptimized: true }`.
+    - **Canonical Routes:** `/`, `/projects/`, `/fm-dictionary/`, `/github-vault-relay/`, `/hotel-management/`.
+    - **Vietnamese Static Aliases:** `/vi/`, `/vi/projects/`, `/vi/fm-dictionary/`, `/vi/github-vault-relay/`, `/vi/hotel-management/` for bookmark & direct link compatibility.
+    - **Edge Redirects:** Handled via `public/_redirects` (for Cloudflare Pages) and `vercel.json` (for Vercel).
 - **Styling Rules:**
-    - **Design System & Constraints:** See [docs/design/DESIGN.md](./docs/design/DESIGN.md) for complete guidelines on typography, colors, and motion.
-    - Maintain "Ambient Glow" effect in all main sections.
-    - Use `font-serif italic` (Playfair Display) for sophisticated emphasis.
-    - **Font Sizing:** Use the responsive, role-based typography scale defined in `docs/design/DESIGN.md`; hero headers may reach `md:text-8xl` when the content and viewport allow it.
-    - Icons must be monochromatic (`text-black dark:text-white`) and use Tabler Icons (no emojis).
-    - Footer visibility: Ownership and copyright text must be `opacity-80` and `font-medium` for readability.
+    - Cohesive 2-font system: `Space Grotesk` (display) + `Inter` (body).
+    - Monochromatic palette (`text-black dark:text-white`).
+    - 0px border-radius architectural geometry.
 
 ## 🧪 Verification
-- All changes must be verified for:
-    1. Dark/Light mode consistency.
-    2. Bilingual toggle functionality.
-    3. Mobile responsiveness (Tailwind grid/flex).
-    4. Mobile Menu (Hamburger) functionality and overlay links.
-    5. GSAP/ScrollTrigger animation performance.
+- All changes must pass:
+    1. `npm run lint`: 0 errors, 0 warnings.
+    2. `npm run build`: 100% successful static export to `out/`.
+    3. Instant 0ms language toggle in both desktop and mobile headers.
+    4. Dark/Light mode synchronization without hydration mismatch.
 
 ---
 *Operational configuration is managed in the [./.agents/](./.agents/) directory.*

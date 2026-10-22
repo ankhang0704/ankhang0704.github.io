@@ -1,21 +1,13 @@
+"use client";
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ProjectsShowcase } from "@/components/home/ProjectsShowcase";
 import { PROJECTS } from "@/content/projects";
-import { getDictionary, Locale } from "@/dictionaries/get-dictionary";
+import { useLanguage } from "@/context/LanguageContext";
 
-export async function generateStaticParams() {
-  return [{ lang: "en" }, { lang: "vi" }];
-}
-
-export default async function ProjectsPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
-  const { lang } = await params;
-  const locale = (lang === "vi" ? "vi" : "en") as Locale;
-  const dict = await getDictionary(locale);
+export default function ProjectsPage() {
+  const { lang, dict } = useLanguage();
 
   return (
     <>

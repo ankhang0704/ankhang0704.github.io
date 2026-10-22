@@ -1,10 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { CaseStudyAnimations } from "@/components/case-study/CaseStudyAnimations";
 import { Icons } from "@/components/Icons";
-import { localizedPath } from "@/lib/locale-path";
+import { useLanguage } from "@/context/LanguageContext";
 
 const timeline = [
   {
@@ -187,18 +189,8 @@ const avoidClaims = [
   "Claims of third-party user data monetization: zero tracking or commercial telemetry in codebase.",
 ];
 
-export async function generateStaticParams() {
-  return [{ lang: "en" }, { lang: "vi" }];
-}
-
-export default async function FMDictionaryCaseStudyPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
-  const { lang: routeLang } = await params;
-  const lang = routeLang === "vi" ? "vi" : "en";
-  const isVi = lang === "vi";
+export default function FMDictionaryCaseStudyPage() {
+  const { isVi } = useLanguage();
 
   return (
     <>
@@ -213,7 +205,7 @@ export default async function FMDictionaryCaseStudyPage({
               <div className="cs-breadcrumb mb-8 flex items-center justify-between border-b border-black/10 pb-4 dark:border-white/10">
                 <div className="flex items-center gap-3">
                   <Link
-                    href={localizedPath(lang, "/")}
+                    href="/"
                     className="font-mono text-xs font-bold uppercase tracking-widest opacity-60 transition-opacity hover:opacity-100"
                   >
                     ← {isVi ? "Mục lục" : "Index"}

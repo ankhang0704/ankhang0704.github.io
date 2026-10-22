@@ -1,6 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
-import "../style.css";
+import "./style.css";
+import { ThemeProvider } from "@/context/ThemeContext";
+import { LanguageProvider } from "@/context/LanguageContext";
 import { GSAPInit } from "@/components/GSAPInit";
 import { AmbientGlow } from "@/components/AmbientGlow";
 import { ScrollSpyInit } from "@/components/ScrollSpyInit";
@@ -18,6 +20,15 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
   variable: "--font-space-grotesk",
 });
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: "An Khang | Software Developer",
@@ -38,20 +49,11 @@ export const metadata: Metadata = {
   },
 };
 
-export async function generateStaticParams() {
-  return [{ lang: "en" }, { lang: "vi" }];
-}
-
-export default async function LocalizedLayout({
+export default function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ lang: string }>;
 }>) {
-  const { lang } = await params;
-  const currentLang = lang === "vi" ? "vi" : "en";
-
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -67,7 +69,7 @@ export default async function LocalizedLayout({
   };
 
   return (
-    <html lang={currentLang} className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -77,13 +79,20 @@ export default async function LocalizedLayout({
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body className={`bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark font-sans relative overflow-x-hidden ${inter.variable} ${spaceGrotesk.variable}`}>
-        <GSAPInit />
-        <ScrollSpyInit />
-        <AmbientGlow />
-        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[200] focus:border focus:border-black focus:bg-bgLight focus:px-4 focus:py-3 focus:text-sm focus:font-bold focus:uppercase focus:tracking-widest dark:focus:border-white dark:focus:bg-bgDark">
-          {currentLang === "vi" ? "Bỏ qua đến nội dung" : "Skip to content"}
-        </a>
-        {children}
+        <ThemeProvider>
+          <LanguageProvider>
+            <GSAPInit />
+            <ScrollSpyInit />
+            <AmbientGlow />
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[200] focus:border focus:border-black focus:bg-bgLight focus:px-4 focus:py-3 focus:text-sm focus:font-bold focus:uppercase focus:tracking-widest dark:focus:border-white dark:focus:bg-bgDark"
+            >
+              Skip to content
+            </a>
+            {children}
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

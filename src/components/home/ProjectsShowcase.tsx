@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ProjectDefinition, SELECTED_PROJECTS } from "@/content/projects";
 import { ProjectsInteractiveView } from "@/components/home/ProjectsInteractiveView";
 import { Icons } from "@/components/Icons";
-import { localizedPath } from "@/lib/locale-path";
 
 type ProjectCopy = {
   type: string;
@@ -51,7 +50,7 @@ export function ProjectsShowcase({ lang, projectsDict, projects = SELECTED_PROJE
   );
 }
 
-export function ProjectIndexShowcase({ lang, dict }: { lang: string; dict: IndexDictionary }) {
+export function ProjectIndexShowcase({ dict }: { lang?: string; dict: IndexDictionary }) {
   return (
     <section id="all-projects" data-nav-section="projects-index" className="py-24 md:py-32 bg-cardLight dark:bg-cardDark border-y border-black/5 dark:border-white/5 relative overflow-x-hidden">
       <div className="container mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end">
@@ -60,7 +59,7 @@ export function ProjectIndexShowcase({ lang, dict }: { lang: string; dict: Index
           <p className="font-light text-xl leading-relaxed opacity-85 max-w-2xl">{dict.desc}</p>
         </div>
         <div className="lg:col-span-5 lg:border-l lg:border-black/10 dark:lg:border-white/10 lg:pl-10">
-          <Link href={localizedPath(lang, "/projects/")} className="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all inline-flex items-center justify-between gap-3 w-full">
+          <Link href="/projects/" className="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all inline-flex items-center justify-between gap-3 w-full">
             {dict.cta}<Icons.ArrowRight size={16} aria-hidden="true" />
           </Link>
         </div>

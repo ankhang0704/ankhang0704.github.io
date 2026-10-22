@@ -1,0 +1,31 @@
+# Legacy Case Study URL consolidations
+/fm-dictionary/case-study /fm-dictionary/ 301
+/fm-dictionary/case-study/ /fm-dictionary/ 301
+/en/fm-dictionary/case-study /fm-dictionary/ 301
+/en/fm-dictionary/case-study/ /fm-dictionary/ 301
+/vi/fm-dictionary/case-study /vi/fm-dictionary/ 301
+/vi/fm-dictionary/case-study/ /vi/fm-dictionary/ 301
+
+# FM Dictionary standalone app official policies
+/fm-dictionary/privacy-policy https://fm-dictionary.pages.dev/privacy/ 301
+/fm-dictionary/privacy-policy/ https://fm-dictionary.pages.dev/privacy/ 301
+/en/fm-dictionary/privacy-policy https://fm-dictionary.pages.dev/privacy/ 301
+/vi/fm-dictionary/privacy-policy https://fm-dictionary.pages.dev/privacy/ 301
+/fm-dictionary/terms-of-service https://fm-dictionary.pages.dev/terms/ 301
+/fm-dictionary/terms-of-service/ https://fm-dictionary.pages.dev/terms/ 301
+/en/fm-dictionary/terms-of-service https://fm-dictionary.pages.dev/terms/ 301
+/vi/fm-dictionary/terms-of-service https://fm-dictionary.pages.dev/terms/ 301
+/fm-dictionary/support https://fm-dictionary.pages.dev/ 301
+/fm-dictionary/support/ https://fm-dictionary.pages.dev/ 301
+/en/fm-dictionary/support https://fm-dictionary.pages.dev/ 301
+/vi/fm-dictionary/support https://fm-dictionary.pages.dev/ 301
+/fm-dictionary/delete-account https://fm-dictionary.pages.dev/ 301
+/fm-dictionary/delete-account/ https://fm-dictionary.pages.dev/ 301
+/en/fm-dictionary/delete-account https://fm-dictionary.pages.dev/ 301
+/vi/fm-dictionary/delete-account https://fm-dictionary.pages.dev/ 301
+
+# IT Infrastructure
+/en/it-infrastructure /projects/ 301
+/vi/it-infrastructure /vi/projects/ 301
+/it-infrastructure /projects/ 301
+/it-infrastructure/ /projects/ 301

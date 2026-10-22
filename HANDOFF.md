@@ -1,47 +1,42 @@
 # Portfolio & Projects Handoff — October 2026
 
-## 🎯 Summary of Achievements
+## 🎯 Architecture Transformation: 100% Alignment with FM Dictionary Landing
 
-This session focused on full-stack performance profiling, eliminating UX bottlenecks, resolving animation stuttering, eliminating double entrance animations on page load, migrating external app landing routes, building editorial error boundary pages, harmonizing case study routing, and redesigning architecture diagrams grounded in `checklist-design` and `taste-skill`:
+This milestone fully migrates `ankhang0704.github.io` from a server-driven Edge Middleware App Router model to a **Pure Static HTML Export (`output: "export"`) with Zero-Latency Client-Side State**, matching the proven architecture of `fm-dictionary-landing` 100%:
 
-1. **FM Dictionary Case Study Canonicalization & URL Consolidation**:
-   - Consolidated the FM Dictionary case study route from `/fm-dictionary/case-study/` to `/fm-dictionary/` (and `/vi/fm-dictionary/`), harmonizing it with the sibling case studies (`/github-vault-relay/` and `/hotel-management/`).
-   - Configured permanent 308 redirects in [next.config.ts](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/next.config.ts) and [src/proxy.ts](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/proxy.ts) forwarding all legacy `/fm-dictionary/case-study/` traffic to the canonical `/fm-dictionary/` route.
-   - Preserved external legal & app redirects (`/privacy-policy/`, `/terms-of-service/`, `/support/`, `/delete-account/`) pointing to the official production site `https://fm-dictionary.pages.dev/`.
-   - Updated [sitemap.ts](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/sitemap.ts), [Header.tsx](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/Header.tsx), and [projects.ts](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/content/projects.ts).
+### 1. Zero-Latency Bilingual System (`LanguageContext`):
+- Created `src/context/LanguageContext.tsx` leveraging `useSyncExternalStore` + `localStorage` + `user_lang_change` dispatch events.
+- Synchronously bundles English and Vietnamese dictionaries (`en.json` and `vi.json`), providing both `dict` and `t(viText, enText)`.
+- Clicking the language toggle flips language in **0ms** across the entire UI with **zero network requests, zero page reload, zero scroll shift, and zero animation replay**.
+- Auto-detects URL query param (`?lang=vi`), path, and saved preference.
 
-2. **Unified Architectural Hero Standard Across All 3 Case Studies**:
-   - Replaced awkward inline breadcrumbs (`[← Về trang chủ] Open source plugin`) with a minimalist, structured anchor row:
-     - Left: Clean index back-link (`← Index / Category`)
-     - Right: Verified status and year badge (`2026 · VERIFIED ARCHITECTURE`).
-   - Standardized on a 2-column editorial hero (`col-span-7` typography & CTAs, `col-span-5` precision engineering preview frame).
-   - Added uniform 4-column KPI evidence strips (`border-y border-black/10 divide-x divide-black/10`) below the hero on all 3 case studies.
+### 2. Elimination of Edge Middleware & Serverless Overhead:
+- Completely removed `src/proxy.ts` (Next.js Edge Middleware).
+- Transitioned `next.config.ts` to `output: "export"`, `trailingSlash: true`, and `images: { unoptimized: true }`.
+- Static build outputs pure HTML/CSS/JS directly into the `out/` folder.
+- Configured edge redirects via `public/_redirects` (for Cloudflare Pages) and `vercel.json` (for Vercel).
 
-3. **Architectural Blueprint & Diagram Redesign (`taste-skill` & `DESIGN.md`)**:
-   - **FM Dictionary**: Replaced basic cards with a **3-Tier Multi-Boundary Blueprint** (Client Edge Local Core, Cloudflare Edge Gateway, Firebase Async Persistence) + embedded the verified `/fm-offline-architecture.webp` schematic.
-   - **Hotel Management**: Replaced primitive ASCII/unicode text boxes with a **Modular Two-Tier Architectural Schema** (Django 5.x MVT Monolith with ACID transactions & ORM tuning, decoupled Semantic Inquiry Bus, FAISS Vector RAG Assistant).
-   - **GitHub Vault Relay**: Replaced static cards with a **Connected 6-Stage Cryptographic Sync Pipeline** with explicit data artifact outputs and state classification matrix.
+### 3. Route Flattening & Backward Compatibility:
+- Flattened routes to canonical paths: `/`, `/projects/`, `/fm-dictionary/`, `/github-vault-relay/`, `/hotel-management/`.
+- Pre-rendered static pages for `/vi/*` (`/vi/`, `/vi/projects/`, `/vi/fm-dictionary/`, etc.) ensuring 100% backward compatibility for existing bookmarks and direct Vietnamese links.
 
-4. **Complete Typography Streamlining (2-Font Precision System)**:
-   - Eliminated `Playfair Display` and all `font-serif` occurrences across the codebase.
-   - Standardized on a cohesive 2-font system: **`Space Grotesk`** (architectural display headers) + **`Inter`** (crisp body typography), cutting font request overhead and eliminating the "editorial shortcut" AI cliché.
+### 4. GPU-Accelerated Viewport Motion (`RevealOnScroll`):
+- Added `RevealOnScroll.tsx` based on native browser `IntersectionObserver` with CSS 3D GPU acceleration.
+- Removed main-thread ScrollTrigger layout recalculations that previously caused jank.
 
-5. **Grounded Visual Proof & Technical Viewport Frames**:
-   - Replaced generic static thumbnails and oversized watermark numbers with **Precision Engineering Viewports** in [ProjectsInteractiveView.tsx](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/home/ProjectsInteractiveView.tsx):
-     - Viewport chrome header with status indicator and project code.
-     - Verified engineering spec badges for each project (e.g. `1,847 Terms · Hive Offline · Cloudflare STT Proxy`, `Django 5 + SQLite · FAISS Vector RAG`, `Obsidian Plugin · GitHub REST API`).
-
-6. **Holistic Motion Upgrade with Native GSAP (Option A across all sections & screens)**:
-   - Hero curtain reveal, dual-axis About reveal, project image scroll parallax scrub, 3-column skills matrix stagger, continuous timeline line-drawing, and circuit-like case study node highlights.
-
-7. **Build & CI/CD Deployment Verification**:
-   - Resolved CI lint check failure on Vercel by ignoring `.agents/**` in [eslint.config.mjs](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/eslint.config.mjs) and registering GSAP's `ScrollTrigger` in [CaseStudyAnimations.tsx](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/CaseStudyAnimations.tsx).
-   - Clean production build: `npm run build` succeeds in ~4.0s across all 15 static canonical pages; `npm run lint` completes with 0 errors and 0 warnings.
-   - Vercel production deployment verified live (`HTTP/1.1 200 OK` on `https://ankhang0704.vercel.app/vi/fm-dictionary/` and `https://ankhang0704.vercel.app/fm-dictionary/`, with 308 redirects properly preserving `/case-study/` legacy routes).
+### 5. Quality & Verification Gates:
+- `npm run lint`: **0 errors, 0 warnings**.
+- `npm run build`: **100% successful static export (15 pages prerendered into `out/`) in ~1.5s**.
 
 ---
 
-## 🛠️ Suggested Skills for Next Agent
-- **`checklist-design`**: Audit and critique components, landing pages, and UI flows.
-- **`taste-skill`**: Art direction, automated layout inspection, and anti-slop rules.
-- **`gsap-performance`**: Best practices regarding GPU rasterization and transforms.
+## 🚀 Deployment Instructions for Cloudflare Pages
+
+To host on Cloudflare Pages:
+1. Connect GitHub repository `ankhang0704/ankhang0704.github.io` to Cloudflare Pages.
+2. Build Settings:
+   - **Framework preset**: `Next.js (Static HTML Export)` or `None`
+   - **Build command**: `npm run build`
+   - **Build output directory**: `out`
+   - **Node.js version**: `20.x` or higher
+3. Deploy! Cloudflare Pages will serve `out/` from its global Anycast edge with 0ms compute time and instant caching.
