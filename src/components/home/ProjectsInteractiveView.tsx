@@ -1,8 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ProjectDefinition, SELECTED_PROJECTS } from "@/content/projects";
 import { Icons } from "@/components/Icons";
 import { useLanguage } from "@/context/LanguageContext";
+import { SpotlightCard } from "@/components/SpotlightCard";
+import { RevealOnScroll } from "@/components/RevealOnScroll";
 
 export type ProjectPresentation = "feature" | "grid";
 
@@ -90,7 +94,7 @@ function ProjectImage({
             alt={title}
             fill
             sizes="(max-width: 1024px) 100vw, 60vw"
-            className="gsap-project-img scale-105 object-cover transition-transform duration-700 ease-out group-hover:scale-100"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
           />
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 font-mono text-xs uppercase tracking-[0.25em] opacity-60">
@@ -120,21 +124,23 @@ function ProjectImage({
 function FeaturePresentation({ lang, dict, projects }: { lang: string; dict: ProjectsDictionary; projects: ProjectDefinition[] }) {
   return (
     <div className="space-y-16 md:space-y-24">
-      {projects.map((project) => {
+      {projects.map((project, index) => {
         const copy = dict.items[project.contentKey];
         return (
-          <article key={project.id} id={project.id} className="gsap-project-card group grid grid-cols-1 gap-8 border-t border-black/15 pt-8 dark:border-white/15 lg:grid-cols-12 lg:gap-12 scroll-mt-24">
-            <ProjectImage project={project} title={copy.title} lang={lang} className="aspect-[16/10] lg:col-span-7" />
-            <div className="flex flex-col justify-center space-y-5 lg:col-span-5">
-              <span className="font-mono text-xs uppercase tracking-widest opacity-60">{project.code} / {copy.category}</span>
-              <h3 className="font-display text-3xl font-bold md:text-5xl">{copy.title}</h3>
-              <p className="text-xl font-light leading-relaxed opacity-85">{copy.desc}</p>
-              <div className="flex flex-wrap gap-2.5">
-                {project.tags.map((tag) => <span key={tag} className="border border-black/15 px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider opacity-75 dark:border-white/15">{tag}</span>)}
+          <RevealOnScroll key={project.id} delay={index * 100}>
+            <article id={project.id} className="group grid grid-cols-1 gap-8 border-t border-black/15 pt-8 dark:border-white/15 lg:grid-cols-12 lg:gap-12 scroll-mt-24">
+              <ProjectImage project={project} title={copy.title} lang={lang} className="aspect-[16/10] lg:col-span-7" />
+              <div className="flex flex-col justify-center space-y-5 lg:col-span-5">
+                <span className="font-mono text-xs uppercase tracking-widest opacity-60">{project.code} / {copy.category}</span>
+                <h3 className="font-display text-3xl font-bold md:text-5xl">{copy.title}</h3>
+                <p className="text-xl font-light leading-relaxed opacity-85">{copy.desc}</p>
+                <div className="flex flex-wrap gap-2.5">
+                  {project.tags.map((tag) => <span key={tag} className="border border-black/15 px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider opacity-75 dark:border-white/15">{tag}</span>)}
+                </div>
+                <ProjectActions project={project} dict={dict} lang={lang} />
               </div>
-              <ProjectActions project={project} dict={dict} lang={lang} />
-            </div>
-          </article>
+            </article>
+          </RevealOnScroll>
         );
       })}
     </div>
@@ -143,29 +149,35 @@ function FeaturePresentation({ lang, dict, projects }: { lang: string; dict: Pro
 
 function GridPresentation({ lang, dict, projects }: { lang: string; dict: ProjectsDictionary; projects: ProjectDefinition[] }) {
   return (
-    <div className="gsap-projects-grid grid grid-cols-1 gap-4 md:grid-cols-12">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
       {projects.map((project, index) => {
         const copy = dict.items[project.contentKey];
         const width = projects.length === 3
           ? index === 0 ? "md:col-span-7" : index === 1 ? "md:col-span-5" : "md:col-span-12"
           : index === 0 ? "md:col-span-7" : index === 1 ? "md:col-span-5" : "md:col-span-4";
         return (
-          <article key={project.id} id={project.id} className={`gsap-project-card ${width} group border border-black/10 bg-cardLight dark:border-white/10 dark:bg-cardDark scroll-mt-24 flex flex-col justify-between hover:border-black dark:hover:border-white transition-colors duration-300`}>
-            <ProjectImage project={project} title={copy.title} lang={lang} className={`aspect-[16/10] ${index === 2 && projects.length === 3 ? "md:aspect-[2.4/1]" : ""}`} />
-            <div className="p-5 md:p-6 flex flex-col flex-1 justify-between">
-              <div>
-                <div className="flex items-start justify-between gap-5">
-                  <div>
-                    <span className="font-mono text-xs uppercase tracking-widest opacity-60">{project.code} / {copy.category}</span>
-                    <h3 className="mt-2 font-display text-2xl font-bold md:text-3xl">{copy.title}</h3>
+          <RevealOnScroll key={project.id} className={width} delay={index * 100}>
+            <SpotlightCard className="h-full group border border-black/10 bg-cardLight dark:border-white/10 dark:bg-cardDark scroll-mt-24 flex flex-col justify-between hover:border-black dark:hover:border-white transition-colors duration-300">
+              <article id={project.id} className="flex flex-col h-full justify-between">
+                <div>
+                  <ProjectImage project={project} title={copy.title} lang={lang} className={`aspect-[16/10] ${index === 2 && projects.length === 3 ? "md:aspect-[2.4/1]" : ""}`} />
+                  <div className="p-5 md:p-6 flex flex-col">
+                    <div className="flex items-start justify-between gap-5">
+                      <div>
+                        <span className="font-mono text-xs uppercase tracking-widest opacity-60">{project.code} / {copy.category}</span>
+                        <h3 className="mt-2 font-display text-2xl font-bold md:text-3xl">{copy.title}</h3>
+                      </div>
+                      <Icons.ArrowRight size={20} aria-hidden="true" className="opacity-50 transition-transform duration-200 group-hover:translate-x-1" />
+                    </div>
+                    <p className="mt-4 max-w-[65ch] text-base font-light leading-relaxed opacity-80">{copy.desc}</p>
                   </div>
-                  <Icons.ArrowRight size={20} aria-hidden="true" className="opacity-50 transition-transform group-hover:translate-x-1" />
                 </div>
-                <p className="mt-4 max-w-[65ch] text-base font-light leading-relaxed opacity-80">{copy.desc}</p>
-              </div>
-              <ProjectActions project={project} dict={dict} lang={lang} />
-            </div>
-          </article>
+                <div className="p-5 md:p-6 pt-0">
+                  <ProjectActions project={project} dict={dict} lang={lang} />
+                </div>
+              </article>
+            </SpotlightCard>
+          </RevealOnScroll>
         );
       })}
     </div>

@@ -13,7 +13,7 @@ This document provides the operational policy and context for AI agents working 
 - **Delivery Model:** 100% Static HTML/CSS/JS export (`out/` directory), deployable to Cloudflare Pages, Vercel Static, or GitHub Pages with zero serverless cold starts and zero edge middleware latency.
 - **Bilingual System:** Zero-latency client-side state via `LanguageContext` (`src/context/LanguageContext.tsx`) with `useSyncExternalStore` + `localStorage` + `user_lang_change` event. Toggles immediately in 0ms without page reloads or network fetches.
 - **Icons:** Monochromatic Tabler Icons via `@tabler/icons-react`.
-- **Animations:** GPU-accelerated viewport triggers (`RevealOnScroll` via native `IntersectionObserver`) and GSAP for specialized scrubbed interactions.
+- **Animations:** Native GPU-accelerated viewport triggers (`RevealOnScroll` via native `IntersectionObserver`), React Bits micro-interactions (`DecryptedText`, `SpotlightCard`, `MagneticButton`), and zero runtime animation dependencies (GSAP removed for maximum performance).
 - **Styling:** Minimalist editorial aesthetic, Dark/Light Mode support via `ThemeContext`.
 
 ## 📏 Standards & Rules

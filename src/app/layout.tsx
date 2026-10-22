@@ -3,7 +3,6 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./style.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
-import { GSAPInit } from "@/components/GSAPInit";
 import { AmbientGlow } from "@/components/AmbientGlow";
 import { ScrollSpyInit } from "@/components/ScrollSpyInit";
 
@@ -81,7 +80,6 @@ export default function RootLayout({
       <body className={`bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark font-sans relative overflow-x-hidden ${inter.variable} ${spaceGrotesk.variable}`}>
         <ThemeProvider>
           <LanguageProvider>
-            <GSAPInit />
             <ScrollSpyInit />
             <AmbientGlow />
             <a

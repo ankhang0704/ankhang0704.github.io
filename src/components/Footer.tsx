@@ -1,13 +1,10 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import { usePathname } from "next/navigation";
-import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useState, useEffect } from "react";
 import { Icons } from "@/components/Icons";
 import { CopyEmailButton } from "@/components/CopyEmailButton";
 import { useLanguage } from "@/context/LanguageContext";
+import { RevealOnScroll } from "@/components/RevealOnScroll";
 
 interface FooterProps {
   variant?: "main";
@@ -17,43 +14,24 @@ export default function Footer({ variant = "main" }: FooterProps = {}) {
   void variant;
   const { isVi } = useLanguage();
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const pathname = usePathname();
-  const footerRef = useRef<HTMLElement>(null);
 
-  useGSAP(
-    () => {
-      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        const footerTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: footerRef.current,
-            start: "top 85%",
-            once: true,
-          },
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const visible = window.scrollY > 400;
+          setShowBackToTop((prev) => (prev !== visible ? visible : prev));
+          ticking = false;
         });
-
-        footerTl
-          .fromTo(
-            ".footer-content",
-            { scale: 0.96, autoAlpha: 0, y: 30 },
-            { scale: 1, autoAlpha: 1, y: 0, duration: 0.9, ease: "power2.out" }
-          )
-          .fromTo(
-            ".footer-social-icon",
-            { y: 15, autoAlpha: 0 },
-            { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.1, ease: "power2.out" },
-            "-=0.4"
-          );
+        ticking = true;
       }
+    };
 
-      // Back to top scroll listener via ScrollTrigger without window event listener jank
-      ScrollTrigger.create({
-        start: "500px top",
-        onEnter: () => setShowBackToTop(true),
-        onLeaveBack: () => setShowBackToTop(false),
-      });
-    },
-    { scope: footerRef, dependencies: [pathname], revertOnUpdate: true }
-  );
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -66,11 +44,10 @@ export default function Footer({ variant = "main" }: FooterProps = {}) {
     <>
       <footer
         id="contact"
-        ref={footerRef}
         data-nav-section="contact"
         className="py-24 md:py-32 border-t border-black/10 dark:border-white/10 text-center relative overflow-hidden"
       >
-        <div className="container mx-auto px-6 md:px-8 max-w-4xl footer-content">
+        <RevealOnScroll className="container mx-auto px-6 md:px-8 max-w-4xl footer-content">
           <p className="text-xs font-bold uppercase tracking-[0.3em] mb-6 opacity-75">
             {isVi ? "Liên hệ" : "Get in touch"}
           </p>
@@ -141,7 +118,7 @@ export default function Footer({ variant = "main" }: FooterProps = {}) {
               {isVi ? "Cập nhật · Tháng 10, 2026" : "Updated · October 2026"}
             </p>
           </div>
-        </div>
+        </RevealOnScroll>
       </footer>
 
       {/* Sharp Architectural Back to Top Button */}

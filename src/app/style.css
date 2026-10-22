@@ -172,11 +172,6 @@ html {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.show-back-to-top {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-}
-
 /* --- Mobile Menu Styles --- */
 #mobile-menu {
     transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -218,10 +213,4 @@ html {
 .mobile-nav-link:hover {
     opacity: 0.5;
     transform: translateX(10px);
-}
-
-/* --- Slideshow Progress Bar --- */
-@keyframes slideProgress {
-    from { transform: scaleX(0); }
-    to   { transform: scaleX(1); }
 }

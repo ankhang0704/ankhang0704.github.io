@@ -3,9 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Icons } from "@/components/Icons";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
@@ -53,40 +50,30 @@ export default function Header({ variant = "main" }: HeaderProps = {}) {
     "/vi/fm-dictionary/",
   ].includes(pathname);
 
-  useGSAP(
-    () => {
-      if (!progressBarRef.current) return;
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const scrolled = scrollY > 40;
+          setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
 
-      if (reduceMotion) {
-        gsap.set(progressBarRef.current, { scaleX: 1 });
-      } else {
-        gsap.fromTo(
-          progressBarRef.current,
-          { scaleX: 0 },
-          {
-            scaleX: 1,
-            ease: "none",
-            transformOrigin: "left center",
-            scrollTrigger: {
-              trigger: document.documentElement,
-              start: "top top",
-              end: "bottom bottom",
-              scrub: 0.15,
-            },
-          },
-        );
+          if (progressBarRef.current) {
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? Math.min(1, Math.max(0, scrollY / docHeight)) : 0;
+            progressBarRef.current.style.transform = `scaleX(${progress})`;
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
+    };
 
-      setIsScrolled(window.scrollY > 50);
-      ScrollTrigger.create({
-        start: "50px top",
-        onEnter: () => setIsScrolled(true),
-        onLeaveBack: () => setIsScrolled(false),
-      });
-    },
-    { dependencies: [pathname], revertOnUpdate: true },
-  );
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [pathname]);
 
   useEffect(() => {
     document.body.classList.toggle("body-lock", isMobileMenuOpen);

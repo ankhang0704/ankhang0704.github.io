@@ -1,5 +1,6 @@
 import { EXPERIENCE } from "@/content/experience";
 import { Icons } from "@/components/Icons";
+import { RevealOnScroll } from "@/components/RevealOnScroll";
 
 type ExperienceCopy = {
   role: string;
@@ -15,15 +16,14 @@ export function TimelineInteractiveView({
 }) {
   return (
     <div className="timeline-wrapper relative max-w-5xl pl-6 sm:pl-8 md:pl-12 border-l border-black/10 dark:border-white/10 border-b border-b-black/10 dark:border-b-white/10">
-      <div className="timeline-line-active absolute top-0 left-[-1px] w-[2px] h-full bg-black dark:bg-white scale-y-0 origin-top pointer-events-none" />
-
-      {EXPERIENCE.map((item) => {
+      {EXPERIENCE.map((item, index) => {
         const copy = dict.items[item.contentKey];
 
         return (
-          <div
+          <RevealOnScroll
             key={item.index}
-            className="gsap-timeline-row group relative border-t border-black/10 dark:border-white/10 py-12 md:py-16 transition-colors duration-200 hover:bg-black/[0.015] dark:hover:bg-white/[0.015] px-2 sm:px-4 md:px-6"
+            delay={index * 120}
+            className="group relative border-t border-black/10 dark:border-white/10 py-12 md:py-16 transition-colors duration-200 hover:bg-black/[0.015] dark:hover:bg-white/[0.015] px-2 sm:px-4 md:px-6"
           >
             <div className="absolute -left-[31px] sm:-left-[39px] md:-left-[55px] top-14 w-4 h-4 rounded-full bg-bgLight dark:bg-bgDark border-2 border-black dark:border-white group-hover:scale-125 group-hover:bg-black dark:group-hover:bg-white transition-[transform,background-color] duration-200 z-10" />
 
@@ -72,7 +72,7 @@ export function TimelineInteractiveView({
                 </div>
               </div>
             </div>
-          </div>
+          </RevealOnScroll>
         );
       })}
     </div>
