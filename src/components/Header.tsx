@@ -10,7 +10,7 @@ import { Icons } from "@/components/Icons";
 import { localizedPath } from "@/lib/locale-path";
 
 interface HeaderProps {
-  variant?: "main" | "fm";
+  variant?: "main";
 }
 
 function subscribeToTheme(onStoreChange: () => void) {
@@ -56,7 +56,7 @@ function getServerThemeSnapshot() {
   return false;
 }
 
-export default function Header({ variant = "main" }: HeaderProps) {
+export default function Header({ variant = "main" }: HeaderProps = {}) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isDark = useSyncExternalStore(subscribeToTheme, getThemeSnapshot, getServerThemeSnapshot);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -79,7 +79,6 @@ export default function Header({ variant = "main" }: HeaderProps) {
   const isVi = lang === "vi";
   const localePrefix = lang === "vi" ? "/vi" : "";
   const isMainPortfolioHome = pathname === `${localePrefix}` || pathname === `${localePrefix}/` || pathname === "/";
-  const isFmDictionaryHome = pathname === `${localePrefix}/fm-dictionary` || pathname === `${localePrefix}/fm-dictionary/`;
   const isProjectsPage = [
     `${localePrefix}/projects`,
     `${localePrefix}/projects/`,
@@ -87,6 +86,8 @@ export default function Header({ variant = "main" }: HeaderProps) {
     `${localePrefix}/hotel-management/`,
     `${localePrefix}/github-vault-relay`,
     `${localePrefix}/github-vault-relay/`,
+    `${localePrefix}/fm-dictionary/case-study`,
+    `${localePrefix}/fm-dictionary/case-study/`,
   ].includes(pathname);
 
   useGSAP(
@@ -162,127 +163,103 @@ export default function Header({ variant = "main" }: HeaderProps) {
     wasMobileMenuOpen.current = true;
     const focusFrame = window.requestAnimationFrame(() => firstMobileMenuLinkRef.current?.focus());
 
-    const closeOnEscape = (event: KeyboardEvent) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsMobileMenuOpen(false);
         return;
       }
 
       if (event.key !== "Tab" || !mobileMenuRef.current) return;
-      const menuFocusable = Array.from(
-        mobileMenuRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')
-      );
-      const focusable = [closeMenuButtonRef.current, ...menuFocusable].filter(
-        (el): el is HTMLElement => Boolean(el)
-      );
-      if (focusable.length === 0) return;
 
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
+      const focusableEls = mobileMenuRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (focusableEls.length === 0) return;
 
-      if (!focusable.includes(document.activeElement as HTMLElement)) {
-        event.preventDefault();
-        if (event.shiftKey) {
-          last.focus();
-        } else {
-          first.focus();
+      const firstEl = focusableEls[0];
+      const lastEl = focusableEls[focusableEls.length - 1];
+
+      if (event.shiftKey) {
+        if (document.activeElement === firstEl) {
+          event.preventDefault();
+          lastEl.focus();
         }
-        return;
-      }
-
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
+      } else {
+        if (document.activeElement === lastEl) {
+          event.preventDefault();
+          firstEl.focus();
+        }
       }
     };
 
-    window.addEventListener("keydown", closeOnEscape);
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
       window.cancelAnimationFrame(focusFrame);
-      window.removeEventListener("keydown", closeOnEscape);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [isMobileMenuOpen]);
 
-  useEffect(() => {
-    try {
-      const savedScrollY = sessionStorage.getItem("saved_scroll_y");
-      if (savedScrollY === null) return;
-      sessionStorage.removeItem("saved_scroll_y");
-      const y = parseInt(savedScrollY, 10);
-      if (!Number.isNaN(y)) {
-        window.scrollTo({ top: y, behavior: "instant" });
-        requestAnimationFrame(() => window.scrollTo({ top: y, behavior: "instant" }));
-      }
-    } catch {}
-  }, [pathname]);
-
   const toggleTheme = () => {
     const isCurrentlyDark = document.documentElement.classList.contains("dark");
-    const nextDark = !isCurrentlyDark;
-    document.documentElement.classList.toggle("dark", nextDark);
+    const nextTheme = isCurrentlyDark ? "light" : "dark";
+    if (nextTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
     try {
-      localStorage.setItem("theme", nextDark ? "dark" : "light");
+      localStorage.setItem("theme", nextTheme);
     } catch {}
   };
 
-  const changeLang = (targetLang: "en" | "vi") => {
-    setIsMobileMenuOpen(false);
-    if (targetLang === lang) return;
-
-    const canonicalPath = pathname.startsWith("/vi")
-      ? pathname.replace(/^\/vi/, "") || "/"
-      : pathname.startsWith("/en")
-        ? pathname.replace(/^\/en/, "") || "/"
-        : pathname;
-    const targetPath = localizedPath(targetLang, canonicalPath);
-
-    try {
-      sessionStorage.setItem("saved_scroll_y", window.scrollY.toString());
-    } catch {}
+  const changeLang = (newLang: "en" | "vi") => {
+    let targetPath = pathname;
+    if (newLang === "vi") {
+      if (!pathname.startsWith("/vi")) {
+        targetPath = `/vi${pathname === "/" ? "/" : pathname}`;
+      }
+    } else {
+      if (pathname.startsWith("/vi")) {
+        const stripped = pathname.replace(/^\/vi/, "");
+        targetPath = stripped === "" ? "/" : stripped;
+      }
+    }
+    if (typeof window !== "undefined") {
+      try {
+        localStorage.setItem("user-lang-choice", newLang);
+      } catch {}
+    }
     router.push(`${targetPath}${window.location.search}${window.location.hash}`, { scroll: false });
   };
 
   const rememberHomeSection = (section: string) => {
-    const isTargetingOtherHome =
-      (variant === "main" && !isMainPortfolioHome && section !== "projects-index") ||
-      (variant === "fm" && !isFmDictionaryHome);
-    if (isTargetingOtherHome) {
+    if (typeof window !== "undefined") {
       try {
         sessionStorage.setItem("pending_section", section);
       } catch {}
     }
   };
 
-  const mainLinks = [
+  const links = [
     { section: "about", href: isMainPortfolioHome ? "#about" : localizedPath(lang, "/"), label: isVi ? "Tóm tắt" : "Summary" },
     { section: "projects", href: isMainPortfolioHome ? "#projects" : localizedPath(lang, "/"), label: isVi ? "Nổi bật" : "Work" },
     { section: "skills", href: isMainPortfolioHome ? "#skills" : localizedPath(lang, "/"), label: isVi ? "Kỹ năng" : "Skills" },
     { section: "experience", href: isMainPortfolioHome ? "#experience" : localizedPath(lang, "/"), label: isVi ? "Kinh nghiệm" : "Experience" },
     { section: "projects-index", href: localizedPath(lang, "/projects/"), label: isVi ? "Dự án" : "Projects" },
   ];
-  const fmLinks = [
-    { section: "features", href: isFmDictionaryHome ? "#features" : localizedPath(lang, "/fm-dictionary/#features"), label: isVi ? "Tính năng" : "Features" },
-    { section: "tech", href: isFmDictionaryHome ? "#tech" : localizedPath(lang, "/fm-dictionary/#tech"), label: isVi ? "Công nghệ" : "Tech Stack" },
-    { section: "gallery", href: isFmDictionaryHome ? "#gallery" : localizedPath(lang, "/fm-dictionary/#gallery"), label: isVi ? "Màn hình" : "Gallery" },
-    { section: "download", href: isFmDictionaryHome ? "#download" : localizedPath(lang, "/fm-dictionary/#download"), label: isVi ? "Tải xuống" : "Download" },
-  ];
-  const links = variant === "main" ? mainLinks : fmLinks;
 
   return (
     <>
       <header id="navbar" className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 ${isScrolled ? "glass-nav py-2" : "py-4"}`}>
         <div className="container mx-auto flex w-full min-w-0 items-center gap-4 px-6 md:px-8">
-          <Link href={variant === "main" ? localizedPath(lang, "/") : localizedPath(lang, "/fm-dictionary/")} onClick={() => setIsMobileMenuOpen(false)} className={`min-w-0 flex-1 truncate font-display font-bold tracking-tighter whitespace-nowrap ${variant === "fm" ? "text-2xl md:text-3xl" : "text-3xl"}`}>
-            {variant === "main" ? "KHANG" : "FM DICTIONARY"}
+          <Link href={localizedPath(lang, "/")} onClick={() => setIsMobileMenuOpen(false)} className="min-w-0 flex-1 truncate font-display font-bold tracking-tighter whitespace-nowrap text-3xl">
+            KHANG
           </Link>
 
           <div className="ml-auto flex shrink-0 items-center space-x-6 md:space-x-10">
             <nav className="hidden md:flex space-x-8 text-sm tracking-widest uppercase">
               {links.map((link) => {
-                const isActive = variant === "main" && isProjectsPage && link.section === "projects-index";
+                const isActive = isProjectsPage && link.section === "projects-index";
                 return <Link key={`${link.section}-${link.href}`} href={link.href} data-section={link.section} onClick={() => rememberHomeSection(link.section)} className={`nav-link hover-underline ${isActive ? "active" : ""}`} aria-current={isActive ? "page" : undefined}>{link.label}</Link>;
               })}
             </nav>

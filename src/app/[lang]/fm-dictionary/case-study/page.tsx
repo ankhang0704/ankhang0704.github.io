@@ -109,7 +109,7 @@ export default async function FMDictionaryCaseStudyPage({
 
   return (
     <>
-      <Header variant="fm" />
+      <Header />
 
       <main id="main-content" className="w-full min-w-0 overflow-x-hidden pt-32">
         <section className="container mx-auto w-full min-w-0 px-6 pb-24 md:px-8 md:pb-32">
@@ -273,17 +273,17 @@ export default async function FMDictionaryCaseStudyPage({
         <section className="container mx-auto px-6 py-24 md:px-8 md:py-32">
           <div className="flex flex-col items-start justify-between gap-8 border border-black p-8 dark:border-white md:flex-row md:items-center md:p-12">
             <div>
-              <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] opacity-50">FM Dictionary</p>
-              <h2 className="font-display text-3xl font-bold md:text-4xl">{isVi ? "Quay lại product landing" : "Back to the product landing"}</h2>
+              <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] opacity-75">FM Dictionary</p>
+              <h2 className="font-display text-3xl font-bold md:text-4xl">{isVi ? "Xem trang ứng dụng chính thức" : "Visit official app landing"}</h2>
             </div>
-            <Link href={localizedPath(lang, "/fm-dictionary/")} className="inline-flex w-full items-center justify-center gap-3 border border-black px-6 py-4 text-sm font-bold uppercase tracking-widest transition-colors hover:bg-black hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-black md:w-auto">
-              {isVi ? "Xem FM Dictionary" : "View FM Dictionary"}<Icons.ArrowRight size={16} />
-            </Link>
+            <a href="https://fm-dictionary.pages.dev/" target="_blank" rel="noopener noreferrer" className="inline-flex w-full items-center justify-center gap-3 border border-black px-6 py-4 text-sm font-bold uppercase tracking-widest transition-colors hover:bg-black hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-black md:w-auto">
+              <span>fm-dictionary.pages.dev</span><Icons.ArrowRight size={16} />
+            </a>
           </div>
         </section>
       </main>
 
-      <Footer variant="fm" />
+      <Footer />
     </>
   );
 }

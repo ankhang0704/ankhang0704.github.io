@@ -15,6 +15,82 @@ const nextConfig: NextConfig = {
         destination: "/vi/projects/",
         permanent: true,
       },
+      // FM Dictionary App & Legal Redirects -> New Domain (https://fm-dictionary.pages.dev/)
+      {
+        source: "/fm-dictionary",
+        destination: "https://fm-dictionary.pages.dev/",
+        permanent: true,
+      },
+      {
+        source: "/en/fm-dictionary",
+        destination: "https://fm-dictionary.pages.dev/",
+        permanent: true,
+      },
+      {
+        source: "/vi/fm-dictionary",
+        destination: "https://fm-dictionary.pages.dev/",
+        permanent: true,
+      },
+      {
+        source: "/fm-dictionary/privacy-policy",
+        destination: "https://fm-dictionary.pages.dev/privacy/",
+        permanent: true,
+      },
+      {
+        source: "/en/fm-dictionary/privacy-policy",
+        destination: "https://fm-dictionary.pages.dev/privacy/",
+        permanent: true,
+      },
+      {
+        source: "/vi/fm-dictionary/privacy-policy",
+        destination: "https://fm-dictionary.pages.dev/privacy/",
+        permanent: true,
+      },
+      {
+        source: "/fm-dictionary/terms-of-service",
+        destination: "https://fm-dictionary.pages.dev/terms/",
+        permanent: true,
+      },
+      {
+        source: "/en/fm-dictionary/terms-of-service",
+        destination: "https://fm-dictionary.pages.dev/terms/",
+        permanent: true,
+      },
+      {
+        source: "/vi/fm-dictionary/terms-of-service",
+        destination: "https://fm-dictionary.pages.dev/terms/",
+        permanent: true,
+      },
+      {
+        source: "/fm-dictionary/support",
+        destination: "https://fm-dictionary.pages.dev/",
+        permanent: true,
+      },
+      {
+        source: "/en/fm-dictionary/support",
+        destination: "https://fm-dictionary.pages.dev/",
+        permanent: true,
+      },
+      {
+        source: "/vi/fm-dictionary/support",
+        destination: "https://fm-dictionary.pages.dev/",
+        permanent: true,
+      },
+      {
+        source: "/fm-dictionary/delete-account",
+        destination: "https://fm-dictionary.pages.dev/",
+        permanent: true,
+      },
+      {
+        source: "/en/fm-dictionary/delete-account",
+        destination: "https://fm-dictionary.pages.dev/",
+        permanent: true,
+      },
+      {
+        source: "/vi/fm-dictionary/delete-account",
+        destination: "https://fm-dictionary.pages.dev/",
+        permanent: true,
+      },
     ];
   },
   images: {

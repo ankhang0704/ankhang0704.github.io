@@ -21,8 +21,11 @@ export const PROJECTS: ProjectDefinition[] = [
     contentKey: "fmDictionary",
     image: "/fm-dictionary-editorial-cover.webp",
     href: "/fm-dictionary/case-study/",
-    externalHref: "https://apps.apple.com/us/app/fm-dictionary/id6774868353",
-    externalLabel: "App Store ↗",
+    externalHref: "https://fm-dictionary.pages.dev/",
+    externalLabel: "Website ↗",
+    externalLabelVi: "Website ↗",
+    secondaryExternalHref: "https://apps.apple.com/us/app/fm-dictionary/id6774868353",
+    secondaryExternalLabel: "App Store ↗",
     tags: ["Flutter", "Firebase", "Hive", "Cloudflare Workers", "1,847 terms"],
   },
   {
