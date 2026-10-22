@@ -7,6 +7,12 @@ import Footer from "@/components/Footer";
 import { CaseStudyAnimations } from "@/components/case-study/CaseStudyAnimations";
 import { Icons } from "@/components/Icons";
 import { useLanguage } from "@/context/LanguageContext";
+import { BlurText } from "@/components/BlurText";
+import { CountUp } from "@/components/CountUp";
+import { TiltedCard } from "@/components/TiltedCard";
+import { SpotlightCard } from "@/components/SpotlightCard";
+import { MagneticButton } from "@/components/MagneticButton";
+import { RevealOnScroll } from "@/components/RevealOnScroll";
 
 const timeline = [
   {
@@ -221,7 +227,10 @@ export default function FMDictionaryCaseStudyPage() {
               </div>
 
               <h1 className="cs-title mb-6 break-words font-display text-5xl font-bold leading-[0.95] sm:text-6xl md:text-8xl">
-                FM <span className="font-light opacity-90 leading-[1.1] tracking-tight">Dictionary.</span>
+                <BlurText text="FM" delay={50} />{" "}
+                <span className="font-light opacity-90 leading-[1.1] tracking-tight">
+                  <BlurText text="Dictionary." delay={160} />
+                </span>
               </h1>
 
               <p className="cs-desc mb-8 max-w-2xl text-xl font-light leading-relaxed opacity-85 md:text-2xl">
@@ -244,53 +253,59 @@ export default function FMDictionaryCaseStudyPage() {
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-4">
-                <a
-                  href="https://fm-dictionary.pages.dev/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 border border-black bg-black px-6 py-3.5 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-black/80 dark:border-white dark:bg-white dark:text-black dark:hover:bg-white/80"
-                >
-                  {isVi ? "Website sản phẩm" : "Product Website"} <Icons.ArrowRight size={14} />
-                </a>
-                <a
-                  href="https://apps.apple.com/us/app/fm-dictionary/id6774868353"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 border border-black/20 px-6 py-3.5 text-xs font-bold uppercase tracking-widest opacity-80 transition-all hover:border-black hover:opacity-100 dark:border-white/20 dark:hover:border-white"
-                >
-                  {isVi ? "Xem trên App Store" : "View on App Store"} <span aria-hidden="true">↗</span>
-                </a>
+                <MagneticButton strength={0.15}>
+                  <a
+                    href="https://fm-dictionary.pages.dev/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 border border-black bg-black px-6 py-3.5 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-black/80 dark:border-white dark:bg-white dark:text-black dark:hover:bg-white/80"
+                  >
+                    {isVi ? "Website sản phẩm" : "Product Website"} <Icons.ArrowRight size={14} />
+                  </a>
+                </MagneticButton>
+                <MagneticButton strength={0.15}>
+                  <a
+                    href="https://apps.apple.com/us/app/fm-dictionary/id6774868353"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 border border-black/20 px-6 py-3.5 text-xs font-bold uppercase tracking-widest opacity-80 transition-all hover:border-black hover:opacity-100 dark:border-white/20 dark:hover:border-white"
+                  >
+                    {isVi ? "Xem trên App Store" : "View on App Store"} <span aria-hidden="true">↗</span>
+                  </a>
+                </MagneticButton>
               </div>
             </div>
 
             {/* Precision Viewport Preview Frame */}
             <figure className="min-w-0 lg:col-span-5">
-              <div className="relative aspect-[4/3] overflow-hidden border border-black/15 bg-cardLight dark:border-white/15 dark:bg-cardDark">
-                <div className="flex items-center justify-between border-b border-black/10 px-4 py-2.5 font-mono text-[10px] uppercase tracking-wider dark:border-white/10">
-                  <div className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 bg-black dark:bg-white" />
-                    <span className="font-bold opacity-90">PRJ-01 · FM-DICT</span>
+              <TiltedCard maxTilt={5}>
+                <div className="relative aspect-[4/3] overflow-hidden border border-black/15 bg-cardLight dark:border-white/15 dark:bg-cardDark">
+                  <div className="flex items-center justify-between border-b border-black/10 px-4 py-2.5 font-mono text-[10px] uppercase tracking-wider dark:border-white/10">
+                    <div className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 bg-black dark:bg-white" />
+                      <span className="font-bold opacity-90">PRJ-01 · FM-DICT</span>
+                    </div>
+                    <span className="opacity-75">1.1.0+9 PRODUCTION</span>
                   </div>
-                  <span className="opacity-75">1.1.0+9 PRODUCTION</span>
-                </div>
-                <div className="relative h-[calc(100%-35px)] w-full overflow-hidden">
-                  <Image
-                    src="/fm-dictionary-editorial-cover.webp"
-                    alt={isVi ? "Ảnh bìa ứng dụng FM Dictionary" : "Editorial cover for FM Dictionary application"}
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 42vw"
-                    className="cs-cover-img scale-105 object-cover grayscale transition-all duration-700 hover:scale-100 hover:grayscale-0"
-                  />
-                  <div className="absolute bottom-2.5 left-2.5 right-2.5 flex flex-wrap gap-1.5 z-10 pointer-events-none">
-                    {["1,847 Terms", "Hive Offline", "Cloudflare STT Proxy"].map((s) => (
-                      <span key={s} className="bg-black/85 text-white dark:bg-white/90 dark:text-black text-[9px] font-mono uppercase px-2 py-0.5 border border-white/20 dark:border-black/20 font-semibold">
-                        {s}
-                      </span>
-                    ))}
+                  <div className="relative h-[calc(100%-35px)] w-full overflow-hidden">
+                    <Image
+                      src="/fm-dictionary-editorial-cover.webp"
+                      alt={isVi ? "Ảnh bìa ứng dụng FM Dictionary" : "Editorial cover for FM Dictionary application"}
+                      fill
+                      priority
+                      sizes="(max-width: 1024px) 100vw, 42vw"
+                      className="cs-cover-img scale-105 object-cover grayscale transition-all duration-700 hover:scale-100 hover:grayscale-0"
+                    />
+                    <div className="absolute bottom-2.5 left-2.5 right-2.5 flex flex-wrap gap-1.5 z-10 pointer-events-none">
+                      {["1,847 Terms", "Hive Offline", "Cloudflare STT Proxy"].map((s) => (
+                        <span key={s} className="bg-black/85 text-white dark:bg-white/90 dark:text-black text-[9px] font-mono uppercase px-2 py-0.5 border border-white/20 dark:border-black/20 font-semibold">
+                          {s}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </TiltedCard>
               <figcaption className="mt-3 text-xs leading-relaxed opacity-55">
                 {isVi
                   ? "Bản ghi nhận kỹ thuật chính thức: FM Dictionary v1.1.0 trên nền tảng Flutter (iOS & Android)."
@@ -302,17 +317,36 @@ export default function FMDictionaryCaseStudyPage() {
           {/* 2. UNIFIED 4-METRIC STRIP */}
           <section className="border-y border-black/10 bg-cardLight py-12 dark:border-white/10 dark:bg-cardDark">
             <div className="container mx-auto grid grid-cols-2 divide-x divide-black/10 border-l border-black/10 px-6 dark:divide-white/10 dark:border-white/10 md:grid-cols-4 md:px-8">
-              {[
-                ["1,847", isVi ? "Thuật ngữ hiện tại" : "Current terms"],
-                ["50", isVi ? "Bộ test bundled" : "Bundled test items"],
-                ["27", isVi ? "Flutter tests đã ghi nhận" : "Recorded tests"],
-                ["1.1.0+9", isVi ? "Phiên bản App Store" : "App Store version"],
-              ].map(([value, label]) => (
-                <div key={label} className="border-r border-black/10 px-5 py-4 dark:border-white/10 md:px-8">
-                  <p className="font-display text-2xl font-bold md:text-3xl">{value}</p>
-                  <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">{label}</p>
-                </div>
-              ))}
+              <div className="border-r border-black/10 px-5 py-4 dark:border-white/10 md:px-8">
+                <p className="font-display text-2xl font-bold md:text-3xl">
+                  <CountUp to={1847} separator="," />
+                </p>
+                <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">
+                  {isVi ? "Thuật ngữ hiện tại" : "Current terms"}
+                </p>
+              </div>
+              <div className="border-r border-black/10 px-5 py-4 dark:border-white/10 md:px-8">
+                <p className="font-display text-2xl font-bold md:text-3xl">
+                  <CountUp to={50} />
+                </p>
+                <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">
+                  {isVi ? "Bộ test bundled" : "Bundled test items"}
+                </p>
+              </div>
+              <div className="border-r border-black/10 px-5 py-4 dark:border-white/10 md:px-8">
+                <p className="font-display text-2xl font-bold md:text-3xl">
+                  <CountUp to={27} />
+                </p>
+                <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">
+                  {isVi ? "Flutter tests đã ghi nhận" : "Recorded tests"}
+                </p>
+              </div>
+              <div className="border-r border-black/10 px-5 py-4 dark:border-white/10 md:px-8">
+                <p className="font-display text-2xl font-bold md:text-3xl">1.1.0+9</p>
+                <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">
+                  {isVi ? "Phiên bản App Store" : "App Store version"}
+                </p>
+              </div>
             </div>
           </section>
 
@@ -335,43 +369,42 @@ export default function FMDictionaryCaseStudyPage() {
 
               {/* 3 Architectural Tiers */}
               <div className="space-y-8">
-                {architectureTiers.map((tier) => (
-                  <div
-                    key={tier.tierNumber}
-                    className="cs-diagram-node border border-black/10 bg-cardLight p-8 dark:border-white/10 dark:bg-cardDark md:p-10 transition-colors duration-200 hover:border-black dark:hover:border-white"
-                  >
-                    <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-black/10 pb-5 dark:border-white/10">
-                      <div className="flex items-center gap-3">
-                        <span className="font-mono text-xs font-bold opacity-50">{tier.tierNumber} /</span>
-                        <h3 className="font-display text-xl font-bold md:text-2xl">
-                          {isVi ? tier.tierNameVi : tier.tierNameEn}
-                        </h3>
-                      </div>
-                      <span className="border border-black/20 bg-bgLight px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider opacity-85 dark:border-white/20 dark:bg-bgDark">
-                        {isVi ? tier.tagVi : tier.tagEn}
-                      </span>
-                    </div>
-
-                    <p className="mb-8 max-w-3xl text-base font-light leading-relaxed opacity-80 md:text-lg">
-                      {isVi ? tier.leadVi : tier.leadEn}
-                    </p>
-
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                      {tier.details.map((item) => (
-                        <div
-                          key={item.titleEn}
-                          className="border border-black/5 bg-bgLight p-6 dark:border-white/5 dark:bg-bgDark"
-                        >
-                          <h4 className="font-display text-base font-bold md:text-lg mb-2">
-                            {isVi ? item.titleVi : item.titleEn}
-                          </h4>
-                          <p className="text-sm font-light leading-relaxed opacity-75">
-                            {isVi ? item.descVi : item.descEn}
-                          </p>
+                {architectureTiers.map((tier, index) => (
+                  <RevealOnScroll key={tier.tierNumber} delay={index * 100}>
+                    <SpotlightCard className="cs-diagram-node border border-black/10 bg-cardLight p-8 dark:border-white/10 dark:bg-cardDark md:p-10 transition-colors duration-200 hover:border-black dark:hover:border-white">
+                      <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-black/10 pb-5 dark:border-white/10">
+                        <div className="flex items-center gap-3">
+                          <span className="font-mono text-xs font-bold opacity-50">{tier.tierNumber} /</span>
+                          <h3 className="font-display text-xl font-bold md:text-2xl">
+                            {isVi ? tier.tierNameVi : tier.tierNameEn}
+                          </h3>
                         </div>
-                      ))}
-                    </div>
-                  </div>
+                        <span className="border border-black/20 bg-bgLight px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider opacity-85 dark:border-white/20 dark:bg-bgDark">
+                          {isVi ? tier.tagVi : tier.tagEn}
+                        </span>
+                      </div>
+
+                      <p className="mb-8 max-w-3xl text-base font-light leading-relaxed opacity-80 md:text-lg">
+                        {isVi ? tier.leadVi : tier.leadEn}
+                      </p>
+
+                      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                        {tier.details.map((item) => (
+                          <div
+                            key={item.titleEn}
+                            className="border border-black/5 bg-bgLight p-6 dark:border-white/5 dark:bg-bgDark"
+                          >
+                            <h4 className="font-display text-base font-bold md:text-lg mb-2">
+                              {isVi ? item.titleVi : item.titleEn}
+                            </h4>
+                            <p className="text-sm font-light leading-relaxed opacity-75">
+                              {isVi ? item.descVi : item.descEn}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </SpotlightCard>
+                  </RevealOnScroll>
                 ))}
               </div>
 
@@ -409,18 +442,20 @@ export default function FMDictionaryCaseStudyPage() {
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 gap-px border border-black/10 bg-black/10 dark:border-white/10 dark:bg-white/10 md:grid-cols-2">
-                {engineeringAreas.map(({ Icon, titleEn, titleVi, textEn, textVi, evidence }) => (
-                  <article key={titleEn} className="bg-cardLight p-8 dark:bg-cardDark md:p-10">
-                    <Icon size={32} strokeWidth={1.5} className="mb-8" />
-                    <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-                      <h3 className="font-display text-2xl font-bold">{isVi ? titleVi : titleEn}</h3>
-                      <span className="border border-black/20 px-2 py-1 font-mono text-[9px] font-bold uppercase tracking-widest opacity-70 dark:border-white/20">
-                        {evidence}
-                      </span>
-                    </div>
-                    <p className="font-light leading-relaxed opacity-80">{isVi ? textVi : textEn}</p>
-                  </article>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                {engineeringAreas.map(({ Icon, titleEn, titleVi, textEn, textVi, evidence }, index) => (
+                  <RevealOnScroll key={titleEn} delay={index * 100}>
+                    <SpotlightCard className="h-full border border-black/10 bg-cardLight p-8 dark:border-white/10 dark:bg-cardDark md:p-10 transition-colors duration-200 hover:border-black dark:hover:border-white">
+                      <Icon size={32} strokeWidth={1.5} className="mb-8" />
+                      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+                        <h3 className="font-display text-2xl font-bold">{isVi ? titleVi : titleEn}</h3>
+                        <span className="border border-black/20 px-2 py-1 font-mono text-[9px] font-bold uppercase tracking-widest opacity-70 dark:border-white/20">
+                          {evidence}
+                        </span>
+                      </div>
+                      <p className="font-light leading-relaxed opacity-80">{isVi ? textVi : textEn}</p>
+                    </SpotlightCard>
+                  </RevealOnScroll>
                 ))}
               </div>
             </div>
@@ -524,15 +559,17 @@ export default function FMDictionaryCaseStudyPage() {
                 </h2>
               </div>
               <div className="flex flex-wrap gap-4 w-full md:w-auto">
-                <a
-                  href="https://fm-dictionary.pages.dev/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center gap-3 border border-black bg-black px-6 py-4 font-mono text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-black/80 dark:border-white dark:bg-white dark:text-black dark:hover:bg-white/80 md:w-auto"
-                >
-                  <span>fm-dictionary.pages.dev</span>
-                  <Icons.ArrowRight size={16} />
-                </a>
+                <MagneticButton strength={0.2}>
+                  <a
+                    href="https://fm-dictionary.pages.dev/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex w-full items-center justify-center gap-3 border border-black bg-black px-6 py-4 font-mono text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-black/80 dark:border-white dark:bg-white dark:text-black dark:hover:bg-white/80 md:w-auto"
+                  >
+                    <span>fm-dictionary.pages.dev</span>
+                    <Icons.ArrowRight size={16} />
+                  </a>
+                </MagneticButton>
               </div>
             </div>
           </section>

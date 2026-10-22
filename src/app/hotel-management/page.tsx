@@ -7,6 +7,12 @@ import Footer from "@/components/Footer";
 import { CaseStudyAnimations } from "@/components/case-study/CaseStudyAnimations";
 import { Icons } from "@/components/Icons";
 import { useLanguage } from "@/context/LanguageContext";
+import { BlurText } from "@/components/BlurText";
+import { CountUp } from "@/components/CountUp";
+import { TiltedCard } from "@/components/TiltedCard";
+import { SpotlightCard } from "@/components/SpotlightCard";
+import { MagneticButton } from "@/components/MagneticButton";
+import { RevealOnScroll } from "@/components/RevealOnScroll";
 
 const capabilities = [
   {
@@ -109,7 +115,10 @@ export default function HotelManagementCaseStudy() {
               </div>
 
               <h1 className="cs-title mb-6 break-words font-display text-5xl font-bold leading-[0.95] sm:text-6xl md:text-8xl">
-                Hotel <span className="font-light opacity-90 leading-[1.1] tracking-tight">Management.</span>
+                <BlurText text="Hotel" delay={50} />{" "}
+                <span className="font-light opacity-90 leading-[1.1] tracking-tight">
+                  <BlurText text="Management." delay={160} />
+                </span>
               </h1>
 
               <p className="cs-desc mb-8 max-w-2xl text-xl font-light leading-relaxed opacity-85 md:text-2xl">
@@ -132,45 +141,49 @@ export default function HotelManagementCaseStudy() {
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-4">
-                <a
-                  href="https://github.com/ankhang0704/QuanLyKhachSan_AI"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 border border-black bg-black px-6 py-3.5 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-black/80 dark:border-white dark:bg-white dark:text-black dark:hover:bg-white/80"
-                >
-                  {isVi ? "Xem mã nguồn GitHub" : "View Source on GitHub"} <Icons.Github size={14} />
-                </a>
+                <MagneticButton strength={0.15}>
+                  <a
+                    href="https://github.com/ankhang0704/QuanLyKhachSan_AI"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 border border-black bg-black px-6 py-3.5 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-black/80 dark:border-white dark:bg-white dark:text-black dark:hover:bg-white/80"
+                  >
+                    {isVi ? "Xem mã nguồn GitHub" : "View Source on GitHub"} <Icons.Github size={14} />
+                  </a>
+                </MagneticButton>
               </div>
             </div>
 
             {/* Precision Viewport Preview Frame */}
             <figure className="min-w-0 lg:col-span-5">
-              <div className="relative aspect-[4/3] overflow-hidden border border-black/15 bg-cardLight dark:border-white/15 dark:bg-cardDark">
-                <div className="flex items-center justify-between border-b border-black/10 px-4 py-2.5 font-mono text-[10px] uppercase tracking-wider dark:border-white/10">
-                  <div className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 bg-black dark:bg-white" />
-                    <span className="font-bold opacity-90">PRJ-03 · HOTEL-MGMT</span>
+              <TiltedCard maxTilt={5}>
+                <div className="relative aspect-[4/3] overflow-hidden border border-black/15 bg-cardLight dark:border-white/15 dark:bg-cardDark">
+                  <div className="flex items-center justify-between border-b border-black/10 px-4 py-2.5 font-mono text-[10px] uppercase tracking-wider dark:border-white/10">
+                    <div className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 bg-black dark:bg-white" />
+                      <span className="font-bold opacity-90">PRJ-03 · HOTEL-MGMT</span>
+                    </div>
+                    <span className="opacity-75">COMPLETED CAPSTONE</span>
                   </div>
-                  <span className="opacity-75">COMPLETED CAPSTONE</span>
-                </div>
-                <div className="relative h-[calc(100%-35px)] w-full overflow-hidden">
-                  <Image
-                    src="/hotel-management-editorial-cover.webp"
-                    alt={isVi ? "Ảnh bìa đồ án Quản lý khách sạn" : "Editorial cover for Hotel Management Capstone"}
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 42vw"
-                    className="cs-cover-img scale-105 object-cover grayscale transition-all duration-700 hover:scale-100 hover:grayscale-0"
-                  />
-                  <div className="absolute bottom-2.5 left-2.5 right-2.5 flex flex-wrap gap-1.5 z-10 pointer-events-none">
-                    {["Django 5 + SQLite", "FAISS Vector RAG", "Server-Rendered"].map((s) => (
-                      <span key={s} className="bg-black/85 text-white dark:bg-white/90 dark:text-black text-[9px] font-mono uppercase px-2 py-0.5 border border-white/20 dark:border-black/20 font-semibold">
-                        {s}
-                      </span>
-                    ))}
+                  <div className="relative h-[calc(100%-35px)] w-full overflow-hidden">
+                    <Image
+                      src="/hotel-management-editorial-cover.webp"
+                      alt={isVi ? "Ảnh bìa đồ án Quản lý khách sạn" : "Editorial cover for Hotel Management Capstone"}
+                      fill
+                      priority
+                      sizes="(max-width: 1024px) 100vw, 42vw"
+                      className="cs-cover-img scale-105 object-cover grayscale transition-all duration-700 hover:scale-100 hover:grayscale-0"
+                    />
+                    <div className="absolute bottom-2.5 left-2.5 right-2.5 flex flex-wrap gap-1.5 z-10 pointer-events-none">
+                      {["Django 5 + SQLite", "FAISS Vector RAG", "Server-Rendered"].map((s) => (
+                        <span key={s} className="bg-black/85 text-white dark:bg-white/90 dark:text-black text-[9px] font-mono uppercase px-2 py-0.5 border border-white/20 dark:border-black/20 font-semibold">
+                          {s}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </TiltedCard>
               <figcaption className="mt-3 text-xs leading-relaxed opacity-55">
                 {isVi
                   ? "Bản ghi nhận kỹ thuật: Kiến trúc hệ thống quản lý khách sạn và trợ lý RAG cục bộ."
@@ -182,17 +195,32 @@ export default function HotelManagementCaseStudy() {
           {/* 2. UNIFIED 4-METRIC STRIP */}
           <section className="border-y border-black/10 bg-cardLight py-12 dark:border-white/10 dark:bg-cardDark">
             <div className="container mx-auto grid grid-cols-2 divide-x divide-black/10 border-l border-black/10 px-6 dark:divide-white/10 dark:border-white/10 md:grid-cols-4 md:px-8">
-              {[
-                ["2025.10 → 12", isVi ? "Thời gian phát triển" : "Development window"],
-                ["6", isVi ? "Bộ kiểm thử trọng yếu" : "Focused test suites"],
-                ["SQLite + WAL", isVi ? "Cơ sở dữ liệu lõi" : "Core database"],
-                [isVi ? "Đã hoàn thành" : "Completed", isVi ? "Trạng thái Capstone" : "Capstone status"],
-              ].map(([value, label]) => (
-                <div key={label} className="border-r border-black/10 px-5 py-4 dark:border-white/10 md:px-8">
-                  <p className="font-display text-2xl font-bold md:text-3xl">{value}</p>
-                  <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">{label}</p>
-                </div>
-              ))}
+              <div className="border-r border-black/10 px-5 py-4 dark:border-white/10 md:px-8">
+                <p className="font-display text-2xl font-bold md:text-3xl">2025.10 → 12</p>
+                <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">
+                  {isVi ? "Thời gian phát triển" : "Development window"}
+                </p>
+              </div>
+              <div className="border-r border-black/10 px-5 py-4 dark:border-white/10 md:px-8">
+                <p className="font-display text-2xl font-bold md:text-3xl">
+                  <CountUp to={6} />
+                </p>
+                <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">
+                  {isVi ? "Bộ kiểm thử trọng yếu" : "Focused test suites"}
+                </p>
+              </div>
+              <div className="border-r border-black/10 px-5 py-4 dark:border-white/10 md:px-8">
+                <p className="font-display text-2xl font-bold md:text-3xl">SQLite + WAL</p>
+                <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">
+                  {isVi ? "Cơ sở dữ liệu lõi" : "Core database"}
+                </p>
+              </div>
+              <div className="border-r border-black/10 px-5 py-4 dark:border-white/10 md:px-8">
+                <p className="font-display text-2xl font-bold md:text-3xl">{isVi ? "Đã hoàn thành" : "Completed"}</p>
+                <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">
+                  {isVi ? "Trạng thái Capstone" : "Capstone status"}
+                </p>
+              </div>
             </div>
           </section>
 
@@ -216,51 +244,53 @@ export default function HotelManagementCaseStudy() {
               {/* Architectural Schema Container */}
               <div className="space-y-8">
                 {/* Tier 1: Django MVT Operational Monolith */}
-                <div className="cs-diagram-node border border-black/10 bg-cardLight p-8 dark:border-white/10 dark:bg-cardDark md:p-10">
-                  <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-black/10 pb-5 dark:border-white/10">
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-xs font-bold opacity-50">TIER 01 /</span>
-                      <h3 className="font-display text-xl font-bold md:text-2xl">
-                        {isVi ? "CORE OPERATIONAL MONOLITH (DJANGO MVT)" : "CORE OPERATIONAL MONOLITH (DJANGO MVT)"}
-                      </h3>
-                    </div>
-                    <span className="border border-black/20 bg-bgLight px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider opacity-85 dark:border-white/20 dark:bg-bgDark">
-                      ACID · TRANSACTIONAL
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                    <div className="border border-black/5 bg-bgLight p-6 dark:border-white/5 dark:bg-bgDark">
-                      <div className="mb-2 font-mono text-xs font-bold uppercase tracking-wider opacity-50">01 / Routing & Guard</div>
-                      <h4 className="font-display text-lg font-bold mb-2">URL & Role Dispatcher</h4>
-                      <p className="text-sm font-light leading-relaxed opacity-75">
-                        {isVi
-                          ? "Điều phối request qua class-based views; bảo vệ bằng decorator phân quyền cho Lễ tân, Quản lý và Khách."
-                          : "Routes incoming requests through class-based views with role-guard decorators for Admin, Desk Staff, and Guests."}
-                      </p>
+                <RevealOnScroll delay={50}>
+                  <SpotlightCard className="cs-diagram-node border border-black/10 bg-cardLight p-8 dark:border-white/10 dark:bg-cardDark md:p-10 transition-colors duration-200 hover:border-black dark:hover:border-white">
+                    <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-black/10 pb-5 dark:border-white/10">
+                      <div className="flex items-center gap-3">
+                        <span className="font-mono text-xs font-bold opacity-50">TIER 01 /</span>
+                        <h3 className="font-display text-xl font-bold md:text-2xl">
+                          {isVi ? "CORE OPERATIONAL MONOLITH (DJANGO MVT)" : "CORE OPERATIONAL MONOLITH (DJANGO MVT)"}
+                        </h3>
+                      </div>
+                      <span className="border border-black/20 bg-bgLight px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider opacity-85 dark:border-white/20 dark:bg-bgDark">
+                        ACID · TRANSACTIONAL
+                      </span>
                     </div>
 
-                    <div className="border border-black/5 bg-bgLight p-6 dark:border-white/5 dark:bg-bgDark">
-                      <div className="mb-2 font-mono text-xs font-bold uppercase tracking-wider opacity-50">02 / Business Engine</div>
-                      <h4 className="font-display text-lg font-bold mb-2">Reservation State Machine</h4>
-                      <p className="text-sm font-light leading-relaxed opacity-75">
-                        {isVi
-                          ? "Xử lý kiểm tra phòng trống, tạo đơn đặt phòng, trừ tồn kho thời gian thực và tự động hoàn trả khi hủy."
-                          : "Validates date intervals, allocates room inventory atomically, and handles cancellation restitution workflows."}
-                      </p>
-                    </div>
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                      <div className="border border-black/5 bg-bgLight p-6 dark:border-white/5 dark:bg-bgDark">
+                        <div className="mb-2 font-mono text-xs font-bold uppercase tracking-wider opacity-50">01 / Routing & Guard</div>
+                        <h4 className="font-display text-lg font-bold mb-2">URL & Role Dispatcher</h4>
+                        <p className="text-sm font-light leading-relaxed opacity-75">
+                          {isVi
+                            ? "Điều phối request qua class-based views; bảo vệ bằng decorator phân quyền cho Lễ tân, Quản lý và Khách."
+                            : "Routes incoming requests through class-based views with role-guard decorators for Admin, Desk Staff, and Guests."}
+                        </p>
+                      </div>
 
-                    <div className="border border-black/5 bg-bgLight p-6 dark:border-white/5 dark:bg-bgDark">
-                      <div className="mb-2 font-mono text-xs font-bold uppercase tracking-wider opacity-50">03 / Data Layer</div>
-                      <h4 className="font-display text-lg font-bold mb-2">Optimized SQLite ORM</h4>
-                      <p className="text-sm font-light leading-relaxed opacity-75">
-                        {isVi
-                          ? "Sử dụng select_related và prefetch_related có chủ đích để truy vấn danh sách đặt phòng với độ trễ < 2ms."
-                          : "Concrete select_related and prefetch_related query tuning ensuring sub-2ms relational query execution."}
-                      </p>
+                      <div className="border border-black/5 bg-bgLight p-6 dark:border-white/5 dark:bg-bgDark">
+                        <div className="mb-2 font-mono text-xs font-bold uppercase tracking-wider opacity-50">02 / Business Engine</div>
+                        <h4 className="font-display text-lg font-bold mb-2">Reservation State Machine</h4>
+                        <p className="text-sm font-light leading-relaxed opacity-75">
+                          {isVi
+                            ? "Xử lý kiểm tra phòng trống, tạo đơn đặt phòng, trừ tồn kho thời gian thực và tự động hoàn trả khi hủy."
+                            : "Validates date intervals, allocates room inventory atomically, and handles cancellation restitution workflows."}
+                        </p>
+                      </div>
+
+                      <div className="border border-black/5 bg-bgLight p-6 dark:border-white/5 dark:bg-bgDark">
+                        <div className="mb-2 font-mono text-xs font-bold uppercase tracking-wider opacity-50">03 / Data Layer</div>
+                        <h4 className="font-display text-lg font-bold mb-2">Optimized SQLite ORM</h4>
+                        <p className="text-sm font-light leading-relaxed opacity-75">
+                          {isVi
+                            ? "Sử dụng select_related và prefetch_related có chủ đích để truy vấn danh sách đặt phòng với độ trễ < 2ms."
+                            : "Concrete select_related and prefetch_related query tuning ensuring sub-2ms relational query execution."}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  </SpotlightCard>
+                </RevealOnScroll>
 
                 {/* Connector Bridge */}
                 <div className="flex items-center justify-center gap-4 py-2 font-mono text-xs uppercase tracking-widest opacity-60">
@@ -270,51 +300,53 @@ export default function HotelManagementCaseStudy() {
                 </div>
 
                 {/* Tier 2: Auxiliary Semantic RAG Boundary */}
-                <div className="cs-diagram-node border border-black/10 bg-cardLight p-8 dark:border-white/10 dark:bg-cardDark md:p-10">
-                  <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-black/10 pb-5 dark:border-white/10">
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-xs font-bold opacity-50">TIER 02 /</span>
-                      <h3 className="font-display text-xl font-bold md:text-2xl">
-                        {isVi ? "AUXILIARY KNOWLEDGE RETRIEVAL (FAISS RAG)" : "AUXILIARY KNOWLEDGE RETRIEVAL (FAISS RAG)"}
-                      </h3>
-                    </div>
-                    <span className="border border-black/20 bg-bgLight px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider opacity-85 dark:border-white/20 dark:bg-bgDark">
-                      VECTOR · NON-BLOCKING
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                    <div className="border border-black/5 bg-bgLight p-6 dark:border-white/5 dark:bg-bgDark">
-                      <div className="mb-2 font-mono text-xs font-bold uppercase tracking-wider opacity-50">01 / Corpus</div>
-                      <h4 className="font-display text-lg font-bold mb-2">Resort Policy Corpus</h4>
-                      <p className="text-sm font-light leading-relaxed opacity-75">
-                        {isVi
-                          ? "Quy định nhận/trả phòng, giá dịch vụ bổ sung và hướng dẫn du lịch địa phương được phân mảnh (chunking) chuẩn hóa."
-                          : "Chunked and tokenized documentation covering check-in policies, room tariffs, and resort guidelines."}
-                      </p>
+                <RevealOnScroll delay={120}>
+                  <SpotlightCard className="cs-diagram-node border border-black/10 bg-cardLight p-8 dark:border-white/10 dark:bg-cardDark md:p-10 transition-colors duration-200 hover:border-black dark:hover:border-white">
+                    <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-black/10 pb-5 dark:border-white/10">
+                      <div className="flex items-center gap-3">
+                        <span className="font-mono text-xs font-bold opacity-50">TIER 02 /</span>
+                        <h3 className="font-display text-xl font-bold md:text-2xl">
+                          {isVi ? "AUXILIARY KNOWLEDGE RETRIEVAL (FAISS RAG)" : "AUXILIARY KNOWLEDGE RETRIEVAL (FAISS RAG)"}
+                        </h3>
+                      </div>
+                      <span className="border border-black/20 bg-bgLight px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wider opacity-85 dark:border-white/20 dark:bg-bgDark">
+                        VECTOR · NON-BLOCKING
+                      </span>
                     </div>
 
-                    <div className="border border-black/5 bg-bgLight p-6 dark:border-white/5 dark:bg-bgDark">
-                      <div className="mb-2 font-mono text-xs font-bold uppercase tracking-wider opacity-50">02 / Indexing</div>
-                      <h4 className="font-display text-lg font-bold mb-2">FAISS L2 Vector Index</h4>
-                      <p className="text-sm font-light leading-relaxed opacity-75">
-                        {isVi
-                          ? "Chuyển đổi câu hỏi thành vector embedding và tìm kiếm độ tương đồng ngữ nghĩa trong không gian đa chiều (< 15ms)."
-                          : "Embedding vector search computing cosine/L2 distance over indexed chunks in under 15ms."}
-                      </p>
-                    </div>
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                      <div className="border border-black/5 bg-bgLight p-6 dark:border-white/5 dark:bg-bgDark">
+                        <div className="mb-2 font-mono text-xs font-bold uppercase tracking-wider opacity-50">01 / Corpus</div>
+                        <h4 className="font-display text-lg font-bold mb-2">Resort Policy Corpus</h4>
+                        <p className="text-sm font-light leading-relaxed opacity-75">
+                          {isVi
+                            ? "Quy định nhận/trả phòng, giá dịch vụ bổ sung và hướng dẫn du lịch địa phương được phân mảnh (chunking) chuẩn hóa."
+                            : "Chunked and tokenized documentation covering check-in policies, room tariffs, and resort guidelines."}
+                        </p>
+                      </div>
 
-                    <div className="border border-black/5 bg-bgLight p-6 dark:border-white/5 dark:bg-bgDark">
-                      <div className="mb-2 font-mono text-xs font-bold uppercase tracking-wider opacity-50">03 / Generation</div>
-                      <h4 className="font-display text-lg font-bold mb-2">Augmented Context</h4>
-                      <p className="text-sm font-light leading-relaxed opacity-75">
-                        {isVi
-                          ? "Ghép nối tài liệu truy xuất vào prompt tạo câu trả lời chính xác, tránh hiện tượng ảo giác (hallucination)."
-                          : "Synthesizes retrieved policy excerpts into an isolated prompt for grounded, factual assistant replies."}
-                      </p>
+                      <div className="border border-black/5 bg-bgLight p-6 dark:border-white/5 dark:bg-bgDark">
+                        <div className="mb-2 font-mono text-xs font-bold uppercase tracking-wider opacity-50">02 / Indexing</div>
+                        <h4 className="font-display text-lg font-bold mb-2">FAISS L2 Vector Index</h4>
+                        <p className="text-sm font-light leading-relaxed opacity-75">
+                          {isVi
+                            ? "Chuyển đổi câu hỏi thành vector embedding và tìm kiếm độ tương đồng ngữ nghĩa trong không gian đa chiều (< 15ms)."
+                            : "Embedding vector search computing cosine/L2 distance over indexed chunks in under 15ms."}
+                        </p>
+                      </div>
+
+                      <div className="border border-black/5 bg-bgLight p-6 dark:border-white/5 dark:bg-bgDark">
+                        <div className="mb-2 font-mono text-xs font-bold uppercase tracking-wider opacity-50">03 / Generation</div>
+                        <h4 className="font-display text-lg font-bold mb-2">Augmented Context</h4>
+                        <p className="text-sm font-light leading-relaxed opacity-75">
+                          {isVi
+                            ? "Ghép nối tài liệu truy xuất vào prompt tạo câu trả lời chính xác, tránh hiện tượng ảo giác (hallucination)."
+                            : "Synthesizes retrieved policy excerpts into an isolated prompt for grounded, factual assistant replies."}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  </SpotlightCard>
+                </RevealOnScroll>
               </div>
             </div>
           </section>
@@ -331,19 +363,21 @@ export default function HotelManagementCaseStudy() {
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 gap-px border border-black/10 bg-black/10 dark:border-white/10 dark:bg-white/10 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {capabilities.map((item, index) => (
-                  <article key={item.title.en} className="bg-cardLight p-8 dark:bg-cardDark md:min-h-56 flex flex-col justify-between">
-                    <div>
-                      <div className="mb-6 font-mono text-xs font-bold opacity-45">0{index + 1} / 06</div>
-                      <h3 className="font-display text-xl font-bold mb-3">
-                        {isVi ? item.title.vi : item.title.en}
-                      </h3>
-                      <p className="text-sm font-light leading-relaxed opacity-80">
-                        {isVi ? item.body.vi : item.body.en}
-                      </p>
-                    </div>
-                  </article>
+                  <RevealOnScroll key={item.title.en} delay={index * 70}>
+                    <SpotlightCard className="h-full border border-black/10 bg-cardLight p-8 dark:border-white/10 dark:bg-cardDark md:min-h-56 flex flex-col justify-between hover:border-black dark:hover:border-white transition-colors duration-200">
+                      <div>
+                        <div className="mb-6 font-mono text-xs font-bold opacity-45">0{index + 1} / 06</div>
+                        <h3 className="font-display text-xl font-bold mb-3">
+                          {isVi ? item.title.vi : item.title.en}
+                        </h3>
+                        <p className="text-sm font-light leading-relaxed opacity-80">
+                          {isVi ? item.body.vi : item.body.en}
+                        </p>
+                      </div>
+                    </SpotlightCard>
+                  </RevealOnScroll>
                 ))}
               </div>
             </div>

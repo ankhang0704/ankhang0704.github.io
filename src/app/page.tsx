@@ -12,6 +12,9 @@ import { DecryptedText } from "@/components/DecryptedText";
 import { SpotlightCard } from "@/components/SpotlightCard";
 import { MagneticButton } from "@/components/MagneticButton";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
+import { CountUp } from "@/components/CountUp";
+import { TechMarquee } from "@/components/TechMarquee";
+import { GridPattern } from "@/components/GridPattern";
 
 export default function Home() {
   const { lang, dict, isVi } = useLanguage();
@@ -22,6 +25,7 @@ export default function Home() {
 
       <main id="main-content">
         <section id="hero" className="min-h-[100dvh] flex items-center relative overflow-x-hidden pt-20">
+          <GridPattern />
           <div className="container mx-auto px-6 md:px-8 relative z-10">
             <h1 className="font-display text-5xl md:text-8xl font-bold leading-[1.1] mb-6">
               <span className="block overflow-hidden pb-2">
@@ -50,6 +54,49 @@ export default function Home() {
                   <Icons.ArrowRight size={16} aria-hidden="true" className="ml-3 transition-transform duration-300 group-hover/btn1:translate-x-2" />
                 </a>
               </MagneticButton>
+            </div>
+          </div>
+        </section>
+
+        {/* React Bits: Infinite Tech Velocity Ticker */}
+        <TechMarquee />
+
+        {/* React Bits: Engineering Metrics Counter */}
+        <section className="border-b border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark py-12">
+          <div className="container mx-auto px-6 md:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <RevealOnScroll delay={50} className="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6">
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono tracking-tight text-black dark:text-white">
+                  <CountUp to={1847} duration={2} separator="," />
+                </div>
+                <div className="mt-2 text-xs font-mono uppercase tracking-widest opacity-60">
+                  {isVi ? "Thuật ngữ FM đã số hóa" : "FM Domain Terms"}
+                </div>
+              </RevealOnScroll>
+              <RevealOnScroll delay={120} className="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6">
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono tracking-tight text-black dark:text-white">
+                  <CountUp to={3} duration={1.5} suffix="+" />
+                </div>
+                <div className="mt-2 text-xs font-mono uppercase tracking-widest opacity-60">
+                  {isVi ? "Kiến trúc hoàn thiện" : "Core Architectures"}
+                </div>
+              </RevealOnScroll>
+              <RevealOnScroll delay={190} className="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6">
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono tracking-tight text-black dark:text-white">
+                  <CountUp to={100} duration={1.8} suffix="%" />
+                </div>
+                <div className="mt-2 text-xs font-mono uppercase tracking-widest opacity-60">
+                  {isVi ? "Xuất HTML tĩnh & bảo mật" : "Static HTML Export"}
+                </div>
+              </RevealOnScroll>
+              <RevealOnScroll delay={260} className="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6">
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono tracking-tight text-black dark:text-white">
+                  <CountUp to={0} duration={1} suffix="ms" />
+                </div>
+                <div className="mt-2 text-xs font-mono uppercase tracking-widest opacity-60">
+                  {isVi ? "Độ trễ chuyển ngữ client" : "Language Toggle Latency"}
+                </div>
+              </RevealOnScroll>
             </div>
           </div>
         </section>

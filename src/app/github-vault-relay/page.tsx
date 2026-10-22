@@ -7,6 +7,12 @@ import Footer from "@/components/Footer";
 import { CaseStudyAnimations } from "@/components/case-study/CaseStudyAnimations";
 import { Icons } from "@/components/Icons";
 import { useLanguage } from "@/context/LanguageContext";
+import { BlurText } from "@/components/BlurText";
+import { CountUp } from "@/components/CountUp";
+import { TiltedCard } from "@/components/TiltedCard";
+import { SpotlightCard } from "@/components/SpotlightCard";
+import { MagneticButton } from "@/components/MagneticButton";
+import { RevealOnScroll } from "@/components/RevealOnScroll";
 
 const runtimeFlow = [
   {
@@ -142,7 +148,10 @@ export default function GithubVaultRelayPage() {
               </div>
 
               <h1 className="cs-title mb-6 break-words font-display text-5xl font-bold leading-[0.95] sm:text-6xl md:text-8xl">
-                GitHub <span className="font-light opacity-90 leading-[1.1] tracking-tight">Vault Relay.</span>
+                <BlurText text="GitHub" delay={50} />{" "}
+                <span className="font-light opacity-90 leading-[1.1] tracking-tight">
+                  <BlurText text="Vault Relay." delay={160} />
+                </span>
               </h1>
 
               <p className="cs-desc mb-8 max-w-2xl text-xl font-light leading-relaxed opacity-85 md:text-2xl">
@@ -165,53 +174,59 @@ export default function GithubVaultRelayPage() {
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-4">
-                <a
-                  href="https://community.obsidian.md/plugins/github-vault-relay"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 border border-black bg-black px-6 py-3.5 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-black/80 dark:border-white dark:bg-white dark:text-black dark:hover:bg-white/80"
-                >
-                  {isVi ? "Cộng đồng Obsidian" : "Obsidian Community"} <Icons.ArrowRight size={14} />
-                </a>
-                <a
-                  href="https://github.com/ankhang0704/github-vault-relay"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 border border-black/20 px-6 py-3.5 text-xs font-bold uppercase tracking-widest opacity-80 transition-all hover:border-black hover:opacity-100 dark:border-white/20 dark:hover:border-white"
-                >
-                  GitHub <Icons.Github size={14} />
-                </a>
+                <MagneticButton strength={0.15}>
+                  <a
+                    href="https://community.obsidian.md/plugins/github-vault-relay"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 border border-black bg-black px-6 py-3.5 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-black/80 dark:border-white dark:bg-white dark:text-black dark:hover:bg-white/80"
+                  >
+                    {isVi ? "Cộng đồng Obsidian" : "Obsidian Community"} <Icons.ArrowRight size={14} />
+                  </a>
+                </MagneticButton>
+                <MagneticButton strength={0.15}>
+                  <a
+                    href="https://github.com/ankhang0704/github-vault-relay"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 border border-black/20 px-6 py-3.5 text-xs font-bold uppercase tracking-widest opacity-80 transition-all hover:border-black hover:opacity-100 dark:border-white/20 dark:hover:border-white"
+                  >
+                    GitHub <Icons.Github size={14} />
+                  </a>
+                </MagneticButton>
               </div>
             </div>
 
             {/* Precision Viewport Preview Frame */}
             <figure className="min-w-0 lg:col-span-5">
-              <div className="relative aspect-[4/3] overflow-hidden border border-black/15 bg-cardLight dark:border-white/15 dark:bg-cardDark">
-                <div className="flex items-center justify-between border-b border-black/10 px-4 py-2.5 font-mono text-[10px] uppercase tracking-wider dark:border-white/10">
-                  <div className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 bg-black dark:bg-white" />
-                    <span className="font-bold opacity-90">PRJ-02 · VAULT-RELAY</span>
+              <TiltedCard maxTilt={5}>
+                <div className="relative aspect-[4/3] overflow-hidden border border-black/15 bg-cardLight dark:border-white/15 dark:bg-cardDark">
+                  <div className="flex items-center justify-between border-b border-black/10 px-4 py-2.5 font-mono text-[10px] uppercase tracking-wider dark:border-white/10">
+                    <div className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 bg-black dark:bg-white" />
+                      <span className="font-bold opacity-90">PRJ-02 · VAULT-RELAY</span>
+                    </div>
+                    <span className="opacity-75">v1.2.1 RELEASED</span>
                   </div>
-                  <span className="opacity-75">v1.2.1 RELEASED</span>
-                </div>
-                <div className="relative h-[calc(100%-35px)] w-full overflow-hidden">
-                  <Image
-                    src="/github-vault-relay-cover.webp"
-                    alt={isVi ? "Ảnh bìa GitHub Vault Relay" : "Editorial cover for GitHub Vault Relay"}
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 42vw"
-                    className="cs-cover-img scale-105 object-cover grayscale transition-all duration-700 hover:scale-100 hover:grayscale-0"
-                  />
-                  <div className="absolute bottom-2.5 left-2.5 right-2.5 flex flex-wrap gap-1.5 z-10 pointer-events-none">
-                    {["Obsidian Plugin", "GitHub REST API", "Direct Tree Sync"].map((s) => (
-                      <span key={s} className="bg-black/85 text-white dark:bg-white/90 dark:text-black text-[9px] font-mono uppercase px-2 py-0.5 border border-white/20 dark:border-black/20 font-semibold">
-                        {s}
-                      </span>
-                    ))}
+                  <div className="relative h-[calc(100%-35px)] w-full overflow-hidden">
+                    <Image
+                      src="/github-vault-relay-cover.webp"
+                      alt={isVi ? "Ảnh bìa GitHub Vault Relay" : "Editorial cover for GitHub Vault Relay"}
+                      fill
+                      priority
+                      sizes="(max-width: 1024px) 100vw, 42vw"
+                      className="cs-cover-img scale-105 object-cover grayscale transition-all duration-700 hover:scale-100 hover:grayscale-0"
+                    />
+                    <div className="absolute bottom-2.5 left-2.5 right-2.5 flex flex-wrap gap-1.5 z-10 pointer-events-none">
+                      {["Obsidian Plugin", "GitHub REST API", "Direct Tree Sync"].map((s) => (
+                        <span key={s} className="bg-black/85 text-white dark:bg-white/90 dark:text-black text-[9px] font-mono uppercase px-2 py-0.5 border border-white/20 dark:border-black/20 font-semibold">
+                          {s}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </TiltedCard>
               <figcaption className="mt-3 text-xs leading-relaxed opacity-55">
                 {isVi
                   ? "Bản ghi nhận kỹ thuật: Plugin Obsidian được phát hành trên Community Hub, hỗ trợ đồng bộ GitHub trực tiếp."
@@ -223,17 +238,34 @@ export default function GithubVaultRelayPage() {
           {/* 2. UNIFIED 4-METRIC STRIP */}
           <section className="border-y border-black/10 bg-cardLight py-12 dark:border-white/10 dark:bg-cardDark">
             <div className="container mx-auto grid grid-cols-2 divide-x divide-black/10 border-l border-black/10 px-6 dark:divide-white/10 dark:border-white/10 md:grid-cols-4 md:px-8">
-              {[
-                ["1.2.1", isVi ? "Phiên bản ổn định" : "Stable release"],
-                ["≥ 1.11.4", isVi ? "Obsidian tối thiểu" : "Minimum Obsidian"],
-                ["44", isVi ? "File test suite" : "Test suite files"],
-                ["478", isVi ? "Test đã vượt qua" : "Passing test cases"],
-              ].map(([value, label]) => (
-                <div key={label} className="border-r border-black/10 px-5 py-4 dark:border-white/10 md:px-8">
-                  <p className="font-display text-2xl font-bold md:text-3xl">{value}</p>
-                  <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">{label}</p>
-                </div>
-              ))}
+              <div className="border-r border-black/10 px-5 py-4 dark:border-white/10 md:px-8">
+                <p className="font-display text-2xl font-bold md:text-3xl">1.2.1</p>
+                <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">
+                  {isVi ? "Phiên bản ổn định" : "Stable release"}
+                </p>
+              </div>
+              <div className="border-r border-black/10 px-5 py-4 dark:border-white/10 md:px-8">
+                <p className="font-display text-2xl font-bold md:text-3xl">≥ 1.11.4</p>
+                <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">
+                  {isVi ? "Obsidian tối thiểu" : "Minimum Obsidian"}
+                </p>
+              </div>
+              <div className="border-r border-black/10 px-5 py-4 dark:border-white/10 md:px-8">
+                <p className="font-display text-2xl font-bold md:text-3xl">
+                  <CountUp to={44} />
+                </p>
+                <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">
+                  {isVi ? "File test suite" : "Test suite files"}
+                </p>
+              </div>
+              <div className="border-r border-black/10 px-5 py-4 dark:border-white/10 md:px-8">
+                <p className="font-display text-2xl font-bold md:text-3xl">
+                  <CountUp to={478} />
+                </p>
+                <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">
+                  {isVi ? "Test đã vượt qua" : "Passing test cases"}
+                </p>
+              </div>
             </div>
           </section>
 
@@ -255,33 +287,35 @@ export default function GithubVaultRelayPage() {
               </div>
 
               {/* 6 Connected Pipeline Steps */}
-              <div className="grid grid-cols-1 gap-px border border-black/10 bg-black/10 dark:border-white/10 dark:bg-white/10 md:grid-cols-2 lg:grid-cols-3">
-                {runtimeFlow.map(({ Icon, number, stageEn, stageVi, titleEn, titleVi, textEn, textVi, artifact }) => {
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {runtimeFlow.map(({ Icon, number, stageEn, stageVi, titleEn, titleVi, textEn, textVi, artifact }, index) => {
                   const FlowIcon = Icon as typeof Icons.Folder;
                   return (
-                    <article key={number} className="cs-diagram-node bg-cardLight p-8 dark:bg-cardDark md:min-h-72 flex flex-col justify-between">
-                      <div>
-                        <div className="mb-6 flex items-start justify-between">
-                          <FlowIcon size={28} strokeWidth={1.5} className="opacity-90" />
-                          <span className="font-mono text-xs font-bold opacity-45">{number} / 06</span>
+                    <RevealOnScroll key={number} delay={index * 80}>
+                      <SpotlightCard className="h-full cs-diagram-node border border-black/10 bg-cardLight p-8 dark:border-white/10 dark:bg-cardDark md:min-h-72 flex flex-col justify-between hover:border-black dark:hover:border-white transition-colors duration-200">
+                        <div>
+                          <div className="mb-6 flex items-start justify-between">
+                            <FlowIcon size={28} strokeWidth={1.5} className="opacity-90" />
+                            <span className="font-mono text-xs font-bold opacity-45">{number} / 06</span>
+                          </div>
+                          <div className="mb-1 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">
+                            {isVi ? stageVi : stageEn}
+                          </div>
+                          <h3 className="mb-3 font-display text-xl font-bold">
+                            {isVi ? titleVi : titleEn}
+                          </h3>
+                          <p className="text-sm font-light leading-relaxed opacity-75">
+                            {isVi ? textVi : textEn}
+                          </p>
                         </div>
-                        <div className="mb-1 font-mono text-[10px] font-bold uppercase tracking-widest opacity-60">
-                          {isVi ? stageVi : stageEn}
-                        </div>
-                        <h3 className="mb-3 font-display text-xl font-bold">
-                          {isVi ? titleVi : titleEn}
-                        </h3>
-                        <p className="text-sm font-light leading-relaxed opacity-75">
-                          {isVi ? textVi : textEn}
-                        </p>
-                      </div>
 
-                      <div className="mt-6 border-t border-black/10 pt-4 dark:border-white/10">
-                        <span className="inline-block bg-bgLight dark:bg-bgDark border border-black/15 dark:border-white/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider opacity-85">
-                          {artifact}
-                        </span>
-                      </div>
-                    </article>
+                        <div className="mt-6 border-t border-black/10 pt-4 dark:border-white/10">
+                          <span className="inline-block bg-bgLight dark:bg-bgDark border border-black/15 dark:border-white/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider opacity-85">
+                            {artifact}
+                          </span>
+                        </div>
+                      </SpotlightCard>
+                    </RevealOnScroll>
                   );
                 })}
               </div>
@@ -301,18 +335,20 @@ export default function GithubVaultRelayPage() {
               </div>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {syncStates.map(({ Icon, state, textEn, textVi }) => {
+                {syncStates.map(({ Icon, state, textEn, textVi }, index) => {
                   const StateIcon = Icon as typeof Icons.CloudUpload;
                   return (
-                    <div key={state} className="border border-black/10 bg-cardLight p-6 dark:border-white/10 dark:bg-cardDark">
-                      <div className="mb-4 flex items-center justify-between">
-                        <StateIcon size={20} strokeWidth={1.5} />
-                        <span className="font-mono text-xs font-bold tracking-wider">{state}</span>
-                      </div>
-                      <p className="text-sm font-light leading-relaxed opacity-80">
-                        {isVi ? textVi : textEn}
-                      </p>
-                    </div>
+                    <RevealOnScroll key={state} delay={index * 60}>
+                      <SpotlightCard className="h-full border border-black/10 bg-cardLight p-6 dark:border-white/10 dark:bg-cardDark transition-colors duration-200 hover:border-black dark:hover:border-white">
+                        <div className="mb-4 flex items-center justify-between">
+                          <StateIcon size={20} strokeWidth={1.5} />
+                          <span className="font-mono text-xs font-bold tracking-wider">{state}</span>
+                        </div>
+                        <p className="text-sm font-light leading-relaxed opacity-80">
+                          {isVi ? textVi : textEn}
+                        </p>
+                      </SpotlightCard>
+                    </RevealOnScroll>
                   );
                 })}
               </div>
@@ -332,12 +368,14 @@ export default function GithubVaultRelayPage() {
               </div>
 
               <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-                {boundaries.map(({ Icon, titleEn, titleVi, textEn, textVi }) => (
-                  <article key={titleEn} className="border border-black/10 bg-bgLight p-8 dark:border-white/10 dark:bg-bgDark md:p-10">
-                    <Icon size={32} strokeWidth={1.5} className="mb-8" />
-                    <h3 className="mb-4 font-display text-2xl font-bold">{isVi ? titleVi : titleEn}</h3>
-                    <p className="font-light leading-relaxed opacity-80">{isVi ? textVi : textEn}</p>
-                  </article>
+                {boundaries.map(({ Icon, titleEn, titleVi, textEn, textVi }, index) => (
+                  <RevealOnScroll key={titleEn} delay={index * 100}>
+                    <SpotlightCard className="h-full border border-black/10 bg-bgLight p-8 dark:border-white/10 dark:bg-bgDark md:p-10 transition-colors duration-200 hover:border-black dark:hover:border-white">
+                      <Icon size={32} strokeWidth={1.5} className="mb-8" />
+                      <h3 className="mb-4 font-display text-2xl font-bold">{isVi ? titleVi : titleEn}</h3>
+                      <p className="font-light leading-relaxed opacity-80">{isVi ? textVi : textEn}</p>
+                    </SpotlightCard>
+                  </RevealOnScroll>
                 ))}
               </div>
             </div>

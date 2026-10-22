@@ -5,6 +5,7 @@ import { Icons } from "@/components/Icons";
 import { CopyEmailButton } from "@/components/CopyEmailButton";
 import { useLanguage } from "@/context/LanguageContext";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
+import { MagneticButton } from "@/components/MagneticButton";
 
 interface FooterProps {
   variant?: "main";
@@ -56,13 +57,15 @@ export default function Footer({ variant = "main" }: FooterProps = {}) {
           </h2>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <a
-              href="mailto:ankhang.nguyen0704@gmail.com"
-              className="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 flex items-center justify-center w-full sm:w-auto"
-            >
-              <span>{isVi ? "Gửi Email Trực Tiếp" : "Send an Email"}</span>
-              <Icons.ArrowRight size={16} aria-hidden="true" className="ml-3" />
-            </a>
+            <MagneticButton strength={0.15}>
+              <a
+                href="mailto:ankhang.nguyen0704@gmail.com"
+                className="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 flex items-center justify-center w-full sm:w-auto"
+              >
+                <span>{isVi ? "Gửi Email Trực Tiếp" : "Send an Email"}</span>
+                <Icons.ArrowRight size={16} aria-hidden="true" className="ml-3" />
+              </a>
+            </MagneticButton>
 
             <CopyEmailButton
               email="ankhang.nguyen0704@gmail.com"
@@ -99,15 +102,17 @@ export default function Footer({ variant = "main" }: FooterProps = {}) {
           </div>
 
           <div className="mt-12 flex justify-center">
-            <a
-              href="/my_cv.pdf"
-              download="Nguyen-An-Khang-CV.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-black dark:border-white px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200"
-            >
-              <span>{isVi ? "Tải xuống CV" : "Download CV"}</span>
-            </a>
+            <MagneticButton strength={0.15}>
+              <a
+                href="/my_cv.pdf"
+                download="Nguyen-An-Khang-CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 border border-black dark:border-white px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200"
+              >
+                <span>{isVi ? "Tải xuống CV" : "Download CV"}</span>
+              </a>
+            </MagneticButton>
           </div>
 
           <div className="mt-16 flex flex-col items-center gap-2">

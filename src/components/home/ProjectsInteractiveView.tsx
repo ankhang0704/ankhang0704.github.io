@@ -7,6 +7,7 @@ import { Icons } from "@/components/Icons";
 import { useLanguage } from "@/context/LanguageContext";
 import { SpotlightCard } from "@/components/SpotlightCard";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
+import { TiltedCard } from "@/components/TiltedCard";
 
 export type ProjectPresentation = "feature" | "grid";
 
@@ -74,50 +75,52 @@ function ProjectImage({
   const statusLabel = project.statusBadge ? (isVi ? project.statusBadge.vi : project.statusBadge.en) : null;
 
   return (
-    <div className={`relative overflow-hidden border border-black/10 bg-bgLight dark:border-white/10 dark:bg-bgDark flex flex-col ${className}`}>
-      {/* Precision Engineering Viewport Header */}
-      <div className="flex items-center justify-between px-3.5 py-2 border-b border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark z-10 text-[10px] font-mono uppercase tracking-wider">
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 bg-black dark:bg-white inline-block" />
-          <span className="opacity-90 font-bold">{project.code}</span>
+    <TiltedCard maxTilt={5} className={className}>
+      <div className="relative overflow-hidden border border-black/10 bg-bgLight dark:border-white/10 dark:bg-bgDark flex flex-col h-full w-full">
+        {/* Precision Engineering Viewport Header */}
+        <div className="flex items-center justify-between px-3.5 py-2 border-b border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark z-10 text-[10px] font-mono uppercase tracking-wider">
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-black dark:bg-white inline-block" />
+            <span className="opacity-90 font-bold">{project.code}</span>
+          </div>
+          {statusLabel && (
+            <span className="opacity-75 tracking-widest">{statusLabel}</span>
+          )}
         </div>
-        {statusLabel && (
-          <span className="opacity-75 tracking-widest">{statusLabel}</span>
-        )}
-      </div>
 
-      {/* Viewport Image Area */}
-      <div className="relative flex-1 w-full min-h-[220px] overflow-hidden">
-        {project.image ? (
-          <Image
-            src={project.image}
-            alt={title}
-            fill
-            sizes="(max-width: 1024px) 100vw, 60vw"
-            className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-          />
-        ) : (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 font-mono text-xs uppercase tracking-[0.25em] opacity-60">
-            <span className="text-3xl font-mono font-bold tracking-tight opacity-75">{project.code}</span>
-            <span>Documented Repository</span>
-          </div>
-        )}
+        {/* Viewport Image Area */}
+        <div className="relative flex-1 w-full min-h-[220px] overflow-hidden">
+          {project.image ? (
+            <Image
+              src={project.image}
+              alt={title}
+              fill
+              sizes="(max-width: 1024px) 100vw, 60vw"
+              className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            />
+          ) : (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 font-mono text-xs uppercase tracking-[0.25em] opacity-60">
+              <span className="text-3xl font-mono font-bold tracking-tight opacity-75">{project.code}</span>
+              <span>Documented Repository</span>
+            </div>
+          )}
 
-        {/* Real Engineering Specs Badge Overlay */}
-        {project.specs && project.specs.length > 0 && (
-          <div className="absolute bottom-2.5 left-2.5 right-2.5 flex flex-wrap gap-1.5 z-10 pointer-events-none">
-            {project.specs.map((spec) => (
-              <span
-                key={spec}
-                className="bg-black/80 dark:bg-white/90 text-white dark:text-black text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 border border-white/20 dark:border-black/20 backdrop-blur-sm font-semibold"
-              >
-                {spec}
-              </span>
-            ))}
-          </div>
-        )}
+          {/* Real Engineering Specs Badge Overlay */}
+          {project.specs && project.specs.length > 0 && (
+            <div className="absolute bottom-2.5 left-2.5 right-2.5 flex flex-wrap gap-1.5 z-10 pointer-events-none">
+              {project.specs.map((spec) => (
+                <span
+                  key={spec}
+                  className="bg-black/80 dark:bg-white/90 text-white dark:text-black text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 border border-white/20 dark:border-black/20 backdrop-blur-sm font-semibold"
+                >
+                  {spec}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </TiltedCard>
   );
 }
 

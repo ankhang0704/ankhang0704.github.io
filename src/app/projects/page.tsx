@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import { ProjectsShowcase } from "@/components/home/ProjectsShowcase";
 import { PROJECTS } from "@/content/projects";
 import { useLanguage } from "@/context/LanguageContext";
+import { BlurText } from "@/components/BlurText";
+import { GridPattern } from "@/components/GridPattern";
 
 export default function ProjectsPage() {
   const { lang, dict } = useLanguage();
@@ -13,7 +15,8 @@ export default function ProjectsPage() {
     <>
       <Header variant="main" />
       <main id="main-content" className="w-full min-w-0 pt-32 pb-24 relative overflow-x-hidden">
-        <section className="container mx-auto w-full min-w-0 px-6 md:px-8">
+        <GridPattern />
+        <section className="container mx-auto w-full min-w-0 px-6 md:px-8 relative z-10">
           <div className="w-full max-w-4xl min-w-0 mb-20">
             <div className="mb-6 flex items-center gap-3">
               <span className="h-px w-12 bg-black dark:bg-white" />
@@ -22,7 +25,7 @@ export default function ProjectsPage() {
               </p>
             </div>
             <h1 className="font-display text-4xl sm:text-5xl md:text-8xl font-bold leading-tight mb-8 break-words">
-              {dict.allProjects.title}
+              <BlurText text={dict.allProjects.title} delay={50} />
             </h1>
             <p className="w-full max-w-full font-light text-xl md:text-2xl leading-relaxed md:max-w-3xl opacity-85 break-words">
               {dict.allProjects.desc}
