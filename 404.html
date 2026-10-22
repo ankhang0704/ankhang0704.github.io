@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting | An Khang</title>
+    <meta http-equiv="refresh" content="1; url=https://ankhang0704.pages.dev/">
+    <link rel="canonical" href="https://ankhang0704.pages.dev/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <script>
+        // Instant client-side redirect preserving full path, query and hash
+        const targetHost = "https://ankhang0704.pages.dev";
+        const targetUrl = targetHost + window.location.pathname + window.location.search + window.location.hash;
+        window.location.replace(targetUrl);
+    </script>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            background-color: #0a0a0a;
+            color: #ededed;
+            font-family: 'Inter', -apple-system, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .ambient-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            height: 60vh;
+            background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .content {
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+        }
+        .badge {
+            display: inline-block;
+            font-family: monospace;
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+        }
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 700;
+            margin: 0 0 1.25rem 0;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+        p {
+            font-weight: 300;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0 auto 2.5rem auto;
+            max-width: 520px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid #ffffff;
+            background: #ffffff;
+            color: #000000;
+            padding: 14px 32px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+        .btn:hover {
+            background: transparent;
+            color: #ffffff;
+        }
+        .footer {
+            position: absolute;
+            bottom: 2rem;
+            left: 0;
+            right: 0;
+            font-family: monospace;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow" aria-hidden="true"></div>
+    <main class="content">
+        <span class="badge">Cloudflare Pages Migration</span>
+        <h1>Relocating to Cloudflare</h1>
+        <p>This portfolio has permanently moved to our high-performance Cloudflare Edge deployment. Redirecting automatically...</p>
+        <a id="redirect-cta" href="https://ankhang0704.pages.dev/" class="btn">
+            <span>Continue to Portfolio</span>
+            <span aria-hidden="true">&rarr;</span>
+        </a>
+    </main>
+    <footer class="footer">
+        &copy; 2026 An Khang &middot; ankhang0704.pages.dev
+    </footer>
+    <script>
+        const cta = document.getElementById("redirect-cta");
+        if (cta && typeof targetUrl !== "undefined") {
+            cta.href = targetUrl;
+        }
+    </script>
+</body>
+</html>
