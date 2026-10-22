@@ -5,6 +5,10 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 // Module-level timestamp to prevent double-execution during React StrictMode,
 // client-side hydration, or Next.js route reconciliation.
 let lastCaseStudyAnimationTime = 0;

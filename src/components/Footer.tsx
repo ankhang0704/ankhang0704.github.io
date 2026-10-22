@@ -1,20 +1,19 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Icons } from "@/components/Icons";
 import { CopyEmailButton } from "@/components/CopyEmailButton";
-import { localizedPath } from "@/lib/locale-path";
 
 interface FooterProps {
   variant?: "main";
 }
 
-export default function Footer({ variant = "main" }: FooterProps) {
+export default function Footer({ variant = "main" }: FooterProps = {}) {
+  void variant;
   const [showBackToTop, setShowBackToTop] = useState(false);
   const pathname = usePathname();
   const lang = pathname.startsWith("/vi") ? "vi" : "en";

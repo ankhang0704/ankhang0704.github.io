@@ -57,6 +57,7 @@ function getServerThemeSnapshot() {
 }
 
 export default function Header({ variant = "main" }: HeaderProps = {}) {
+  void variant;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isDark = useSyncExternalStore(subscribeToTheme, getThemeSnapshot, getServerThemeSnapshot);
   const [isScrolled, setIsScrolled] = useState(false);
