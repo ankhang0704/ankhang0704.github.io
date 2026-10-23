@@ -67,34 +67,34 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <RevealOnScroll delay={50} className="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6">
                 <div className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono tracking-tight text-black dark:text-white">
-                  <CountUp to={1847} duration={2} separator="," />
+                  <CountUp to={4} duration={1.5} />
                 </div>
                 <div className="mt-2 text-xs font-mono uppercase tracking-widest opacity-60">
-                  {isVi ? "Thuật ngữ FM đã số hóa" : "FM Domain Terms"}
+                  {isVi ? "Năm học Đại học" : "Years of Study"}
                 </div>
               </RevealOnScroll>
               <RevealOnScroll delay={120} className="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6">
                 <div className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono tracking-tight text-black dark:text-white">
-                  <CountUp to={3} duration={1.5} suffix="+" />
+                  <CountUp to={2} duration={1.5} suffix="+" />
                 </div>
                 <div className="mt-2 text-xs font-mono uppercase tracking-widest opacity-60">
-                  {isVi ? "Kiến trúc hoàn thiện" : "Core Architectures"}
+                  {isVi ? "Dự án hoàn thiện" : "Shipped Projects"}
                 </div>
               </RevealOnScroll>
               <RevealOnScroll delay={190} className="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6">
                 <div className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono tracking-tight text-black dark:text-white">
-                  <CountUp to={100} duration={1.8} suffix="%" />
+                  <CountUp to={5} duration={1.8} suffix="+" />
                 </div>
                 <div className="mt-2 text-xs font-mono uppercase tracking-widest opacity-60">
-                  {isVi ? "Xuất HTML tĩnh & bảo mật" : "Static HTML Export"}
+                  {isVi ? "Công nghệ thành thạo" : "Core Technologies"}
                 </div>
               </RevealOnScroll>
               <RevealOnScroll delay={260} className="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6">
                 <div className="text-3xl sm:text-4xl md:text-5xl font-bold font-mono tracking-tight text-black dark:text-white">
-                  <CountUp to={0} duration={1} suffix="ms" />
+                  <CountUp to={2} duration={1.5} />
                 </div>
                 <div className="mt-2 text-xs font-mono uppercase tracking-widest opacity-60">
-                  {isVi ? "Độ trễ chuyển ngữ client" : "Language Toggle Latency"}
+                  {isVi ? "Nền tảng đã ship" : "Platforms Shipped"}
                 </div>
               </RevealOnScroll>
             </div>
