@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icons } from "@/components/Icons";
-import { BrandLogo } from "@/components/BrandLogo";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 
@@ -174,14 +173,9 @@ export default function Header({ variant = "main" }: HeaderProps = {}) {
           <Link
             href="/"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center gap-3 group shrink-0 min-w-0"
+            className="min-w-0 flex-1 truncate font-display font-bold tracking-tighter whitespace-nowrap text-3xl"
           >
-            <div className="flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
-              <BrandLogo className="w-8 h-8 drop-shadow-xs" />
-            </div>
-            <span className="font-display font-bold tracking-tighter whitespace-nowrap text-2xl md:text-3xl">
-              KHANG
-            </span>
+            KHANG
           </Link>
 
           <div className="ml-auto flex shrink-0 items-center space-x-6 md:space-x-10">
