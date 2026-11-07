@@ -22,7 +22,7 @@ This repository (`ankhang0704.github.io`) is a minimalist personal software engi
 ### 2. UI Overhaul Deliverables (November 2026)
 
 - **Custom Precision Scrollbar**: 6px slim bar with 0px sharp thumb, adaptive Dark/Light mode contrast.
-- **New Engineered SVG Brand Logo**: Architectural monogram ligature (A × K) directly inspired by `jll-uniqlo-app` (`public/icon.svg`), embedded in Header & Footer.
+- **Bespoke Engineered AK Monogram Logo**: 100% original typographic ligature combining **A** and **K** (An Khang) with a shared central vertical spine, symmetrical 45° cantilever branches, and central coordinate anchor.
 - **Projects Directory Dual View**: Real-time category filtering (Mobile, Backend, Tools), instant search input, and toggle between Visual Grid and Technical Data Sheet table.
 - **Interactive Term Inspector**: Live facilities management simulator in `/fm-dictionary/` with real data from `.archived/fm_dictionary_landing` (VAV Box, Centrifugal Chiller, BMS, AHU, PPM; UK/US phonetics, ASHRAE/AHRI/ISO standards, audio pronunciation simulation, and quiz protocol).
 
@@ -32,5 +32,5 @@ This repository (`ankhang0704.github.io`) is a minimalist personal software engi
 
 - `npm run lint`: **0 errors, 0 warnings**.
 - `npm run typecheck`: **0 errors**.
-- `npm run build`: **10/10 static pages generated successfully in ~420ms**.
-- **Git State**: Clean working tree, synced with `origin/main`.
+- `npm run build`: **10/10 static pages generated successfully in ~409ms**.
+- **Git State**: Clean working tree, synced with `origin/main` (commit `afe2764`).
