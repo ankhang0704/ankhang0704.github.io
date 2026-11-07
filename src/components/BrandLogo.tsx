@@ -67,10 +67,6 @@ export function BrandLogo({
           points="292,256 292,304 364,420 412,420 292,256"
           fill="#d4d4d8"
         />
-
-        {/* Central Precision Alignment Diamond (Coordinate Anchor) */}
-        <path d="M268 244 L280 256 L268 268 L256 256 Z" fill="#141417" />
-        <circle cx="268" cy="256" r="3.5" fill="#ffffff" />
       </g>
     </svg>
   );
