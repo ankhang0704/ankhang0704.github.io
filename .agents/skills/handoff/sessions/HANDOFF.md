@@ -22,7 +22,7 @@ This repository (`ankhang0704.github.io`) is a minimalist personal software engi
 ### 2. UI Overhaul Deliverables (November 2026)
 
 - **Custom Precision Scrollbar**: 6px slim bar with 0px sharp thumb, adaptive Dark/Light mode contrast.
-- **Pure Typographic Branding**: Restored clean typographic wordmark `KHANG` in Header & Footer per brand guidelines (removed graphical AK squircle monogram).
+- **Bespoke Minimalist AK Monogram Logo & Favicon**: 100% original, pure typographic ligature combining **A** and **K** (An Khang) with a shared central vertical spine, symmetrical 45° cantilever branches, embedded in Header, Footer, and browser tab favicon (`favicon.ico`, `icon.svg`, and Apple touch icon).
 - **Projects Directory Dual View**: Real-time category filtering (Mobile, Backend, Tools), instant search input, and toggle between Visual Grid and Technical Data Sheet table.
 - **Interactive Term Inspector**: Live facilities management simulator in `/fm-dictionary/` with real data from `.archived/fm_dictionary_landing` (VAV Box, Centrifugal Chiller, BMS, AHU, PPM; UK/US phonetics, ASHRAE/AHRI/ISO standards, audio pronunciation simulation, and quiz protocol).
 
@@ -32,5 +32,5 @@ This repository (`ankhang0704.github.io`) is a minimalist personal software engi
 
 - `npm run lint`: **0 errors, 0 warnings**.
 - `npm run typecheck`: **0 errors**.
-- `npm run build`: **10/10 static pages generated successfully in ~443ms**.
-- **Git State**: Logo removed per user request. Header restored to typographic `KHANG`.
+- `npm run build`: **10/10 static pages generated successfully in ~409ms**.
+- **Git State**: Clean working tree, synced with `origin/main` (commit `66a2df8`).

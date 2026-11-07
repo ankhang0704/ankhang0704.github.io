@@ -1,0 +1,65 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Architectural Gradient -->
+    <radialGradient id="akBgGrad" cx="50%" cy="30%" r="80%" fx="50%" fy="30%">
+      <stop offset="0%" stop-color="#1e1e24"/>
+      <stop offset="100%" stop-color="#0a0a0c"/>
+    </radialGradient>
+
+    <!-- Metallic Gradient for A-Wing & Crossbar -->
+    <linearGradient id="akGradA" x1="96" y1="92" x2="292" y2="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#d4d4d8"/>
+    </linearGradient>
+
+    <!-- Metallic Gradient for Shared Spine & K-Arms -->
+    <linearGradient id="akGradK" x1="244" y1="92" x2="412" y2="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#e4e4e7"/>
+      <stop offset="100%" stop-color="#a1a1aa"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 1. Architectural Squircle Base -->
+  <rect width="512" height="512" rx="96" fill="url(#akBgGrad)"/>
+  <rect x="2" y="2" width="508" height="508" rx="94" stroke="#ffffff" stroke-opacity="0.12" stroke-width="2.5" fill="none"/>
+
+  <!-- 2. Pure Mathematical Monogram: AN KHANG (A × K Ligature) -->
+  <g id="ak-monogram">
+    <!-- Left Ascending Stem of 'A' -->
+    <polygon
+      points="96,420 148,420 244,140 244,92 200,92 96,420"
+      fill="url(#akGradA)"
+    />
+
+    <!-- Architectural Central Spine (The Shared Backbone of A & K) -->
+    <rect
+      x="244"
+      y="92"
+      width="48"
+      height="328"
+      fill="url(#akGradK)"
+    />
+
+    <!-- Horizontal Structural Crossbar of 'A' -->
+    <rect
+      x="160"
+      y="238"
+      width="84"
+      height="40"
+      fill="url(#akGradA)"
+    />
+
+    <!-- Upper 45° Cantilever Arm of 'K' -->
+    <polygon
+      points="292,256 292,208 364,92 412,92 292,256"
+      fill="url(#akGradK)"
+    />
+
+    <!-- Lower 45° Cantilever Arm of 'K' -->
+    <polygon
+      points="292,256 292,304 364,420 412,420 292,256"
+      fill="url(#akGradK)"
+    />
+  </g>
+</svg>
