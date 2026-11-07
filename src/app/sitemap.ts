@@ -12,31 +12,16 @@ const ROUTES = [
   "/github-vault-relay",
 ];
 
-const LOCALES = ["en", "vi"] as const;
-
 export default function sitemap(): MetadataRoute.Sitemap {
-  const sitemapEntries: MetadataRoute.Sitemap = [];
+  return ROUTES.map((route) => {
+    const url = `${BASE_URL}${route}${route ? "/" : "/"}`;
+    const isPriority = route === "" || route === "/projects";
 
-  ROUTES.forEach((route) => {
-    LOCALES.forEach((locale) => {
-      const prefix = locale === "vi" ? "/vi" : "";
-      const url = `${BASE_URL}${prefix}${route}${route ? "/" : "/"}`;
-      const isPriority = route === "" || route === "/projects";
-
-      sitemapEntries.push({
-        url,
-        lastModified: new Date("2026-10-22"),
-        changeFrequency: isPriority ? "daily" : "monthly",
-        priority: isPriority ? 1.0 : 0.8,
-        alternates: {
-          languages: {
-            en: `${BASE_URL}${route}${route ? "/" : "/"}`,
-            vi: `${BASE_URL}/vi${route}${route ? "/" : "/"}`,
-          },
-        },
-      });
-    });
+    return {
+      url,
+      lastModified: new Date("2026-11-07"),
+      changeFrequency: isPriority ? "daily" : "monthly",
+      priority: isPriority ? 1.0 : 0.8,
+    };
   });
-
-  return sitemapEntries;
 }

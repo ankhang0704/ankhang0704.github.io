@@ -30,24 +30,19 @@ export default function Header({ variant = "main" }: HeaderProps = {}) {
     setIsMobileMenuOpen(false);
   }
 
-  const isMainPortfolioHome = pathname === "/" || pathname === "/vi" || pathname === "/vi/";
+  const isMainPortfolioHome = pathname === "/";
   const isProjectsPage = [
     "/projects",
     "/projects/",
-    "/vi/projects",
-    "/vi/projects/",
+
     "/hotel-management",
     "/hotel-management/",
-    "/vi/hotel-management",
-    "/vi/hotel-management/",
+
     "/github-vault-relay",
     "/github-vault-relay/",
-    "/vi/github-vault-relay",
-    "/vi/github-vault-relay/",
+
     "/fm-dictionary",
     "/fm-dictionary/",
-    "/vi/fm-dictionary",
-    "/vi/fm-dictionary/",
   ].includes(pathname);
 
   useEffect(() => {
@@ -60,8 +55,10 @@ export default function Header({ variant = "main" }: HeaderProps = {}) {
           setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
 
           if (progressBarRef.current) {
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = docHeight > 0 ? Math.min(1, Math.max(0, scrollY / docHeight)) : 0;
+            const docHeight =
+              document.documentElement.scrollHeight - window.innerHeight;
+            const progress =
+              docHeight > 0 ? Math.min(1, Math.max(0, scrollY / docHeight)) : 0;
             progressBarRef.current.style.transform = `scaleX(${progress})`;
           }
           ticking = false;
@@ -102,7 +99,7 @@ export default function Header({ variant = "main" }: HeaderProps = {}) {
       if (event.key !== "Tab" || !mobileMenuRef.current) return;
 
       const focusableEls = mobileMenuRef.current.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
       );
       if (focusableEls.length === 0) return;
 
@@ -139,25 +136,53 @@ export default function Header({ variant = "main" }: HeaderProps = {}) {
   };
 
   const links = [
-    { section: "about", href: isMainPortfolioHome ? "#about" : "/#about", label: isVi ? "Tóm tắt" : "Summary" },
-    { section: "projects", href: isMainPortfolioHome ? "#projects" : "/#projects", label: isVi ? "Nổi bật" : "Work" },
-    { section: "skills", href: isMainPortfolioHome ? "#skills" : "/#skills", label: isVi ? "Kỹ năng" : "Skills" },
-    { section: "experience", href: isMainPortfolioHome ? "#experience" : "/#experience", label: isVi ? "Kinh nghiệm" : "Experience" },
-    { section: "projects-index", href: "/projects/", label: isVi ? "Dự án" : "Projects" },
+    {
+      section: "about",
+      href: isMainPortfolioHome ? "#about" : "/#about",
+      label: isVi ? "Tóm tắt" : "Summary",
+    },
+    {
+      section: "projects",
+      href: isMainPortfolioHome ? "#projects" : "/#projects",
+      label: isVi ? "Nổi bật" : "Work",
+    },
+    {
+      section: "skills",
+      href: isMainPortfolioHome ? "#skills" : "/#skills",
+      label: isVi ? "Kỹ năng" : "Skills",
+    },
+    {
+      section: "experience",
+      href: isMainPortfolioHome ? "#experience" : "/#experience",
+      label: isVi ? "Kinh nghiệm" : "Experience",
+    },
+    {
+      section: "projects-index",
+      href: "/projects/",
+      label: isVi ? "Dự án" : "Projects",
+    },
   ];
 
   return (
     <>
-      <header id="navbar" className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 ${isScrolled ? "glass-nav py-2" : "py-4"}`}>
+      <header
+        id="navbar"
+        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300 ${isScrolled ? "glass-nav py-2" : "py-4"}`}
+      >
         <div className="container mx-auto flex w-full min-w-0 items-center gap-4 px-6 md:px-8">
-          <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="min-w-0 flex-1 truncate font-display font-bold tracking-tighter whitespace-nowrap text-3xl">
+          <Link
+            href="/"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="min-w-0 flex-1 truncate font-display font-bold tracking-tighter whitespace-nowrap text-3xl"
+          >
             KHANG
           </Link>
 
           <div className="ml-auto flex shrink-0 items-center space-x-6 md:space-x-10">
             <nav className="hidden md:flex space-x-8 text-sm tracking-widest uppercase">
               {links.map((link) => {
-                const isActive = isProjectsPage && link.section === "projects-index";
+                const isActive =
+                  isProjectsPage && link.section === "projects-index";
                 return (
                   <Link
                     key={`${link.section}-${link.href}`}
@@ -179,7 +204,11 @@ export default function Header({ variant = "main" }: HeaderProps = {}) {
                   type="button"
                   onClick={toggleLang}
                   className="flex min-h-11 min-w-11 items-center justify-center text-sm font-bold tracking-widest hover:opacity-50 transition-opacity font-mono"
-                  aria-label={lang === "en" ? "Switch to Vietnamese" : "Chuyển sang tiếng Anh"}
+                  aria-label={
+                    lang === "en"
+                      ? "Switch to Vietnamese"
+                      : "Chuyển sang tiếng Anh"
+                  }
                 >
                   {lang === "en" ? "VI" : "EN"}
                 </button>
@@ -187,9 +216,21 @@ export default function Header({ variant = "main" }: HeaderProps = {}) {
                   type="button"
                   onClick={toggleTheme}
                   className="flex min-h-11 min-w-11 items-center justify-center text-xl hover:rotate-180 transition-transform duration-500"
-                  aria-label={isDark ? (isVi ? "Chuyển sang chế độ sáng" : "Switch to light mode") : (isVi ? "Chuyển sang chế độ tối" : "Switch to dark mode")}
+                  aria-label={
+                    isDark
+                      ? isVi
+                        ? "Chuyển sang chế độ sáng"
+                        : "Switch to light mode"
+                      : isVi
+                        ? "Chuyển sang chế độ tối"
+                        : "Switch to dark mode"
+                  }
                 >
-                  {isDark ? <Icons.Sun className="block" aria-hidden="true" /> : <Icons.Moon className="block" aria-hidden="true" />}
+                  {isDark ? (
+                    <Icons.Sun className="block" aria-hidden="true" />
+                  ) : (
+                    <Icons.Moon className="block" aria-hidden="true" />
+                  )}
                 </button>
               </div>
               <button
@@ -197,7 +238,9 @@ export default function Header({ variant = "main" }: HeaderProps = {}) {
                 type="button"
                 onClick={() => setIsMobileMenuOpen(true)}
                 className={`md:hidden text-black dark:text-white text-2xl p-2 flex min-h-11 min-w-11 items-center justify-center ${isMobileMenuOpen ? "hidden" : ""}`}
-                aria-label={isVi ? "Mở menu điều hướng" : "Open navigation menu"}
+                aria-label={
+                  isVi ? "Mở menu điều hướng" : "Open navigation menu"
+                }
                 aria-expanded={isMobileMenuOpen}
                 aria-controls="mobile-menu"
               >
@@ -208,7 +251,9 @@ export default function Header({ variant = "main" }: HeaderProps = {}) {
                 type="button"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`md:hidden text-black dark:text-white text-3xl p-2 flex min-h-11 min-w-11 items-center justify-center ${isMobileMenuOpen ? "" : "hidden"}`}
-                aria-label={isVi ? "Đóng menu điều hướng" : "Close navigation menu"}
+                aria-label={
+                  isVi ? "Đóng menu điều hướng" : "Close navigation menu"
+                }
                 aria-expanded={isMobileMenuOpen}
                 aria-controls="mobile-menu"
               >
@@ -218,7 +263,10 @@ export default function Header({ variant = "main" }: HeaderProps = {}) {
           </div>
         </div>
 
-        <div ref={progressBarRef} className="scroll-progress absolute bottom-0 left-0 right-0 h-[2px] bg-black dark:bg-white scale-x-0 origin-left pointer-events-none opacity-80" />
+        <div
+          ref={progressBarRef}
+          className="scroll-progress absolute bottom-0 left-0 right-0 h-[2px] bg-black dark:bg-white scale-x-0 origin-left pointer-events-none opacity-80"
+        />
       </header>
 
       <div
@@ -258,7 +306,9 @@ export default function Header({ variant = "main" }: HeaderProps = {}) {
             type="button"
             onClick={toggleLang}
             className="flex min-h-11 min-w-11 items-center justify-center text-lg font-bold tracking-widest font-mono"
-            aria-label={lang === "en" ? "Switch to Vietnamese" : "Chuyển sang tiếng Anh"}
+            aria-label={
+              lang === "en" ? "Switch to Vietnamese" : "Chuyển sang tiếng Anh"
+            }
           >
             {lang === "en" ? "VI" : "EN"}
           </button>
@@ -266,9 +316,21 @@ export default function Header({ variant = "main" }: HeaderProps = {}) {
             type="button"
             onClick={toggleTheme}
             className="flex min-h-11 min-w-11 items-center justify-center text-3xl hover:rotate-180 transition-transform duration-500"
-            aria-label={isDark ? (isVi ? "Chuyển sang chế độ sáng" : "Switch to light mode") : (isVi ? "Chuyển sang chế độ tối" : "Switch to dark mode")}
+            aria-label={
+              isDark
+                ? isVi
+                  ? "Chuyển sang chế độ sáng"
+                  : "Switch to light mode"
+                : isVi
+                  ? "Chuyển sang chế độ tối"
+                  : "Switch to dark mode"
+            }
           >
-            {isDark ? <Icons.Sun className="block" aria-hidden="true" /> : <Icons.Moon className="block" aria-hidden="true" />}
+            {isDark ? (
+              <Icons.Sun className="block" aria-hidden="true" />
+            ) : (
+              <Icons.Moon className="block" aria-hidden="true" />
+            )}
           </button>
         </div>
       </div>
