@@ -10,7 +10,7 @@ This repository (`ankhang0704.github.io`) is a minimalist personal software engi
 
 ### 1. 100% Static HTML Export (`output: "export"`)
 
-- **Zero Serverless / Zero Edge Middleware**: 10 static objects generated in ~360ms.
+- **Zero Serverless / Zero Edge Middleware**: 10 static objects generated in ~360-400ms.
 - **5 Canonical Web Pages**:
   1. [`/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/page.tsx) — Main Portfolio (Hero, Stats, Experience, Projects showcase, Tech stack, Education, Contact)
   2. [`/projects/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/projects/page.tsx) — All Projects index with technical specs and filtering
@@ -19,13 +19,12 @@ This repository (`ankhang0704.github.io`) is a minimalist personal software engi
   5. [`/hotel-management/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/hotel-management/page.tsx) — Hotel Management AI case study (Django 5, RAG, FAISS Vector Search)
   - Plus [`/not-found`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/not-found.tsx) (`404.html`), `sitemap.xml`, and `robots.txt`.
 
-### 2. Zero-Latency In-Place Bilingual Switching
+### 2. Diagnosis & Fix: 404 Page Hydration & Link Navigation
 
-- Located at [src/context/LanguageContext.tsx](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/context/LanguageContext.tsx).
-- Built on React 19 `useSyncExternalStore` + `localStorage` + `user_lang_change` window event.
-- Instant **0ms** switching without URL modification, page reloads, or network fetches.
-- Redundant `/vi/*` route wrappers removed in favor of clean canonical URLs.
-- Legacy `/vi/*` URLs are 301-redirected via [public/_redirects](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/_redirects) on Cloudflare Pages.
+- **Issue**: Clicking links on the 404 page failed or behaved unreliably.
+- **Root Cause**: `src/app/not-found.tsx` redundantly rendered `<html><head><body>...</body></html>`, creating invalid nested HTML inside Next.js's `RootLayout`. The browser's DOM parser disrupted the tree, causing a fatal React hydration crash that unbound Next.js router event listeners on `<Link>`.
+- **Resolution**: Refactored [`src/app/not-found.tsx`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/not-found.tsx) into a first-class content component with global `Header`, `Footer`, `ThemeContext` (Dark/Light mode), and `LanguageContext` (Bilingual EN/VI). Validated: exactly 1 `<html>` and 1 `<body>` tag in static build.
+- **Design Spec Redesign**: Completely updated [`docs/design/DESIGN.md`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/docs/design/DESIGN.md) to reflect the 404 architecture, React Bits motion suite (replacing GSAP), and zero-latency client i18n.
 
 ### 3. Pre-Commit Hooks & Quality Assurance
 
