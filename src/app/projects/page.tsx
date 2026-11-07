@@ -2,22 +2,25 @@
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { ProjectsShowcase } from "@/components/home/ProjectsShowcase";
+import { ProjectsDirectory } from "@/components/projects/ProjectsDirectory";
 import { PROJECTS } from "@/content/projects";
 import { useLanguage } from "@/context/LanguageContext";
 import { BlurText } from "@/components/BlurText";
 import { GridPattern } from "@/components/GridPattern";
 
 export default function ProjectsPage() {
-  const { lang, dict } = useLanguage();
+  const { dict } = useLanguage();
 
   return (
     <>
       <Header variant="main" />
-      <main id="main-content" className="w-full min-w-0 pt-32 pb-24 relative overflow-x-hidden">
+      <main
+        id="main-content"
+        className="w-full min-w-0 pt-32 pb-24 relative overflow-x-hidden"
+      >
         <GridPattern />
         <section className="container mx-auto w-full min-w-0 px-6 md:px-8 relative z-10">
-          <div className="w-full max-w-4xl min-w-0 mb-20">
+          <div className="w-full max-w-4xl min-w-0 mb-16">
             <div className="mb-6 flex items-center gap-3">
               <span className="h-px w-12 bg-black dark:bg-white" />
               <p className="text-xs font-bold uppercase tracking-[0.3em] opacity-50">
@@ -32,11 +35,7 @@ export default function ProjectsPage() {
             </p>
           </div>
 
-          <ProjectsShowcase
-            lang={lang}
-            projectsDict={dict.projects}
-            projects={PROJECTS}
-          />
+          <ProjectsDirectory projectsDict={dict.projects} projects={PROJECTS} />
         </section>
       </main>
       <Footer variant="main" />

@@ -6,6 +6,7 @@ import { CopyEmailButton } from "@/components/CopyEmailButton";
 import { useLanguage } from "@/context/LanguageContext";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { MagneticButton } from "@/components/MagneticButton";
+import { BrandLogo } from "@/components/BrandLogo";
 
 interface FooterProps {
   variant?: "main";
@@ -37,7 +38,9 @@ export default function Footer({ variant = "main" }: FooterProps = {}) {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
     });
   };
 
@@ -63,14 +66,15 @@ export default function Footer({ variant = "main" }: FooterProps = {}) {
                 className="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 flex items-center justify-center w-full sm:w-auto"
               >
                 <span>{isVi ? "Gửi Email Trực Tiếp" : "Send an Email"}</span>
-                <Icons.ArrowRight size={16} aria-hidden="true" className="ml-3" />
+                <Icons.ArrowRight
+                  size={16}
+                  aria-hidden="true"
+                  className="ml-3"
+                />
               </a>
             </MagneticButton>
 
-            <CopyEmailButton
-              email="ankhang.nguyen0704@gmail.com"
-              isVi={isVi}
-            />
+            <CopyEmailButton email="ankhang.nguyen0704@gmail.com" isVi={isVi} />
           </div>
 
           <div className="flex justify-center space-x-6 sm:space-x-8 text-2xl">
@@ -81,7 +85,10 @@ export default function Footer({ variant = "main" }: FooterProps = {}) {
               rel="noreferrer"
               aria-label="GitHub"
             >
-              <Icons.Github className="text-black dark:text-white" aria-hidden="true" />
+              <Icons.Github
+                className="text-black dark:text-white"
+                aria-hidden="true"
+              />
             </a>
             <a
               href="https://www.linkedin.com/in/ankhang0704/"
@@ -90,14 +97,20 @@ export default function Footer({ variant = "main" }: FooterProps = {}) {
               rel="noreferrer"
               aria-label="LinkedIn"
             >
-              <Icons.LinkedIn className="text-black dark:text-white" aria-hidden="true" />
+              <Icons.LinkedIn
+                className="text-black dark:text-white"
+                aria-hidden="true"
+              />
             </a>
             <a
               href="mailto:ankhang.nguyen0704@gmail.com"
               className="footer-social-icon inline-flex min-h-11 min-w-11 items-center justify-center hover:opacity-50 transition-opacity duration-300"
               aria-label="Email"
             >
-              <Icons.Mail className="text-black dark:text-white" aria-hidden="true" />
+              <Icons.Mail
+                className="text-black dark:text-white"
+                aria-hidden="true"
+              />
             </a>
           </div>
 
@@ -115,12 +128,13 @@ export default function Footer({ variant = "main" }: FooterProps = {}) {
             </MagneticButton>
           </div>
 
-          <div className="mt-16 flex flex-col items-center gap-2">
+          <div className="mt-16 flex flex-col items-center gap-3">
+            <BrandLogo className="w-7 h-7 opacity-75" />
             <p className="text-sm font-medium opacity-80 uppercase tracking-widest">
               © 2026 An Khang
             </p>
             <p className="text-xs font-medium opacity-80 uppercase tracking-widest">
-              {isVi ? "Cập nhật · Tháng 10, 2026" : "Updated · October 2026"}
+              {isVi ? "Cập nhật · Tháng 11, 2026" : "Updated · November 2026"}
             </p>
           </div>
         </RevealOnScroll>
@@ -132,7 +146,9 @@ export default function Footer({ variant = "main" }: FooterProps = {}) {
         id="back-to-top"
         onClick={scrollToTop}
         className={`fixed bottom-8 right-8 w-12 h-12 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black flex items-center justify-center transition-[opacity,transform] duration-300 z-50 hover:opacity-80 active:scale-95 ${
-          showBackToTop ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-6 pointer-events-none"
+          showBackToTop
+            ? "opacity-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 translate-y-6 pointer-events-none"
         }`}
         aria-label={isVi ? "Cuộn lên đầu trang" : "Back to top"}
         tabIndex={showBackToTop ? 0 : -1}

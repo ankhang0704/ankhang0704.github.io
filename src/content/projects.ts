@@ -1,7 +1,12 @@
 export type ProjectDefinition = {
   id: string;
   code: string;
-  contentKey: "fmDictionary" | "githubVaultRelay" | "koiPhanThiet" | "pythonIpChecker" | "hotelManagement";
+  contentKey:
+    | "fmDictionary"
+    | "githubVaultRelay"
+    | "koiPhanThiet"
+    | "pythonIpChecker"
+    | "hotelManagement";
   image?: string;
   href?: string;
   externalHref?: string;
@@ -11,6 +16,7 @@ export type ProjectDefinition = {
   secondaryExternalLabel?: string;
   secondaryExternalLabelVi?: string;
   year?: string;
+  category?: "mobile" | "backend" | "tools" | "web";
   tags: string[];
   specs?: string[];
   statusBadge?: {
@@ -23,13 +29,16 @@ export const PROJECTS: ProjectDefinition[] = [
   {
     id: "project-fm-dictionary",
     code: "PRJ-01",
+    year: "2026",
+    category: "mobile",
     contentKey: "fmDictionary",
     image: "/fm-dictionary-editorial-cover.webp",
     href: "/fm-dictionary/",
     externalHref: "https://fm-dictionary.pages.dev/",
     externalLabel: "Website ↗",
     externalLabelVi: "Website ↗",
-    secondaryExternalHref: "https://apps.apple.com/us/app/fm-dictionary/id6774868353",
+    secondaryExternalHref:
+      "https://apps.apple.com/us/app/fm-dictionary/id6774868353",
     secondaryExternalLabel: "App Store ↗",
     tags: ["Flutter", "Firebase", "Hive", "Cloudflare Workers", "1,847 terms"],
     specs: ["1,847 Terms", "Hive Offline", "Cloudflare STT Proxy"],
@@ -41,6 +50,8 @@ export const PROJECTS: ProjectDefinition[] = [
   {
     id: "project-github-vault-relay",
     code: "PRJ-02",
+    year: "2026",
+    category: "tools",
     contentKey: "githubVaultRelay",
     image: "/github-vault-relay-cover.webp",
     href: "/github-vault-relay/",
@@ -57,6 +68,8 @@ export const PROJECTS: ProjectDefinition[] = [
   {
     id: "project-hotel-management",
     code: "PRJ-03",
+    year: "2025",
+    category: "backend",
     contentKey: "hotelManagement",
     image: "/hotel-management-editorial-cover.webp",
     href: "/hotel-management/",
@@ -72,6 +85,8 @@ export const PROJECTS: ProjectDefinition[] = [
   {
     id: "project-koi-phan-thiet",
     code: "PRJ-04",
+    year: "2025",
+    category: "web",
     contentKey: "koiPhanThiet",
     image: "/koi-phan-thiet-cover.webp",
     externalHref: "https://koiphanthiet.com/",
@@ -86,6 +101,7 @@ export const PROJECTS: ProjectDefinition[] = [
   {
     id: "project-python-ip-checker",
     code: "PRJ-05",
+    category: "tools",
     contentKey: "pythonIpChecker",
     image: "/python-ip-checker-cover.webp",
     year: "2026",

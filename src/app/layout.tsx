@@ -31,20 +31,30 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: "An Khang | Software Developer",
-  description: "An Khang — Software Developer building web, mobile, and automation tools with hands-on IT support experience.",
+  description:
+    "An Khang — Software Developer building web, mobile, and automation tools with hands-on IT support experience.",
   metadataBase: new URL("https://ankhang0704.pages.dev"),
   openGraph: {
     title: "An Khang | Software Developer",
-    description: "Software Developer building web, mobile, and automation tools with hands-on IT support experience.",
+    description:
+      "Software Developer building web, mobile, and automation tools with hands-on IT support experience.",
     url: "https://ankhang0704.pages.dev",
     siteName: "An Khang Portfolio",
     locale: "en_US",
     type: "website",
   },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: "/icon.svg",
+  },
   twitter: {
     card: "summary_large_image",
     title: "An Khang | Software Developer",
-    description: "Web, mobile, and automation software with hands-on IT support experience.",
+    description:
+      "Web, mobile, and automation software with hands-on IT support experience.",
   },
 };
 
@@ -58,7 +68,14 @@ export default function RootLayout({
     "@type": "Person",
     name: "An Khang",
     jobTitle: "Software Developer",
-    knowsAbout: ["Web Development", "Mobile Development", "Automation", "IT Support", "Django", "Flutter"],
+    knowsAbout: [
+      "Web Development",
+      "Mobile Development",
+      "Automation",
+      "IT Support",
+      "Django",
+      "Flutter",
+    ],
     email: "mailto:ankhang.nguyen0704@gmail.com",
     url: "https://ankhang0704.pages.dev",
     sameAs: [
@@ -75,9 +92,14 @@ export default function RootLayout({
             __html: `(function(){try{var s=localStorage.getItem('theme');var d=s==='dark'||(!s&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(d){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}}catch(e){}})();`,
           }}
         />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
-      <body className={`bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark font-sans relative overflow-x-hidden ${inter.variable} ${spaceGrotesk.variable}`}>
+      <body
+        className={`bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark font-sans relative overflow-x-hidden ${inter.variable} ${spaceGrotesk.variable}`}
+      >
         <ThemeProvider>
           <LanguageProvider>
             <ScrollSpyInit />
