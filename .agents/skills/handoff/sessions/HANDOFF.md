@@ -10,14 +10,19 @@ This repository (`ankhang0704.github.io`) is a minimalist personal software engi
 
 In this session, we targeted and resolved the browser tab favicon identity:
 
-- **Clarified User Requirement**: The user requested that the modern bespoke **AK monogram logo** (squircle ligature of A × K) replace the browser tab icon (which previously showed the outdated circular serif AK icon), while strictly maintaining and preserving the existing layout of the **Header**, **Footer**, and all other page components.
-- **Generated Multi-Resolution Favicon Suite**:
-  - Re-rendered the exact mathematical AK monogram at 2048×2048 with subpixel antialiasing.
-  - Generated a full-spec `favicon.ico` containing sizes: `16×16`, `32×32`, `48×48`, `64×64`, `128×128`, and `256×256` placed in both [`src/app/favicon.ico`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/favicon.ico) and [`public/favicon.ico`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/favicon.ico).
-  - Generated [`src/app/icon.svg`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/icon.svg) and [`public/icon.svg`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/icon.svg) for modern high-DPI browsers.
-  - Generated [`public/apple-touch-icon.png`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/apple-touch-icon.png) (180×180) and [`public/icon.png`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/icon.png) (512×512) for mobile home screen pinning.
-- **Preserved UI Coherence**: Left [`Header.tsx`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/Header.tsx) and [`Footer.tsx`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/Footer.tsx) intact with the active `[AK] KHANG` branding.
-- **Updated Metadata**: Configured [`src/app/layout.tsx`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/layout.tsx) icon definitions for instantaneous browser resolution.
+- **Clarified User Requirement**: The user specified that the AK monogram icon belongs **exclusively to 1 location: the browser tab favicon**. It has been completely removed from all other locations (Navbar header and Footer), restoring the clean typographic `KHANG` wordmark in the header and minimalist copyright notice in the footer.
+- **Removed UI AK Icon**:
+  - Deleted `src/components/BrandLogo.tsx`.
+  - Restored clean `KHANG` link wordmark in [`Header.tsx`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/Header.tsx).
+  - Cleaned up footer branding in [`Footer.tsx`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/Footer.tsx).
+- **Preserved Browser Tab Favicon Suite**:
+  - Full-spec `favicon.ico` containing sizes: `16×16`, `32×32`, `48×48`, `64×64`, `128×128`, and `256×256` placed in both [`src/app/favicon.ico`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/favicon.ico) and [`public/favicon.ico`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/favicon.ico).
+  - Modern vector icon at [`src/app/icon.svg`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/icon.svg) and [`public/icon.svg`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/icon.svg).
+  - Mobile home screen icons [`public/apple-touch-icon.png`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/apple-touch-icon.png) (180×180) and [`public/icon.png`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/icon.png) (512×512).
+- **Verified Build & Static Export**:
+  - `npm run lint`: **0 errors, 0 warnings**
+  - `npm run typecheck`: **0 errors**
+  - `npm run build`: **11/11 static pages generated successfully in ~420ms**
 
 ---
 

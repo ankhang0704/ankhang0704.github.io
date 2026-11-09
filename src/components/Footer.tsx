@@ -6,7 +6,6 @@ import { CopyEmailButton } from "@/components/CopyEmailButton";
 import { useLanguage } from "@/context/LanguageContext";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { MagneticButton } from "@/components/MagneticButton";
-import { BrandLogo } from "@/components/BrandLogo";
 
 interface FooterProps {
   variant?: "main";
@@ -128,8 +127,7 @@ export default function Footer({ variant = "main" }: FooterProps = {}) {
             </MagneticButton>
           </div>
 
-          <div className="mt-16 flex flex-col items-center gap-3">
-            <BrandLogo className="w-7 h-7 opacity-75" />
+          <div className="mt-16 flex flex-col items-center gap-2">
             <p className="text-sm font-medium opacity-80 uppercase tracking-widest">
               © 2026 An Khang
             </p>
