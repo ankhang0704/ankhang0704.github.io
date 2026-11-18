@@ -1,10 +1,10 @@
 ---
 interface Props {
-  lang?: 'en' | 'vi';
+  lang?: "en" | "vi";
 }
 
-const { lang = 'en' } = Astro.props;
-const isVi = lang === 'vi';
+const { lang = "en" } = Astro.props;
+const isVi = lang === "vi";
 
 const SAMPLE_TERMS = [
   {
@@ -22,8 +22,10 @@ const SAMPLE_TERMS = [
       "Thường lắp đặt phía trên trần thạch cao, tích hợp van gió điều khiển bằng actuator điện và bộ cảm biến lưu lượng vi sai.",
     standard: "ASHRAE 90.1",
     quizQuestion: {
-      promptVi: "Chức năng chính của VAV Box trong hệ thống HVAC trung tâm là gì?",
-      promptEn: "What is the primary function of a VAV Box in a central HVAC system?",
+      promptVi:
+        "Chức năng chính của VAV Box trong hệ thống HVAC trung tâm là gì?",
+      promptEn:
+        "What is the primary function of a VAV Box in a central HVAC system?",
       options: [
         {
           textVi: "Thay đổi nhiệt độ nước lạnh cung cấp cho Chiller",
@@ -58,8 +60,10 @@ const SAMPLE_TERMS = [
       "Vận hành với hệ số COP từ 5.5 đến 7.0, kết hợp tuần hoàn với tháp giải nhiệt (cooling tower) trên tầng mái.",
     standard: "AHRI 550/590",
     quizQuestion: {
-      promptVi: "Máy lạnh ly tâm Centrifugal Chiller thường được giải nhiệt bằng gì?",
-      promptEn: "How is a large-capacity Centrifugal Chiller typically heat-rejected?",
+      promptVi:
+        "Máy lạnh ly tâm Centrifugal Chiller thường được giải nhiệt bằng gì?",
+      promptEn:
+        "How is a large-capacity Centrifugal Chiller typically heat-rejected?",
       options: [
         {
           textVi: "Tháp giải nhiệt giải nhiệt bằng nước tuần hoàn",
@@ -94,8 +98,10 @@ const SAMPLE_TERMS = [
       "Giao tiếp chủ yếu qua chuẩn BACnet/IP và Modbus TCP, kết nối cảm biến nhiệt độ, áp suất và van điều khiển tự động.",
     standard: "ISO 16484 / BACnet",
     quizQuestion: {
-      promptVi: "Giao thức truyền thông mở phổ biến nhất trong hệ thống BMS hiện đại là gì?",
-      promptEn: "What is the most widely adopted open communication protocol in modern BMS?",
+      promptVi:
+        "Giao thức truyền thông mở phổ biến nhất trong hệ thống BMS hiện đại là gì?",
+      promptEn:
+        "What is the most widely adopted open communication protocol in modern BMS?",
       options: [
         {
           textVi: "BACnet / IP & MS/TP",
@@ -130,8 +136,10 @@ const SAMPLE_TERMS = [
       "Thường bố trí trong phòng kỹ thuật cơ điện mỗi tầng; yêu cầu kiểm tra định kỳ độ chênh áp qua màng lọc (filter differential pressure).",
     standard: "ASHRAE 62.1",
     quizQuestion: {
-      promptVi: "Chỉ số quan trọng nào cần đo lường định kỳ để biết màng lọc AHU bị nghẹt?",
-      promptEn: "What differential parameter is measured across AHU filters to assess clogging?",
+      promptVi:
+        "Chỉ số quan trọng nào cần đo lường định kỳ để biết màng lọc AHU bị nghẹt?",
+      promptEn:
+        "What differential parameter is measured across AHU filters to assess clogging?",
       options: [
         {
           textVi: "Độ chênh lệch áp suất qua màng lọc (Delta-P in Pascals)",
@@ -167,16 +175,20 @@ const SAMPLE_TERMS = [
     standard: "ISO 55000",
     quizQuestion: {
       promptVi: "Mục tiêu trọng tâm của bảo trì phòng ngừa PPM là gì?",
-      promptEn: "What is the primary objective of Planned Preventive Maintenance (PPM)?",
+      promptEn:
+        "What is the primary objective of Planned Preventive Maintenance (PPM)?",
       options: [
         {
           textVi: "Chờ đến khi máy hỏng hoàn toàn mới thay thế để tiết kiệm",
-          textEn: "Waiting until catastrophic failure before ordering replacement",
+          textEn:
+            "Waiting until catastrophic failure before ordering replacement",
           isCorrect: false,
         },
         {
-          textVi: "Chủ động kiểm tra, bảo dưỡng định kỳ để triệt tiêu sự cố dừng máy đột xuất",
-          textEn: "Proactively servicing equipment to eliminate unplanned downtime",
+          textVi:
+            "Chủ động kiểm tra, bảo dưỡng định kỳ để triệt tiêu sự cố dừng máy đột xuất",
+          textEn:
+            "Proactively servicing equipment to eliminate unplanned downtime",
           isCorrect: true,
         },
         {
@@ -201,13 +213,20 @@ const initialTerm = SAMPLE_TERMS[0];
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/10 dark:border-white/10 pb-6">
     <div>
       <div class="flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.2em] opacity-60">
-        <span class="w-2 h-2 bg-black dark:bg-white inline-block" aria-hidden="true"></span>
+        <span
+          class="w-2 h-2 bg-black dark:bg-white inline-block"
+          aria-hidden="true"
+        ></span>
         <span>
-          {isVi ? "Bộ Mô Phỏng Tra Cứu Thuật Ngữ MEP / FM" : "Interactive MEP / FM Protocol Inspector"}
+          {isVi
+            ? "Bộ Mô Phỏng Tra Cứu Thuật Ngữ MEP / FM"
+            : "Interactive MEP / FM Protocol Inspector"}
         </span>
       </div>
       <h3 class="mt-2 font-display text-2xl md:text-3xl font-bold tracking-tight text-black dark:text-white">
-        {isVi ? "Trải nghiệm trực tiếp dữ liệu học tập 1.847 thuật ngữ" : "Live Sample from the 1,847 Term Lexicon"}
+        {isVi
+          ? "Trải nghiệm trực tiếp dữ liệu học tập 1.847 thuật ngữ"
+          : "Live Sample from the 1,847 Term Lexicon"}
       </h3>
     </div>
     <div class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider opacity-60 bg-black/5 dark:bg-white/5 px-3 py-1.5 border border-black/10 dark:border-white/10 self-start sm:self-center">
@@ -252,7 +271,11 @@ const initialTerm = SAMPLE_TERMS[0];
     <input
       id="term-search-input"
       type="text"
-      placeholder={isVi ? "Lọc thuật ngữ (VAV, Chiller, BMS, AHU, PPM, bảo trì...)" : "Filter terms (VAV, Chiller, BMS, AHU, PPM...)"}
+      placeholder={
+        isVi
+          ? "Lọc thuật ngữ (VAV, Chiller, BMS, AHU, PPM, bảo trì...)"
+          : "Filter terms (VAV, Chiller, BMS, AHU, PPM...)"
+      }
       class="w-full bg-bgLight dark:bg-bgDark border border-black/20 dark:border-white/20 pl-10 pr-4 py-3 text-xs sm:text-sm font-mono placeholder:opacity-40 focus:border-black dark:focus:border-white focus:outline-none transition-colors text-black dark:text-white"
     />
   </div>
@@ -268,8 +291,8 @@ const initialTerm = SAMPLE_TERMS[0];
         data-term-meaning={term.vietnameseMeaning.toLowerCase()}
         class={`term-pill-btn px-4 py-2.5 text-xs font-mono uppercase tracking-wider border transition-all ${
           index === 0
-            ? 'border-black bg-black text-white dark:border-white dark:bg-white dark:text-black font-bold active-pill'
-            : 'border-black/15 dark:border-white/15 opacity-70 hover:opacity-100 hover:border-black dark:hover:border-white'
+            ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black font-bold active-pill"
+            : "border-black/15 dark:border-white/15 opacity-70 hover:opacity-100 hover:border-black dark:hover:border-white"
         }`}
       >
         <span>{term.abbreviation}</span>
@@ -337,7 +360,9 @@ const initialTerm = SAMPLE_TERMS[0];
           <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
           <line x1="12" x2="12" y1="19" y2="22"></line>
         </svg>
-        <span id="term-pronounce-label">{isVi ? "Phát âm chuẩn" : "Pronounce"}</span>
+        <span id="term-pronounce-label">
+          {isVi ? "Phát âm chuẩn" : "Pronounce"}
+        </span>
       </button>
     </div>
 
@@ -347,16 +372,24 @@ const initialTerm = SAMPLE_TERMS[0];
         <p class="text-[10px] font-mono uppercase tracking-widest opacity-60">
           {isVi ? "Định nghĩa kỹ thuật (English)" : "Technical Definition"}
         </p>
-        <p id="term-definition-en" class="text-base font-light leading-relaxed opacity-90">
+        <p
+          id="term-definition-en"
+          class="text-base font-light leading-relaxed opacity-90"
+        >
           {initialTerm.englishDefinition}
         </p>
       </div>
 
       <div class="space-y-2 border-l-2 border-black/30 dark:border-white/30 pl-4">
         <p class="text-[10px] font-mono uppercase tracking-widest opacity-60">
-          {isVi ? "Ý nghĩa Tiếng Việt trong vận hành" : "Vietnamese O&M Context"}
+          {isVi
+            ? "Ý nghĩa Tiếng Việt trong vận hành"
+            : "Vietnamese O&M Context"}
         </p>
-        <p id="term-meaning-vi" class="text-base font-light leading-relaxed opacity-90">
+        <p
+          id="term-meaning-vi"
+          class="text-base font-light leading-relaxed opacity-90"
+        >
           {initialTerm.vietnameseMeaning}
         </p>
       </div>
@@ -381,9 +414,14 @@ const initialTerm = SAMPLE_TERMS[0];
       </svg>
       <div class="space-y-1">
         <span class="font-mono text-[10px] font-bold uppercase tracking-widest opacity-70">
-          {isVi ? "Kinh nghiệm thực địa (Field Operations Note)" : "Field Engineering Note"}
+          {isVi
+            ? "Kinh nghiệm thực địa (Field Operations Note)"
+            : "Field Engineering Note"}
         </span>
-        <p id="term-field-note" class="text-sm font-light leading-relaxed opacity-85">
+        <p
+          id="term-field-note"
+          class="text-sm font-light leading-relaxed opacity-85"
+        >
           {initialTerm.fieldNote}
         </p>
       </div>
@@ -393,13 +431,20 @@ const initialTerm = SAMPLE_TERMS[0];
     <div class="pt-4 border-t border-black/10 dark:border-white/10 space-y-3">
       <div class="flex items-center justify-between">
         <span class="font-mono text-[10px] font-bold uppercase tracking-widest opacity-70">
-          {isVi ? "Kiểm tra kiến thức nhanh (Instant Knowledge Check)" : "Micro-Quiz Protocol"}
+          {isVi
+            ? "Kiểm tra kiến thức nhanh (Instant Knowledge Check)"
+            : "Micro-Quiz Protocol"}
         </span>
-        <span id="quiz-status-badge" class="text-[10px] font-mono uppercase tracking-wider font-bold"></span>
+        <span
+          id="quiz-status-badge"
+          class="text-[10px] font-mono uppercase tracking-wider font-bold"
+        ></span>
       </div>
 
       <p id="quiz-prompt-text" class="text-sm font-medium">
-        {isVi ? initialTerm.quizQuestion.promptVi : initialTerm.quizQuestion.promptEn}
+        {isVi
+          ? initialTerm.quizQuestion.promptVi
+          : initialTerm.quizQuestion.promptEn}
       </p>
 
       <div id="quiz-options-container" class="grid grid-cols-1 gap-2 pt-1">
@@ -420,8 +465,11 @@ const initialTerm = SAMPLE_TERMS[0];
 </div>
 
 <!-- Embedded JSON for Client Runtime (Zero React, Pure Vanilla TS) -->
-<script id="term-inspector-dataset" type="application/json" set:html={JSON.stringify(SAMPLE_TERMS)} />
-
+<script
+  id="term-inspector-dataset"
+  type="application/json"
+  set:html={JSON.stringify(SAMPLE_TERMS)}
+/>
 <script>
   interface TermData {
     id: string;
@@ -442,10 +490,10 @@ const initialTerm = SAMPLE_TERMS[0];
   }
 
   function initTermInspector() {
-    const root = document.getElementById('term-inspector');
+    const root = document.getElementById("term-inspector");
     if (!root) return;
 
-    const dataScript = document.getElementById('term-inspector-dataset');
+    const dataScript = document.getElementById("term-inspector-dataset");
     if (!dataScript || !dataScript.textContent) return;
 
     let terms: TermData[] = [];
@@ -455,26 +503,31 @@ const initialTerm = SAMPLE_TERMS[0];
       return;
     }
 
-    const isVi = root.dataset.lang === 'vi';
+    const isVi = root.dataset.lang === "vi";
     let currentTerm = terms[0];
 
     // DOM Elements
-    const searchInput = document.getElementById('term-search-input') as HTMLInputElement | null;
-    const pills = document.querySelectorAll<HTMLButtonElement>('.term-pill-btn');
-    const topicBadge = document.getElementById('term-topic-badge');
-    const standardBadge = document.getElementById('term-standard-badge');
-    const wordHeading = document.getElementById('term-word-heading');
-    const phoneticUk = document.getElementById('term-phonetic-uk');
-    const phoneticUs = document.getElementById('term-phonetic-us');
-    const definitionEn = document.getElementById('term-definition-en');
-    const meaningVi = document.getElementById('term-meaning-vi');
-    const fieldNote = document.getElementById('term-field-note');
-    const pronounceBtn = document.getElementById('term-pronounce-btn');
-    const pronounceLabel = document.getElementById('term-pronounce-label');
-    const pronounceIcon = pronounceBtn?.querySelector('.pronounce-icon');
-    const quizStatusBadge = document.getElementById('quiz-status-badge');
-    const quizPromptText = document.getElementById('quiz-prompt-text');
-    const quizOptionsContainer = document.getElementById('quiz-options-container');
+    const searchInput = document.getElementById(
+      "term-search-input"
+    ) as HTMLInputElement | null;
+    const pills =
+      document.querySelectorAll<HTMLButtonElement>(".term-pill-btn");
+    const topicBadge = document.getElementById("term-topic-badge");
+    const standardBadge = document.getElementById("term-standard-badge");
+    const wordHeading = document.getElementById("term-word-heading");
+    const phoneticUk = document.getElementById("term-phonetic-uk");
+    const phoneticUs = document.getElementById("term-phonetic-us");
+    const definitionEn = document.getElementById("term-definition-en");
+    const meaningVi = document.getElementById("term-meaning-vi");
+    const fieldNote = document.getElementById("term-field-note");
+    const pronounceBtn = document.getElementById("term-pronounce-btn");
+    const pronounceLabel = document.getElementById("term-pronounce-label");
+    const pronounceIcon = pronounceBtn?.querySelector(".pronounce-icon");
+    const quizStatusBadge = document.getElementById("quiz-status-badge");
+    const quizPromptText = document.getElementById("quiz-prompt-text");
+    const quizOptionsContainer = document.getElementById(
+      "quiz-options-container"
+    );
 
     function renderTerm(term: TermData) {
       currentTerm = term;
@@ -491,54 +544,65 @@ const initialTerm = SAMPLE_TERMS[0];
       pills.forEach((p) => {
         const isActive = p.dataset.termId === term.id;
         if (isActive) {
-          p.className = 'term-pill-btn px-4 py-2.5 text-xs font-mono uppercase tracking-wider border transition-all border-black bg-black text-white dark:border-white dark:bg-white dark:text-black font-bold active-pill';
+          p.className =
+            "term-pill-btn px-4 py-2.5 text-xs font-mono uppercase tracking-wider border transition-all border-black bg-black text-white dark:border-white dark:bg-white dark:text-black font-bold active-pill";
         } else {
-          p.className = 'term-pill-btn px-4 py-2.5 text-xs font-mono uppercase tracking-wider border transition-all border-black/15 dark:border-white/15 opacity-70 hover:opacity-100 hover:border-black dark:hover:border-white';
+          p.className =
+            "term-pill-btn px-4 py-2.5 text-xs font-mono uppercase tracking-wider border transition-all border-black/15 dark:border-white/15 opacity-70 hover:opacity-100 hover:border-black dark:hover:border-white";
         }
       });
 
       // Reset Quiz
-      if (quizStatusBadge) quizStatusBadge.innerHTML = '';
+      if (quizStatusBadge) quizStatusBadge.innerHTML = "";
       if (quizPromptText) {
-        quizPromptText.textContent = isVi ? term.quizQuestion.promptVi : term.quizQuestion.promptEn;
+        quizPromptText.textContent = isVi
+          ? term.quizQuestion.promptVi
+          : term.quizQuestion.promptEn;
       }
 
       if (quizOptionsContainer) {
-        quizOptionsContainer.innerHTML = '';
+        quizOptionsContainer.innerHTML = "";
         term.quizQuestion.options.forEach((opt) => {
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-black/15 dark:border-white/15 opacity-80 hover:opacity-100 hover:border-black dark:hover:border-white text-black dark:text-white';
-          
-          const textSpan = document.createElement('span');
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className =
+            "quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-black/15 dark:border-white/15 opacity-80 hover:opacity-100 hover:border-black dark:hover:border-white text-black dark:text-white";
+
+          const textSpan = document.createElement("span");
           textSpan.textContent = isVi ? opt.textVi : opt.textEn;
           btn.appendChild(textSpan);
 
-          const iconSpan = document.createElement('span');
-          iconSpan.className = 'quiz-feedback-icon shrink-0 ml-3 font-bold hidden';
+          const iconSpan = document.createElement("span");
+          iconSpan.className =
+            "quiz-feedback-icon shrink-0 ml-3 font-bold hidden";
           btn.appendChild(iconSpan);
 
           btn.onclick = () => {
             // Clear other options
-            quizOptionsContainer.querySelectorAll('.quiz-option-btn').forEach((b) => {
-              b.className = 'quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-black/15 dark:border-white/15 opacity-50 text-black dark:text-white';
-              const ic = b.querySelector('.quiz-feedback-icon');
-              if (ic) ic.classList.add('hidden');
-            });
+            quizOptionsContainer
+              .querySelectorAll(".quiz-option-btn")
+              .forEach((b) => {
+                b.className =
+                  "quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-black/15 dark:border-white/15 opacity-50 text-black dark:text-white";
+                const ic = b.querySelector(".quiz-feedback-icon");
+                if (ic) ic.classList.add("hidden");
+              });
 
             if (opt.isCorrect) {
-              btn.className = 'quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-emerald-600 bg-emerald-500/10 text-emerald-900 dark:text-emerald-200 font-bold';
-              iconSpan.textContent = '✓';
-              iconSpan.classList.remove('hidden');
+              btn.className =
+                "quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-emerald-600 bg-emerald-500/10 text-emerald-900 dark:text-emerald-200 font-bold";
+              iconSpan.textContent = "✓";
+              iconSpan.classList.remove("hidden");
               if (quizStatusBadge) {
-                quizStatusBadge.innerHTML = `<span class="text-emerald-600 dark:text-emerald-400">✓ ${isVi ? 'CHÍNH XÁC' : 'CORRECT'}</span>`;
+                quizStatusBadge.innerHTML = `<span class="text-emerald-600 dark:text-emerald-400">✓ ${isVi ? "CHÍNH XÁC" : "CORRECT"}</span>`;
               }
             } else {
-              btn.className = 'quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-rose-600 bg-rose-500/10 text-rose-900 dark:text-rose-200 font-bold';
-              iconSpan.textContent = '✕';
-              iconSpan.classList.remove('hidden');
+              btn.className =
+                "quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-rose-600 bg-rose-500/10 text-rose-900 dark:text-rose-200 font-bold";
+              iconSpan.textContent = "✕";
+              iconSpan.classList.remove("hidden");
               if (quizStatusBadge) {
-                quizStatusBadge.innerHTML = `<span class="text-rose-600 dark:text-rose-400">✕ ${isVi ? 'CHƯA ĐÚNG' : 'INCORRECT'}</span>`;
+                quizStatusBadge.innerHTML = `<span class="text-rose-600 dark:text-rose-400">✕ ${isVi ? "CHƯA ĐÚNG" : "INCORRECT"}</span>`;
               }
             }
           };
@@ -560,22 +624,25 @@ const initialTerm = SAMPLE_TERMS[0];
     // Pronounce handler using Web Speech API
     if (pronounceBtn) {
       pronounceBtn.onclick = () => {
-        if (!('speechSynthesis' in window)) return;
+        if (!("speechSynthesis" in window)) return;
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(currentTerm.word);
-        utterance.lang = 'en-US';
+        utterance.lang = "en-US";
         utterance.rate = 0.9;
 
-        pronounceIcon?.classList.add('animate-pulse');
-        if (pronounceLabel) pronounceLabel.textContent = isVi ? 'Đang phát...' : 'Playing...';
+        pronounceIcon?.classList.add("animate-pulse");
+        if (pronounceLabel)
+          pronounceLabel.textContent = isVi ? "Đang phát..." : "Playing...";
 
         utterance.onend = () => {
-          pronounceIcon?.classList.remove('animate-pulse');
-          if (pronounceLabel) pronounceLabel.textContent = isVi ? 'Phát âm chuẩn' : 'Pronounce';
+          pronounceIcon?.classList.remove("animate-pulse");
+          if (pronounceLabel)
+            pronounceLabel.textContent = isVi ? "Phát âm chuẩn" : "Pronounce";
         };
         utterance.onerror = () => {
-          pronounceIcon?.classList.remove('animate-pulse');
-          if (pronounceLabel) pronounceLabel.textContent = isVi ? 'Phát âm chuẩn' : 'Pronounce';
+          pronounceIcon?.classList.remove("animate-pulse");
+          if (pronounceLabel)
+            pronounceLabel.textContent = isVi ? "Phát âm chuẩn" : "Pronounce";
         };
 
         window.speechSynthesis.speak(utterance);
@@ -589,19 +656,24 @@ const initialTerm = SAMPLE_TERMS[0];
         let firstMatch: TermData | null = null;
 
         pills.forEach((p) => {
-          const id = p.dataset.termId || '';
-          const word = p.dataset.termWord || '';
-          const abbr = p.dataset.termAbbr || '';
-          const meaning = p.dataset.termMeaning || '';
+          const id = p.dataset.termId || "";
+          const word = p.dataset.termWord || "";
+          const abbr = p.dataset.termAbbr || "";
+          const meaning = p.dataset.termMeaning || "";
 
-          const matches = !q || id.includes(q) || word.includes(q) || abbr.includes(q) || meaning.includes(q);
+          const matches =
+            !q ||
+            id.includes(q) ||
+            word.includes(q) ||
+            abbr.includes(q) ||
+            meaning.includes(q);
           if (matches) {
-            p.classList.remove('hidden');
+            p.classList.remove("hidden");
             if (!firstMatch) {
               firstMatch = terms.find((t) => t.id === id) || null;
             }
           } else {
-            p.classList.add('hidden');
+            p.classList.add("hidden");
           }
         });
 
@@ -616,5 +688,5 @@ const initialTerm = SAMPLE_TERMS[0];
   }
 
   initTermInspector();
-  document.addEventListener('astro:page-load', initTermInspector);
+  document.addEventListener("astro:page-load", initTermInspector);
 </script>

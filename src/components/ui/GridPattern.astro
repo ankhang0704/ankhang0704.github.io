@@ -4,7 +4,7 @@ interface Props {
   size?: number;
 }
 
-const { class: className = '', size = 40 } = Astro.props;
+const { class: className = "", size = 40 } = Astro.props;
 ---
 
 <div
@@ -25,11 +25,7 @@ const { class: className = '', size = 40 } = Astro.props;
         height={size}
         patternUnits="userSpaceOnUse"
       >
-        <path
-          d={`M.5 ${size}V.5H${size}`}
-          fill="none"
-          stroke-dasharray="2 4"
-        />
+        <path d={`M.5 ${size}V.5H${size}`} fill="none" stroke-dasharray="2 4" />
       </pattern>
     </defs>
     <rect
@@ -41,34 +37,33 @@ const { class: className = '', size = 40 } = Astro.props;
   </svg>
 
   <!-- Interactive Cursor Spotlight Glow -->
-  <div
-    class="grid-pattern-glow absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none"
-  >
-  </div>
+  <div class="grid-pattern-glow absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none"></div>
 </div>
 
 <script>
   function initGridPattern() {
-    const containers = document.querySelectorAll<HTMLElement>('.grid-pattern-container');
+    const containers = document.querySelectorAll<HTMLElement>(
+      ".grid-pattern-container"
+    );
     containers.forEach((container) => {
       const parent = container.parentElement;
-      const glow = container.querySelector<HTMLElement>('.grid-pattern-glow');
+      const glow = container.querySelector<HTMLElement>(".grid-pattern-glow");
       if (!parent || !glow) return;
 
-      parent.addEventListener('mousemove', (e) => {
+      parent.addEventListener("mousemove", (e) => {
         const rect = parent.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        glow.style.opacity = '1';
+        glow.style.opacity = "1";
         glow.style.background = `radial-gradient(350px circle at ${x}px ${y}px, rgba(125, 125, 125, 0.08), transparent 70%)`;
       });
 
-      parent.addEventListener('mouseleave', () => {
-        glow.style.opacity = '0';
+      parent.addEventListener("mouseleave", () => {
+        glow.style.opacity = "0";
       });
     });
   }
 
   initGridPattern();
-  document.addEventListener('astro:page-load', initGridPattern);
+  document.addEventListener("astro:page-load", initGridPattern);
 </script>

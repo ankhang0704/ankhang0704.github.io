@@ -1,11 +1,11 @@
 ---
-import { ClientRouter } from 'astro:transitions';
-import '../styles/global.css';
+import { ClientRouter } from "astro:transitions";
+import "../styles/global.css";
 
 interface Props {
   title?: string;
   description?: string;
-  lang?: 'en' | 'vi';
+  lang?: "en" | "vi";
   ogImage?: string;
   canonicalUrl?: string;
 }
@@ -26,8 +26,12 @@ const canonical = canonicalUrl || new URL(Astro.url.pathname, siteUrl).href;
 // Bilingual alternate paths
 const pathname = Astro.url.pathname.replace(/\/$/, "");
 const pathWithoutLang = pathname.replace(/^\/vi(\/|$)/, "/") || "/";
-const enHref = new URL(pathWithoutLang === "" ? "/" : pathWithoutLang, siteUrl).href;
-const viHref = new URL(pathWithoutLang === "/" ? "/vi/" : `/vi${pathWithoutLang}`, siteUrl).href;
+const enHref = new URL(pathWithoutLang === "" ? "/" : pathWithoutLang, siteUrl)
+  .href;
+const viHref = new URL(
+  pathWithoutLang === "/" ? "/vi/" : `/vi${pathWithoutLang}`,
+  siteUrl
+).href;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -104,17 +108,19 @@ const jsonLd = {
     <script is:inline>
       function applyTheme() {
         try {
-          var s = localStorage.getItem('theme');
-          var d = s === 'dark' || (!s && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          var s = localStorage.getItem("theme");
+          var d =
+            s === "dark" ||
+            (!s && window.matchMedia("(prefers-color-scheme: dark)").matches);
           if (d) {
-            document.documentElement.classList.add('dark');
+            document.documentElement.classList.add("dark");
           } else {
-            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.remove("dark");
           }
         } catch (e) {}
       }
       applyTheme();
-      document.addEventListener('astro:after-swap', applyTheme);
+      document.addEventListener("astro:after-swap", applyTheme);
     </script>
 
     <!-- Schema.org Person JSON-LD -->

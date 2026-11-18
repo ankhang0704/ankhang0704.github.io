@@ -8,10 +8,10 @@ interface Props {
 }
 
 const {
-  class: className = '',
+  class: className = "",
   strength = 0.35,
   maxDistance = 16,
-  as: Tag = 'div',
+  as: Tag = "div",
   ...rest
 } = Astro.props;
 ---
@@ -29,18 +29,20 @@ const {
 
 <script>
   function initMagneticButtons() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const buttons = document.querySelectorAll<HTMLElement>('.magnetic-button');
+    const buttons = document.querySelectorAll<HTMLElement>(".magnetic-button");
     buttons.forEach((btn) => {
-      if (btn.dataset.magneticInitialized === 'true') return;
-      btn.dataset.magneticInitialized = 'true';
+      if (btn.dataset.magneticInitialized === "true") return;
+      btn.dataset.magneticInitialized = "true";
 
-      const inner = btn.querySelector<HTMLElement>(':scope > .magnetic-button-inner');
+      const inner = btn.querySelector<HTMLElement>(
+        ":scope > .magnetic-button-inner"
+      );
       if (!inner) return;
 
-      const strength = parseFloat(btn.dataset.strength || '0.35');
-      const maxDistance = parseFloat(btn.dataset.maxDistance || '16');
+      const strength = parseFloat(btn.dataset.strength || "0.35");
+      const maxDistance = parseFloat(btn.dataset.maxDistance || "16");
 
       let rafId: number | null = null;
       let targetX = 0;
@@ -51,7 +53,7 @@ const {
         rafId = null;
       };
 
-      btn.addEventListener('mousemove', (e) => {
+      btn.addEventListener("mousemove", (e) => {
         const rect = btn.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
@@ -61,29 +63,32 @@ const {
         targetX = Math.max(-maxDistance, Math.min(maxDistance, deltaX));
         targetY = Math.max(-maxDistance, Math.min(maxDistance, deltaY));
 
-        inner.style.transition = 'transform 0.12s cubic-bezier(0.25, 1, 0.5, 1)';
+        inner.style.transition =
+          "transform 0.12s cubic-bezier(0.25, 1, 0.5, 1)";
         if (!rafId) {
           rafId = requestAnimationFrame(updatePosition);
         }
       });
 
-      btn.addEventListener('mouseleave', () => {
+      btn.addEventListener("mouseleave", () => {
         if (rafId) {
           cancelAnimationFrame(rafId);
           rafId = null;
         }
         targetX = 0;
         targetY = 0;
-        inner.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-        inner.style.transform = 'translate3d(0, 0, 0)';
+        inner.style.transition =
+          "transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+        inner.style.transform = "translate3d(0, 0, 0)";
       });
 
-      btn.addEventListener('mouseenter', () => {
-        inner.style.transition = 'transform 0.12s cubic-bezier(0.25, 1, 0.5, 1)';
+      btn.addEventListener("mouseenter", () => {
+        inner.style.transition =
+          "transform 0.12s cubic-bezier(0.25, 1, 0.5, 1)";
       });
     });
   }
 
   initMagneticButtons();
-  document.addEventListener('astro:page-load', initMagneticButtons);
+  document.addEventListener("astro:page-load", initMagneticButtons);
 </script>

@@ -37,13 +37,14 @@ const duplicated = [...items, ...items];
     style={`animation-duration: ${speedSeconds}s;`}
   >
     {duplicated.map((tech) => (
-      <div
-        class="flex items-center space-x-6 px-6 font-mono text-xs uppercase tracking-[0.25em] text-black/70 dark:text-white/70"
-      >
+      <div class="flex items-center space-x-6 px-6 font-mono text-xs uppercase tracking-[0.25em] text-black/70 dark:text-white/70">
         <span class="font-semibold transition-colors duration-200 group-hover:text-black dark:group-hover:text-white">
           {tech}
         </span>
-        <span class="inline-block h-1.5 w-1.5 bg-black/30 dark:bg-white/30" aria-hidden="true" />
+        <span
+          class="inline-block h-1.5 w-1.5 bg-black/30 dark:bg-white/30"
+          aria-hidden="true"
+        />
       </div>
     ))}
   </div>

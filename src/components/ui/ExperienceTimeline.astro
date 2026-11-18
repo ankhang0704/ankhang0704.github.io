@@ -11,11 +11,11 @@ interface TimelineItem {
 }
 
 interface Props {
-  lang?: 'en' | 'vi';
+  lang?: "en" | "vi";
 }
 
-const { lang = 'en' } = Astro.props;
-const isVi = lang === 'vi';
+const { lang = "en" } = Astro.props;
+const isVi = lang === "vi";
 
 const items: TimelineItem[] = [
   {
@@ -24,7 +24,9 @@ const items: TimelineItem[] = [
     status: isVi ? "HIỆN TẠI" : "CURRENT",
     badge: isVi ? "Hỗ trợ CNTT" : "IT Support",
     isActive: true,
-    role: isVi ? "IT Helpdesk · Bệnh viện Mắt Bình Thuận" : "IT Helpdesk · Binh Thuan Eye Hospital",
+    role: isVi
+      ? "IT Helpdesk · Bệnh viện Mắt Bình Thuận"
+      : "IT Helpdesk · Binh Thuan Eye Hospital",
     desc: isVi
       ? "Công việc IT helpdesk hiện tại, hỗ trợ người dùng, thiết bị và các vấn đề công nghệ hằng ngày trong môi trường bệnh viện."
       : "Current hands-on IT helpdesk work supporting users, devices, and day-to-day technology issues in a hospital environment.",
@@ -48,7 +50,9 @@ const items: TimelineItem[] = [
     status: isVi ? "ĐÃ HOÀN THÀNH" : "COMPLETED",
     badge: isVi ? "Thực tập" : "Internship",
     isActive: false,
-    role: isVi ? "IT Internship · The Sailing Bay" : "IT Internship · The Sailing Bay",
+    role: isVi
+      ? "IT Internship · The Sailing Bay"
+      : "IT Internship · The Sailing Bay",
     desc: isVi
       ? "Thực tập CNTT tại The Sailing Bay từ tháng 8 đến tháng 11 năm 2025."
       : "IT internship at The Sailing Bay from August to November 2025.",
@@ -60,7 +64,9 @@ const items: TimelineItem[] = [
     status: isVi ? "ĐÃ HOÀN THÀNH" : "COMPLETED",
     badge: isVi ? "Bằng cấp" : "Academic Degree",
     isActive: false,
-    role: isVi ? "Cử nhân Công nghệ Thông tin · Đại học" : "B.S. Information Technology · University",
+    role: isVi
+      ? "Cử nhân Công nghệ Thông tin · Đại học"
+      : "B.S. Information Technology · University",
     desc: isVi
       ? "Hoàn thành chương trình Cử nhân Công nghệ Thông tin từ năm 2022 đến 2026, với các môn và dự án về phát triển phần mềm, ứng dụng mobile và hệ thống thông tin."
       : "Completed a Bachelor of Information Technology from 2022 to 2026, with work across software development, mobile applications, and information systems.",
@@ -74,9 +80,7 @@ const items: TimelineItem[] = [
   class="timeline-wrapper relative max-w-5xl pl-6 sm:pl-8 md:pl-12 border-l border-black/10 dark:border-white/10 border-b border-b-black/10 dark:border-b-white/10"
 >
   {items.map((item) => (
-    <div
-      class="group relative border-t border-black/10 dark:border-white/10 py-12 md:py-16 transition-colors duration-200 hover:bg-black/[0.015] dark:hover:bg-white/[0.015] px-2 sm:px-4 md:px-6"
-    >
+    <div class="group relative border-t border-black/10 dark:border-white/10 py-12 md:py-16 transition-colors duration-200 hover:bg-black/[0.015] dark:hover:bg-white/[0.015] px-2 sm:px-4 md:px-6">
       <!-- Timeline Node Marker -->
       <div
         class="absolute -left-[31px] sm:-left-[39px] md:-left-[55px] top-14 w-4 h-4 bg-bgLight dark:bg-bgDark border-2 border-black dark:border-white group-hover:scale-125 group-hover:bg-black dark:group-hover:bg-white transition-[transform,background-color] duration-200 z-10"
@@ -87,7 +91,9 @@ const items: TimelineItem[] = [
         <!-- Metadata Column (Index, Time, Status) -->
         <div class="lg:col-span-4 space-y-3.5">
           <div class="flex items-center gap-3">
-            <span class="font-mono text-sm opacity-75 font-bold">{item.index} /</span>
+            <span class="font-mono text-sm opacity-75 font-bold">
+              {item.index} /
+            </span>
             <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1 opacity-80 font-medium">
               {item.badge}
             </span>
@@ -99,7 +105,10 @@ const items: TimelineItem[] = [
 
           {item.isActive ? (
             <div class="inline-flex items-center gap-2.5 border border-black dark:border-white px-3 py-1.5 text-xs font-mono font-bold uppercase tracking-widest bg-black text-white dark:bg-white dark:text-black">
-              <span class="w-2 h-2 bg-white dark:bg-black animate-pulse inline-block" aria-hidden="true"></span>
+              <span
+                class="w-2 h-2 bg-white dark:bg-black animate-pulse inline-block"
+                aria-hidden="true"
+              ></span>
               <span>{item.status}</span>
             </div>
           ) : (
@@ -137,9 +146,7 @@ const items: TimelineItem[] = [
 
           <div class="flex flex-wrap gap-2.5 pt-2">
             {item.tags.map((tag) => (
-              <span
-                class="border border-black/15 dark:border-white/15 px-3.5 py-1.5 text-xs font-mono uppercase tracking-wider opacity-80 group-hover:opacity-100 transition-opacity bg-bgLight dark:bg-bgDark"
-              >
+              <span class="border border-black/15 dark:border-white/15 px-3.5 py-1.5 text-xs font-mono uppercase tracking-wider opacity-80 group-hover:opacity-100 transition-opacity bg-bgLight dark:bg-bgDark">
                 {tag}
               </span>
             ))}

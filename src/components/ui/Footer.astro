@@ -1,13 +1,13 @@
 ---
-import CopyEmailButton from '../interactive/CopyEmailButton.astro';
+import CopyEmailButton from "../interactive/CopyEmailButton.astro";
 
 interface Props {
-  lang?: 'en' | 'vi';
+  lang?: "en" | "vi";
 }
 
-const { lang = 'en' } = Astro.props;
-const isVi = lang === 'vi';
-const email = 'ankhang.nguyen0704@gmail.com';
+const { lang = "en" } = Astro.props;
+const isVi = lang === "vi";
+const email = "ankhang.nguyen0704@gmail.com";
 ---
 
 <footer
@@ -192,37 +192,54 @@ const email = 'ankhang.nguyen0704@gmail.com';
 
 <script>
   function initFooter() {
-    const backToTop = document.getElementById('back-to-top');
+    const backToTop = document.getElementById("back-to-top");
 
     const handleScroll = () => {
       if (!backToTop) return;
       if (window.scrollY > 400) {
-        backToTop.classList.remove('opacity-0', 'translate-y-6', 'pointer-events-none');
-        backToTop.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
-        backToTop.setAttribute('tabindex', '0');
+        backToTop.classList.remove(
+          "opacity-0",
+          "translate-y-6",
+          "pointer-events-none"
+        );
+        backToTop.classList.add(
+          "opacity-100",
+          "translate-y-0",
+          "pointer-events-auto"
+        );
+        backToTop.setAttribute("tabindex", "0");
       } else {
-        backToTop.classList.add('opacity-0', 'translate-y-6', 'pointer-events-none');
-        backToTop.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-        backToTop.setAttribute('tabindex', '-1');
+        backToTop.classList.add(
+          "opacity-0",
+          "translate-y-6",
+          "pointer-events-none"
+        );
+        backToTop.classList.remove(
+          "opacity-100",
+          "translate-y-0",
+          "pointer-events-auto"
+        );
+        backToTop.setAttribute("tabindex", "-1");
       }
     };
 
-    window.removeEventListener('scroll', handleScroll);
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
     if (backToTop) {
       backToTop.onclick = () => {
         window.scrollTo({
           top: 0,
-          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-            ? 'auto'
-            : 'smooth',
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+            .matches
+            ? "auto"
+            : "smooth",
         });
       };
     }
   }
 
   initFooter();
-  document.addEventListener('astro:page-load', initFooter);
+  document.addEventListener("astro:page-load", initFooter);
 </script>

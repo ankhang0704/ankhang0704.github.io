@@ -1,51 +1,55 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../ui/Header.astro';
-import Footer from '../ui/Footer.astro';
-import GridPattern from '../ui/GridPattern.astro';
-import SpotlightCard from '../interactive/SpotlightCard.astro';
-import MagneticButton from '../interactive/MagneticButton.astro';
-import RevealOnScroll from '../interactive/RevealOnScroll.astro';
-import { getDictionary } from '../../i18n/utils';
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../ui/Header.astro";
+import Footer from "../ui/Footer.astro";
+import GridPattern from "../ui/GridPattern.astro";
+import SpotlightCard from "../interactive/SpotlightCard.astro";
+import MagneticButton from "../interactive/MagneticButton.astro";
+import RevealOnScroll from "../interactive/RevealOnScroll.astro";
+import { getDictionary } from "../../i18n/utils";
 
 interface Props {
-  lang: 'en' | 'vi';
+  lang: "en" | "vi";
 }
 
 const { lang } = Astro.props;
-const isVi = lang === 'vi';
+const isVi = lang === "vi";
 const dict = getDictionary(lang);
 
 // Query all projects for this language
-const allProjects = await getCollection('projects');
+const allProjects = await getCollection("projects");
 const projects = allProjects
   .filter((p) => p.id.startsWith(`${lang}/`))
   .sort((a, b) => a.data.code.localeCompare(b.data.code));
 
-const pageTitle = isVi
-  ? 'Dự án | An Khang'
-  : 'Projects | An Khang';
+const pageTitle = isVi ? "Dự án | An Khang" : "Projects | An Khang";
 
 const pageDesc = isVi
-  ? 'Danh mục các dự án hoàn thiện, mã nguồn mở và công cụ của An Khang.'
-  : 'Directory of software engineering projects, open source tools, and mobile applications by An Khang.';
+  ? "Danh mục các dự án hoàn thiện, mã nguồn mở và công cụ của An Khang."
+  : "Directory of software engineering projects, open source tools, and mobile applications by An Khang.";
 
-const currentPath = isVi ? '/vi/projects/' : '/projects/';
+const currentPath = isVi ? "/vi/projects/" : "/projects/";
 
 const categories = [
-  { key: 'all', label: isVi ? 'Tất cả' : 'All Works' },
-  { key: 'mobile', label: isVi ? 'Di động (Flutter)' : 'Mobile & Flutter' },
-  { key: 'backend', label: isVi ? 'Hệ thống (Django / AI)' : 'Backend & AI' },
-  { key: 'tools', label: isVi ? 'Công cụ & Mã nguồn mở' : 'Tools & Open Source' },
-  { key: 'web', label: isVi ? 'Web & Khách hàng' : 'Web & Client' },
+  { key: "all", label: isVi ? "Tất cả" : "All Works" },
+  { key: "mobile", label: isVi ? "Di động (Flutter)" : "Mobile & Flutter" },
+  { key: "backend", label: isVi ? "Hệ thống (Django / AI)" : "Backend & AI" },
+  {
+    key: "tools",
+    label: isVi ? "Công cụ & Mã nguồn mở" : "Tools & Open Source",
+  },
+  { key: "web", label: isVi ? "Web & Khách hàng" : "Web & Client" },
 ];
 ---
 
 <BaseLayout title={pageTitle} description={pageDesc} lang={lang}>
   <Header lang={lang} currentPath={currentPath} />
 
-  <main id="main-content" class="min-h-screen pt-32 pb-24 relative overflow-x-hidden bg-bgLight dark:bg-bgDark text-black dark:text-white">
+  <main
+    id="main-content"
+    class="min-h-screen pt-32 pb-24 relative overflow-x-hidden bg-bgLight dark:bg-bgDark text-black dark:text-white"
+  >
     <GridPattern />
 
     <div class="container mx-auto px-6 md:px-8 relative z-10">
@@ -75,15 +79,18 @@ const categories = [
         >
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <!-- Category Filter Buttons -->
-            <div class="flex flex-wrap items-center gap-2" id="category-filter-group">
+            <div
+              class="flex flex-wrap items-center gap-2"
+              id="category-filter-group"
+            >
               {categories.map((cat) => (
                 <button
                   type="button"
                   data-filter-btn={cat.key}
                   class={`category-btn px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border ${
-                    cat.key === 'all'
-                      ? 'border-black bg-black text-white dark:border-white dark:bg-white dark:text-black'
-                      : 'border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white'
+                    cat.key === "all"
+                      ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black"
+                      : "border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white"
                   }`}
                 >
                   {cat.label}
@@ -96,7 +103,11 @@ const categories = [
               <input
                 type="text"
                 id="directory-search"
-                placeholder={isVi ? "Tìm theo tên, công nghệ..." : "Search projects, stack..."}
+                placeholder={
+                  isVi
+                    ? "Tìm theo tên, công nghệ..."
+                    : "Search projects, stack..."
+                }
                 aria-label={isVi ? "Tìm kiếm dự án" : "Search projects"}
                 class="w-full bg-bgLight dark:bg-bgDark border border-black/20 dark:border-white/20 px-4 py-2 text-sm font-mono placeholder:opacity-40 focus:outline-none focus:border-black dark:focus:border-white"
               />
@@ -106,10 +117,14 @@ const categories = [
           <!-- Result Stats Bar -->
           <div class="flex items-center justify-between text-xs font-mono opacity-60 pt-2 border-t border-black/5 dark:border-white/5">
             <span id="directory-count">
-              {isVi ? `Hiển thị ${projects.length} / ${projects.length} dự án` : `Showing ${projects.length} of ${projects.length} projects`}
+              {isVi
+                ? `Hiển thị ${projects.length} / ${projects.length} dự án`
+                : `Showing ${projects.length} of ${projects.length} projects`}
             </span>
             <span class="hidden sm:inline">
-              {isVi ? 'Phân loại theo tiêu chuẩn kỹ thuật' : 'Classified by engineering specification'}
+              {isVi
+                ? "Phân loại theo tiêu chuẩn kỹ thuật"
+                : "Classified by engineering specification"}
             </span>
           </div>
         </section>
@@ -118,10 +133,15 @@ const categories = [
       <!-- Projects Grid -->
       <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {projects.map((project) => {
-          const hasCaseStudy = project.data.canonicalPath !== '/projects/';
-          const caseStudyUrl = isVi ? `/vi${project.data.canonicalPath}` : project.data.canonicalPath;
-          const cardTargetHref = hasCaseStudy ? caseStudyUrl : project.data.externalHref;
-          const searchData = `${project.data.code} ${project.data.title} ${project.data.summary} ${project.data.techStack.join(' ')} ${project.data.specs.join(' ')}`.toLowerCase();
+          const hasCaseStudy = project.data.canonicalPath !== "/projects/";
+          const caseStudyUrl = isVi
+            ? `/vi${project.data.canonicalPath}`
+            : project.data.canonicalPath;
+          const cardTargetHref = hasCaseStudy
+            ? caseStudyUrl
+            : project.data.externalHref;
+          const searchData =
+            `${project.data.code} ${project.data.title} ${project.data.summary} ${project.data.techStack.join(" ")} ${project.data.specs.join(" ")}`.toLowerCase();
 
           return (
             <div
@@ -139,9 +159,13 @@ const categories = [
                   <div class="flex items-center justify-between px-5 py-3 border-b border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark text-xs font-mono">
                     <div class="flex items-center gap-2.5">
                       <span class="w-1.5 h-1.5 bg-black dark:bg-white inline-block"></span>
-                      <span class="font-bold tracking-wider">{project.data.code}</span>
+                      <span class="font-bold tracking-wider">
+                        {project.data.code}
+                      </span>
                       <span class="opacity-50">/</span>
-                      <span class="uppercase opacity-60">{project.data.category}</span>
+                      <span class="uppercase opacity-60">
+                        {project.data.category}
+                      </span>
                     </div>
                     <div class="flex items-center gap-3">
                       <span class="text-[10px] uppercase tracking-wider px-2 py-0.5 border border-black/15 dark:border-white/15 opacity-75">
@@ -247,7 +271,10 @@ const categories = [
                         rel="noopener noreferrer"
                         class="border border-black dark:border-white px-5 py-2.5 text-xs font-bold uppercase tracking-widest font-mono hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 inline-flex items-center gap-2 group"
                       >
-                        <span>{project.data.externalLabel || (isVi ? 'Xem mã nguồn ↗' : 'View Source ↗')}</span>
+                        <span>
+                          {project.data.externalLabel ||
+                            (isVi ? "Xem mã nguồn ↗" : "View Source ↗")}
+                        </span>
                       </a>
                     </MagneticButton>
                   )}
@@ -262,7 +289,8 @@ const categories = [
                             rel="noopener noreferrer"
                             class="text-xs font-mono opacity-75 hover:opacity-100 hover:underline uppercase tracking-wider inline-block py-1"
                           >
-                            {project.data.externalLabel || (isVi ? 'Liên kết ↗' : 'Link ↗')}
+                            {project.data.externalLabel ||
+                              (isVi ? "Liên kết ↗" : "Link ↗")}
                           </a>
                         </MagneticButton>
                       )}
@@ -294,10 +322,12 @@ const categories = [
         class="hidden text-center py-24 border border-dashed border-black/20 dark:border-white/20 bg-cardLight dark:bg-cardDark p-8"
       >
         <p class="font-display text-2xl font-bold mb-2">
-          {isVi ? 'Không tìm thấy dự án phù hợp' : 'No projects found'}
+          {isVi ? "Không tìm thấy dự án phù hợp" : "No projects found"}
         </p>
         <p class="text-sm font-mono opacity-60 mb-6">
-          {isVi ? 'Vui lòng thử lại với từ khóa hoặc danh mục khác.' : 'Try adjusting your search query or category filter.'}
+          {isVi
+            ? "Vui lòng thử lại với từ khóa hoặc danh mục khác."
+            : "Try adjusting your search query or category filter."}
         </p>
         <MagneticButton>
           <button
@@ -305,7 +335,7 @@ const categories = [
             id="reset-directory-filters"
             class="border border-black dark:border-white px-6 py-2.5 text-xs font-mono uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
           >
-            {isVi ? 'Đặt lại bộ lọc' : 'Reset filters'}
+            {isVi ? "Đặt lại bộ lọc" : "Reset filters"}
           </button>
         </MagneticButton>
       </div>
@@ -317,29 +347,29 @@ const categories = [
 
 <script is:inline define:vars={{ isVi, totalCount: projects.length }}>
   function setupDirectory() {
-    let currentCategory = 'all';
-    let currentQuery = '';
+    let currentCategory = "all";
+    let currentQuery = "";
 
-    const filterButtons = document.querySelectorAll('[data-filter-btn]');
-    const searchInput = document.getElementById('directory-search');
-    const cards = document.querySelectorAll('[data-project-card]');
-    const countDisplay = document.getElementById('directory-count');
-    const emptyState = document.getElementById('directory-empty');
-    const resetButton = document.getElementById('reset-directory-filters');
+    const filterButtons = document.querySelectorAll("[data-filter-btn]");
+    const searchInput = document.getElementById("directory-search");
+    const cards = document.querySelectorAll("[data-project-card]");
+    const countDisplay = document.getElementById("directory-count");
+    const emptyState = document.getElementById("directory-empty");
+    const resetButton = document.getElementById("reset-directory-filters");
 
     function applyFilters() {
       let visible = 0;
       cards.forEach((card) => {
-        const cat = card.getAttribute('data-category');
-        const search = card.getAttribute('data-search') || '';
-        const matchCat = currentCategory === 'all' || cat === currentCategory;
+        const cat = card.getAttribute("data-category");
+        const search = card.getAttribute("data-search") || "";
+        const matchCat = currentCategory === "all" || cat === currentCategory;
         const matchSearch = !currentQuery || search.includes(currentQuery);
 
         if (matchCat && matchSearch) {
-          card.classList.remove('hidden');
+          card.classList.remove("hidden");
           visible++;
         } else {
-          card.classList.add('hidden');
+          card.classList.add("hidden");
         }
       });
 
@@ -351,36 +381,38 @@ const categories = [
 
       if (emptyState) {
         if (visible === 0) {
-          emptyState.classList.remove('hidden');
+          emptyState.classList.remove("hidden");
         } else {
-          emptyState.classList.add('hidden');
+          emptyState.classList.add("hidden");
         }
       }
     }
 
     filterButtons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        currentCategory = btn.getAttribute('data-filter-btn') || 'all';
+      btn.addEventListener("click", () => {
+        currentCategory = btn.getAttribute("data-filter-btn") || "all";
         filterButtons.forEach((b) => {
-          b.className = 'category-btn px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white';
+          b.className =
+            "category-btn px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white";
         });
-        btn.className = 'category-btn px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border border-black bg-black text-white dark:border-white dark:bg-white dark:text-black';
+        btn.className =
+          "category-btn px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border border-black bg-black text-white dark:border-white dark:bg-white dark:text-black";
         applyFilters();
       });
     });
 
     if (searchInput) {
-      searchInput.addEventListener('input', (e) => {
-        currentQuery = (e.target.value || '').toLowerCase().trim();
+      searchInput.addEventListener("input", (e) => {
+        currentQuery = (e.target.value || "").toLowerCase().trim();
         applyFilters();
       });
     }
 
     if (resetButton) {
-      resetButton.addEventListener('click', () => {
-        currentCategory = 'all';
-        currentQuery = '';
-        if (searchInput) searchInput.value = '';
+      resetButton.addEventListener("click", () => {
+        currentCategory = "all";
+        currentQuery = "";
+        if (searchInput) searchInput.value = "";
         const allBtn = document.querySelector('[data-filter-btn="all"]');
         if (allBtn) allBtn.click();
       });
@@ -389,5 +421,5 @@ const categories = [
 
   // Support both direct initial load and Astro View Transitions
   setupDirectory();
-  document.addEventListener('astro:page-load', setupDirectory);
+  document.addEventListener("astro:page-load", setupDirectory);
 </script>

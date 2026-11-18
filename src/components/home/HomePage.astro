@@ -1,41 +1,41 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../ui/Header.astro';
-import Footer from '../ui/Footer.astro';
-import TechMarquee from '../ui/TechMarquee.astro';
-import ExperienceTimeline from '../ui/ExperienceTimeline.astro';
-import GridPattern from '../ui/GridPattern.astro';
-import CountUp from '../interactive/CountUp.astro';
-import DecryptedText from '../interactive/DecryptedText.astro';
-import SpotlightCard from '../interactive/SpotlightCard.astro';
-import MagneticButton from '../interactive/MagneticButton.astro';
-import RevealOnScroll from '../interactive/RevealOnScroll.astro';
-import { getDictionary } from '../../i18n/utils';
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../ui/Header.astro";
+import Footer from "../ui/Footer.astro";
+import TechMarquee from "../ui/TechMarquee.astro";
+import ExperienceTimeline from "../ui/ExperienceTimeline.astro";
+import GridPattern from "../ui/GridPattern.astro";
+import CountUp from "../interactive/CountUp.astro";
+import DecryptedText from "../interactive/DecryptedText.astro";
+import SpotlightCard from "../interactive/SpotlightCard.astro";
+import MagneticButton from "../interactive/MagneticButton.astro";
+import RevealOnScroll from "../interactive/RevealOnScroll.astro";
+import { getDictionary } from "../../i18n/utils";
 
 interface Props {
-  lang: 'en' | 'vi';
+  lang: "en" | "vi";
 }
 
 const { lang } = Astro.props;
-const isVi = lang === 'vi';
+const isVi = lang === "vi";
 const dict = getDictionary(lang);
 
 // Query featured projects for this language
-const allProjects = await getCollection('projects');
+const allProjects = await getCollection("projects");
 const featuredProjects = allProjects
   .filter((p) => p.id.startsWith(`${lang}/`) && p.data.featured)
   .sort((a, b) => a.data.code.localeCompare(b.data.code));
 
 const pageTitle = isVi
-  ? 'An Khang | Lập trình viên'
-  : 'An Khang | Software Developer';
+  ? "An Khang | Lập trình viên"
+  : "An Khang | Software Developer";
 
 const pageDesc = isVi
-  ? 'An Khang — Lập trình viên phát triển web, mobile và tự động hóa với kinh nghiệm thực tế về IT support.'
-  : 'An Khang — Software Developer building web, mobile, and automation tools with hands-on IT support experience.';
+  ? "An Khang — Lập trình viên phát triển web, mobile và tự động hóa với kinh nghiệm thực tế về IT support."
+  : "An Khang — Software Developer building web, mobile, and automation tools with hands-on IT support experience.";
 
-const currentPath = isVi ? '/vi/' : '/';
+const currentPath = isVi ? "/vi/" : "/";
 ---
 
 <BaseLayout title={pageTitle} description={pageDesc} lang={lang}>
@@ -43,19 +43,34 @@ const currentPath = isVi ? '/vi/' : '/';
 
   <main id="main-content" class="min-h-screen">
     <!-- Hero Section -->
-    <section id="hero" class="min-h-[100dvh] flex items-center relative overflow-x-hidden pt-20">
+    <section
+      id="hero"
+      class="min-h-[100dvh] flex items-center relative overflow-x-hidden pt-20"
+    >
       <GridPattern />
       <div class="container mx-auto px-6 md:px-8 relative z-10">
         <h1 class="font-display text-5xl md:text-8xl font-bold leading-[1.1] mb-6 text-black dark:text-white">
           <span class="block overflow-hidden pb-2">
             <span class="hero-title-line block">
-              <DecryptedText text="Software" speed={35} maxIterations={12} animateOn="mount" />
+              <DecryptedText
+                text="Software"
+                speed={35}
+                maxIterations={12}
+                animateOn="mount"
+              />
             </span>
           </span>
           <span class="block overflow-hidden pb-2">
             <span class="hero-title-line block">
-              <DecryptedText text="Developer" speed={35} maxIterations={12} animateOn="mount" />
-              <span class="font-light text-4xl sm:text-5xl md:text-7xl ml-3 tracking-tight opacity-80 inline-block">· An Khang</span>
+              <DecryptedText
+                text="Developer"
+                speed={35}
+                maxIterations={12}
+                animateOn="mount"
+              />
+              <span class="font-light text-4xl sm:text-5xl md:text-7xl ml-3 tracking-tight opacity-80 inline-block">
+                · An Khang
+              </span>
             </span>
           </span>
         </h1>
@@ -70,7 +85,19 @@ const currentPath = isVi ? '/vi/' : '/';
               class="hero-cta-btn border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 inline-flex items-center justify-center w-full sm:w-auto group/btn1 text-black dark:text-white font-mono"
             >
               <span>{dict.hero.viewProjects}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-3 transition-transform duration-300 group-hover/btn1:translate-x-2" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="ml-3 transition-transform duration-300 group-hover/btn1:translate-x-2"
+                aria-hidden="true"
+              >
                 <path d="M5 12h14"></path>
                 <path d="m12 5 7 7-7 7"></path>
               </svg>
@@ -87,7 +114,10 @@ const currentPath = isVi ? '/vi/' : '/';
     <section class="border-b border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark py-12 text-black dark:text-white">
       <div class="container mx-auto px-6 md:px-8">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <RevealOnScroll delay={50} class="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6">
+          <RevealOnScroll
+            delay={50}
+            class="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6"
+          >
             <div class="text-3xl sm:text-4xl md:text-5xl font-bold font-mono tracking-tight text-black dark:text-white">
               <CountUp to={4} duration={1.5} />
             </div>
@@ -95,7 +125,10 @@ const currentPath = isVi ? '/vi/' : '/';
               {isVi ? "Năm học Đại học" : "Years of Study"}
             </div>
           </RevealOnScroll>
-          <RevealOnScroll delay={120} class="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6">
+          <RevealOnScroll
+            delay={120}
+            class="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6"
+          >
             <div class="text-3xl sm:text-4xl md:text-5xl font-bold font-mono tracking-tight text-black dark:text-white">
               <CountUp to={2} duration={1.5} suffix="+" />
             </div>
@@ -103,7 +136,10 @@ const currentPath = isVi ? '/vi/' : '/';
               {isVi ? "Dự án hoàn thiện" : "Shipped Projects"}
             </div>
           </RevealOnScroll>
-          <RevealOnScroll delay={190} class="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6">
+          <RevealOnScroll
+            delay={190}
+            class="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6"
+          >
             <div class="text-3xl sm:text-4xl md:text-5xl font-bold font-mono tracking-tight text-black dark:text-white">
               <CountUp to={5} duration={1.8} suffix="+" />
             </div>
@@ -111,7 +147,10 @@ const currentPath = isVi ? '/vi/' : '/';
               {isVi ? "Công nghệ thành thạo" : "Core Technologies"}
             </div>
           </RevealOnScroll>
-          <RevealOnScroll delay={260} class="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6">
+          <RevealOnScroll
+            delay={260}
+            class="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6"
+          >
             <div class="text-3xl sm:text-4xl md:text-5xl font-bold font-mono tracking-tight text-black dark:text-white">
               <CountUp to={2} duration={1.5} />
             </div>
@@ -124,10 +163,15 @@ const currentPath = isVi ? '/vi/' : '/';
     </section>
 
     <!-- About / Summary Section -->
-    <section id="about" class="scroll-mt-24 py-32 md:py-40 bg-cardLight dark:bg-cardDark border-y border-black/5 dark:border-white/5 relative overflow-x-hidden text-black dark:text-white">
+    <section
+      id="about"
+      class="scroll-mt-24 py-32 md:py-40 bg-cardLight dark:bg-cardDark border-y border-black/5 dark:border-white/5 relative overflow-x-hidden text-black dark:text-white"
+    >
       <div class="container mx-auto px-6 md:px-8 relative z-10">
         <RevealOnScroll direction="up" delay={50} class="max-w-3xl mb-12">
-          <h2 class="font-display text-4xl md:text-6xl font-bold">{dict.about.title}</h2>
+          <h2 class="font-display text-4xl md:text-6xl font-bold">
+            {dict.about.title}
+          </h2>
         </RevealOnScroll>
         <RevealOnScroll direction="up" delay={120}>
           <div class="summary-container grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
@@ -136,22 +180,36 @@ const currentPath = isVi ? '/vi/' : '/';
                 <div class="flex items-start gap-3.5">
                   <span class="w-2 h-2 bg-black dark:bg-white mt-2 flex-shrink-0" />
                   <div>
-                    <span class="text-base sm:text-lg font-bold block leading-snug">{dict.about.hospital}</span>
-                    <span class="opacity-80 text-xs sm:text-sm block mt-0.5">{dict.about.hospitalRole}</span>
+                    <span class="text-base sm:text-lg font-bold block leading-snug">
+                      {dict.about.hospital}
+                    </span>
+                    <span class="opacity-80 text-xs sm:text-sm block mt-0.5">
+                      {dict.about.hospitalRole}
+                    </span>
                   </div>
                 </div>
                 <div class="flex items-start gap-3.5">
                   <span class="w-2 h-2 bg-black dark:bg-white mt-2 flex-shrink-0" />
                   <div>
-                    <span class="text-base sm:text-lg font-bold block leading-snug">{dict.about.degree}</span>
-                    {dict.about.degreeRole && <span class="opacity-80 text-xs sm:text-sm block mt-0.5">{dict.about.degreeRole}</span>}
+                    <span class="text-base sm:text-lg font-bold block leading-snug">
+                      {dict.about.degree}
+                    </span>
+                    {dict.about.degreeRole && (
+                      <span class="opacity-80 text-xs sm:text-sm block mt-0.5">
+                        {dict.about.degreeRole}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div class="flex items-start gap-3.5">
                   <span class="w-2 h-2 bg-black dark:bg-white mt-2 flex-shrink-0" />
                   <div>
-                    <span class="text-base sm:text-lg font-bold block leading-snug">{dict.about.fm}</span>
-                    <span class="opacity-80 text-xs sm:text-sm block mt-0.5">{dict.about.fmRole}</span>
+                    <span class="text-base sm:text-lg font-bold block leading-snug">
+                      {dict.about.fm}
+                    </span>
+                    <span class="opacity-80 text-xs sm:text-sm block mt-0.5">
+                      {dict.about.fmRole}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -181,39 +239,65 @@ const currentPath = isVi ? '/vi/' : '/';
     </section>
 
     <!-- Projects Section (Exact Bento Grid - Flat Architectural Aesthetic) -->
-    <section id="projects" data-nav-section="projects" class="relative overflow-x-hidden border-y border-black/5 bg-cardLight py-32 dark:border-white/5 dark:bg-cardDark md:py-40 text-black dark:text-white">
+    <section
+      id="projects"
+      data-nav-section="projects"
+      class="relative overflow-x-hidden border-y border-black/5 bg-cardLight py-32 dark:border-white/5 dark:bg-cardDark md:py-40 text-black dark:text-white"
+    >
       <div class="container mx-auto px-6 md:px-8">
         <RevealOnScroll class="mb-12 max-w-3xl md:mb-20">
-          <h2 class="font-display text-4xl font-bold md:text-6xl">{dict.projects.title}</h2>
+          <h2 class="font-display text-4xl font-bold md:text-6xl">
+            {dict.projects.title}
+          </h2>
         </RevealOnScroll>
 
         <div class="grid grid-cols-1 gap-4 md:grid-cols-12">
           {featuredProjects.map((project, index) => {
-            const width = featuredProjects.length === 3
-              ? index === 0 ? "md:col-span-7" : index === 1 ? "md:col-span-5" : "md:col-span-12"
-              : index === 0 ? "md:col-span-7" : index === 1 ? "md:col-span-5" : "md:col-span-4";
-            const caseStudyUrl = isVi ? `/vi${project.data.canonicalPath}` : project.data.canonicalPath;
+            const width =
+              featuredProjects.length === 3
+                ? index === 0
+                  ? "md:col-span-7"
+                  : index === 1
+                    ? "md:col-span-5"
+                    : "md:col-span-12"
+                : index === 0
+                  ? "md:col-span-7"
+                  : index === 1
+                    ? "md:col-span-5"
+                    : "md:col-span-4";
+            const caseStudyUrl = isVi
+              ? `/vi${project.data.canonicalPath}`
+              : project.data.canonicalPath;
             const statusLabel = project.data.status;
             const isWide = index === 2 && featuredProjects.length === 3;
 
             return (
               <RevealOnScroll class={width} delay={index * 100}>
                 <SpotlightCard class="h-full group border border-black/10 bg-cardLight dark:border-white/10 dark:bg-cardDark scroll-mt-24 flex flex-col justify-between hover:border-black dark:hover:border-white transition-colors duration-300">
-                  <article id={project.data.code.toLowerCase()} class="flex flex-col h-full justify-between">
+                  <article
+                    id={project.data.code.toLowerCase()}
+                    class="flex flex-col h-full justify-between"
+                  >
                     <div>
                       <!-- Precision Engineering Viewport Header & Image -->
                       <div class="relative overflow-hidden border-b border-black/10 dark:border-white/10 flex flex-col">
                         <div class="flex items-center justify-between px-3.5 py-2 border-b border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark z-10 text-[10px] font-mono uppercase tracking-wider">
                           <div class="flex items-center gap-2">
                             <span class="w-1.5 h-1.5 bg-black dark:bg-white inline-block" />
-                            <span class="opacity-90 font-bold">{project.data.code}</span>
+                            <span class="opacity-90 font-bold">
+                              {project.data.code}
+                            </span>
                           </div>
                           {statusLabel && (
-                            <span class="opacity-75 tracking-widest">{statusLabel}</span>
+                            <span class="opacity-75 tracking-widest">
+                              {statusLabel}
+                            </span>
                           )}
                         </div>
 
-                        <div class={`relative w-full overflow-hidden ${isWide ? "aspect-[16/10] md:aspect-[2.4/1]" : "aspect-[16/10]"}`}>
+                        <div
+                          class={`relative w-full overflow-hidden ${isWide ? "aspect-[16/10] md:aspect-[2.4/1]" : "aspect-[16/10]"}`}
+                        >
                           {project.data.image ? (
                             <img
                               src={project.data.image}
@@ -223,54 +307,101 @@ const currentPath = isVi ? '/vi/' : '/';
                             />
                           ) : (
                             <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 font-mono text-xs uppercase tracking-[0.25em] opacity-60">
-                              <span class="text-3xl font-mono font-bold tracking-tight opacity-75">{project.data.code}</span>
+                              <span class="text-3xl font-mono font-bold tracking-tight opacity-75">
+                                {project.data.code}
+                              </span>
                               <span>Documented Repository</span>
                             </div>
                           )}
 
-                          {project.data.specs && project.data.specs.length > 0 && (
-                            <div class="absolute bottom-2.5 left-2.5 right-2.5 flex flex-wrap gap-1.5 z-10 pointer-events-none">
-                              {project.data.specs.map((spec) => (
-                                <span class="bg-black/80 dark:bg-white/90 text-white dark:text-black text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 border border-white/20 dark:border-black/20 backdrop-blur-sm font-semibold">
-                                  {spec}
-                                </span>
-                              ))}
-                            </div>
-                          )}
+                          {project.data.specs &&
+                            project.data.specs.length > 0 && (
+                              <div class="absolute bottom-2.5 left-2.5 right-2.5 flex flex-wrap gap-1.5 z-10 pointer-events-none">
+                                {project.data.specs.map((spec) => (
+                                  <span class="bg-black/80 dark:bg-white/90 text-white dark:text-black text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 border border-white/20 dark:border-black/20 backdrop-blur-sm font-semibold">
+                                    {spec}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
                         </div>
                       </div>
 
                       <div class="p-5 md:p-6 flex flex-col">
                         <div class="flex items-start justify-between gap-5">
                           <div>
-                            <span class="font-mono text-xs uppercase tracking-widest opacity-60">{project.data.code} / {project.data.category}</span>
-                            <h3 class="mt-2 font-display text-2xl font-bold md:text-3xl">{project.data.title}</h3>
+                            <span class="font-mono text-xs uppercase tracking-widest opacity-60">
+                              {project.data.code} / {project.data.category}
+                            </span>
+                            <h3 class="mt-2 font-display text-2xl font-bold md:text-3xl">
+                              {project.data.title}
+                            </h3>
                           </div>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 transition-transform duration-200 group-hover:translate-x-1 flex-shrink-0 mt-2" aria-hidden="true">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="opacity-50 transition-transform duration-200 group-hover:translate-x-1 flex-shrink-0 mt-2"
+                            aria-hidden="true"
+                          >
                             <path d="M5 12h14"></path>
                             <path d="m12 5 7 7-7 7"></path>
                           </svg>
                         </div>
-                        <p class="mt-4 max-w-[65ch] text-base font-light leading-relaxed opacity-80">{project.data.summary}</p>
+                        <p class="mt-4 max-w-[65ch] text-base font-light leading-relaxed opacity-80">
+                          {project.data.summary}
+                        </p>
                       </div>
                     </div>
 
                     <div class="p-5 md:p-6 pt-0 flex flex-wrap gap-3">
-                      <a href={caseStudyUrl} class="inline-flex items-center gap-3 border border-black px-5 py-3 text-xs font-bold uppercase tracking-widest transition-all hover:bg-black hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-black font-mono">
+                      <a
+                        href={caseStudyUrl}
+                        class="inline-flex items-center gap-3 border border-black px-5 py-3 text-xs font-bold uppercase tracking-widest transition-all hover:bg-black hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-black font-mono"
+                      >
                         {dict.projects.viewCaseStudy}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                        >
                           <path d="M5 12h14"></path>
                           <path d="m12 5 7 7-7 7"></path>
                         </svg>
                       </a>
                       {project.data.externalHref && (
-                        <a href={project.data.externalHref} target="_blank" rel="noopener noreferrer" class="inline-flex items-center border border-black/30 px-5 py-3 text-xs font-bold uppercase tracking-widest transition-all hover:border-black dark:border-white/30 dark:hover:border-white font-mono">
-                          {project.data.externalLabel || dict.projects.viewSource}
+                        <a
+                          href={project.data.externalHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="inline-flex items-center border border-black/30 px-5 py-3 text-xs font-bold uppercase tracking-widest transition-all hover:border-black dark:border-white/30 dark:hover:border-white font-mono"
+                        >
+                          {project.data.externalLabel ||
+                            dict.projects.viewSource}
                         </a>
                       )}
                       {project.data.secondaryExternalHref && (
-                        <a href={project.data.secondaryExternalHref} target="_blank" rel="noopener noreferrer" class="inline-flex items-center border border-black/20 px-5 py-3 text-xs font-bold uppercase tracking-widest opacity-80 transition-all hover:border-black hover:opacity-100 dark:border-white/20 dark:hover:border-white font-mono">
-                          {project.data.secondaryExternalLabel || dict.projects.viewSource}
+                        <a
+                          href={project.data.secondaryExternalHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="inline-flex items-center border border-black/20 px-5 py-3 text-xs font-bold uppercase tracking-widest opacity-80 transition-all hover:border-black hover:opacity-100 dark:border-white/20 dark:hover:border-white font-mono"
+                        >
+                          {project.data.secondaryExternalLabel ||
+                            dict.projects.viewSource}
                         </a>
                       )}
                     </div>
@@ -284,10 +415,15 @@ const currentPath = isVi ? '/vi/' : '/';
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="scroll-mt-24 py-32 md:py-40 overflow-x-hidden relative text-black dark:text-white">
+    <section
+      id="skills"
+      class="scroll-mt-24 py-32 md:py-40 overflow-x-hidden relative text-black dark:text-white"
+    >
       <div class="container mx-auto px-6 md:px-8">
         <RevealOnScroll direction="up" delay={50} class="max-w-3xl mb-16">
-          <h2 class="font-display text-4xl md:text-6xl font-bold">{dict.skills.title}</h2>
+          <h2 class="font-display text-4xl md:text-6xl font-bold">
+            {dict.skills.title}
+          </h2>
         </RevealOnScroll>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl">
@@ -296,15 +432,30 @@ const currentPath = isVi ? '/vi/' : '/';
             <SpotlightCard class="h-full p-8 sm:p-10 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between hover:border-black dark:hover:border-white transition-[border-color] duration-300">
               <div>
                 <div class="flex items-center justify-between mb-6">
-                  <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1.5 opacity-80 font-medium">Primary</span>
+                  <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1.5 opacity-80 font-medium">
+                    Primary
+                  </span>
                 </div>
-                <h3 class="font-display text-3xl sm:text-4xl font-bold mb-4">{dict.skills.devTitle}</h3>
-                <p class="font-light opacity-85 text-lg leading-relaxed mb-8">{dict.skills.devDesc}</p>
+                <h3 class="font-display text-3xl sm:text-4xl font-bold mb-4">
+                  {dict.skills.devTitle}
+                </h3>
+                <p class="font-light opacity-85 text-lg leading-relaxed mb-8">
+                  {dict.skills.devDesc}
+                </p>
               </div>
               <div class="pt-6 border-t border-black/5 dark:border-white/5">
-                <div class="text-xs font-mono uppercase tracking-widest opacity-60 mb-3.5 font-bold">{dict.skills.stackLabel}</div>
+                <div class="text-xs font-mono uppercase tracking-widest opacity-60 mb-3.5 font-bold">
+                  {dict.skills.stackLabel}
+                </div>
                 <div class="flex flex-wrap gap-2.5">
-                  {['Django', 'Flutter', 'Python', 'Dart', 'WordPress', 'JavaScript'].map((tech) => (
+                  {[
+                    "Django",
+                    "Flutter",
+                    "Python",
+                    "Dart",
+                    "WordPress",
+                    "JavaScript",
+                  ].map((tech) => (
                     <span class="border border-black/15 dark:border-white/15 px-3 py-1.5 text-xs font-mono uppercase tracking-wider opacity-80 bg-bgLight dark:bg-bgDark">
                       {tech}
                     </span>
@@ -319,17 +470,30 @@ const currentPath = isVi ? '/vi/' : '/';
             <SpotlightCard class="h-full p-8 sm:p-10 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between hover:border-black dark:hover:border-white transition-[border-color] duration-300">
               <div>
                 <div class="flex items-center justify-between mb-6">
-                  <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1.5 opacity-80 font-medium">Practical</span>
+                  <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1.5 opacity-80 font-medium">
+                    Practical
+                  </span>
                 </div>
-                <h3 class="font-display text-3xl sm:text-4xl font-bold mb-4">{dict.skills.cloudTitle}</h3>
-                <p class="font-light opacity-85 text-lg leading-relaxed mb-8">{dict.skills.cloudDesc}</p>
+                <h3 class="font-display text-3xl sm:text-4xl font-bold mb-4">
+                  {dict.skills.cloudTitle}
+                </h3>
+                <p class="font-light opacity-85 text-lg leading-relaxed mb-8">
+                  {dict.skills.cloudDesc}
+                </p>
               </div>
               <div class="pt-6 border-t border-black/5 dark:border-white/5">
                 <div class="text-xs font-mono uppercase tracking-widest opacity-60 mb-3.5 font-bold">
                   {isVi ? "Dữ liệu & tự động hóa" : "Data & automation"}
                 </div>
                 <div class="flex flex-wrap gap-2.5">
-                  {['Firebase', 'Hive', 'Cloudflare Workers', 'FAISS', 'HuggingFace', 'Git'].map((tech) => (
+                  {[
+                    "Firebase",
+                    "Hive",
+                    "Cloudflare Workers",
+                    "FAISS",
+                    "HuggingFace",
+                    "Git",
+                  ].map((tech) => (
                     <span class="border border-black/15 dark:border-white/15 px-3 py-1.5 text-xs font-mono uppercase tracking-wider opacity-80 bg-bgLight dark:bg-bgDark">
                       {tech}
                     </span>
@@ -344,17 +508,29 @@ const currentPath = isVi ? '/vi/' : '/';
             <SpotlightCard class="h-full p-8 sm:p-10 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between hover:border-black dark:hover:border-white transition-[border-color] duration-300">
               <div>
                 <div class="flex items-center justify-between mb-6">
-                  <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1.5 opacity-80 font-medium">{dict.skills.supportLabel}</span>
+                  <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1.5 opacity-80 font-medium">
+                    {dict.skills.supportLabel}
+                  </span>
                 </div>
-                <h3 class="font-display text-3xl sm:text-4xl font-bold mb-4">{dict.skills.infraTitle}</h3>
-                <p class="font-light opacity-85 text-lg leading-relaxed mb-8">{dict.skills.infraDesc}</p>
+                <h3 class="font-display text-3xl sm:text-4xl font-bold mb-4">
+                  {dict.skills.infraTitle}
+                </h3>
+                <p class="font-light opacity-85 text-lg leading-relaxed mb-8">
+                  {dict.skills.infraDesc}
+                </p>
               </div>
               <div class="pt-6 border-t border-black/5 dark:border-white/5">
                 <div class="text-xs font-mono uppercase tracking-widest opacity-60 mb-3.5 font-bold">
                   {isVi ? "Vận hành & Hỗ trợ" : "Operations & Support"}
                 </div>
                 <div class="flex flex-wrap gap-2.5">
-                  {['IT Helpdesk', 'Hardware Support', 'Network Troubleshooting', 'User Support', 'Documentation'].map((tech) => (
+                  {[
+                    "IT Helpdesk",
+                    "Hardware Support",
+                    "Network Troubleshooting",
+                    "User Support",
+                    "Documentation",
+                  ].map((tech) => (
                     <span class="border border-black/15 dark:border-white/15 px-3 py-1.5 text-xs font-mono uppercase tracking-wider opacity-80 bg-bgLight dark:bg-bgDark">
                       {tech}
                     </span>
@@ -368,10 +544,15 @@ const currentPath = isVi ? '/vi/' : '/';
     </section>
 
     <!-- Experience Timeline Section -->
-    <section id="experience" class="scroll-mt-24 py-32 md:py-40 relative overflow-x-hidden text-black dark:text-white">
+    <section
+      id="experience"
+      class="scroll-mt-24 py-32 md:py-40 relative overflow-x-hidden text-black dark:text-white"
+    >
       <div class="container mx-auto px-6 md:px-8">
         <RevealOnScroll direction="up" delay={50} class="max-w-3xl mb-20">
-          <h2 class="font-display text-4xl md:text-6xl font-bold">{dict.timeline.title}</h2>
+          <h2 class="font-display text-4xl md:text-6xl font-bold">
+            {dict.timeline.title}
+          </h2>
         </RevealOnScroll>
         <RevealOnScroll direction="up" delay={120}>
           <ExperienceTimeline lang={lang} />
@@ -380,11 +561,19 @@ const currentPath = isVi ? '/vi/' : '/';
     </section>
 
     <!-- All Projects Index Showcase Banner -->
-    <section id="all-projects" data-nav-section="projects-index" class="py-24 md:py-32 bg-cardLight dark:bg-cardDark border-y border-black/5 dark:border-white/5 relative overflow-x-hidden text-black dark:text-white">
+    <section
+      id="all-projects"
+      data-nav-section="projects-index"
+      class="py-24 md:py-32 bg-cardLight dark:bg-cardDark border-y border-black/5 dark:border-white/5 relative overflow-x-hidden text-black dark:text-white"
+    >
       <div class="container mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end">
         <RevealOnScroll class="lg:col-span-7">
-          <h2 class="font-display text-4xl md:text-6xl font-bold mb-6">{dict.allProjects.title}</h2>
-          <p class="font-light text-xl leading-relaxed opacity-85 max-w-2xl">{dict.allProjects.desc}</p>
+          <h2 class="font-display text-4xl md:text-6xl font-bold mb-6">
+            {dict.allProjects.title}
+          </h2>
+          <p class="font-light text-xl leading-relaxed opacity-85 max-w-2xl">
+            {dict.allProjects.desc}
+          </p>
         </RevealOnScroll>
         <div class="lg:col-span-5 lg:border-l lg:border-black/10 dark:lg:border-white/10 lg:pl-10">
           <a
@@ -392,7 +581,18 @@ const currentPath = isVi ? '/vi/' : '/';
             class="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all inline-flex items-center justify-between gap-3 w-full font-mono"
           >
             <span>{dict.allProjects.cta}</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
               <path d="M5 12h14"></path>
               <path d="m12 5 7 7-7 7"></path>
             </svg>

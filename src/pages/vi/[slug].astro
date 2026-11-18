@@ -1,14 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
-import CaseStudyPage from '../../components/case-study/CaseStudyPage.astro';
+import { getCollection } from "astro:content";
+import CaseStudyPage from "../../components/case-study/CaseStudyPage.astro";
 
 export async function getStaticPaths() {
   const projects = await getCollection(
-    'projects',
-    (p) => p.id.startsWith('vi/') && p.data.canonicalPath !== '/projects/'
+    "projects",
+    (p) => p.id.startsWith("vi/") && p.data.canonicalPath !== "/projects/"
   );
   return projects.map((project) => ({
-    params: { slug: project.id.replace(/^vi\//, '') },
+    params: { slug: project.id.replace(/^vi\//, "") },
     props: { project },
   }));
 }
