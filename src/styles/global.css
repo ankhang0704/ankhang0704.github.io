@@ -186,8 +186,7 @@ html.dark {
 }
 
 /* Scroll-linked transform hints */
-.scroll-progress,
-.timeline-line-active {
+.scroll-progress {
   will-change: transform;
   backface-visibility: hidden;
 }

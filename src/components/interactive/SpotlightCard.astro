@@ -1,0 +1,63 @@
+---
+interface Props {
+  class?: string;
+  spotlightColor?: string;
+  size?: number;
+  as?: any;
+  [key: string]: any;
+}
+
+const {
+  class: className = '',
+  spotlightColor = 'rgba(125, 125, 125, 0.12)',
+  size = 450,
+  as: Tag = 'div',
+  ...rest
+} = Astro.props;
+---
+
+<Tag
+  class={`spotlight-card relative overflow-hidden ${className}`}
+  data-spotlight-color={spotlightColor}
+  data-spotlight-size={size}
+  {...rest}
+>
+  <div
+    class="spotlight-card-overlay pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300"
+    aria-hidden="true"
+  ></div>
+  <slot />
+</Tag>
+
+<script>
+  function initSpotlightCards() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const cards = document.querySelectorAll<HTMLElement>('.spotlight-card');
+    cards.forEach((card) => {
+      if (card.dataset.spotlightInitialized === 'true') return;
+      card.dataset.spotlightInitialized = 'true';
+
+      const overlay = card.querySelector<HTMLElement>(':scope > .spotlight-card-overlay');
+      if (!overlay) return;
+
+      const color = card.dataset.spotlightColor || 'rgba(125, 125, 125, 0.12)';
+      const size = parseInt(card.dataset.spotlightSize || '450', 10);
+
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        overlay.style.background = `radial-gradient(${size}px circle at ${x}px ${y}px, ${color}, transparent 70%)`;
+        overlay.style.opacity = '1';
+      });
+
+      card.addEventListener('mouseleave', () => {
+        overlay.style.opacity = '0';
+      });
+    });
+  }
+
+  initSpotlightCards();
+  document.addEventListener('astro:page-load', initSpotlightCards);
+</script>

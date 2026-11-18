@@ -1,0 +1,85 @@
+---
+interface Props {
+  class?: string;
+  delay?: number;
+  duration?: number;
+  threshold?: number;
+  as?: any;
+  [key: string]: any;
+}
+
+const {
+  class: className = '',
+  delay = 0,
+  duration = 700,
+  threshold = 0.1,
+  as: Tag = 'div',
+  ...rest
+} = Astro.props;
+---
+
+<Tag
+  class={`reveal-on-scroll ${className}`}
+  data-reveal-delay={delay}
+  data-reveal-threshold={threshold}
+  style={`--reveal-delay: ${delay}ms; --reveal-duration: ${duration}ms;`}
+  {...rest}
+>
+  <slot />
+</Tag>
+
+<style>
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+    will-change: transform, opacity;
+    transition: opacity var(--reveal-duration, 700ms) cubic-bezier(0.16, 1, 0.3, 1),
+                transform var(--reveal-duration, 700ms) cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal-on-scroll.is-revealed {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-on-scroll {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  function initRevealOnScroll() {
+    const elements = document.querySelectorAll<HTMLElement>('.reveal-on-scroll');
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      elements.forEach((el) => el.classList.add('is-revealed'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    elements.forEach((el) => {
+      if (!el.classList.contains('is-revealed')) {
+        observer.observe(el);
+      }
+    });
+  }
+
+  initRevealOnScroll();
+  document.addEventListener('astro:page-load', initRevealOnScroll);
+</script>

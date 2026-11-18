@@ -7,6 +7,7 @@ interface Props {
   class?: string;
   parentClass?: string;
   animateOn?: 'view' | 'hover';
+  hoverReplay?: boolean;
 }
 
 const {
@@ -17,16 +18,18 @@ const {
   class: className = '',
   parentClass = '',
   animateOn = 'view',
+  hoverReplay = true,
 } = Astro.props;
 ---
 
 <span
-  class={`inline-block select-none decrypted-text-container ${parentClass}`}
+  class={`inline-block select-none decrypted-text-container cursor-default ${parentClass}`}
   data-text={text}
   data-speed={speed}
   data-max-iterations={maxIterations}
   data-characters={characters}
   data-animate-on={animateOn}
+  data-hover-replay={hoverReplay.toString()}
   aria-label={text}
 >
   <span class={`decrypted-text-target ${className}`}>{text}</span>
@@ -39,11 +42,15 @@ const {
     const containers = document.querySelectorAll<HTMLElement>('.decrypted-text-container');
 
     containers.forEach((container) => {
+      if (container.dataset.decryptedInitialized === 'true') return;
+      container.dataset.decryptedInitialized = 'true';
+
       const text = container.dataset.text || '';
       const speed = parseInt(container.dataset.speed || '40', 10);
       const maxIterations = parseInt(container.dataset.maxIterations || '10', 10);
       const characters = container.dataset.characters || '0123456789ABCDEF!@#$%&*+/?~';
       const animateOn = container.dataset.animateOn || 'view';
+      const hoverReplay = container.dataset.hoverReplay !== 'false';
       const target = container.querySelector('.decrypted-text-target');
 
       if (!target || !text) return;
@@ -96,6 +103,10 @@ const {
           { threshold: 0.2 }
         );
         observer.observe(container);
+
+        if (hoverReplay) {
+          container.addEventListener('mouseenter', runScramble);
+        }
       }
     });
   }

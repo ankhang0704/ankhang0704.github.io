@@ -9,6 +9,10 @@ import GridPattern from '../ui/GridPattern.astro';
 import CountUp from '../interactive/CountUp.astro';
 import CopyEmailButton from '../interactive/CopyEmailButton.astro';
 import DecryptedText from '../interactive/DecryptedText.astro';
+import SpotlightCard from '../interactive/SpotlightCard.astro';
+import MagneticButton from '../interactive/MagneticButton.astro';
+import TiltedCard from '../interactive/TiltedCard.astro';
+import RevealOnScroll from '../interactive/RevealOnScroll.astro';
 import { getDictionary } from '../../i18n/utils';
 
 interface Props {
@@ -72,61 +76,67 @@ const currentPath = isVi ? '/vi/' : '/';
             {dict.hero.subtitle}
           </p>
 
-          <!-- CTAs Toolbar -->
+          <!-- CTAs Toolbar with Magnetic Pull -->
           <div class="flex flex-wrap items-center gap-4">
-            <a
-              href="#projects"
-              class="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest font-mono hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 inline-flex items-center justify-center group"
-            >
-              <span>{dict.hero.viewProjects}</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="ml-3 group-hover:translate-x-1.5 transition-transform duration-200"
-                aria-hidden="true"
+            <MagneticButton>
+              <a
+                href="#projects"
+                class="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest font-mono hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 inline-flex items-center justify-center group"
               >
-                <path d="M5 12h14"></path>
-                <path d="m12 5 7 7-7 7"></path>
-              </svg>
-            </a>
+                <span>{dict.hero.viewProjects}</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="ml-3 group-hover:translate-x-1.5 transition-transform duration-200"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </a>
+            </MagneticButton>
 
-            <a
-              href="/my_cv.pdf"
-              download="An_Khang_Software_Developer_CV.pdf"
-              class="border border-black/30 dark:border-white/30 px-8 py-4 text-sm font-bold uppercase tracking-widest font-mono hover:border-black dark:hover:border-white transition-colors duration-200 inline-flex items-center justify-center group"
-            >
-              <span>{dict.hero.downloadCV}</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="ml-3 group-hover:translate-y-0.5 transition-transform duration-200"
-                aria-hidden="true"
+            <MagneticButton>
+              <a
+                href="/my_cv.pdf"
+                download="An_Khang_Software_Developer_CV.pdf"
+                class="border border-black/30 dark:border-white/30 px-8 py-4 text-sm font-bold uppercase tracking-widest font-mono hover:border-black dark:hover:border-white transition-colors duration-200 inline-flex items-center justify-center group"
               >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-            </a>
+                <span>{dict.hero.downloadCV}</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="ml-3 group-hover:translate-y-0.5 transition-transform duration-200"
+                  aria-hidden="true"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+              </a>
+            </MagneticButton>
 
-            <CopyEmailButton
-              lang={lang}
-              isVi={isVi}
-              class="border border-black/30 dark:border-white/30 px-6 py-4 text-sm font-bold uppercase tracking-widest font-mono hover:border-black dark:hover:border-white transition-colors duration-200"
-            />
+            <MagneticButton>
+              <CopyEmailButton
+                lang={lang}
+                isVi={isVi}
+                class="border border-black/30 dark:border-white/30 px-6 py-4 text-sm font-bold uppercase tracking-widest font-mono hover:border-black dark:hover:border-white transition-colors duration-200"
+              />
+            </MagneticButton>
           </div>
         </div>
       </div>
@@ -137,7 +147,7 @@ const currentPath = isVi ? '/vi/' : '/';
 
     <!-- Engineering Metrics Counter -->
     <section class="border-b border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark py-12 text-black dark:text-white">
-      <div class="container mx-auto px-6 md:px-8">
+      <RevealOnScroll delay={100} class="container mx-auto px-6 md:px-8">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div class="border-l border-black/15 dark:border-white/15 pl-4 sm:pl-6">
             <div class="text-3xl sm:text-4xl md:text-5xl font-bold font-mono tracking-tight text-black dark:text-white">
@@ -175,7 +185,7 @@ const currentPath = isVi ? '/vi/' : '/';
             </div>
           </div>
         </div>
-      </div>
+      </RevealOnScroll>
     </section>
 
     <!-- About / Summary Section -->
@@ -184,7 +194,7 @@ const currentPath = isVi ? '/vi/' : '/';
       data-nav-section="about"
       class="scroll-mt-24 py-32 md:py-40 bg-cardLight dark:bg-cardDark border-y border-black/5 dark:border-white/5 relative overflow-x-hidden text-black dark:text-white"
     >
-      <div class="container mx-auto px-6 md:px-8 relative z-10">
+      <RevealOnScroll delay={100} class="container mx-auto px-6 md:px-8 relative z-10">
         <div class="max-w-3xl mb-12">
           <p class="text-xs font-mono font-bold uppercase tracking-[0.3em] opacity-50 mb-4">
             {dict.about.label}
@@ -246,12 +256,12 @@ const currentPath = isVi ? '/vi/' : '/';
             </div>
           </div>
         </div>
-      </div>
+      </RevealOnScroll>
     </section>
 
     <!-- Skills / Capabilities Section -->
-    <section id="skills" class="scroll-mt-24 py-32 md:py-40 overflow-x-hidden relative bg-bgLight dark:bg-bgDark text-black dark:text-white">
-      <div class="container mx-auto px-6 md:px-8">
+    <section id="skills" data-nav-section="skills" class="scroll-mt-24 py-32 md:py-40 overflow-x-hidden relative bg-bgLight dark:bg-bgDark text-black dark:text-white">
+      <RevealOnScroll delay={100} class="container mx-auto px-6 md:px-8">
         <div class="max-w-3xl mb-16">
           <p class="text-xs font-mono font-bold uppercase tracking-[0.3em] opacity-50 mb-4">
             {dict.skills.label}
@@ -263,75 +273,81 @@ const currentPath = isVi ? '/vi/' : '/';
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl">
           <!-- Column 1: Software & Applications -->
-          <div class="h-full p-8 sm:p-10 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between hover:border-black dark:hover:border-white transition-colors duration-300">
-            <div>
-              <div class="flex items-center justify-between mb-6">
-                <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1.5 opacity-80 font-medium">Primary</span>
+          <SpotlightCard class="h-full border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark hover:border-black dark:hover:border-white transition-colors duration-300">
+            <div class="p-8 sm:p-10 flex flex-col justify-between h-full relative z-10">
+              <div>
+                <div class="flex items-center justify-between mb-6">
+                  <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1.5 opacity-80 font-medium">Primary</span>
+                </div>
+                <h3 class="font-display text-2xl sm:text-3xl font-bold mb-4">{dict.skills.devTitle}</h3>
+                <p class="font-light opacity-85 text-base sm:text-lg leading-relaxed mb-8">{dict.skills.devDesc}</p>
               </div>
-              <h3 class="font-display text-2xl sm:text-3xl font-bold mb-4">{dict.skills.devTitle}</h3>
-              <p class="font-light opacity-85 text-base sm:text-lg leading-relaxed mb-8">{dict.skills.devDesc}</p>
-            </div>
-            <div class="pt-6 border-t border-black/5 dark:border-white/5">
-              <div class="text-xs font-mono uppercase tracking-widest opacity-60 mb-3.5 font-bold">{dict.skills.stackLabel}</div>
-              <div class="flex flex-wrap gap-2">
-                {['Django', 'Flutter', 'Python', 'Dart', 'WordPress', 'JavaScript'].map((tech) => (
-                  <span class="text-xs font-mono px-3 py-1 border border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark">
-                    {tech}
-                  </span>
-                ))}
+              <div class="pt-6 border-t border-black/5 dark:border-white/5">
+                <div class="text-xs font-mono uppercase tracking-widest opacity-60 mb-3.5 font-bold">{dict.skills.stackLabel}</div>
+                <div class="flex flex-wrap gap-2">
+                  {['Django', 'Flutter', 'Python', 'Dart', 'WordPress', 'JavaScript'].map((tech) => (
+                    <span class="text-xs font-mono px-3 py-1 border border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+          </SpotlightCard>
 
           <!-- Column 2: Architecture & Data -->
-          <div class="h-full p-8 sm:p-10 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between hover:border-black dark:hover:border-white transition-colors duration-300">
-            <div>
-              <div class="flex items-center justify-between mb-6">
-                <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1.5 opacity-80 font-medium">Practical</span>
+          <SpotlightCard class="h-full border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark hover:border-black dark:hover:border-white transition-colors duration-300">
+            <div class="p-8 sm:p-10 flex flex-col justify-between h-full relative z-10">
+              <div>
+                <div class="flex items-center justify-between mb-6">
+                  <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1.5 opacity-80 font-medium">Practical</span>
+                </div>
+                <h3 class="font-display text-2xl sm:text-3xl font-bold mb-4">{dict.skills.cloudTitle}</h3>
+                <p class="font-light opacity-85 text-base sm:text-lg leading-relaxed mb-8">{dict.skills.cloudDesc}</p>
               </div>
-              <h3 class="font-display text-2xl sm:text-3xl font-bold mb-4">{dict.skills.cloudTitle}</h3>
-              <p class="font-light opacity-85 text-base sm:text-lg leading-relaxed mb-8">{dict.skills.cloudDesc}</p>
+              <div class="pt-6 border-t border-black/5 dark:border-white/5">
+                <div class="text-xs font-mono uppercase tracking-widest opacity-60 mb-3.5 font-bold">
+                  {isVi ? 'Dữ liệu & Tự động hóa' : 'Data & Automation'}
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  {['Firebase', 'Hive', 'Cloudflare Workers', 'FAISS', 'Git'].map((tech) => (
+                    <span class="text-xs font-mono px-3 py-1 border border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
-            <div class="pt-6 border-t border-black/5 dark:border-white/5">
-              <div class="text-xs font-mono uppercase tracking-widest opacity-60 mb-3.5 font-bold">
-                {isVi ? 'Dữ liệu & Tự động hóa' : 'Data & Automation'}
-              </div>
-              <div class="flex flex-wrap gap-2">
-                {['Firebase', 'Hive', 'Cloudflare Workers', 'FAISS', 'Git'].map((tech) => (
-                  <span class="text-xs font-mono px-3 py-1 border border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
+          </SpotlightCard>
 
           <!-- Column 3: Systems & Operations -->
-          <div class="h-full p-8 sm:p-10 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between hover:border-black dark:hover:border-white transition-colors duration-300">
-            <div>
-              <div class="flex items-center justify-between mb-6">
-                <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1.5 opacity-80 font-medium">
-                  {dict.skills.supportLabel}
-                </span>
-              </div>
-              <h3 class="font-display text-2xl sm:text-3xl font-bold mb-4">{dict.skills.infraTitle}</h3>
-              <p class="font-light opacity-85 text-base sm:text-lg leading-relaxed mb-8">{dict.skills.infraDesc}</p>
-            </div>
-            <div class="pt-6 border-t border-black/5 dark:border-white/5">
-              <div class="text-xs font-mono uppercase tracking-widest opacity-60 mb-3.5 font-bold">
-                {isVi ? 'Vận hành & Hỗ trợ' : 'Operations & Support'}
-              </div>
-              <div class="flex flex-wrap gap-2">
-                {['IT Helpdesk', 'Hardware Support', 'Network Troubleshooting', 'User Support', 'Documentation'].map((tech) => (
-                  <span class="text-xs font-mono px-3 py-1 border border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark">
-                    {tech}
+          <SpotlightCard class="h-full border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark hover:border-black dark:hover:border-white transition-colors duration-300">
+            <div class="p-8 sm:p-10 flex flex-col justify-between h-full relative z-10">
+              <div>
+                <div class="flex items-center justify-between mb-6">
+                  <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1.5 opacity-80 font-medium">
+                    {dict.skills.supportLabel}
                   </span>
-                ))}
+                </div>
+                <h3 class="font-display text-2xl sm:text-3xl font-bold mb-4">{dict.skills.infraTitle}</h3>
+                <p class="font-light opacity-85 text-base sm:text-lg leading-relaxed mb-8">{dict.skills.infraDesc}</p>
+              </div>
+              <div class="pt-6 border-t border-black/5 dark:border-white/5">
+                <div class="text-xs font-mono uppercase tracking-widest opacity-60 mb-3.5 font-bold">
+                  {isVi ? 'Vận hành & Hỗ trợ' : 'Operations & Support'}
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  {['IT Helpdesk', 'Hardware Support', 'Network Troubleshooting', 'User Support', 'Documentation'].map((tech) => (
+                    <span class="text-xs font-mono px-3 py-1 border border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+          </SpotlightCard>
         </div>
-      </div>
+      </RevealOnScroll>
     </section>
 
     <!-- Projects Showcase Section -->
@@ -355,130 +371,143 @@ const currentPath = isVi ? '/vi/' : '/';
           {featuredProjects.map((project, idx) => {
             const caseStudyUrl = isVi ? `/vi${project.data.canonicalPath}` : project.data.canonicalPath;
             return (
-              <article class="border border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark p-6 md:p-10 transition-colors duration-300 hover:border-black/30 dark:hover:border-white/30">
-                <!-- Top Engineering Viewport Bar -->
-                <div class="flex flex-wrap items-center justify-between gap-3 pb-6 mb-8 border-b border-black/10 dark:border-white/10 text-xs font-mono">
-                  <div class="flex items-center gap-3">
-                    <span class="font-bold tracking-widest px-2.5 py-1 bg-black text-white dark:bg-white dark:text-black">
-                      {project.data.code}
-                    </span>
-                    <span class="uppercase tracking-wider opacity-60 font-semibold">
-                      {project.data.category}
-                    </span>
-                  </div>
-                  <div class="flex items-center gap-4">
-                    <span class="px-2.5 py-1 border border-black/20 dark:border-white/20 tracking-wider text-[11px] opacity-80">
-                      {project.data.status}
-                    </span>
-                    <span class="opacity-50">{project.data.year}</span>
-                  </div>
-                </div>
+              <RevealOnScroll delay={idx * 80}>
+                <TiltedCard maxTilt={3.5} scale={1.01} class="w-full">
+                  <SpotlightCard
+                    as="article"
+                    class="border border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark p-6 md:p-10 transition-colors duration-300 hover:border-black/30 dark:hover:border-white/30 w-full"
+                  >
+                    <!-- Top Engineering Viewport Bar -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 pb-6 mb-8 border-b border-black/10 dark:border-white/10 text-xs font-mono">
+                      <div class="flex items-center gap-3">
+                        <span class="font-bold tracking-widest px-2.5 py-1 bg-black text-white dark:bg-white dark:text-black">
+                          {project.data.code}
+                        </span>
+                        <span class="uppercase tracking-wider opacity-60 font-semibold">
+                          {project.data.category}
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-4">
+                        <span class="px-2.5 py-1 border border-black/20 dark:border-white/20 tracking-wider text-[11px] opacity-80">
+                          {project.data.status}
+                        </span>
+                        <span class="opacity-50">{project.data.year}</span>
+                      </div>
+                    </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-                  <!-- Project Info -->
-                  <div class="lg:col-span-7 space-y-6">
-                    <h3 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
-                      <a href={caseStudyUrl} class="hover:underline">
-                        {project.data.title}
-                      </a>
-                    </h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start relative z-10">
+                      <!-- Project Info -->
+                      <div class="lg:col-span-7 space-y-6">
+                        <h3 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+                          <a href={caseStudyUrl} class="hover:underline">
+                            {project.data.title}
+                          </a>
+                        </h3>
 
-                    <p class="text-lg md:text-xl font-light opacity-85 leading-relaxed text-neutral-700 dark:text-neutral-300">
-                      {project.data.summary}
-                    </p>
+                        <p class="text-lg md:text-xl font-light opacity-85 leading-relaxed text-neutral-700 dark:text-neutral-300">
+                          {project.data.summary}
+                        </p>
 
-                    <!-- Specs -->
-                    {project.data.specs && project.data.specs.length > 0 && (
-                      <div class="grid grid-cols-2 gap-3 pt-2">
-                        {project.data.specs.map((spec) => (
-                          <div class="flex items-center gap-2 text-xs font-mono opacity-80">
-                            <span class="w-1.5 h-1.5 bg-black dark:bg-white"></span>
-                            <span>{spec}</span>
+                        <!-- Specs -->
+                        {project.data.specs && project.data.specs.length > 0 && (
+                          <div class="grid grid-cols-2 gap-3 pt-2">
+                            {project.data.specs.map((spec) => (
+                              <div class="flex items-center gap-2 text-xs font-mono opacity-80">
+                                <span class="w-1.5 h-1.5 bg-black dark:bg-white"></span>
+                                <span>{spec}</span>
+                              </div>
+                            ))}
                           </div>
-                        ))}
-                      </div>
-                    )}
+                        )}
 
-                    <!-- Tech Stack Pills -->
-                    <div class="pt-2">
-                      <div class="text-[11px] font-mono uppercase tracking-widest opacity-50 mb-2 font-bold">
-                        {isVi ? 'Công nghệ chính' : 'Technology Stack'}
-                      </div>
-                      <div class="flex flex-wrap gap-2">
-                        {project.data.techStack.map((tech) => (
-                          <span class="text-xs font-mono px-3 py-1 border border-black/15 dark:border-white/15 bg-cardLight dark:bg-cardDark">
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="flex flex-wrap items-center gap-4 pt-4">
-                      <a
-                        href={caseStudyUrl}
-                        class="border border-black dark:border-white px-6 py-3 text-xs font-bold uppercase tracking-widest font-mono hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 inline-flex items-center gap-2 group"
-                      >
-                        <span>{dict.projects.viewCaseStudy}</span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          class="group-hover:translate-x-1 transition-transform"
-                          aria-hidden="true"
-                        >
-                          <path d="M5 12h14"></path>
-                          <path d="m12 5 7 7-7 7"></path>
-                        </svg>
-                      </a>
-
-                      {project.data.externalHref && (
-                        <a
-                          href={project.data.externalHref}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="border border-black/30 dark:border-white/30 px-5 py-3 text-xs font-bold uppercase tracking-widest font-mono hover:border-black dark:hover:border-white transition-colors duration-200 inline-flex items-center gap-1.5 opacity-80 hover:opacity-100"
-                        >
-                          <span>{project.data.externalLabel || dict.projects.viewSource}</span>
-                        </a>
-                      )}
-
-                      {project.data.secondaryExternalHref && (
-                        <a
-                          href={project.data.secondaryExternalHref}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="border border-black/20 dark:border-white/20 px-5 py-3 text-xs font-bold uppercase tracking-widest font-mono hover:border-black dark:hover:border-white transition-colors duration-200 inline-flex items-center gap-1.5 opacity-70 hover:opacity-100"
-                        >
-                          <span>{project.data.secondaryExternalLabel}</span>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-
-                  <!-- Cover Image Viewport -->
-                  {project.data.image && (
-                    <div class="lg:col-span-5">
-                      <a href={caseStudyUrl} class="block group overflow-hidden border border-black/15 dark:border-white/15 bg-cardLight dark:bg-cardDark">
-                        <div class="aspect-[16/10] overflow-hidden relative">
-                          <img
-                            src={project.data.image}
-                            alt={project.data.title}
-                            loading={idx === 0 ? "eager" : "lazy"}
-                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
+                        <!-- Tech Stack Pills -->
+                        <div class="pt-2">
+                          <div class="text-[11px] font-mono uppercase tracking-widest opacity-50 mb-2 font-bold">
+                            {isVi ? 'Công nghệ chính' : 'Technology Stack'}
+                          </div>
+                          <div class="flex flex-wrap gap-2">
+                            {project.data.techStack.map((tech) => (
+                              <span class="text-xs font-mono px-3 py-1 border border-black/15 dark:border-white/15 bg-cardLight dark:bg-cardDark">
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
                         </div>
-                      </a>
+
+                        <!-- Action Buttons -->
+                        <div class="flex flex-wrap items-center gap-4 pt-4">
+                          <MagneticButton>
+                            <a
+                              href={caseStudyUrl}
+                              class="border border-black dark:border-white px-6 py-3 text-xs font-bold uppercase tracking-widest font-mono hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 inline-flex items-center gap-2 group"
+                            >
+                              <span>{dict.projects.viewCaseStudy}</span>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="14"
+                                height="14"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="group-hover:translate-x-1 transition-transform"
+                                aria-hidden="true"
+                              >
+                                <path d="M5 12h14"></path>
+                                <path d="m12 5 7 7-7 7"></path>
+                              </svg>
+                            </a>
+                          </MagneticButton>
+
+                          {project.data.externalHref && (
+                            <MagneticButton>
+                              <a
+                                href={project.data.externalHref}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="border border-black/30 dark:border-white/30 px-5 py-3 text-xs font-bold uppercase tracking-widest font-mono hover:border-black dark:hover:border-white transition-colors duration-200 inline-flex items-center gap-1.5 opacity-80 hover:opacity-100"
+                              >
+                                <span>{project.data.externalLabel || dict.projects.viewSource}</span>
+                              </a>
+                            </MagneticButton>
+                          )}
+
+                          {project.data.secondaryExternalHref && (
+                            <MagneticButton>
+                              <a
+                                href={project.data.secondaryExternalHref}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="border border-black/20 dark:border-white/20 px-5 py-3 text-xs font-bold uppercase tracking-widest font-mono hover:border-black dark:hover:border-white transition-colors duration-200 inline-flex items-center gap-1.5 opacity-70 hover:opacity-100"
+                              >
+                                <span>{project.data.secondaryExternalLabel}</span>
+                              </a>
+                            </MagneticButton>
+                          )}
+                        </div>
+                      </div>
+
+                      <!-- Cover Image Viewport -->
+                      {project.data.image && (
+                        <div class="lg:col-span-5">
+                          <a href={caseStudyUrl} class="block group overflow-hidden border border-black/15 dark:border-white/15 bg-cardLight dark:bg-cardDark">
+                            <div class="aspect-[16/10] overflow-hidden relative">
+                              <img
+                                src={project.data.image}
+                                alt={project.data.title}
+                                loading={idx === 0 ? "eager" : "lazy"}
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                              />
+                            </div>
+                          </a>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-              </article>
+                  </SpotlightCard>
+                </TiltedCard>
+              </RevealOnScroll>
             );
           })}
         </div>
@@ -487,7 +516,7 @@ const currentPath = isVi ? '/vi/' : '/';
 
     <!-- Experience Timeline Section -->
     <section id="experience" data-nav-section="experience" class="scroll-mt-24 py-32 md:py-40 relative overflow-x-hidden bg-bgLight dark:bg-bgDark text-black dark:text-white">
-      <div class="container mx-auto px-6 md:px-8">
+      <RevealOnScroll delay={100} class="container mx-auto px-6 md:px-8">
         <div class="max-w-3xl mb-20">
           <p class="text-xs font-mono font-bold uppercase tracking-[0.3em] opacity-50 mb-4">
             {dict.timeline.label}
@@ -498,7 +527,7 @@ const currentPath = isVi ? '/vi/' : '/';
         </div>
 
         <ExperienceTimeline lang={lang} />
-      </div>
+      </RevealOnScroll>
     </section>
 
     <!-- All Projects Directory CTA Section -->
@@ -507,7 +536,7 @@ const currentPath = isVi ? '/vi/' : '/';
       data-nav-section="projects-index"
       class="py-24 md:py-32 bg-cardLight dark:bg-cardDark border-y border-black/5 dark:border-white/5 relative overflow-x-hidden text-black dark:text-white"
     >
-      <div class="container mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+      <RevealOnScroll delay={100} class="container mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
         <div class="lg:col-span-7">
           <p class="text-xs font-mono font-bold uppercase tracking-[0.3em] opacity-50 mb-3">
             {dict.allProjects.label}
@@ -521,30 +550,32 @@ const currentPath = isVi ? '/vi/' : '/';
         </div>
 
         <div class="lg:col-span-5 lg:border-l lg:border-black/10 dark:lg:border-white/10 lg:pl-10">
-          <a
-            href={isVi ? '/vi/projects/' : '/projects/'}
-            class="border border-black dark:border-white px-8 py-5 text-sm font-bold uppercase tracking-widest font-mono hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 inline-flex items-center justify-between gap-4 w-full group"
-          >
-            <span>{dict.allProjects.cta}</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="group-hover:translate-x-1.5 transition-transform"
-              aria-hidden="true"
+          <MagneticButton class="w-full">
+            <a
+              href={isVi ? '/vi/projects/' : '/projects/'}
+              class="border border-black dark:border-white px-8 py-5 text-sm font-bold uppercase tracking-widest font-mono hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 inline-flex items-center justify-between gap-4 w-full group"
             >
-              <path d="M5 12h14"></path>
-              <path d="m12 5 7 7-7 7"></path>
-            </svg>
-          </a>
+              <span>{dict.allProjects.cta}</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="group-hover:translate-x-1.5 transition-transform"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+          </MagneticButton>
         </div>
-      </div>
+      </RevealOnScroll>
     </section>
   </main>
 

@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "typecheck": "astro check",
+    "lint": "astro check",
     "prepare": "husky"
   },
   "dependencies": {

@@ -1,0 +1,109 @@
+---
+interface Props {
+  class?: string;
+  maxTilt?: number;
+  perspective?: number;
+  scale?: number;
+  glare?: boolean;
+  as?: any;
+  [key: string]: any;
+}
+
+const {
+  class: className = '',
+  maxTilt = 6,
+  perspective = 1000,
+  scale = 1.015,
+  glare = true,
+  as: Tag = 'div',
+  ...rest
+} = Astro.props;
+---
+
+<Tag
+  class={`tilted-card-container relative ${className}`}
+  data-max-tilt={maxTilt}
+  data-perspective={perspective}
+  data-scale={scale}
+  data-glare={glare.toString()}
+  style={`perspective: ${perspective}px;`}
+  {...rest}
+>
+  <div class="tilted-card-inner relative w-full h-full will-change-transform transform-gpu [transform-style:preserve-3d]">
+    <slot />
+    {glare && (
+      <div
+        class="tilted-card-glare pointer-events-none absolute inset-0 z-20 opacity-0 transition-opacity duration-300"
+        aria-hidden="true"
+      />
+    )}
+  </div>
+</Tag>
+
+<script>
+  function initTiltedCards() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const containers = document.querySelectorAll<HTMLElement>('.tilted-card-container');
+    containers.forEach((container) => {
+      if (container.dataset.tiltedInitialized === 'true') return;
+      container.dataset.tiltedInitialized = 'true';
+
+      const inner = container.querySelector<HTMLElement>(':scope > .tilted-card-inner');
+      if (!inner) return;
+
+      const glare = inner.querySelector<HTMLElement>(':scope > .tilted-card-glare');
+      const maxTilt = parseFloat(container.dataset.maxTilt || '6');
+      const perspective = parseFloat(container.dataset.perspective || '1000');
+      const scale = parseFloat(container.dataset.scale || '1.015');
+
+      let rafId: number | null = null;
+      let rotateX = 0;
+      let rotateY = 0;
+      let glareX = 50;
+      let glareY = 50;
+
+      const updateTilt = () => {
+        inner.style.transform = `perspective(${perspective}px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(${scale}, ${scale}, ${scale})`;
+        if (glare) {
+          glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 75%)`;
+          glare.style.opacity = '1';
+        }
+        rafId = null;
+      };
+
+      container.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        rotateX = ((y - centerY) / centerY) * -maxTilt;
+        rotateY = ((x - centerX) / centerX) * maxTilt;
+        glareX = (x / rect.width) * 100;
+        glareY = (y / rect.height) * 100;
+
+        inner.style.transition = 'transform 0.1s ease-out';
+        if (!rafId) {
+          rafId = requestAnimationFrame(updateTilt);
+        }
+      });
+
+      container.addEventListener('mouseleave', () => {
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+        inner.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+        inner.style.transform = `perspective(${perspective}px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        if (glare) {
+          glare.style.opacity = '0';
+        }
+      });
+    });
+  }
+
+  initTiltedCards();
+  document.addEventListener('astro:page-load', initTiltedCards);
+</script>
