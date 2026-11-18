@@ -42,7 +42,7 @@ This document provides the operational policy and context for AI agents working 
 
 - All changes must pass:
   1. `npm run lint`: 0 errors, 0 warnings.
-  2. `npm run build`: 100% successful static export to `out/`.
+  2. `npm run build`: 100% successful static export to `dist/`.
   3. Instant 0ms language toggle in both desktop and mobile headers.
   4. Dark/Light mode synchronization without hydration mismatch.
 
