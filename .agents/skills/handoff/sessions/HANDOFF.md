@@ -1,83 +1,115 @@
-# Portfolio & Projects Handoff — November 2026
+# Portfolio & Architecture Handoff — November 2026
 
 ## 🎯 Executive Summary & Architectural Milestone
 
-This repository (`ankhang0704.github.io`) is a minimalist personal software engineering portfolio and product showcase built with **Next.js 16 (Turbopack)**, **React 19**, **TypeScript 5**, and **Tailwind CSS**. It is deployed natively as a 100% static export (`output: "export"`) to **Cloudflare Pages (`https://ankhang0704.pages.dev/`)**.
+This repository ([`ankhang0704.github.io`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io)) is the personal software engineering portfolio and product showcase for **An Khang** (Software Developer).
+
+In this session, the project achieved a major architectural milestone:
+
+- **100% Native Astro 5 Migration (Zero UI Runtime)**: Completely eliminated React and Next.js client runtime overhead. The site now compiles to 100% static HTML, CSS, and lightweight vanilla TypeScript with zero runtime JavaScript dependencies for page layout and rendering.
+- **Delivery Model**: Static HTML/CSS/JS export to [`dist/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/dist/) deployed natively to **Cloudflare Pages** (`https://ankhang0704.pages.dev/`).
+- **Bilingual System**: Native Astro i18n routing (`/` for EN, `/vi/` for VI) powered by Astro 5 `<ClientRouter />` for instant client-side page transitions.
 
 ---
 
 ## 1. 📋 Session Summary
 
-In this session, we targeted and resolved the browser tab favicon identity:
+### A. Next.js to Astro 5 Native Migration
 
-- **Clarified User Requirement**: The user specified that the AK monogram icon belongs **exclusively to 1 location: the browser tab favicon**. It has been completely removed from all other locations (Navbar header and Footer), restoring the clean typographic `KHANG` wordmark in the header and minimalist copyright notice in the footer.
-- **Removed UI AK Icon**:
-  - Deleted `src/components/BrandLogo.tsx`.
-  - Restored clean `KHANG` link wordmark in [`Header.tsx`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/Header.tsx).
-  - Cleaned up footer branding in [`Footer.tsx`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/Footer.tsx).
-- **Preserved Browser Tab Favicon Suite**:
-  - Full-spec `favicon.ico` containing sizes: `16×16`, `32×32`, `48×48`, `64×64`, `128×128`, and `256×256` placed in both [`src/app/favicon.ico`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/favicon.ico) and [`public/favicon.ico`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/favicon.ico).
-  - Modern vector icon at [`src/app/icon.svg`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/icon.svg) and [`public/icon.svg`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/icon.svg).
-  - Mobile home screen icons [`public/apple-touch-icon.png`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/apple-touch-icon.png) (180×180) and [`public/icon.png`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/icon.png) (512×512).
-- **Verified Build & Static Export**:
-  - `npm run lint`: **0 errors, 0 warnings**
-  - `npm run typecheck`: **0 errors**
-  - `npm run build`: **11/11 static pages generated successfully in ~420ms**
+- Migrated all pages, layouts, content, and components from Next.js 16 to native Astro 5 static architecture.
+- Re-architected project content into type-safe **Astro Content Collections** ([`src/content.config.ts`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/content.config.ts)) with Zod validation schemas for all project case studies (`FM Dictionary`, `GitHub Vault Relay`, `Hotel Management System`, etc.).
+- Preserved all canonical routing patterns: `/`, `/vi/`, `/projects/`, `/vi/projects/`, and dynamic case study slugs (`/fm-dictionary/`, `/vi/fm-dictionary/`, etc.).
+- Bumped FM Dictionary milestone and specifications to **v1.1.4**.
+
+### B. Micro-Interactions & React Bits as Native Web Standards
+
+- Replaced React Bits dependencies with 100% Native Web Standards:
+  - [`SpotlightCard.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/SpotlightCard.astro): Native mouse-tracking radial gradient spotlight.
+  - [`MagneticButton.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/MagneticButton.astro): Smooth cursor magnetism using `requestAnimationFrame`.
+  - [`RevealOnScroll.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/RevealOnScroll.astro): Viewport-triggered scroll reveal via `IntersectionObserver`.
+  - [`DecryptedText.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/DecryptedText.astro): Canvas/text hacker-scramble decryption effect.
+  - [`CountUp.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/CountUp.astro): Zero-dependency smooth count-up with server-rendered static fallback (never freezes at 0).
+  - Pure CSS keyframe [`TechMarquee.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/TechMarquee.astro).
+- **Removed 3D perspective distortion**: Completely deleted `TiltedCard.astro` per user instruction; restored 1:1 original clean Bento Grid geometry (`md:col-span-7`, `md:col-span-5`, `md:col-span-12`).
+
+### C. Pre-Commit Hooks & Tooling Setup
+
+- Configured pre-commit hooks via **Husky** (`v9.1.7`) and **lint-staged** (`v16.4.0`):
+  - Added [`prettier-plugin-astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/package.json) to format `.astro` files accurately.
+  - Configured parser overrides in [`.prettierrc`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.prettierrc).
+  - Enforced `astro check` (`npm run typecheck`) and Prettier formatting on every commit.
+
+### D. Solved Language Switching (`EN` <-> `VI`) Lag & Flickering
+
+- **Prefetching**: Enabled native prefetching (`prefetch: { prefetchAll: true, defaultStrategy: 'hover' }` in [`astro.config.mjs`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/astro.config.mjs)) and added `data-astro-prefetch="load"` on the desktop and mobile language buttons in [`Header.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Header.astro). This delivers instant 0ms response on click.
+- **Eliminated Snapshot Blanking**: Bound `initRevealOnScroll` in [`RevealOnScroll.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/RevealOnScroll.astro) to `astro:after-swap` so elements already visible in the viewport are marked `.is-revealed` before the browser captures the transition snapshot.
+- **Scroll Preservation**: Implemented seamless scroll restoration across language toggles via `sessionStorage` in `Header.astro`. Switching languages maintains the user's exact scroll position without jumping to the top of the page.
+- **Counter & Decrypted Text State**: Added session flags to [`CountUp.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/CountUp.astro) and [`DecryptedText.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/DecryptedText.astro) so numbers remain displayed and headings stay stable without re-scrambling when switching languages.
+- **Snappy View Transition Timing**: Tuned `::view-transition-old(root)` and `::view-transition-new(root)` in [`global.css`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/styles/global.css) to 110ms `cubic-bezier(0.4, 0, 0.2, 1)`.
+- **Deduplicated Event Listeners**: Guarded navbar and interactive component listeners to ensure single-instance binding during client-side navigation.
+- **Design Principle C (Freshness)**: Updated [`Footer.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Footer.astro) update indicator to `Updated · November 2026` / `Cập nhật · Tháng 11, 2026`.
 
 ---
 
 ## 2. 🚦 Current State
 
 - **Branch**: `main`
-- **Latest Commit**: `033dbce` (`feat(branding): update browser tab favicon with bespoke AK monogram while preserving layout`)
-- **Health Verification**:
-  - `npm run lint`: **0 errors, 0 warnings**
-  - `npm run typecheck`: **0 errors**
-  - `npm run build`: **11/11 static pages generated successfully in ~425ms**
-- **Git Status**: Clean working tree (ready to stage handoff documents).
+- **Latest Commit**: `d62c467` (`fix(i18n): eliminate language toggle lag with instant prefetch, viewport-aware reveals, and scroll preservation`)
+- **Build Status**:
+  - `npm run lint` (`astro check`): **0 errors, 0 warnings**
+  - `npm run build`: **10/10 static routes generated successfully in ~2.8s** to [`dist/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/dist/)
+- **Pre-commit Hooks**: Verified and active (`lint-staged` with `prettier` + `astro check`).
+- **Brand Rules Compliance**:
+  - Navbar logo: `KHANG` (typographic wordmark, 0px border-radius).
+  - AK monogram favicon is strictly and exclusively confined to the browser tab icon (`public/favicon.ico`, `public/icon.svg`).
+  - Owner: An Khang (Software Developer).
+  - Email: `ankhang.nguyen0704@gmail.com`.
+  - Professional timeline reflects `2026 - Nay` for IT Helpdesk at Bệnh Viện Mắt Bình Thuận, and `2022 - 2026` for Bachelor of IT.
 
 ---
 
 ## 3. 🚧 In Progress
 
-None. All requested favicon and branding tasks are 100% complete and verified.
+None. All migration, UI restoration, pre-commit tooling, and performance optimization goals are complete and fully verified.
 
 ---
 
 ## 4. ✅ Next Steps
 
-1. **Verify Cloudflare Pages Production Deployment**:
-   - Inspect `https://ankhang0704.pages.dev/` to confirm browser tab favicon cache invalidation and display.
-2. **Optional SEO & OpenGraph Enhancements**:
-   - Audit OpenGraph social preview images (`og:image`) across social channels.
-3. **Content Expansion**:
-   - Add new case studies or articles as new projects or career milestones arise.
+1. **Production Deployment Monitoring**:
+   - Verify automatic build and deployment on Cloudflare Pages (`https://ankhang0704.pages.dev/`).
+2. **Optional Hybrid Rendering Features (Backlog)**:
+   - If desired in future sessions, integrate Cloudflare Pages Functions to power an edge-rendered message contact endpoint or live case study view counter.
 
 ---
 
-## 5. 🔑 Key Files Touched
+## 5. 📂 Key Files Touched
 
-- [`src/app/favicon.ico`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/favicon.ico) — Updated multi-resolution `.ico` with bespoke AK monogram.
-- [`public/favicon.ico`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/favicon.ico) — Static fallback `.ico`.
-- [`src/app/icon.svg`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/icon.svg) — Next.js native app icon route.
-- [`public/icon.svg`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/icon.svg) — Vector branding asset for modern browsers.
-- [`public/apple-touch-icon.png`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/apple-touch-icon.png) — iOS / Web clip icon.
-- [`public/icon.png`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/icon.png) — 512×512 PWA / web icon.
-- [`src/app/layout.tsx`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/app/layout.tsx) — Metadata icons mapping.
-- [`src/components/Header.tsx`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/Header.tsx) — Preserved header branding.
-- [`src/components/Footer.tsx`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/Footer.tsx) — Preserved footer branding.
+- [`astro.config.mjs`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/astro.config.mjs): Configured static export, prefetching strategy, and i18n routing.
+- [`package.json`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/package.json): Added `prettier-plugin-astro`, Husky, and lint-staged scripts.
+- [`.prettierrc`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.prettierrc) & [`.lintstagedrc`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.lintstagedrc): Formatter and pre-commit configuration.
+- [`src/layouts/BaseLayout.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/layouts/BaseLayout.astro): HTML skeleton, Google Fonts, Astro `<ClientRouter />`, Zero-FOUC theme script.
+- [`src/styles/global.css`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/styles/global.css): Global tokens, ambient glow, and tuned 110ms View Transitions.
+- [`src/components/ui/Header.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Header.astro): Sticky glass navbar, scroll preservation across language toggle, prefetch attributes.
+- [`src/components/ui/Footer.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Footer.astro): Back to top, email copy, and November 2026 freshness indicator.
+- [`src/components/interactive/RevealOnScroll.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/RevealOnScroll.astro): Viewport-aware reveal on `astro:after-swap`.
+- [`src/components/interactive/CountUp.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/CountUp.astro): Number stability across transitions.
+- [`src/components/interactive/DecryptedText.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/DecryptedText.astro): Title stability across transitions.
 
 ---
 
 ## 6. ❓ Open Questions
 
-None. The favicon swap was executed without side effects and verified.
+None. All technical decisions and user requirements have been resolved.
 
 ---
 
 ## 7. 🛠️ Suggested Skills
 
-- [`start`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.agents/skills/start/SKILL.md) — For resuming sessions and scanning git status.
-- [`improve-codebase-architecture`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.agents/skills/improve-codebase-architecture/SKILL.md) — For auditing layout, architecture, and responsive styling.
-- [`checklist-design`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.agents/skills/checklist-design/SKILL.md) — For UI audits against published design checklists.
-- [`taste-skill`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.agents/skills/taste-skill/SKILL.md) — For editorial design reviews and visual polish.
+When continuing work in this repository, the following verified skills in [`.agents/skills/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.agents/skills/) are recommended:
+
+- `start`: Resume work cleanly from this handoff document in a new session.
+- `setup-pre-commit`: Maintain or adjust Husky and lint-staged git hook configurations.
+- `improve-codebase-architecture`: Audit layout, typography, and responsive design consistency across the portfolio.
+- `taste-skill`: Review and polish editorial aesthetic, typography hierarchy, and visual restraint.
+- `checklist-design`: Verify accessibility and interaction patterns against design system checklists.
