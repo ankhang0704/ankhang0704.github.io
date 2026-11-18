@@ -53,22 +53,11 @@ const categories = [
     <GridPattern />
 
     <div class="container mx-auto px-6 md:px-8 relative z-10">
-      <!-- Page Header -->
-      <RevealOnScroll delay={50} class="max-w-4xl mb-16">
-        <div class="inline-flex items-center gap-3 mb-6">
-          <span class="w-8 h-px bg-black dark:bg-white"></span>
-          <p class="text-xs font-mono font-bold uppercase tracking-[0.3em] opacity-60">
-            {dict.projects.label}
-          </p>
-        </div>
-
-        <h1 class="font-display text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-8">
+      <!-- Page Header (Pure & Bold) -->
+      <RevealOnScroll delay={50} class="max-w-4xl mb-12 sm:mb-16">
+        <h1 class="font-display text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight">
           {dict.allProjects.title}
         </h1>
-
-        <p class="font-light text-xl md:text-2xl leading-relaxed opacity-85 text-black dark:text-white">
-          {dict.allProjects.desc}
-        </p>
       </RevealOnScroll>
 
       <!-- Precision Controls Toolbar -->
@@ -87,7 +76,7 @@ const categories = [
                 <button
                   type="button"
                   data-filter-btn={cat.key}
-                  class={`category-btn min-h-11 inline-flex items-center px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border ${
+                  class={`category-btn min-h-11 inline-flex items-center px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider active:scale-95 transition-all duration-150 border ${
                     cat.key === "all"
                       ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black"
                       : "border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white"
@@ -98,7 +87,7 @@ const categories = [
               ))}
             </div>
 
-            <!-- Live Search Input -->
+            <!-- Live Search Input (Monochromatic Subtle Glow Focus) -->
             <div class="relative w-full md:w-72">
               <input
                 type="text"
@@ -109,7 +98,7 @@ const categories = [
                     : "Search projects, stack..."
                 }
                 aria-label={isVi ? "Tìm kiếm dự án" : "Search projects"}
-                class="w-full bg-bgLight dark:bg-bgDark border border-black/20 dark:border-white/20 px-4 py-2.5 text-sm font-mono placeholder:opacity-50 focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white focus:border-black dark:focus:border-white"
+                class="w-full bg-bgLight dark:bg-bgDark border border-black/20 dark:border-white/20 px-4 py-2.5 text-sm font-mono placeholder:opacity-50 focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white focus:border-black dark:focus:border-white focus:shadow-[0_0_15px_rgba(0,0,0,0.06)] dark:focus:shadow-[0_0_15px_rgba(255,255,255,0.08)] transition-all"
               />
             </div>
           </div>
@@ -120,11 +109,6 @@ const categories = [
               {isVi
                 ? `Hiển thị ${projects.length} / ${projects.length} dự án`
                 : `Showing ${projects.length} of ${projects.length} projects`}
-            </span>
-            <span class="hidden sm:inline">
-              {isVi
-                ? "Phân loại theo tiêu chuẩn kỹ thuật"
-                : "Classified by engineering specification"}
             </span>
           </div>
         </section>
@@ -397,10 +381,10 @@ const categories = [
         currentCategory = btn.getAttribute("data-filter-btn") || "all";
         filterButtons.forEach((b) => {
           b.className =
-            "category-btn min-h-11 inline-flex items-center px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white";
+            "category-btn min-h-11 inline-flex items-center px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider active:scale-95 transition-all duration-150 border border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white";
         });
         btn.className =
-          "category-btn min-h-11 inline-flex items-center px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border border-black bg-black text-white dark:border-white dark:bg-white dark:text-black";
+          "category-btn min-h-11 inline-flex items-center px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider active:scale-95 transition-all duration-150 border border-black bg-black text-white dark:border-white dark:bg-white dark:text-black";
         applyFilters();
       });
     });

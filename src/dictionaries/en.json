@@ -91,19 +91,19 @@
     "items": {
       "hospital": {
         "role": "IT Helpdesk · Binh Thuan Eye Hospital",
-        "desc": "Current hands-on IT helpdesk work supporting users, devices, and day-to-day technology issues in a hospital environment."
+        "desc": "Hands-on end-user support, device infrastructure maintenance, and day-to-day issue resolution in a hospital environment."
       },
       "sojo": {
         "role": "IT Support / IT Operations · SOJO",
-        "desc": "Worked with IT support and operations at SOJO from January to March 2026."
+        "desc": "Technical user support, peripheral hardware operations, and IT service workflow coordination."
       },
       "sailingBay": {
         "role": "IT Internship · The Sailing Bay",
-        "desc": "IT internship at The Sailing Bay from August to November 2025."
+        "desc": "Network operations, departmental workstation maintenance, and tier-1 technical support intake."
       },
       "degree": {
         "role": "B.S. Information Technology · University",
-        "desc": "Completed a Bachelor of Information Technology from 2022 to 2026, with work across software development, mobile applications, and information systems."
+        "desc": "Degree curriculum focused on software engineering, mobile application development, and information systems architecture."
       }
     }
   },

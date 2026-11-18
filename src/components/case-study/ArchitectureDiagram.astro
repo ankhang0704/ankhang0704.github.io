@@ -384,11 +384,53 @@ if (!architecture) {
     animation: circuitFlowV 1.2s linear infinite;
   }
 
+  /* Micro-Interactions & Inspector Transitions */
+  .active-node .node-indicator-dot {
+    animation: activePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes activePulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.35;
+      transform: scale(0.85);
+    }
+  }
+
+  .layer-inspector-card.block,
+  .stage-inspector-card.block {
+    animation: inspectorFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes inspectorFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .layer-node-btn:active,
+  .stage-node-btn:active {
+    transform: scale(0.99);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .circuit-wire-h,
-    .circuit-wire-v {
+    .circuit-wire-v,
+    .active-node .node-indicator-dot,
+    .layer-inspector-card.block,
+    .stage-inspector-card.block {
       animation: none !important;
       stroke-dasharray: none !important;
+      transform: none !important;
     }
   }
 </style>

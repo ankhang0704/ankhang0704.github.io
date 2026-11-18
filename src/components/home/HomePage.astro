@@ -224,14 +224,10 @@ const currentPath = isVi ? "/vi/" : "/";
               </div>
             </div>
 
-            <div class="summary-narrative lg:col-span-8 space-y-10 lg:border-l lg:border-black/10 dark:lg:border-white/10 lg:pl-12">
-              <p class="font-display text-3xl sm:text-4xl font-light leading-relaxed text-left tracking-tight">
+            <div class="summary-narrative lg:col-span-8 space-y-8 lg:border-l lg:border-black/10 dark:lg:border-white/10 lg:pl-12">
+              <p class="font-display text-3xl sm:text-4xl md:text-5xl font-light leading-relaxed text-left tracking-tight">
                 {dict.about.lead}
               </p>
-              <div class="space-y-6 text-xl md:text-2xl font-light opacity-85 leading-relaxed text-left border-t border-black/10 dark:border-white/10 pt-8">
-                <p>{dict.about.p1}</p>
-                <p>{dict.about.p2}</p>
-              </div>
             </div>
           </div>
         </RevealOnScroll>
@@ -350,7 +346,7 @@ const currentPath = isVi ? "/vi/" : "/";
                             stroke-width="2"
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                            class="opacity-50 transition-transform duration-200 group-hover:translate-x-1 flex-shrink-0 mt-2"
+                            class="opacity-50 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1 flex-shrink-0 mt-2"
                             aria-hidden="true"
                           >
                             <path d="M5 12h14"></path>
@@ -433,23 +429,17 @@ const currentPath = isVi ? "/vi/" : "/";
           <!-- Column 1: Software & Applications -->
           <RevealOnScroll direction="up" delay={80}>
             <SpotlightCard class="h-full p-8 sm:p-10 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between hover:border-black dark:hover:border-white transition-[border-color] duration-300">
-              <div>
+              <div class="mb-8">
                 <div class="flex items-center justify-between mb-6">
                   <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1.5 opacity-80 font-medium">
                     Primary
                   </span>
                 </div>
-                <h3 class="font-display text-3xl sm:text-4xl font-bold mb-4">
+                <h3 class="font-display text-3xl sm:text-4xl font-bold">
                   {dict.skills.devTitle}
                 </h3>
-                <p class="font-light opacity-85 text-lg leading-relaxed mb-8">
-                  {dict.skills.devDesc}
-                </p>
               </div>
-              <div class="pt-6 border-t border-black/5 dark:border-white/5">
-                <div class="text-xs font-mono uppercase tracking-widest opacity-60 mb-3.5 font-bold">
-                  {dict.skills.stackLabel}
-                </div>
+              <div class="pt-6 border-t border-black/10 dark:border-white/10">
                 <div class="flex flex-wrap gap-2.5">
                   {[
                     "Django",
@@ -459,7 +449,7 @@ const currentPath = isVi ? "/vi/" : "/";
                     "WordPress",
                     "JavaScript",
                   ].map((tech) => (
-                    <span class="border border-black/15 dark:border-white/15 px-3 py-1.5 text-xs font-mono uppercase tracking-wider opacity-80 bg-bgLight dark:bg-bgDark">
+                    <span class="border border-black/15 dark:border-white/15 px-3 py-1.5 text-xs font-mono uppercase tracking-wider opacity-80 bg-bgLight dark:bg-bgDark hover:border-black dark:hover:border-white hover:opacity-100 transition-colors duration-200">
                       {tech}
                     </span>
                   ))}
@@ -471,23 +461,17 @@ const currentPath = isVi ? "/vi/" : "/";
           <!-- Column 2: Architecture & Data -->
           <RevealOnScroll direction="up" delay={160}>
             <SpotlightCard class="h-full p-8 sm:p-10 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between hover:border-black dark:hover:border-white transition-[border-color] duration-300">
-              <div>
+              <div class="mb-8">
                 <div class="flex items-center justify-between mb-6">
                   <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1.5 opacity-80 font-medium">
                     Practical
                   </span>
                 </div>
-                <h3 class="font-display text-3xl sm:text-4xl font-bold mb-4">
+                <h3 class="font-display text-3xl sm:text-4xl font-bold">
                   {dict.skills.cloudTitle}
                 </h3>
-                <p class="font-light opacity-85 text-lg leading-relaxed mb-8">
-                  {dict.skills.cloudDesc}
-                </p>
               </div>
-              <div class="pt-6 border-t border-black/5 dark:border-white/5">
-                <div class="text-xs font-mono uppercase tracking-widest opacity-60 mb-3.5 font-bold">
-                  {isVi ? "Dữ liệu & tự động hóa" : "Data & automation"}
-                </div>
+              <div class="pt-6 border-t border-black/10 dark:border-white/10">
                 <div class="flex flex-wrap gap-2.5">
                   {[
                     "Firebase",
@@ -497,7 +481,7 @@ const currentPath = isVi ? "/vi/" : "/";
                     "HuggingFace",
                     "Git",
                   ].map((tech) => (
-                    <span class="border border-black/15 dark:border-white/15 px-3 py-1.5 text-xs font-mono uppercase tracking-wider opacity-80 bg-bgLight dark:bg-bgDark">
+                    <span class="border border-black/15 dark:border-white/15 px-3 py-1.5 text-xs font-mono uppercase tracking-wider opacity-80 bg-bgLight dark:bg-bgDark hover:border-black dark:hover:border-white hover:opacity-100 transition-colors duration-200">
                       {tech}
                     </span>
                   ))}
@@ -509,23 +493,17 @@ const currentPath = isVi ? "/vi/" : "/";
           <!-- Column 3: Systems & Operations -->
           <RevealOnScroll direction="up" delay={240}>
             <SpotlightCard class="h-full p-8 sm:p-10 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between hover:border-black dark:hover:border-white transition-[border-color] duration-300">
-              <div>
+              <div class="mb-8">
                 <div class="flex items-center justify-between mb-6">
                   <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1.5 opacity-80 font-medium">
                     {dict.skills.supportLabel}
                   </span>
                 </div>
-                <h3 class="font-display text-3xl sm:text-4xl font-bold mb-4">
+                <h3 class="font-display text-3xl sm:text-4xl font-bold">
                   {dict.skills.infraTitle}
                 </h3>
-                <p class="font-light opacity-85 text-lg leading-relaxed mb-8">
-                  {dict.skills.infraDesc}
-                </p>
               </div>
-              <div class="pt-6 border-t border-black/5 dark:border-white/5">
-                <div class="text-xs font-mono uppercase tracking-widest opacity-60 mb-3.5 font-bold">
-                  {isVi ? "Vận hành & Hỗ trợ" : "Operations & Support"}
-                </div>
+              <div class="pt-6 border-t border-black/10 dark:border-white/10">
                 <div class="flex flex-wrap gap-2.5">
                   {[
                     "IT Helpdesk",
@@ -534,7 +512,7 @@ const currentPath = isVi ? "/vi/" : "/";
                     "User Support",
                     "Documentation",
                   ].map((tech) => (
-                    <span class="border border-black/15 dark:border-white/15 px-3 py-1.5 text-xs font-mono uppercase tracking-wider opacity-80 bg-bgLight dark:bg-bgDark">
+                    <span class="border border-black/15 dark:border-white/15 px-3 py-1.5 text-xs font-mono uppercase tracking-wider opacity-80 bg-bgLight dark:bg-bgDark hover:border-black dark:hover:border-white hover:opacity-100 transition-colors duration-200">
                       {tech}
                     </span>
                   ))}
@@ -571,12 +549,9 @@ const currentPath = isVi ? "/vi/" : "/";
     >
       <div class="container mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end">
         <RevealOnScroll class="lg:col-span-7">
-          <h2 class="font-display text-4xl md:text-6xl font-bold mb-6">
+          <h2 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
             {dict.allProjects.title}
           </h2>
-          <p class="font-light text-xl leading-relaxed opacity-85 max-w-2xl">
-            {dict.allProjects.desc}
-          </p>
         </RevealOnScroll>
         <div class="lg:col-span-5 lg:border-l lg:border-black/10 dark:lg:border-white/10 lg:pl-10">
           <a

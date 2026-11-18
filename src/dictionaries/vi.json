@@ -91,19 +91,19 @@
     "items": {
       "hospital": {
         "role": "IT Helpdesk · Bệnh viện Mắt Bình Thuận",
-        "desc": "Công việc IT helpdesk hiện tại, hỗ trợ người dùng, thiết bị và các vấn đề công nghệ hằng ngày trong môi trường bệnh viện."
+        "desc": "Trực tiếp hỗ trợ người dùng, duy trì hạ tầng thiết bị và xử lý sự cố công nghệ hằng ngày trong môi trường bệnh viện."
       },
       "sojo": {
         "role": "IT Support / IT Operations · SOJO",
-        "desc": "Làm việc về hỗ trợ và vận hành CNTT tại SOJO từ tháng 1 đến tháng 3 năm 2026."
+        "desc": "Hỗ trợ kỹ thuật người dùng, vận hành thiết bị ngoại vi và chuẩn hóa quy trình dịch vụ CNTT tại đơn vị."
       },
       "sailingBay": {
         "role": "IT Internship · The Sailing Bay",
-        "desc": "Thực tập CNTT tại The Sailing Bay từ tháng 8 đến tháng 11 năm 2025."
+        "desc": "Thực tập vận hành hệ thống mạng, kiểm tra thiết bị phòng ban và tiếp nhận yêu cầu hỗ trợ kỹ thuật."
       },
       "degree": {
         "role": "Cử nhân Công nghệ Thông tin · Đại học",
-        "desc": "Hoàn thành chương trình Cử nhân Công nghệ Thông tin từ năm 2022 đến 2026, với các môn và dự án về phát triển phần mềm, ứng dụng mobile và hệ thống thông tin."
+        "desc": "Chương trình đào tạo chính quy tập trung vào kỹ thuật phát triển phần mềm, ứng dụng di động và kiến trúc hệ thống thông tin."
       }
     }
   },
