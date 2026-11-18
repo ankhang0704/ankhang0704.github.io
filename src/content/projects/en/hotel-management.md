@@ -30,30 +30,14 @@ A comprehensive, production-grade Django academic capstone demonstrating an end-
 
 ## System Architecture & Highlights
 
-```
-┌────────────────────────────────────────────────────────┐
-│ CLIENT BROWSER / DESK WORKSTATION                      │
-│ • Server-Rendered HTML Templates                       │
-│ • Role-Tailored Desk Portals (Admin / Desk / Cleaning) │
-└──────────────────────────┬─────────────────────────────┘
-                           │ (HTTP Session Cookies + CSRF)
-                           ▼
-┌────────────────────────────────────────────────────────┐
-│ DJANGO 5 MONOLITH RUNTIME (Python 3.12)                │
-│ • Date-Based Room Inventory & Overlap Engine           │
-│ • State Machine for Check-In, Booking, Cancellation   │
-│ • Optimized ORM Queries (select_related / prefetch)    │
-│ • transaction.atomic Blocks with select_for_update     │
-└─────────────┬───────────────────────────┬──────────────┘
-              │                           │
-              ▼                           ▼
-┌───────────────────────────┐   ┌────────────────────────┐
-│ PRIMARY PERSISTENCE       │   │ AUXILIARY VECTOR RAG   │
-│ • SQLite in WAL Mode      │   │ • FAISS Vector Store   │
-│ • ACID Transaction Safety │   │ • HuggingFace Embeds   │
-│ • Zero External DB Daemon │   │ • Local Policy Q&A Bus │
-└───────────────────────────┘   └────────────────────────┘
-```
+The interactive blueprint above illustrates the multi-tier runtime and decoupled AI bus. Below is the technical breakdown of system layers:
+
+| Layer                       | Technology & Engine              | Architectural Responsibility             | Invariant & Safety Boundary                         |
+| :-------------------------- | :------------------------------- | :--------------------------------------- | :-------------------------------------------------- |
+| **Tier 01: Workstation UI** | Server-Rendered HTML Templates   | Sub-50ms render, Role-Based Access       | HTTPOnly cookies, strict CSRF validation            |
+| **Tier 02: Monolith Core**  | Django 5.x, Python 3.12          | Date overlap matrix & state machine      | Row locks via `select_for_update`                   |
+| **Tier 03A: Primary DB**    | SQLite 3 in WAL Mode             | High-speed concurrent reads, ACID writes | Write-Ahead Logging; zero DB daemon overhead        |
+| **Tier 03B: Semantic AI**   | FAISS Vector Store + HuggingFace | Local resort policy Q&A assistant        | 100% offline in-process; zero external data leakage |
 
 ## Core Architectural Pillars
 

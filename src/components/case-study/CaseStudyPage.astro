@@ -6,6 +6,7 @@ import Header from "../ui/Header.astro";
 import Footer from "../ui/Footer.astro";
 import GridPattern from "../ui/GridPattern.astro";
 import TermInspector from "../interactive/TermInspector.astro";
+import ArchitectureDiagram from "./ArchitectureDiagram.astro";
 
 interface Props {
   project: CollectionEntry<"projects">;
@@ -190,6 +191,9 @@ const projectsListHref = isVi ? "/vi/projects/" : "/projects/";
           </div>
         </figure>
       )}
+
+      <!-- System Architecture & Layer Topology Blueprint -->
+      <ArchitectureDiagram slug={slug} lang={lang} />
 
       <!-- Interactive Term Inspector (Embedded for FM Dictionary) -->
       {isFmDictionary && (

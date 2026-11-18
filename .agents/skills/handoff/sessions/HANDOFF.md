@@ -94,6 +94,24 @@ In this session, the project achieved a major architectural milestone:
   - Quadrupled marquee items in [`TechMarquee.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/TechMarquee.astro) for seamless 4K/ultrawide looping.
   - Created [`.prettierignore`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.prettierignore) and added `"format"` script to [`package.json`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/package.json).
 
+### G. Case Study Interactive System Architecture Blueprint (Ponytail & Editorial Standards)
+
+- **Interactive System Architecture UI Component**:
+  - Created [`ArchitectureDiagram.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/ArchitectureDiagram.astro) and integrated it into [`CaseStudyPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/CaseStudyPage.astro) for all major case studies (`FM Dictionary`, `GitHub Vault Relay`, `Hotel Management System`).
+  - Implemented dual-mode view switching:
+    - **Kiến Trúc Phân Tầng (Layered Topology)**: Visualizes discrete tiers (`Client Runtime`, `Edge Gateway`, `Persistence Boundary`), components, responsibilities, engineering invariants, and fallback/fault-tolerance mechanisms with SVG protocol connectors.
+    - **Luồng Dữ Liệu & Quy Trình (Data Flow & Pipeline)**: Shows step-by-step serialized lifecycles with input specifications, output formats, and invariant guarantees.
+- **Architectural Data & Domain Engineering**:
+  - Created type-safe bilingual definitions in [`src/data/architectures.ts`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/data/architectures.ts) covering:
+    - `fm-dictionary`: 3-Tier Offline-First Edge Topology (Flutter local Hive < 5ms, Cloudflare Workers audio CDN proxy, Firebase non-blocking sync).
+    - `github-vault-relay`: 6-Stage Deterministic Sync Pipeline (Inventory -> Reconciliation -> Pull -> Verify -> Push -> State Advance).
+    - `hotel-management`: Django MVT Monolith & Decoupled FAISS Vector RAG with SQLite WAL Mode ACID guarantees.
+- **Markdown Streamlining**:
+  - Replaced rigid, fixed-width ASCII code drawings in `src/content/projects/en/*.md` and `src/content/projects/vi/*.md` with responsive Markdown structural comparison tables, eliminating mobile code block horizontal overflow while referencing the interactive UI blueprint above.
+- **Design & Web Standard Compliance**:
+  - 100% Native Web Standards: Zero runtime chart/diagram dependencies (React-free, Mermaid-runtime-free).
+  - Monochromatic palette, 0px border-radius architectural geometry, and full Astro View Transition compatibility with `astro:page-load` tab binding.
+
 ---
 
 ## 2. 🚦 Current State

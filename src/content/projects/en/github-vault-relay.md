@@ -36,20 +36,16 @@ A lightweight, deterministic synchronization bridge connecting local Obsidian ma
 
 ## 6-Stage Deterministic Sync Pipeline
 
-```
-  01. INVENTORY        02. RECONCILE        03. PULL STAGE
-┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
-│ Vault File Scan │─▶│ Three-Way Diff  │─▶│ Transactional   │
-│ & SHA-256 Map   │  │ (Local/Base/Rem)│  │ Ingestion & Log │
-└─────────────────┘  └─────────────────┘  └─────────────────┘
-                                                    │
-                                                    ▼
-  06. STATE ADVANCE    05. PUSH STAGE       04. VERIFY STAGE
-┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
-│ Atomic Commit   │◀─│ Atomic Git Tree │◀─│ Post-Pull Disk  │
-│ Cursor Advance  │  │ Creation & Push │  │ Integrity Check │
-└─────────────────┘  └─────────────────┘  └─────────────────┘
-```
+The interactive pipeline diagram above details each step's inputs, outputs, and invariants. The table below outlines the sequential lifecycle:
+
+| Stage                  | Operation                              | Primary Focus           | Invariant Guarantee                            |
+| :--------------------- | :------------------------------------- | :---------------------- | :--------------------------------------------- |
+| **01. Inventory**      | Vault File Scan & SHA-256 Map          | Physical File Discovery | Read-only; zero disk modifications             |
+| **02. Reconciliation** | Three-Way Diff (Local / Base / Remote) | Conflict Classification | Dual diverged notes preserved in review bucket |
+| **03. Pull Stage**     | Transactional Ingestion                | Safe Remote Ingestion   | Interrupted pull rolls back via journal        |
+| **04. Verification**   | Post-Pull Disk Integrity Assertion     | Hash Validation         | Halts on hash mismatch or truncation           |
+| **05. Push Stage**     | Atomic Git Tree & Commit Creation      | Git Data API Trees      | Atomic tree creation; fast-forward only        |
+| **06. State Advance**  | Baseline `state.json` Update           | Cursor Finalization     | Occurs strictly after verified remote push     |
 
 ### Stage 01: Inventory (Discovery & Tree Traversal)
 

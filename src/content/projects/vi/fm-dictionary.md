@@ -40,30 +40,13 @@ canonicalPath: "/fm-dictionary/"
 
 ## Kiến Trúc Phân Tầng 3 Lớp (3-Tier Architecture)
 
-```
-┌────────────────────────────────────────────────────────┐
-│ TẦNG 01: CLIENT RUNTIME (Flutter + Dart)               │
-│ • Kho nhị phân Hive (Lưu sẵn 1.847 thuật ngữ)          │
-│ • Máy trạng thái thuật toán Spaced-Repetition Leitner   │
-│ • Bộ chấm điểm phát âm ngữ âm Rule-Based tại thiết bị  │
-└──────────────────────────┬─────────────────────────────┘
-                           │ (Luồng xác thực mã bảo mật)
-                           ▼
-┌────────────────────────────────────────────────────────┐
-│ TẦNG 02: EDGE GATEWAY (Cloudflare Workers)             │
-│ • Bộ đệm âm thanh tại biên (CDN phân tán toàn cầu)     │
-│ • Cô lập API Key & Giới hạn tần suất gọi dịch vụ       │
-│ • Tự động chuyển tuyến dự phòng khi suy giảm tốc độ   │
-└──────────────────────────┬─────────────────────────────┘
-                           │ (Đồng bộ bất đồng bộ không nghẽn)
-                           ▼
-┌────────────────────────────────────────────────────────┐
-│ TẦNG 03: RANH GIỚI ĐỒNG BỘ (Firebase Services)         │
-│ • Đăng nhập ẩn danh và nâng cấp liên kết Email Auth    │
-│ • Đồng bộ Firestore ngầm cho sổ từ và độ thành thạo    │
-│ • Bảng xếp hạng Realtime Database (RTDB) siêu nhẹ      │
-└────────────────────────────────────────────────────────┘
-```
+Sơ đồ kiến trúc tương tác phía trên thể hiện chi tiết 3 tầng vận hành. Dưới đây là bảng tổng hợp các ranh giới kỹ thuật và tính bất biến của từng tầng:
+
+| Tầng                           | Môi trường & Công nghệ       | Tính bất biến cốt lõi          | Cơ chế chịu lỗi & Dự phòng                       |
+| :----------------------------- | :--------------------------- | :----------------------------- | :----------------------------------------------- |
+| **Tầng 01: Client Runtime**    | Flutter + Dart, Hive Boxes   | 100% Offline, tra cứu < 5ms    | Tự chuyển về kho dữ liệu gốc đi kèm              |
+| **Tầng 02: Edge Gateway**      | Cloudflare Workers, Edge CDN | Ẩn API Key, độ trễ TTFB < 50ms | Chuyển tuyến nhà cung cấp âm thanh thứ hai       |
+| **Tầng 03: Ranh giới đồng bộ** | Firebase Auth & Firestore    | Đồng bộ ngầm không nghẽn UI    | Hàng đợi lưu tạm trên máy (Eventual Consistency) |
 
 ### 1. Client Runtime (Flutter + Dart) — Hoạt Động 100% Offline
 

@@ -40,30 +40,13 @@ A specialized, production-ready vocabulary learning application tailored for the
 
 ## 3-Tier Architectural Hierarchy
 
-```
-┌────────────────────────────────────────────────────────┐
-│ TIER 01: CLIENT RUNTIME (Flutter + Dart)               │
-│ • Hive Binary Boxes (1,847 Terms pre-indexed)          │
-│ • Leitner Spaced-Repetition State Machine              │
-│ • Local Rule-Based Phonetic Assessment                 │
-└──────────────────────────┬─────────────────────────────┘
-                           │ (Authenticated Token Flow)
-                           ▼
-┌────────────────────────────────────────────────────────┐
-│ TIER 02: EDGE GATEWAY (Cloudflare Workers)             │
-│ • Edge Audio Caching (Worldwide CDN nodes)             │
-│ • Upstream Secret Cloaking & Rate-Limiting             │
-│ • Provider Degradation Fallback Routing                │
-└──────────────────────────┬─────────────────────────────┘
-                           │ (Non-blocking Async Sync)
-                           ▼
-┌────────────────────────────────────────────────────────┐
-│ TIER 03: PERSISTENCE BOUNDARY (Firebase Services)      │
-│ • Anonymous Session Upgrade & Email Auth               │
-│ • Lazy Firestore Bookmarks & Mastery Sync              │
-│ • Realtime RTDB Streak Counters & Cohort Leaderboard   │
-└────────────────────────────────────────────────────────┘
-```
+The interactive blueprint above details the three operational layers. Below is the structural summary of each tier's invariants and boundaries:
+
+| Tier                        | Runtime & Technology         | Primary Invariant                     | Error & Fallback Boundary                |
+| :-------------------------- | :--------------------------- | :------------------------------------ | :--------------------------------------- |
+| **Tier 01: Client Runtime** | Flutter + Dart, Hive Boxes   | 100% Offline, sub-5ms search          | Bundled fallback database                |
+| **Tier 02: Edge Gateway**   | Cloudflare Workers, Edge CDN | Upstream secret cloaking, TTFB < 50ms | Dynamic audio provider failover          |
+| **Tier 03: Persistence**    | Firebase Auth & Firestore    | Non-blocking async sync               | Local write queue (Eventual Consistency) |
 
 ### 1. Client Runtime (Flutter + Dart) — 100% Offline Capable
 

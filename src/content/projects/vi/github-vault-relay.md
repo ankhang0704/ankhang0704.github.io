@@ -36,20 +36,16 @@ Cầu nối đồng bộ hóa mã nguồn mở, gọn nhẹ và có tính dự �
 
 ## Quy Trình Đồng Bộ 6 Giai Đoạn Tuyến Tính
 
-```
-  01. KIỂM KÊ          02. ĐỐI SOÁT         03. KÉO DỮ LIỆU
-┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
-│ Quét toàn Vault │─▶│ So khớp 3 chiều │─▶│ Tải Blob & Ghi  │
-│ & lập bảng SHA  │  │ (Local/Base/Rem)│  │ Nhật ký Rollback│
-└─────────────────┘  └─────────────────┘  └─────────────────┘
-                                                    │
-                                                    ▼
-  06. GHI NHẬN        05. ĐẨY DỮ LIỆU       04. KIỂM TRA
-┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
-│ Cập nhật commit │◀─│ Dựng Git Tree   │◀─│ Quét đĩa xác    │
-│ vào state.json  │  │ & tạo Commit mới│  │ thực toàn vẹn   │
-└─────────────────┘  └─────────────────┘  └─────────────────┘
-```
+Sơ đồ quy trình tương tác phía trên trình bày chi tiết luồng xử lý và dữ liệu vào/ra. Dưới đây là bảng tóm tắt 6 giai đoạn tuần tự:
+
+| Giai đoạn           | Thao tác kỹ thuật                       | Trọng tâm xử lý      | Tính bất biến bảo đảm                         |
+| :------------------ | :-------------------------------------- | :------------------- | :-------------------------------------------- |
+| **01. Kiểm kê**     | Quét toàn Vault & lập bảng SHA-256      | Nhận diện tệp vật lý | Chỉ đọc; tuyệt đối không thay đổi đĩa         |
+| **02. Đối soát**    | So khớp 3 chiều (Local / Base / Remote) | Phân loại trạng thái | Ghi chú xung đột được giữ cả 2 bản            |
+| **03. Kéo dữ liệu** | Tải Blob & ghi nhật ký rollback         | Tải về an toàn       | Mất mạng sẽ tự động khôi phục bản cũ          |
+| **04. Kiểm tra**    | Quét đĩa xác thực toàn vẹn              | Thẩm định mã băm     | Dừng quy trình nếu phát hiện sai lệch băm     |
+| **05. Đẩy dữ liệu** | Dựng Git Tree & tạo commit mới          | Git Data API         | Dựng cây nguyên tử; chỉ cho phép fast-forward |
+| **06. Ghi nhận**    | Cập nhật mốc vào `state.json`           | Hoàn tất chu kỳ      | Chỉ cập nhật sau khi push thành công 100%     |
 
 ### Giai đoạn 01: Kiểm kê Vault (Discovery & Tree Traversal)
 

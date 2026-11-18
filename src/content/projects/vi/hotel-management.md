@@ -30,30 +30,14 @@ Hệ thống quản lý khách sạn và vận hành buồng phòng hoàn chỉn
 
 ## Sơ Đồ Kiến Trúc Hệ Thống
 
-```
-┌────────────────────────────────────────────────────────┐
-│ TRÌNH DUYỆT KHÁCH HÀNG / MÁY TRẠM LỄ TÂN               │
-│ • Giao diện HTML Server-Rendered tốc độ cao            │
-│ • Phân luồng riêng cho Quản trị viên, Lễ tân & Buồng   │
-└──────────────────────────┬─────────────────────────────┘
-                           │ (Phiên đăng nhập HTTP + CSRF)
-                           ▼
-┌────────────────────────────────────────────────────────┐
-│ DJANGO 5 MONOLITH RUNTIME (Python 3.12)                │
-│ • Quản lý tồn kho phòng theo ngày & Chống trùng lịch   │
-│ • Máy trạng thái cho luồng Đặt phòng, Check-in, Hủy    │
-│ • Tối ưu truy vấn ORM (select_related / prefetch)      │
-│ • Khối transaction.atomic an toàn tuyệt đối dữ liệu    │
-└─────────────┬───────────────────────────┬──────────────┘
-              │                           │
-              ▼                           ▼
-┌───────────────────────────┐   ┌────────────────────────┐
-│ CƠ SỞ DỮ LIỆU CHÍNH       │   │ TRỢ LÝ RAG NGỮ NGHĨA   │
-│ • SQLite chế độ WAL       │   │ • Kho vector FAISS     │
-│ • An toàn giao dịch ACID  │   │ • HuggingFace Embeds   │
-│ • Không cần cài DB nặng   │   │ • Bus hỏi đáp nội bộ   │
-└───────────────────────────┘   └────────────────────────┘
-```
+Sơ đồ kiến trúc tương tác phía trên minh họa chi tiết các tầng vận hành và bus AI độc lập. Dưới đây là bảng phân lập các tầng kỹ thuật:
+
+| Tầng                              | Công nghệ & Động cơ             | Trách nhiệm kiến trúc                   | Ranh giới an toàn & Tính bất biến                |
+| :-------------------------------- | :------------------------------ | :-------------------------------------- | :----------------------------------------------- |
+| **Tầng 01: Giao diện máy trạm**   | HTML Server-Rendered tốc độ cao | Hiển thị < 50ms, phân quyền vai trò     | Cookie HTTPOnly, bắt buộc kiểm tra CSRF          |
+| **Tầng 02: Lõi Monolith**         | Django 5.x, Python 3.12         | Ma trận giao thoa ngày & máy trạng thái | Khóa dòng nguyên tử qua `select_for_update`      |
+| **Tầng 03A: Cơ sở dữ liệu chính** | SQLite 3 chế độ WAL             | Đọc ghi tốc độ cao, giao dịch ACID      | Write-Ahead Logging; không cần cài đặt daemon DB |
+| **Tầng 03B: Trợ lý AI ngữ nghĩa** | Kho vector FAISS + HuggingFace  | Hỏi đáp chính sách khách sạn nội bộ     | 100% ngoại tuyến trong RAM; không rò rỉ dữ liệu  |
 
 ## Các Trụ Cột Kỹ Thuật Chính
 
