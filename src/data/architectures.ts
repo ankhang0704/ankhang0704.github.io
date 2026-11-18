@@ -2,6 +2,8 @@ export interface ArchitectureLayer {
   tier: string;
   name: string;
   tag: string;
+  techSummary?: string;
+  connectorLabel?: string;
   components: string[];
   responsibilities: string[];
   invariants: string[];
@@ -13,6 +15,8 @@ export interface PipelineStage {
   step: string;
   name: string;
   tag: string;
+  techSummary?: string;
+  connectorLabel?: string;
   description: string;
   input: string;
   output: string;
@@ -51,6 +55,8 @@ export const architecturesEn: Record<string, ProjectArchitecture> = {
         tier: "TIER 01",
         name: "Client Runtime (Flutter + Dart)",
         tag: "LOCAL-FIRST CORE",
+        techSummary: "Flutter 3.x · Hive Box · Leitner Engine",
+        connectorLabel: "HTTPS / Bearer Auth",
         components: [
           "Hive Binary Boxes (1,847 Terms pre-indexed)",
           "Leitner Spaced-Repetition State Engine",
@@ -79,6 +85,8 @@ export const architecturesEn: Record<string, ProjectArchitecture> = {
         tier: "TIER 02",
         name: "Edge Gateway (Cloudflare Workers)",
         tag: "AUTHENTICATED PROXY",
+        techSummary: "Cloudflare Workers · CDN Cache · Rate Limiter",
+        connectorLabel: "Async Non-Blocking Sync",
         components: [
           "Worldwide Audio CDN Edge Cache",
           "Token Validation & Upstream Secret Cloaker",
@@ -102,6 +110,7 @@ export const architecturesEn: Record<string, ProjectArchitecture> = {
         tier: "TIER 03",
         name: "Persistence & Sync Boundary (Firebase)",
         tag: "NON-BLOCKING PERSISTENCE",
+        techSummary: "Firebase Auth · Firestore · RTDB Streaks",
         components: [
           "Anonymous & Email Credential Manager",
           "Firestore Lazy Bookmark & Mastery Sync",
@@ -178,6 +187,8 @@ export const architecturesEn: Record<string, ProjectArchitecture> = {
         tier: "LAYER 01",
         name: "Obsidian Client Vault (Mobile / Desktop)",
         tag: "LOCAL CLIENT RUNTIME",
+        techSummary: "Obsidian API · Local FS · In-Memory SHA Map",
+        connectorLabel: "In-Memory Diff Bus",
         components: [
           "Obsidian Plugin UI & Settings View",
           "File System Adapter & In-Memory SHA-256 Mapper",
@@ -200,6 +211,8 @@ export const architecturesEn: Record<string, ProjectArchitecture> = {
         tier: "LAYER 02",
         name: "Deterministic Sync Engine (TypeScript)",
         tag: "CORE ALGORITHM",
+        techSummary: "TypeScript · 3-Way Diff · Rollback Journal",
+        connectorLabel: "Direct HTTPS / Git Data API",
         components: [
           "Inventory Scanner & Ignore Engine",
           "Three-Way Diff State Machine",
@@ -223,6 +236,7 @@ export const architecturesEn: Record<string, ProjectArchitecture> = {
         tier: "LAYER 03",
         name: "Remote GitHub Repository (Git Data API)",
         tag: "REMOTE PERSISTENCE",
+        techSummary: "GitHub REST API · Git Tree & Blobs · SHA Cursor",
         components: [
           "GitHub Git Data REST API Endpoints",
           "Git Trees, Blobs, and Commits Graph",
@@ -330,6 +344,8 @@ export const architecturesEn: Record<string, ProjectArchitecture> = {
         tier: "TIER 01",
         name: "Presentation & Role-Tailored Portals",
         tag: "DESK WORKSTATION UI",
+        techSummary: "Django Templates · Role RBAC · Session Auth",
+        connectorLabel: "HTTP/2 · Session & CSRF",
         components: [
           "Server-Rendered HTML Templates",
           "Role-Specific Dashboards (Admin / Desk / Housekeeping)",
@@ -352,6 +368,8 @@ export const architecturesEn: Record<string, ProjectArchitecture> = {
         tier: "TIER 02",
         name: "Monolith Domain Engine (Django 5.x / Python 3.12)",
         tag: "CORE BUSINESS LOGIC",
+        techSummary: "Django 5 · Date Overlap Matrix · State Machine",
+        connectorLabel: "ACID Locks & In-Memory Bus",
         components: [
           "Date Overlap Room Availability Matrix",
           "Deterministic Booking Lifecycle State Machine",
@@ -375,6 +393,7 @@ export const architecturesEn: Record<string, ProjectArchitecture> = {
         tier: "TIER 03A",
         name: "Primary Persistence (SQLite in WAL Mode)",
         tag: "ACID STORAGE",
+        techSummary: "SQLite 3 · WAL Mode · Zero Daemon Overhead",
         components: [
           "Embedded SQLite 3 Engine",
           "Write-Ahead Logging (WAL) Mode",
@@ -397,6 +416,7 @@ export const architecturesEn: Record<string, ProjectArchitecture> = {
         tier: "TIER 03B",
         name: "Auxiliary Vector RAG (FAISS + HuggingFace)",
         tag: "LOCAL SEMANTIC AI BUS",
+        techSummary: "FAISS Vector Store · HuggingFace Embeddings",
         components: [
           "FAISS Flat-L2 Vector Store",
           "HuggingFace Pre-trained Embeddings",
@@ -485,6 +505,8 @@ export const architecturesVi: Record<string, ProjectArchitecture> = {
         tier: "TẦNG 01",
         name: "Nhân Ứng Dụng Client (Flutter + Dart)",
         tag: "NHÂN OFFLINE NỘI BỘ",
+        techSummary: "Flutter 3.x · Kho Hive Box · Động cơ Leitner",
+        connectorLabel: "Xác thực Bearer qua HTTPS",
         components: [
           "Kho nhị phân Hive (1.847 thuật ngữ lập chỉ mục sẵn)",
           "Máy trạng thái ôn tập ngắt quãng Leitner",
@@ -513,6 +535,8 @@ export const architecturesVi: Record<string, ProjectArchitecture> = {
         tier: "TẦNG 02",
         name: "Gateway Biên Mạng (Cloudflare Workers)",
         tag: "GATEWAY BIÊN MẠNG",
+        techSummary: "Cloudflare Workers · CDN Biên · Giới hạn tải",
+        connectorLabel: "Đồng Bộ Ngầm Bất Đồng Bộ",
         components: [
           "Bộ đệm âm thanh CDN toàn cầu",
           "Xác thực mã bảo mật & Ẩn API Key",
@@ -536,6 +560,7 @@ export const architecturesVi: Record<string, ProjectArchitecture> = {
         tier: "TẦNG 03",
         name: "Ranh Giới Đồng Bộ & Lưu Trữ (Firebase)",
         tag: "ĐỒNG BỘ ĐÁM MÂY BẤT ĐỒNG BỘ",
+        techSummary: "Firebase Auth · Firestore · Chuỗi học RTDB",
         components: [
           "Quản lý phiên ẩn danh & Nâng cấp Email",
           "Đồng bộ Firestore ngầm cho sổ từ và độ thành thạo",
@@ -616,6 +641,8 @@ export const architecturesVi: Record<string, ProjectArchitecture> = {
         tier: "LỚP 01",
         name: "Giao Diện Obsidian Vault (Mobile / Desktop)",
         tag: "CLIENT NỘI BỘ",
+        techSummary: "Obsidian API · Hệ thống tệp đĩa · Bảng băm RAM",
+        connectorLabel: "So Khớp Trong Bộ Nhớ",
         components: [
           "Giao diện cài đặt & Trạng thái Plugin",
           "Bộ tiếp hợp hệ thống tệp & Bảng băm SHA-256",
@@ -638,6 +665,8 @@ export const architecturesVi: Record<string, ProjectArchitecture> = {
         tier: "LỚP 02",
         name: "Lõi Động Cơ Đồng Bộ (TypeScript)",
         tag: "THUẬT TOÁN ĐỒNG BỘ",
+        techSummary: "TypeScript · So khớp 3 chiều · Rollback Journal",
+        connectorLabel: "HTTPS / Git Data API Trực Tiếp",
         components: [
           "Bộ quét kiểm kê & Lọc tệp bỏ qua",
           "Máy trạng thái so khớp ba chiều (3-Way Diff)",
@@ -661,6 +690,7 @@ export const architecturesVi: Record<string, ProjectArchitecture> = {
         tier: "LỚP 03",
         name: "Kho Lưu Trữ GitHub (Git Data API)",
         tag: "LƯU TRỮ TỪ XA",
+        techSummary: "GitHub REST API · Git Tree & Blobs · Con trỏ Commit",
         components: [
           "Các điểm cuối GitHub Git Data REST API",
           "Đồ thị đối tượng Git Trees, Blobs và Commits",
@@ -769,6 +799,8 @@ export const architecturesVi: Record<string, ProjectArchitecture> = {
         tier: "TẦNG 01",
         name: "Giao Diện Phân Quyền Theo Nghiệp Vụ",
         tag: "GIAO DIỆN MÁY TRẠM LỄ TÂN",
+        techSummary: "Django Templates · Phân quyền RBAC · Phiên Session",
+        connectorLabel: "HTTP/2 · Phiên Đăng Nhập & CSRF",
         components: [
           "Giao diện HTML Server-Rendered tốc độ cao",
           "Cổng làm việc theo vai trò (Quản trị, Lễ tân, Buồng phòng)",
@@ -791,6 +823,8 @@ export const architecturesVi: Record<string, ProjectArchitecture> = {
         tier: "TẦNG 02",
         name: "Lõi Nghiệp Vụ Monolith (Django 5.x / Python 3.12)",
         tag: "LÕI NGHIỆP VỤ & ORM",
+        techSummary: "Django 5 · Ma trận tồn kho · Máy trạng thái",
+        connectorLabel: "Khóa Giao Dịch ACID & Bus RAM",
         components: [
           "Động cơ ma trận tồn kho phòng theo ngày (Overlap Engine)",
           "Máy trạng thái vòng đời đặt phòng xác định",
@@ -814,6 +848,7 @@ export const architecturesVi: Record<string, ProjectArchitecture> = {
         tier: "TẦNG 03A",
         name: "Lưu Trữ Chính (SQLite Chế Độ WAL)",
         tag: "LƯU TRỮ AN TOÀN ACID",
+        techSummary: "SQLite 3 · Chế độ WAL · Không cần Daemon",
         components: [
           "Nhân cơ sở dữ liệu SQLite 3 nhúng",
           "Cơ chế Write-Ahead Logging (WAL)",
@@ -836,6 +871,7 @@ export const architecturesVi: Record<string, ProjectArchitecture> = {
         tier: "TẦNG 03B",
         name: "Trợ Lý Ngữ Nghĩa RAG (FAISS + HuggingFace)",
         tag: "TRỢ LÝ TRI THỨC FAISS",
+        techSummary: "Kho Vector FAISS · Embedding HuggingFace",
         components: [
           "Kho lưu trữ vector FAISS Flat-L2",
           "Mô hình embedding HuggingFace cục bộ",
