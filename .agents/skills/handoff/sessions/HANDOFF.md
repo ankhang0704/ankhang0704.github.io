@@ -68,15 +68,41 @@ In this session, the project achieved a major architectural milestone:
   - **WCAG AA Touch & Contrast**: Expanded mobile filter button height to `min-h-11` (44px) in `ProjectsIndexPage.astro`, normalized neutral color classes to strict monochromatic tokens (`text-black dark:text-white`), and added visible keyboard focus rings.
 - **Tooling Fix**: Installed devDependencies into `node_modules` enabling Prettier formatting and Husky pre-commit checks to run cleanly on Windows.
 
+### F. Full Codebase Sweep & Defect Remediation (Ponytail Mode)
+
+- **Eliminated Window Scroll Listener Leaks**:
+  - Hoisted `onWindowScroll` in [`Header.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Header.astro) and `handleFooterScroll` in [`Footer.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Footer.astro) to global singleton bindings throttled with `requestAnimationFrame`. Completely stopped listener stacking across view transitions.
+  - Added cleanup on `astro:before-swap` to remove `body-lock` and cancel active speech synthesis or RAF loops.
+- **Fixed `TermInspector.astro` Search & Text Selection**:
+  - Replaced `p.className = ...` bulk overwriting in `renderTerm()` with targeted class list toggles, preserving the `hidden` class on filtered term pills.
+  - Removed `select-none` from the component container, allowing technical definitions, standards, and terms to be selected and copied.
+  - Added `speechSynthesis.cancel()` on `astro:before-swap` so audio doesn't leak across routes.
+- **Fixed `CopyEmailButton.astro` W3C Validity & Deprecated API**:
+  - Hoisted `#copy-email-toast` markup into [`BaseLayout.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/layouts/BaseLayout.astro) as a single global singleton, eliminating duplicate DOM IDs.
+  - Replaced deprecated `document.execCommand("copy")` with modern `navigator.clipboard.writeText` (achieving 0 errors, 0 warnings, 0 hints on `astro check`).
+- **Render-Blocking Fonts & Dead CSS Purge**:
+  - Deleted line 1 `@import` Google Fonts from [`global.css`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/styles/global.css) (fonts already preconnected and loaded in `BaseLayout.astro`).
+  - Purged 85 lines of unused `.ambient-glow` radial gradients and `.scrollbar-hide` from `global.css`.
+- **Created Static `src/pages/404.astro`**:
+  - Added editorial 404 page generating `dist/404.html` for Cloudflare Pages native handling with bilingual home navigation.
+  - Added `/en/*` 301 redirects in [`public/_redirects`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/_redirects).
+- **SEO & Layout Enhancements**:
+  - Added light/dark `<meta name="theme-color">` in `BaseLayout.astro`.
+  - Added `i18n` configuration to `@astrojs/sitemap` in [`astro.config.mjs`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/astro.config.mjs).
+  - Centered path localization in `Header.astro` and `BaseLayout.astro` through `getLocalizedPath()` in [`src/i18n/utils.ts`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/i18n/utils.ts).
+  - Synchronized `koi-phan-thiet.md` year to `2026`.
+  - Quadrupled marquee items in [`TechMarquee.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/TechMarquee.astro) for seamless 4K/ultrawide looping.
+  - Created [`.prettierignore`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.prettierignore) and added `"format"` script to [`package.json`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/package.json).
+
 ---
 
 ## 2. 🚦 Current State
 
 - **Branch**: `main`
-- **Latest Commit**: `c36fd63` (`fix(perf): eliminate route transition delay, patch mobile drawer lifecycle, and refine editorial design`)
+- **Latest Commit**: `3e8b492` (`fix: resolve critical defects, eliminate scroll leaks, add 404 page, and clean dead code`)
 - **Build Status**:
-  - `npm run lint` (`astro check`): **0 errors, 0 warnings**
-  - `npm run build`: **10/10 static routes generated successfully in ~2.9s** to [`dist/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/dist/)
+  - `npm run lint` (`astro check`): **0 errors, 0 warnings, 0 hints**
+  - `npm run build`: **11/11 static routes generated successfully in ~2.9s** to [`dist/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/dist/) (including `404.html`)
 - **Pre-commit Hooks**: Verified and active (`lint-staged` with `prettier` + `astro check`).
 - **Brand Rules Compliance**:
   - Navbar logo: `KHANG` (typographic wordmark, 0px border-radius).
