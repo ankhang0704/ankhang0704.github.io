@@ -2,105 +2,100 @@
 
 ## 🎯 Executive Summary & Architectural Milestone
 
-This repository ([`ankhang0704.github.io`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io)) is the personal software engineering portfolio and product showcase for **An Khang** (Software Developer).
+This repository ([`ankhang0704.github.io`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io)) is the personal software engineering portfolio and product landing page for **An Khang** (Software Developer).
 
-In this session, the project achieved a major architectural milestone:
+In this session, the project achieved a major design and architectural milestone:
 
-- **100% Native Astro 5 Migration (Zero UI Runtime)**: Completely eliminated React and Next.js client runtime overhead. The site now compiles to 100% static HTML, CSS, and lightweight vanilla TypeScript with zero runtime JavaScript dependencies for page layout and rendering.
-- **Delivery Model**: Static HTML/CSS/JS export to [`dist/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/dist/) deployed natively to **Cloudflare Pages** (`https://ankhang0704.pages.dev/`).
-- **Bilingual System**: Native Astro i18n routing (`/` for EN, `/vi/` for VI) powered by Astro 5 `<ClientRouter />` for instant client-side page transitions.
+- **Interactive Circuit Flow Architecture**: Created a zero-overflow, interactive system architecture circuit ([`ArchitectureDiagram.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/ArchitectureDiagram.astro)) for all major case studies (`FM Dictionary`, `GitHub Vault Relay`, `Hotel Management`). It features bounded horizontal directional flow on desktop, pure SVG signal wire conduits with keyframe flow animation, and an on-demand Inspector Panel below the circuit.
+- **Full-Codebase Subtitle Bloat Purge**: Systematically audited and eliminated redundant filler texts and subtitle bloat across all pages (`HomePage.astro`, `ProjectsIndexPage.astro`, `CaseStudyPage.astro`, `ExperienceTimeline.astro`, and i18n dictionaries). Content is now punchy, architectural, and confident.
+- **Tactile Micro-Interactions & Animations**: Enhanced interactive feel across the site using 100% native Web Standards and pure CSS (active node beacon pulse, inspector fade-in/slide-up keyframes, diagonal arrow translation on Bento cards, tactile button press scaling, and monochromatic focus glow).
+- **100% Static HTML/CSS Export**: Compiles cleanly with Astro 5 in `dist/` with zero runtime JavaScript animation dependencies.
 
 ---
 
 ## 1. 📋 Session Summary
 
-### A. Next.js to Astro 5 Native Migration
+### A. Interactive Circuit Flow Architecture (`ArchitectureDiagram.astro`)
 
-- Migrated all pages, layouts, content, and components from Next.js 16 to native Astro 5 static architecture.
-- Re-architected project content into type-safe **Astro Content Collections** ([`src/content.config.ts`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/content.config.ts)) with Zod validation schemas for all project case studies (`FM Dictionary`, `GitHub Vault Relay`, `Hotel Management System`, etc.).
-- Preserved all canonical routing patterns: `/`, `/vi/`, `/projects/`, `/vi/projects/`, and dynamic case study slugs (`/fm-dictionary/`, `/vi/fm-dictionary/`, etc.).
-- Bumped FM Dictionary milestone and specifications to **v1.1.4**.
+- Replaced static text-heavy blocks with an **Interactive Circuit Flow**:
+  - **Bounded Zero-Overflow Topology**: Bounded node buttons (`flex-1 min-w-0 truncate`) connected by pure SVG animated dashed signal wires (`circuit-wire-h` and `circuit-wire-v`), completely resolving previous horizontal blowout (+241px) on desktop and mobile viewports.
+  - **On-Demand Inspector Panel**: Dedicated inspector card below the circuit displaying _Responsibilities_, _Core Components_, _Invariants & Guarantees_, and _Fault Tolerance_ only when a tier node is activated.
+  - **Dual-Mode Switcher**: Clean tabbed toggle between **Kiến Trúc Phân Tầng** (Layered Topology) and **Quy Trình** (Serialized Pipeline).
+  - **Responsive Tablist**: Optimized mobile tab labels and grid layout to prevent text clipping on narrow mobile viewports.
+- Integrated into [`CaseStudyPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/CaseStudyPage.astro) and backed by type-safe schemas in [`src/data/architectures.ts`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/data/architectures.ts).
 
-### B. Micro-Interactions & React Bits as Native Web Standards
+### B. Subtitle Bloat Purge Across Codebase
 
-- Replaced React Bits dependencies with 100% Native Web Standards:
-  - [`SpotlightCard.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/SpotlightCard.astro): Native mouse-tracking radial gradient spotlight.
-  - [`MagneticButton.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/MagneticButton.astro): Smooth cursor magnetism using `requestAnimationFrame`.
-  - [`RevealOnScroll.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/RevealOnScroll.astro): Viewport-triggered scroll reveal via `IntersectionObserver`.
-  - [`DecryptedText.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/DecryptedText.astro): Canvas/text hacker-scramble decryption effect.
-  - [`CountUp.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/CountUp.astro): Zero-dependency smooth count-up with server-rendered static fallback (never freezes at 0).
-  - Pure CSS keyframe [`TechMarquee.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/TechMarquee.astro).
-- **Removed 3D perspective distortion**: Completely deleted `TiltedCard.astro` per user instruction; restored 1:1 original clean Bento Grid geometry (`md:col-span-7`, `md:col-span-5`, `md:col-span-12`).
+- **`HomePage.astro`**:
+  - _About Section_: Purged paragraphs `p1` and `p2`, elevating the single bold **Lead** statement (`text-3xl sm:text-4xl md:text-5xl`) with zero filler text.
+  - _Skills Section_: Deleted 3 long descriptive paragraphs (`devDesc`, `cloudDesc`, `infraDesc`) and redundant subtitle labels; skills cards now directly showcase tech stack badges with micro-hover highlights.
+  - _All Projects Banner_: Removed redundant description paragraph under the title `Xem tất cả dự án`.
+- **`ProjectsIndexPage.astro`**:
+  - Removed contradictory eyebrow label ("Nổi bật") and description paragraph from the header, allowing the `h1` title to dominate with generous whitespace.
+  - Removed decorative filler text ("Phân loại theo tiêu chuẩn kỹ thuật") from the stats bar, keeping the clean counter `Hiển thị 5 / 5 dự án`.
+- **`CaseStudyPage.astro`**:
+  - Purged redundant explanatory sentence from the live `TermInspector` module header.
+- **`ExperienceTimeline.astro` & Dictionaries (`en.json`, `vi.json`)**:
+  - Refactored experience descriptions from wordy filler sentences into concise, engineering-focused operational summaries.
+  - Updated footer freshness indicator to **November 2026** (`Updated · November 2026` / `Cập nhật · Tháng 11, 2026`).
 
-### C. Pre-Commit Hooks & Tooling Setup
+### C. Tactile Micro-Interactions & Animations (Pure Web Standards)
 
-- Configured pre-commit hooks via **Husky** (`v9.1.7`) and **lint-staged** (`v16.4.0`):
-  - Added [`prettier-plugin-astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/package.json) to format `.astro` files accurately.
-  - Configured parser overrides in [`.prettierrc`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.prettierrc).
-  - Enforced `astro check` (`npm run typecheck`) and Prettier formatting on every commit.
-
-### D. Solved Language Switching (`EN` <-> `VI`) Lag & Flickering
-
-- **Prefetching**: Enabled native prefetching (`prefetch: { prefetchAll: true, defaultStrategy: 'hover' }` in [`astro.config.mjs`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/astro.config.mjs)) and added `data-astro-prefetch="load"` on the desktop and mobile language buttons in [`Header.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Header.astro). This delivers instant 0ms response on click.
-- **Eliminated Snapshot Blanking**: Bound `initRevealOnScroll` in [`RevealOnScroll.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/RevealOnScroll.astro) to `astro:after-swap` so elements already visible in the viewport are marked `.is-revealed` before the browser captures the transition snapshot.
-- **Scroll Preservation**: Implemented seamless scroll restoration across language toggles via `sessionStorage` in `Header.astro`. Switching languages maintains the user's exact scroll position without jumping to the top of the page.
-- **Counter & Decrypted Text State**: Added session flags to [`CountUp.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/CountUp.astro) and [`DecryptedText.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/DecryptedText.astro) so numbers remain displayed and headings stay stable without re-scrambling when switching languages.
-- **Snappy View Transition Timing**: Tuned `::view-transition-old(root)` and `::view-transition-new(root)` in [`global.css`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/styles/global.css) to 110ms `cubic-bezier(0.4, 0, 0.2, 1)`.
-- **Deduplicated Event Listeners**: Guarded navbar and interactive component listeners to ensure single-instance binding during client-side navigation.
-- **Design Principle C (Freshness)**: Updated [`Footer.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Footer.astro) update indicator to `Updated · November 2026` / `Cập nhật · Tháng 11, 2026`.
+- **Active Node Beacon Pulse**: Indicator dot on active architecture tier pulses softly via `@keyframes activePulse`.
+- **Inspector Smooth Transition**: Inspector cards reveal with a smooth micro fade-and-slide keyframe (`@keyframes inspectorFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1)`).
+- **Tactile Click Feedback**: Added `active:scale-95` on category filter buttons and `active:scale-[0.99]` on architecture nodes.
+- **Search Focus Glow**: Monochromatic subtle glow ring on directory search input (`focus:shadow-[0_0_15px_rgba(...)]`).
+- **Diagonal Arrow Glide**: Bento cards now translate the external link arrow diagonally ($45^\circ$) on hover (`group-hover:translate-x-1 group-hover:-translate-y-1`).
 
 ---
 
 ## 2. 🚦 Current State
 
 - **Branch**: `main`
-- **Latest Commit**: `d62c467` (`fix(i18n): eliminate language toggle lag with instant prefetch, viewport-aware reveals, and scroll preservation`)
-- **Build Status**:
-  - `npm run lint` (`astro check`): **0 errors, 0 warnings**
-  - `npm run build`: **10/10 static routes generated successfully in ~2.8s** to [`dist/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/dist/)
-- **Pre-commit Hooks**: Verified and active (`lint-staged` with `prettier` + `astro check`).
-- **Brand Rules Compliance**:
-  - Navbar logo: `KHANG` (typographic wordmark, 0px border-radius).
-  - AK monogram favicon is strictly and exclusively confined to the browser tab icon (`public/favicon.ico`, `public/icon.svg`).
-  - Owner: An Khang (Software Developer).
-  - Email: `ankhang.nguyen0704@gmail.com`.
-  - Professional timeline reflects `2026 - Nay` for IT Helpdesk at Bệnh Viện Mắt Bình Thuận, and `2022 - 2026` for Bachelor of IT.
+- **Latest Commit**:
+  - `f810f2f`: `refactor: purge subtitle bloat across codebase and elevate tactile micro-interactions`
+  - Preceded by `74fc517`, `585fbec`, and `84f637c`.
+- **Build & Quality Assurance**:
+  - `npm run lint` (`astro check`): **0 errors, 0 warnings, 0 hints** across all 28 files.
+  - `npm run build`: **11/11 static routes successfully compiled in ~3.8s** to [`dist/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/dist/).
+  - Fully compliant with zero-runtime React constraint, 0px border-radius architectural geometry, and monochromatic editorial aesthetic.
+- **Pre-commit Hooks**: Verified and functioning cleanly via Husky + lint-staged (Prettier + `astro check`).
 
 ---
 
 ## 3. 🚧 In Progress
 
-None. All migration, UI restoration, pre-commit tooling, and performance optimization goals are complete and fully verified.
+None. All interactive architecture blueprints, subtitle purges, tactile micro-interactions, and build verifications are complete and validated.
 
 ---
 
 ## 4. ✅ Next Steps
 
-1. **Production Deployment Monitoring**:
-   - Verify automatic build and deployment on Cloudflare Pages (`https://ankhang0704.pages.dev/`).
-2. **Optional Hybrid Rendering Features (Backlog)**:
-   - If desired in future sessions, integrate Cloudflare Pages Functions to power an edge-rendered message contact endpoint or live case study view counter.
+1. **Push to Remote**:
+   - Push local commits on branch `main` to `origin/main` to trigger automated Cloudflare Pages deployment.
+2. **Production Verification**:
+   - Verify deployment on `https://ankhang0704.pages.dev/` and ensure edge CDN cache serves the newly streamlined static assets.
+3. **Future Considerations**:
+   - If desired, explore Cloudflare Pages Functions for an edge contact form or lightweight telemetry.
 
 ---
 
 ## 5. 📂 Key Files Touched
 
-- [`astro.config.mjs`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/astro.config.mjs): Configured static export, prefetching strategy, and i18n routing.
-- [`package.json`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/package.json): Added `prettier-plugin-astro`, Husky, and lint-staged scripts.
-- [`.prettierrc`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.prettierrc) & [`.lintstagedrc`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.lintstagedrc): Formatter and pre-commit configuration.
-- [`src/layouts/BaseLayout.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/layouts/BaseLayout.astro): HTML skeleton, Google Fonts, Astro `<ClientRouter />`, Zero-FOUC theme script.
-- [`src/styles/global.css`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/styles/global.css): Global tokens, ambient glow, and tuned 110ms View Transitions.
-- [`src/components/ui/Header.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Header.astro): Sticky glass navbar, scroll preservation across language toggle, prefetch attributes.
-- [`src/components/ui/Footer.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Footer.astro): Back to top, email copy, and November 2026 freshness indicator.
-- [`src/components/interactive/RevealOnScroll.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/RevealOnScroll.astro): Viewport-aware reveal on `astro:after-swap`.
-- [`src/components/interactive/CountUp.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/CountUp.astro): Number stability across transitions.
-- [`src/components/interactive/DecryptedText.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/interactive/DecryptedText.astro): Title stability across transitions.
+- [`src/components/case-study/ArchitectureDiagram.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/ArchitectureDiagram.astro): Interactive circuit flow diagram with animated signal wires, bounded cards, and smooth inspector transitions.
+- [`src/components/case-study/CaseStudyPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/CaseStudyPage.astro): Integrated architecture diagram and cleaned up term inspector header.
+- [`src/data/architectures.ts`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/data/architectures.ts): Dual-mode architecture schemas and invariants for all major projects.
+- [`src/components/home/HomePage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/home/HomePage.astro): Purged subtitle bloat in About, Skills, and All Projects banner; elevated diagonal arrow on Bento cards.
+- [`src/components/projects/ProjectsIndexPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/projects/ProjectsIndexPage.astro): Streamlined header and stats bar; added tactile category filter and search glow.
+- [`src/components/ui/ExperienceTimeline.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/ExperienceTimeline.astro): Concise engineering responsibility descriptions.
+- [`src/dictionaries/vi.json`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/dictionaries/vi.json) & [`src/dictionaries/en.json`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/dictionaries/en.json): Updated timeline text and November 2026 freshness indicator.
+- [`src/content/projects/en/*.md`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/content/projects/en/) & [`src/content/projects/vi/*.md`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/content/projects/vi/): Replaced rigid ASCII art boxes with responsive structural comparison matrices.
 
 ---
 
 ## 6. ❓ Open Questions
 
-None. All technical decisions and user requirements have been resolved.
+None. All user requirements and refinement goals have been achieved.
 
 ---
 
@@ -109,7 +104,7 @@ None. All technical decisions and user requirements have been resolved.
 When continuing work in this repository, the following verified skills in [`.agents/skills/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.agents/skills/) are recommended:
 
 - `start`: Resume work cleanly from this handoff document in a new session.
-- `setup-pre-commit`: Maintain or adjust Husky and lint-staged git hook configurations.
-- `improve-codebase-architecture`: Audit layout, typography, and responsive design consistency across the portfolio.
-- `taste-skill`: Review and polish editorial aesthetic, typography hierarchy, and visual restraint.
+- `improve-codebase-architecture`: Audit layout, typography, and responsive design consistency.
+- `taste-skill`: Review editorial restraint, typography hierarchy, and anti-slop guidelines.
 - `checklist-design`: Verify accessibility and interaction patterns against design system checklists.
+- `setup-pre-commit`: Maintain Husky and lint-staged git hooks.
