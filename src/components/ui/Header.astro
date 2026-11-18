@@ -75,6 +75,7 @@ const links = [
 
 <header
   id="navbar"
+  transition:name="site-header"
   class="fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow,padding] duration-300 py-4"
 >
   <div class="container mx-auto flex w-full min-w-0 items-center justify-between gap-4 px-6 md:px-8">
@@ -106,6 +107,8 @@ const links = [
         <!-- Language Switch (Native View Transition Link) -->
         <a
           href={targetLangHref}
+          data-lang-switch
+          data-astro-prefetch="load"
           class="flex min-h-11 min-w-11 items-center justify-center text-sm font-bold tracking-widest hover:opacity-50 transition-opacity font-mono text-black dark:text-white"
           aria-label={isVi ? "Switch to English" : "Chuyển sang tiếng Việt"}
         >
@@ -249,6 +252,8 @@ const links = [
   <div class="flex items-center space-x-12 pt-8 border-t border-black/10 dark:border-white/10 w-2/3 justify-center">
     <a
       href={targetLangHref}
+      data-lang-switch
+      data-astro-prefetch="load"
       class="flex min-h-11 min-w-11 items-center justify-center text-lg font-bold tracking-widest font-mono text-black dark:text-white"
     >
       {isVi ? "EN" : "VI"}
@@ -347,6 +352,11 @@ const links = [
     window.addEventListener("scroll", updateScroll, { passive: true });
     updateScroll();
 
+    if (navbar && navbar.dataset.initialized === "true") {
+      return;
+    }
+    if (navbar) navbar.dataset.initialized = "true";
+
     // Dark / Light Theme Toggle Function
     const toggleTheme = () => {
       const isDark = document.documentElement.classList.contains("dark");
@@ -401,7 +411,23 @@ const links = [
     });
   }
 
-  // Bind to Astro lifecycle (both initial load and View Transitions)
-  setupHeader();
+  // Preserve scroll position across language toggle
+  document.addEventListener("click", (e) => {
+    const target = (e.target as HTMLElement).closest("[data-lang-switch]");
+    if (target) {
+      sessionStorage.setItem("lang_switch_scroll", window.scrollY.toString());
+    }
+  });
+
+  document.addEventListener("astro:after-swap", () => {
+    const savedY = sessionStorage.getItem("lang_switch_scroll");
+    if (savedY !== null) {
+      sessionStorage.removeItem("lang_switch_scroll");
+      window.scrollTo({ top: parseInt(savedY, 10), behavior: "instant" });
+    }
+    setupHeader();
+  });
+
+  // Bind to Astro lifecycle
   document.addEventListener("astro:page-load", setupHeader);
 </script>

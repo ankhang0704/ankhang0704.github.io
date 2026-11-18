@@ -36,6 +36,8 @@ const {
 </span>
 
 <script>
+  let hasDecryptedGlobally = false;
+
   function initDecryptedText() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -97,7 +99,11 @@ const {
       };
 
       if (animateOn === "mount") {
-        runScramble();
+        if (!hasDecryptedGlobally) {
+          runScramble();
+        } else {
+          target.textContent = text;
+        }
       } else if (animateOn === "hover") {
         container.addEventListener("mouseenter", runScramble);
       } else {
@@ -117,8 +123,9 @@ const {
         container.addEventListener("mouseenter", runScramble);
       }
     });
+
+    hasDecryptedGlobally = true;
   }
 
-  initDecryptedText();
   document.addEventListener("astro:page-load", initDecryptedText);
 </script>

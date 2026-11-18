@@ -276,3 +276,35 @@ html.dark {
   animation: marquee 35s linear infinite;
   will-change: transform;
 }
+
+/* --- Optimized Instant View Transitions (0ms perceived lag) --- */
+::view-transition-group(root),
+::view-transition-group(site-header) {
+  animation-duration: 140ms;
+}
+
+::view-transition-old(root) {
+  animation: 110ms cubic-bezier(0.4, 0, 0.2, 1) both fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 110ms cubic-bezier(0.4, 0, 0.2, 1) both fade-in;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

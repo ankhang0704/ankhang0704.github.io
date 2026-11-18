@@ -44,6 +44,14 @@ const {
     transform: translate3d(0, 0, 0);
   }
 
+  @media (scripting: none) {
+    .reveal-on-scroll {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .reveal-on-scroll {
       opacity: 1 !important;
@@ -75,13 +83,22 @@ const {
       { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
     );
 
+    const winH = window.innerHeight;
     elements.forEach((el) => {
-      if (!el.classList.contains("is-revealed")) {
+      if (el.classList.contains("is-revealed")) return;
+
+      const rect = el.getBoundingClientRect();
+      // If element is already within or above the viewport, reveal immediately without animation delay
+      if (rect.top < winH && rect.bottom > 0) {
+        el.style.setProperty("--reveal-delay", "0ms");
+        el.classList.add("is-revealed");
+      } else {
         observer.observe(el);
       }
     });
   }
 
-  initRevealOnScroll();
+  // Run on after-swap so new snapshot captures fully visible state
+  document.addEventListener("astro:after-swap", initRevealOnScroll);
   document.addEventListener("astro:page-load", initRevealOnScroll);
 </script>

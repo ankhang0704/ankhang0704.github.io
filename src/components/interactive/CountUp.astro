@@ -49,6 +49,8 @@ const initialFormatted = to
 </span>
 
 <script>
+  let hasCountedGlobally = false;
+
   function initCountUps() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -57,6 +59,14 @@ const initialFormatted = to
     );
     if (!elements.length) return;
 
+    // If counters have already animated, keep final static numbers across transitions
+    if (hasCountedGlobally) {
+      elements.forEach((el) => {
+        el.setAttribute("data-counted", "true");
+      });
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -64,6 +74,7 @@ const initialFormatted = to
           const el = entry.target as HTMLElement;
           observer.unobserve(el);
           el.setAttribute("data-counted", "true");
+          hasCountedGlobally = true;
 
           const to = parseFloat(el.dataset.to || "0");
           const from = parseFloat(el.dataset.from || "0");
@@ -102,6 +113,5 @@ const initialFormatted = to
     elements.forEach((el) => observer.observe(el));
   }
 
-  initCountUps();
   document.addEventListener("astro:page-load", initCountUps);
 </script>

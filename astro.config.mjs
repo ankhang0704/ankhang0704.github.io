@@ -6,6 +6,10 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://ankhang0704.pages.dev",
   output: "static",
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "hover",
+  },
   integrations: [tailwind(), sitemap()],
   i18n: {
     defaultLocale: "en",
