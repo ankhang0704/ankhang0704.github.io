@@ -15,6 +15,7 @@ techStack:
   - "STT / Audio"
 specs:
   - "1.847 Thuật ngữ"
+  - "v1.1.4 Production"
   - "Hive Offline (< 5ms)"
   - "Cloudflare STT Proxy"
   - "27 Unit/Widget Test"
@@ -95,4 +96,4 @@ canonicalPath: "/fm-dictionary/"
 - **19/05/2026 (Git `a6b69ed`)**: Tách biệt kiến trúc dịch vụ giọng nói, chuyển từ xử lý nặng trên máy sang Edge Proxy có xác thực tại Cloudflare.
 - **31/05/2026 (Git tag `v1.0.0`)**: Phát hành phiên bản chính thức đầu tiên trên App Store cùng trọn bộ 1.847 thuật ngữ FM.
 - **05/06/2026 (Git tag `v1.1.0`)**: Cập nhật tính năng nhóm học tập, bảng xếp hạng và tối ưu hóa khả năng tiếp cận (Accessibility).
-- **06/09/2026 (Baseline `f59332b`)**: Chuẩn hóa toàn diện kiến trúc, kiểm toán các bất biến kiểm thử và hoàn thiện hồ sơ kỹ thuật.
+- **06/09/2026 (Bản phát hành `v1.1.4`)**: Cập nhật phiên bản sản xuất trên App Store & Google Play — ổn định đồng bộ ngoại tuyến, tối ưu tìm kiếm và cải thiện khả năng tiếp cận.

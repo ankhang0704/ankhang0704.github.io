@@ -15,6 +15,7 @@ techStack:
   - "STT / Audio"
 specs:
   - "1,847 Terms"
+  - "v1.1.4 Production"
   - "Hive Offline (< 5ms)"
   - "Cloudflare STT Proxy"
   - "27 Unit/Widget Tests"
@@ -95,4 +96,4 @@ A specialized, production-ready vocabulary learning application tailored for the
 - **2026-05-19 (Git `a6b69ed`)**: Speech architecture transition from heavy on-device model to authenticated Cloudflare edge proxy boundaries.
 - **2026-05-31 (Git tag `v1.0.0`)**: Official production launch on App Store with 1,847 bundled FM terms.
 - **2026-06-05 (Git tag `v1.1.0`)**: Social learning enhancements, cohort leaderboards, and accessible screen reader accommodations released.
-- **2026-09-06 (Baseline `f59332b`)**: Comprehensive architectural canonicalization, test invariant audit, and documentation finalization.
+- **2026-09-06 (Release `v1.1.4`)**: Production release on App Store & Google Play — offline sync stabilization, advanced search, and accessibility enhancements.
