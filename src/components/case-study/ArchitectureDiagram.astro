@@ -24,31 +24,29 @@ if (!architecture) {
 
 <section
   id="system-architecture"
-  aria-label={
-    isVi ? "Sơ đồ mạch kiến trúc hệ thống" : "System Architecture Circuit"
-  }
+  aria-label={isVi ? "Sơ đồ kiến trúc hệ thống" : "System Architecture Circuit"}
   class="mb-20 border border-black/15 dark:border-white/15 bg-cardLight dark:bg-cardDark text-black dark:text-white"
 >
-  <!-- Architectural Circuit Header -->
-  <header class="flex flex-wrap items-center justify-between gap-3 px-5 sm:px-6 py-3.5 border-b border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark text-xs font-mono">
-    <div class="flex items-center gap-2.5">
+  <!-- Architectural Header -->
+  <header class="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-3 border-b border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark text-xs font-mono">
+    <div class="flex items-center gap-2">
       <span
         class="w-2 h-2 bg-emerald-500 animate-pulse flex-shrink-0"
         aria-hidden="true"
       ></span>
       <span class="font-bold tracking-wider">{architecture.code}</span>
       <span class="opacity-40">/</span>
-      <span class="uppercase tracking-widest opacity-80">
+      <span class="uppercase tracking-widest opacity-75">
         {architecture.badge}
       </span>
     </div>
 
-    <!-- View Mode Switcher (if pipeline exists) -->
+    <!-- Responsive View Mode Switcher (Never overflows on mobile) -->
     {architecture.pipeline && (
       <div
         role="tablist"
         aria-label={isVi ? "Chế độ xem sơ đồ" : "Diagram View Mode"}
-        class="flex items-center border border-black/20 dark:border-white/20 text-[11px] font-mono"
+        class="w-full sm:w-auto grid grid-cols-2 sm:flex items-center border border-black/20 dark:border-white/20 text-[11px] font-mono text-center"
       >
         <button
           type="button"
@@ -59,7 +57,7 @@ if (!architecture) {
           data-view="topology"
           class="arch-mode-btn px-3 py-1 bg-black text-white dark:bg-white dark:text-black font-semibold transition-colors"
         >
-          {isVi ? "Kiến Trúc Phân Tầng" : "Layered Topology"}
+          {isVi ? "Phân Tầng" : "Topology"}
         </button>
         <button
           type="button"
@@ -70,163 +68,103 @@ if (!architecture) {
           data-view="pipeline"
           class="arch-mode-btn px-3 py-1 opacity-70 hover:opacity-100 transition-colors"
         >
-          {isVi ? "Luồng Dữ Liệu & Quy Trình" : "Data Flow & Pipeline"}
+          {isVi ? "Quy Trình" : "Pipeline"}
         </button>
       </div>
     )}
   </header>
 
-  <!-- Title & Clean Circuit Narrative -->
-  <div class="p-6 sm:p-8 border-b border-black/10 dark:border-white/10 space-y-3">
-    <div class="flex flex-wrap items-center justify-between gap-2">
-      <span class="text-xs font-mono font-bold uppercase tracking-[0.2em] opacity-60">
-        {isVi ? "SƠ ĐỒ MẠCH HỆ THỐNG" : "SYSTEM CIRCUIT TOPOLOGY"}
-      </span>
-      <span class="text-[11px] font-mono opacity-60 text-emerald-600 dark:text-emerald-400">
-        ●{" "}
-        {isVi
-          ? "Nhấp vào từng khối để xem chi tiết kỹ thuật ▾"
-          : "Click any node to inspect specifications ▾"}
-      </span>
-    </div>
-
-    <h2 class="font-display text-2xl sm:text-3xl font-bold tracking-tight">
+  <!-- Confident Title (Zero Subtitle Bloat) -->
+  <div class="px-4 sm:px-6 py-4 sm:py-5 border-b border-black/10 dark:border-white/10">
+    <h2 class="font-display text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
       {architecture.title}
     </h2>
-
-    <p class="font-sans text-xs sm:text-sm font-light leading-relaxed opacity-85 max-w-3xl">
-      {architecture.summary}
-    </p>
-
-    <!-- Key Metrics Ribbon -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 pt-2">
-      {architecture.keyMetrics.map((metric) => (
-        <div class="border border-black/10 dark:border-white/10 p-2.5 bg-bgLight dark:bg-bgDark">
-          <div class="text-[9px] font-mono uppercase tracking-wider opacity-60">
-            {metric.label}
-          </div>
-          <div class="font-mono text-xs sm:text-sm font-bold mt-0.5 text-black dark:text-white">
-            {metric.value}
-          </div>
-        </div>
-      ))}
-    </div>
   </div>
 
   <!-- MODE 1: LAYERED CIRCUIT VIEW (Kiến Trúc Phân Tầng) -->
   <div
     id={`circuit-topology-${slug}`}
-    class="arch-view-panel p-6 sm:p-8 space-y-6"
+    class="arch-view-panel p-3.5 sm:p-5 lg:p-6 space-y-4 sm:space-y-5"
     data-panel="topology"
   >
-    <!-- Circuit Nodes & Connectors (Clean Minimal Flow) -->
-    <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2 sm:gap-3">
+    <!-- Circuit Track (Zero-Overflow Bounded Equation) -->
+    <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-1.5 sm:gap-2">
       {architecture.layers.map((layer, idx) => (
         <>
-          <!-- Node Button Card -->
+          <!-- Node Button Card (Compact & Editorial) -->
           <button
             type="button"
             data-layer-index={idx}
-            data-group="topology"
             aria-expanded={idx === 0 ? "true" : "false"}
             aria-controls={`layer-inspector-${slug}-${idx}`}
-            class={`layer-node-btn flex-1 text-left p-4 sm:p-5 border transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white group ${
+            class={`layer-node-btn flex-1 min-w-0 text-left p-3 sm:p-4 border transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white group ${
               idx === 0
                 ? "active-node border-black dark:border-white bg-black/5 dark:bg-white/5 ring-1 ring-black dark:ring-white"
-                : "border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark hover:border-black/50 dark:hover:border-white/50"
+                : "border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark hover:border-black/40 dark:hover:border-white/40"
             }`}
           >
-            <!-- Node Header -->
-            <div class="flex items-center justify-between gap-2 mb-2">
-              <span class="node-tier-badge text-[10px] font-mono font-bold px-2 py-0.5 bg-black text-white dark:bg-white dark:text-black">
+            <div class="flex items-center justify-between gap-2 mb-1.5">
+              <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 bg-black text-white dark:bg-white dark:text-black">
                 {layer.tier}
               </span>
-              <span class="text-[10px] font-mono uppercase tracking-wider opacity-60 font-semibold truncate">
-                {layer.tag}
-              </span>
+              <span class="w-1.5 h-1.5 node-indicator-dot bg-emerald-500 rounded-none"></span>
             </div>
 
-            <!-- Node Title -->
-            <h3 class="font-display text-sm sm:text-base font-bold tracking-tight group-hover:opacity-80 transition-opacity">
+            <h3 class="font-display text-xs sm:text-sm font-bold tracking-tight truncate group-hover:opacity-80 transition-opacity">
               {layer.name}
             </h3>
-
-            <!-- Tech Summary Chip -->
-            <p class="text-xs font-mono opacity-70 mt-1 truncate">
-              {layer.techSummary || layer.components[0]}
-            </p>
-
-            <!-- Bottom Inspect Indicator -->
-            <div class="mt-4 pt-2 border-t border-black/10 dark:border-white/10 flex items-center justify-between text-[10px] font-mono">
-              <span class="node-state-text opacity-70 group-hover:opacity-100 font-semibold">
-                {idx === 0
-                  ? isVi
-                    ? "Đang xem chi tiết ▴"
-                    : "Viewing specs ▴"
-                  : isVi
-                    ? "Xem chi tiết ▾"
-                    : "Inspect node ▾"}
-              </span>
-              <span class="w-1.5 h-1.5 node-indicator-dot rounded-none bg-emerald-500"></span>
-            </div>
           </button>
 
-          <!-- Desktop Animated Horizontal Connector -->
+          <!-- Desktop Animated Signal Conduit (Pure SVG Wire, No Text Blowout) -->
           {idx < architecture.layers.length - 1 && (
             <div
-              class="hidden lg:flex flex-col items-center justify-center px-1 flex-shrink-0"
+              class="hidden lg:flex items-center justify-center w-6 lg:w-8 flex-shrink-0"
               aria-hidden="true"
             >
-              <div class="text-[9px] font-mono uppercase tracking-wider opacity-60 mb-1 px-1.5 py-0.5 border border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark whitespace-nowrap">
-                {layer.connectorLabel || "FLOW"}
-              </div>
               <svg
-                width="44"
-                height="16"
-                viewBox="0 0 44 16"
+                width="28"
+                height="12"
+                viewBox="0 0 28 12"
                 fill="none"
                 class="overflow-visible text-black/50 dark:text-white/50"
               >
                 <line
                   x1="0"
-                  y1="8"
-                  x2="36"
-                  y2="8"
+                  y1="6"
+                  x2="20"
+                  y2="6"
                   stroke="currentColor"
                   stroke-width="2"
                   class="circuit-wire-h"
                 />
-                <polygon points="36,4 44,8 36,12" fill="currentColor" />
+                <polygon points="20,2 28,6 20,10" fill="currentColor" />
               </svg>
             </div>
           )}
 
-          <!-- Mobile Animated Vertical Connector -->
+          <!-- Mobile Animated Signal Conduit (Vertical) -->
           {idx < architecture.layers.length - 1 && (
             <div
-              class="lg:hidden flex flex-col items-center justify-center py-2"
+              class="lg:hidden flex items-center justify-center py-1 flex-shrink-0"
               aria-hidden="true"
             >
-              <div class="text-[9px] font-mono uppercase tracking-wider opacity-60 mb-1 px-2 py-0.5 border border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark">
-                {layer.connectorLabel || "FLOW"}
-              </div>
               <svg
-                width="16"
-                height="28"
-                viewBox="0 0 16 28"
+                width="12"
+                height="18"
+                viewBox="0 0 12 18"
                 fill="none"
                 class="overflow-visible text-black/50 dark:text-white/50"
               >
                 <line
-                  x1="8"
+                  x1="6"
                   y1="0"
-                  x2="8"
-                  y2="20"
+                  x2="6"
+                  y2="12"
                   stroke="currentColor"
                   stroke-width="2"
                   class="circuit-wire-v"
                 />
-                <polygon points="4,20 8,28 12,20" fill="currentColor" />
+                <polygon points="2,12 6,18 10,12" fill="currentColor" />
               </svg>
             </div>
           )}
@@ -234,33 +172,25 @@ if (!architecture) {
       ))}
     </div>
 
-    <!-- SINGLE DEDICATED INSPECTOR PANEL (Switches cleanly when a node is clicked) -->
+    <!-- SINGLE DEDICATED INSPECTOR PANEL (Switches on Node Click) -->
     <div
       id={`topology-inspector-container-${slug}`}
-      class="border border-black/20 dark:border-white/20 bg-bgLight dark:bg-bgDark transition-all duration-300"
+      class="border border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark"
     >
       {architecture.layers.map((layer, idx) => (
         <article
           id={`layer-inspector-${slug}-${idx}`}
-          class={`layer-inspector-card p-6 sm:p-7 space-y-5 ${idx === 0 ? "block" : "hidden"}`}
+          class={`layer-inspector-card p-4 sm:p-6 lg:p-7 space-y-4 sm:space-y-5 ${idx === 0 ? "block" : "hidden"}`}
         >
           <!-- Inspector Header -->
-          <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-black/10 dark:border-white/10">
-            <div class="space-y-1">
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-mono font-bold px-2.5 py-0.5 bg-black text-white dark:bg-white dark:text-black">
-                  {layer.tier}
-                </span>
-                <span class="text-xs font-mono uppercase tracking-widest opacity-60 font-semibold">
-                  {layer.tag}
-                </span>
-              </div>
-              <h4 class="font-display text-xl sm:text-2xl font-bold tracking-tight mt-1">
-                {layer.name}
-              </h4>
-            </div>
+          <div class="flex flex-wrap items-center justify-between gap-2.5 pb-3.5 border-b border-black/10 dark:border-white/10">
+            <h4 class="font-display text-base sm:text-lg font-bold tracking-tight">
+              <span class="font-mono text-xs font-bold px-2 py-0.5 mr-2 bg-black text-white dark:bg-white dark:text-black">
+                {layer.tier}
+              </span>
+              <span>{layer.name}</span>
+            </h4>
 
-            <!-- Protocol Badges -->
             <div class="flex flex-wrap gap-1.5 self-start">
               {layer.protocols.map((proto) => (
                 <span class="text-[10px] font-mono px-2 py-0.5 border border-black/15 dark:border-white/15 bg-cardLight dark:bg-cardDark opacity-85">
@@ -271,16 +201,14 @@ if (!architecture) {
           </div>
 
           <!-- Inspector Body Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-mono">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs font-mono">
             <!-- Left: Responsibilities & Modules -->
             <div class="space-y-4">
               <div>
                 <h5 class="font-bold uppercase tracking-wider opacity-60 mb-2">
-                  {isVi
-                    ? "Trách Nhiệm Kỹ Thuật:"
-                    : "Technical Responsibilities:"}
+                  {isVi ? "Trách Nhiệm Kỹ Thuật" : "Responsibilities"}
                 </h5>
-                <ul class="space-y-2 font-sans text-xs opacity-90">
+                <ul class="space-y-1.5 font-sans text-xs opacity-90">
                   {layer.responsibilities.map((resp) => (
                     <li class="flex items-start gap-2">
                       <span class="opacity-40 select-none font-mono">→</span>
@@ -292,11 +220,11 @@ if (!architecture) {
 
               <div>
                 <h5 class="font-bold uppercase tracking-wider opacity-60 mb-2">
-                  {isVi ? "Thành Phần Cốt Lõi:" : "Core Components:"}
+                  {isVi ? "Thành Phần Cốt Lõi" : "Components"}
                 </h5>
                 <div class="flex flex-wrap gap-1.5">
                   {layer.components.map((comp) => (
-                    <span class="px-2 py-1 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark text-[11px] font-sans">
+                    <span class="px-2 py-0.5 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark text-[11px] font-sans">
                       {comp}
                     </span>
                   ))}
@@ -309,10 +237,10 @@ if (!architecture) {
               <div>
                 <h5 class="font-bold uppercase tracking-wider opacity-60 mb-2">
                   {isVi
-                    ? "Tính Bất Biến & Ràng Buộc:"
-                    : "Guarantees & Invariants:"}
+                    ? "Tính Bất Biến & Ràng Buộc"
+                    : "Guarantees & Invariants"}
                 </h5>
-                <ul class="space-y-2 font-sans text-xs opacity-90">
+                <ul class="space-y-1.5 font-sans text-xs opacity-90">
                   {layer.invariants.map((inv) => (
                     <li class="flex items-start gap-2">
                       <span class="text-emerald-500 font-bold select-none font-mono">
@@ -326,11 +254,9 @@ if (!architecture) {
 
               <div>
                 <h5 class="font-bold uppercase tracking-wider opacity-60 mb-2">
-                  {isVi
-                    ? "Cơ Chế Chịu Lỗi & Dự Phòng:"
-                    : "Fault Tolerance & Fallback:"}
+                  {isVi ? "Cơ Chế Chịu Lỗi & Dự Phòng" : "Fault Tolerance"}
                 </h5>
-                <div class="p-3 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark text-xs font-sans opacity-90 leading-relaxed">
+                <div class="p-2.5 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark text-xs font-sans opacity-90 leading-relaxed">
                   {layer.errorHandling}
                 </div>
               </div>
@@ -345,59 +271,33 @@ if (!architecture) {
   {architecture.pipeline && (
     <div
       id={`circuit-pipeline-${slug}`}
-      class="arch-view-panel hidden p-6 sm:p-8 space-y-6"
+      class="arch-view-panel hidden p-3.5 sm:p-5 lg:p-6 space-y-4 sm:space-y-5"
       data-panel="pipeline"
     >
-      <div class="space-y-1 pb-2 border-b border-black/10 dark:border-white/10">
-        <h3 class="font-display text-lg sm:text-xl font-bold tracking-tight">
-          {architecture.pipelineTitle ||
-            (isVi ? "Quy Trình Xử Lý Tuần Tự" : "Serialized Pipeline")}
-        </h3>
-        <p class="font-sans text-xs sm:text-sm font-light opacity-80">
-          {architecture.pipelineDescription}
-        </p>
-      </div>
-
-      <!-- Pipeline Circuit Nodes (Clean Sequence) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <!-- Pipeline Steps Grid (Responsive 1/2/3 Columns) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-2.5">
         {architecture.pipeline.map((stage, idx) => (
           <button
             type="button"
             data-stage-index={idx}
-            data-group="pipeline"
             aria-expanded={idx === 0 ? "true" : "false"}
             aria-controls={`stage-inspector-${slug}-${idx}`}
-            class={`stage-node-btn text-left p-4 border transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white group ${
+            class={`stage-node-btn min-w-0 text-left p-3 border transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white group ${
               idx === 0
                 ? "active-node border-black dark:border-white bg-black/5 dark:bg-white/5 ring-1 ring-black dark:ring-white"
-                : "border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark hover:border-black/50 dark:hover:border-white/50"
+                : "border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark hover:border-black/40 dark:hover:border-white/40"
             }`}
           >
-            <div class="flex items-center justify-between gap-2 mb-2">
-              <span class="text-[10px] font-mono font-bold px-2 py-0.5 bg-black text-white dark:bg-white dark:text-black">
+            <div class="flex items-center justify-between gap-2 mb-1">
+              <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 bg-black text-white dark:bg-white dark:text-black">
                 {stage.step}
-              </span>
-              <span class="text-[10px] font-mono uppercase tracking-wider opacity-60 font-semibold truncate">
-                {stage.tag}
-              </span>
-            </div>
-
-            <h4 class="font-display text-sm font-bold tracking-tight group-hover:opacity-80 transition-opacity">
-              {stage.name}
-            </h4>
-
-            <div class="mt-3 pt-2 border-t border-black/10 dark:border-white/10 flex items-center justify-between text-[10px] font-mono">
-              <span class="stage-state-text opacity-70 group-hover:opacity-100 font-semibold">
-                {idx === 0
-                  ? isVi
-                    ? "Đang xem chi tiết ▴"
-                    : "Viewing specs ▴"
-                  : isVi
-                    ? "Xem chi tiết ▾"
-                    : "Inspect stage ▾"}
               </span>
               <span class="w-1.5 h-1.5 rounded-none bg-emerald-500"></span>
             </div>
+
+            <h4 class="font-display text-xs sm:text-sm font-bold tracking-tight truncate group-hover:opacity-80 transition-opacity">
+              {stage.name}
+            </h4>
           </button>
         ))}
       </div>
@@ -405,49 +305,46 @@ if (!architecture) {
       <!-- Pipeline Inspector Panel -->
       <div
         id={`pipeline-inspector-container-${slug}`}
-        class="border border-black/20 dark:border-white/20 bg-bgLight dark:bg-bgDark transition-all duration-300"
+        class="border border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark"
       >
         {architecture.pipeline.map((stage, idx) => (
           <article
             id={`stage-inspector-${slug}-${idx}`}
-            class={`stage-inspector-card p-6 sm:p-7 space-y-4 ${idx === 0 ? "block" : "hidden"}`}
+            class={`stage-inspector-card p-4 sm:p-6 lg:p-7 space-y-4 ${idx === 0 ? "block" : "hidden"}`}
           >
             <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-black/10 dark:border-white/10">
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-mono font-bold px-2.5 py-0.5 bg-black text-white dark:bg-white dark:text-black">
+              <h4 class="font-display text-base sm:text-lg font-bold tracking-tight">
+                <span class="font-mono text-xs font-bold px-2 py-0.5 mr-2 bg-black text-white dark:bg-white dark:text-black">
                   {stage.step}
                 </span>
-                <span class="text-xs font-mono uppercase tracking-widest opacity-60 font-semibold">
-                  {stage.tag}
-                </span>
-              </div>
+                <span>{stage.name}</span>
+              </h4>
+
               <div class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-medium">
                 ⚡ {stage.invariants}
               </div>
             </div>
 
-            <h4 class="font-display text-xl font-bold tracking-tight">
-              {stage.name}
-            </h4>
-
             <p class="font-sans text-xs sm:text-sm font-light opacity-85 leading-relaxed">
               {stage.description}
             </p>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-black/10 dark:border-white/10 text-xs font-mono">
-              <div class="p-3 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-black/10 dark:border-white/10 text-xs font-mono">
+              <div class="p-2.5 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark">
                 <span class="text-[10px] uppercase tracking-wider opacity-60 font-bold block mb-1">
-                  {isVi ? "Dữ Liệu Đầu Vào (IN):" : "Input Specification (IN):"}
+                  {isVi ? "Đầu Vào (IN)" : "Input (IN)"}
                 </span>
-                <span class="font-sans text-xs opacity-90">{stage.input}</span>
+                <span class="font-sans text-xs opacity-90 break-words">
+                  {stage.input}
+                </span>
               </div>
-              <div class="p-3 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark">
+              <div class="p-2.5 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark">
                 <span class="text-[10px] uppercase tracking-wider opacity-60 font-bold block mb-1">
-                  {isVi
-                    ? "Dữ Liệu Đầu Ra (OUT):"
-                    : "Output Specification (OUT):"}
+                  {isVi ? "Đầu Ra (OUT)" : "Output (OUT)"}
                 </span>
-                <span class="font-sans text-xs opacity-90">{stage.output}</span>
+                <span class="font-sans text-xs opacity-90 break-words">
+                  {stage.output}
+                </span>
               </div>
             </div>
           </article>
@@ -461,7 +358,7 @@ if (!architecture) {
   /* Keyframe pure CSS animated circuit lines (Hardware accelerated, < 1KB) */
   @keyframes circuitFlowH {
     0% {
-      stroke-dashoffset: 24;
+      stroke-dashoffset: 20;
     }
     100% {
       stroke-dashoffset: 0;
@@ -470,7 +367,7 @@ if (!architecture) {
 
   @keyframes circuitFlowV {
     0% {
-      stroke-dashoffset: 24;
+      stroke-dashoffset: 20;
     }
     100% {
       stroke-dashoffset: 0;
@@ -478,13 +375,13 @@ if (!architecture) {
   }
 
   .circuit-wire-h {
-    stroke-dasharray: 6 4;
-    animation: circuitFlowH 1.4s linear infinite;
+    stroke-dasharray: 5 3;
+    animation: circuitFlowH 1.2s linear infinite;
   }
 
   .circuit-wire-v {
-    stroke-dasharray: 6 4;
-    animation: circuitFlowV 1.4s linear infinite;
+    stroke-dasharray: 5 3;
+    animation: circuitFlowV 1.2s linear infinite;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -555,7 +452,6 @@ if (!architecture) {
           layerBtns.forEach((b) => {
             const bIdx = b.getAttribute("data-layer-index");
             const isTarget = bIdx === targetIdx;
-            const stateText = b.querySelector(".node-state-text");
 
             if (isTarget) {
               b.classList.add(
@@ -575,12 +471,6 @@ if (!architecture) {
                 "dark:bg-bgDark"
               );
               b.setAttribute("aria-expanded", "true");
-              if (stateText)
-                stateText.textContent = stateText.textContent?.includes(
-                  "chi tiết"
-                )
-                  ? "Đang xem chi tiết ▴"
-                  : "Viewing specs ▴";
             } else {
               b.classList.remove(
                 "active-node",
@@ -599,12 +489,6 @@ if (!architecture) {
                 "dark:bg-bgDark"
               );
               b.setAttribute("aria-expanded", "false");
-              if (stateText)
-                stateText.textContent = stateText.textContent?.includes(
-                  "chi tiết"
-                )
-                  ? "Xem chi tiết ▾"
-                  : "Inspect node ▾";
             }
           });
 
@@ -632,7 +516,6 @@ if (!architecture) {
           stageBtns.forEach((b) => {
             const bIdx = b.getAttribute("data-stage-index");
             const isTarget = bIdx === targetIdx;
-            const stateText = b.querySelector(".stage-state-text");
 
             if (isTarget) {
               b.classList.add(
@@ -652,12 +535,6 @@ if (!architecture) {
                 "dark:bg-bgDark"
               );
               b.setAttribute("aria-expanded", "true");
-              if (stateText)
-                stateText.textContent = stateText.textContent?.includes(
-                  "chi tiết"
-                )
-                  ? "Đang xem chi tiết ▴"
-                  : "Viewing specs ▴";
             } else {
               b.classList.remove(
                 "active-node",
@@ -676,12 +553,6 @@ if (!architecture) {
                 "dark:bg-bgDark"
               );
               b.setAttribute("aria-expanded", "false");
-              if (stateText)
-                stateText.textContent = stateText.textContent?.includes(
-                  "chi tiết"
-                )
-                  ? "Xem chi tiết ▾"
-                  : "Inspect stage ▾";
             }
           });
 
