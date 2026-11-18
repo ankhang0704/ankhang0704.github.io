@@ -8,7 +8,7 @@ export default defineConfig({
   output: "static",
   prefetch: {
     prefetchAll: true,
-    defaultStrategy: "hover",
+    defaultStrategy: "viewport",
   },
   integrations: [tailwind(), sitemap()],
   i18n: {

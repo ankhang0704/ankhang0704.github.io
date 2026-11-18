@@ -66,7 +66,7 @@ const categories = [
           {dict.allProjects.title}
         </h1>
 
-        <p class="font-light text-xl md:text-2xl leading-relaxed opacity-85 text-neutral-700 dark:text-neutral-300">
+        <p class="font-light text-xl md:text-2xl leading-relaxed opacity-85 text-black dark:text-white">
           {dict.allProjects.desc}
         </p>
       </RevealOnScroll>
@@ -87,7 +87,7 @@ const categories = [
                 <button
                   type="button"
                   data-filter-btn={cat.key}
-                  class={`category-btn px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border ${
+                  class={`category-btn min-h-11 inline-flex items-center px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border ${
                     cat.key === "all"
                       ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black"
                       : "border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white"
@@ -109,7 +109,7 @@ const categories = [
                     : "Search projects, stack..."
                 }
                 aria-label={isVi ? "Tìm kiếm dự án" : "Search projects"}
-                class="w-full bg-bgLight dark:bg-bgDark border border-black/20 dark:border-white/20 px-4 py-2 text-sm font-mono placeholder:opacity-40 focus:outline-none focus:border-black dark:focus:border-white"
+                class="w-full bg-bgLight dark:bg-bgDark border border-black/20 dark:border-white/20 px-4 py-2.5 text-sm font-mono placeholder:opacity-50 focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white focus:border-black dark:focus:border-white"
               />
             </div>
           </div>
@@ -207,7 +207,7 @@ const categories = [
                       </a>
                     </h2>
 
-                    <p class="font-light text-base opacity-85 leading-relaxed text-neutral-700 dark:text-neutral-300">
+                    <p class="font-light text-base opacity-85 leading-relaxed text-black dark:text-white">
                       {project.data.summary}
                     </p>
 
@@ -347,10 +347,14 @@ const categories = [
 
 <script is:inline define:vars={{ isVi, totalCount: projects.length }}>
   function setupDirectory() {
+    const filterButtons = document.querySelectorAll("[data-filter-btn]");
+    if (!filterButtons.length) return;
+    if (filterButtons[0].hasAttribute("data-bound")) return;
+    filterButtons.forEach((b) => b.setAttribute("data-bound", "true"));
+
     let currentCategory = "all";
     let currentQuery = "";
 
-    const filterButtons = document.querySelectorAll("[data-filter-btn]");
     const searchInput = document.getElementById("directory-search");
     const cards = document.querySelectorAll("[data-project-card]");
     const countDisplay = document.getElementById("directory-count");
@@ -393,10 +397,10 @@ const categories = [
         currentCategory = btn.getAttribute("data-filter-btn") || "all";
         filterButtons.forEach((b) => {
           b.className =
-            "category-btn px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white";
+            "category-btn min-h-11 inline-flex items-center px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white";
         });
         btn.className =
-          "category-btn px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border border-black bg-black text-white dark:border-white dark:bg-white dark:text-black";
+          "category-btn min-h-11 inline-flex items-center px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border border-black bg-black text-white dark:border-white dark:bg-white dark:text-black";
         applyFilters();
       });
     });

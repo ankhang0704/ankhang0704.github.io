@@ -211,7 +211,7 @@ const links = [
   role="dialog"
   aria-modal="true"
   aria-label={isVi ? "Menu điều hướng" : "Navigation menu"}
-  class="fixed inset-0 md:hidden bg-bgLight/98 dark:bg-bgDark/98 z-[60] flex flex-col items-center justify-start pt-24 pb-12 space-y-10 text-2xl font-display uppercase tracking-widest transition-opacity duration-300 w-full h-full opacity-0 pointer-events-none overflow-y-auto"
+  class="fixed inset-0 md:hidden bg-bgLight/98 dark:bg-bgDark/98 z-[110] flex flex-col items-center justify-start pt-24 pb-12 space-y-10 text-2xl font-display uppercase tracking-widest transition-opacity duration-300 w-full h-full opacity-0 pointer-events-none overflow-y-auto"
 >
   <div class="w-full flex justify-end px-8">
     <button
@@ -310,15 +310,56 @@ const links = [
 </div>
 
 <script>
+  let lastFocusedElement: HTMLElement | null = null;
+
+  function toggleTheme() {
+    const isDark = document.documentElement.classList.contains("dark");
+    const nextTheme = isDark ? "light" : "dark";
+    if (nextTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    try {
+      localStorage.setItem("theme", nextTheme);
+    } catch (e) {}
+  }
+
+  function openMenu() {
+    const mobileMenu = document.getElementById("mobile-menu");
+    const menuOpenBtn = document.getElementById("mobile-menu-open");
+    const menuCloseBtn = document.getElementById("mobile-menu-close");
+    if (!mobileMenu) return;
+
+    lastFocusedElement = document.activeElement as HTMLElement | null;
+    mobileMenu.classList.add("active", "opacity-100", "pointer-events-auto");
+    mobileMenu.classList.remove("opacity-0", "pointer-events-none");
+    document.body.classList.add("body-lock");
+    menuOpenBtn?.setAttribute("aria-expanded", "true");
+    menuCloseBtn?.focus();
+  }
+
+  function closeMenu() {
+    const mobileMenu = document.getElementById("mobile-menu");
+    const menuOpenBtn = document.getElementById("mobile-menu-open");
+    if (!mobileMenu) return;
+
+    mobileMenu.classList.remove("active", "opacity-100", "pointer-events-auto");
+    mobileMenu.classList.add("opacity-0", "pointer-events-none");
+    document.body.classList.remove("body-lock");
+    menuOpenBtn?.setAttribute("aria-expanded", "false");
+    if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+      lastFocusedElement.focus();
+    } else {
+      menuOpenBtn?.focus();
+    }
+  }
+
   function setupHeader() {
     const navbar = document.getElementById("navbar");
     const progressBar = document.getElementById("scroll-progress-bar");
     const themeToggle = document.getElementById("theme-toggle");
-    const mobileThemeToggle = document.getElementById("mobile-theme-toggle");
     const menuOpenBtn = document.getElementById("mobile-menu-open");
-    const menuCloseBtn = document.getElementById("mobile-menu-close");
-    const mobileMenu = document.getElementById("mobile-menu");
-    const mobileLinks = mobileMenu ? mobileMenu.querySelectorAll("a") : [];
 
     // Scroll listener for sticky glass navbar & reading progress
     let ticking = false;
@@ -352,64 +393,56 @@ const links = [
     window.addEventListener("scroll", updateScroll, { passive: true });
     updateScroll();
 
-    if (navbar && navbar.dataset.initialized === "true") {
+    // Guard navbar controls from multi-attachment
+    if (navbar && navbar.dataset.initialized !== "true") {
+      navbar.dataset.initialized = "true";
+      themeToggle?.addEventListener("click", toggleTheme);
+      menuOpenBtn?.addEventListener("click", openMenu);
+    }
+
+    // Always rebind mobile menu elements across page swaps (as #mobile-menu is outside preserved navbar)
+    const mobileMenu = document.getElementById("mobile-menu");
+    if (mobileMenu && mobileMenu.dataset.menuInitialized !== "true") {
+      mobileMenu.dataset.menuInitialized = "true";
+      const mobileThemeToggle = document.getElementById("mobile-theme-toggle");
+      const menuCloseBtn = document.getElementById("mobile-menu-close");
+      const mobileLinks = mobileMenu.querySelectorAll("a");
+
+      menuCloseBtn?.addEventListener("click", closeMenu);
+      mobileThemeToggle?.addEventListener("click", toggleTheme);
+      mobileLinks.forEach((link) => {
+        link.addEventListener("click", closeMenu);
+      });
+    }
+  }
+
+  // Focus trap & Escape key handler for mobile drawer
+  document.addEventListener("keydown", (e) => {
+    const mobileMenu = document.getElementById("mobile-menu");
+    if (!mobileMenu || !mobileMenu.classList.contains("active")) return;
+
+    if (e.key === "Escape") {
+      closeMenu();
       return;
     }
-    if (navbar) navbar.dataset.initialized = "true";
 
-    // Dark / Light Theme Toggle Function
-    const toggleTheme = () => {
-      const isDark = document.documentElement.classList.contains("dark");
-      const nextTheme = isDark ? "light" : "dark";
-      if (nextTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-      try {
-        localStorage.setItem("theme", nextTheme);
-      } catch (e) {}
-    };
-
-    themeToggle?.addEventListener("click", toggleTheme);
-    mobileThemeToggle?.addEventListener("click", toggleTheme);
-
-    // Mobile Menu Open / Close
-    const openMenu = () => {
-      if (!mobileMenu) return;
-      mobileMenu.classList.add("active", "opacity-100", "pointer-events-auto");
-      mobileMenu.classList.remove("opacity-0", "pointer-events-none");
-      document.body.classList.add("body-lock");
-      menuOpenBtn?.setAttribute("aria-expanded", "true");
-    };
-
-    const closeMenu = () => {
-      if (!mobileMenu) return;
-      mobileMenu.classList.remove(
-        "active",
-        "opacity-100",
-        "pointer-events-auto"
+    if (e.key === "Tab") {
+      const focusable = mobileMenu.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
       );
-      mobileMenu.classList.add("opacity-0", "pointer-events-none");
-      document.body.classList.remove("body-lock");
-      menuOpenBtn?.setAttribute("aria-expanded", "false");
-    };
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
 
-    menuOpenBtn?.addEventListener("click", openMenu);
-    menuCloseBtn?.addEventListener("click", closeMenu);
-
-    mobileLinks.forEach((link) => {
-      link.addEventListener("click", closeMenu);
-    });
-
-    // Close mobile menu on Escape key press
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && mobileMenu?.classList.contains("active")) {
-        closeMenu();
-        menuOpenBtn?.focus();
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
       }
-    });
-  }
+    }
+  });
 
   // Preserve scroll position across language toggle
   document.addEventListener("click", (e) => {

@@ -23,15 +23,18 @@ const siteUrl = "https://ankhang0704.pages.dev";
 // Canonical URL calculation
 const canonical = canonicalUrl || new URL(Astro.url.pathname, siteUrl).href;
 
-// Bilingual alternate paths
+// Bilingual alternate paths with guaranteed trailing slashes
 const pathname = Astro.url.pathname.replace(/\/$/, "");
 const pathWithoutLang = pathname.replace(/^\/vi(\/|$)/, "/") || "/";
-const enHref = new URL(pathWithoutLang === "" ? "/" : pathWithoutLang, siteUrl)
+const cleanPath =
+  pathWithoutLang === "" || pathWithoutLang === "/"
+    ? "/"
+    : pathWithoutLang.endsWith("/")
+      ? pathWithoutLang
+      : `${pathWithoutLang}/`;
+const enHref = new URL(cleanPath, siteUrl).href;
+const viHref = new URL(cleanPath === "/" ? "/vi/" : `/vi${cleanPath}`, siteUrl)
   .href;
-const viHref = new URL(
-  pathWithoutLang === "/" ? "/vi/" : `/vi${pathWithoutLang}`,
-  siteUrl
-).href;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -56,7 +59,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang={lang} class="scroll-smooth">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -123,13 +126,35 @@ const jsonLd = {
       document.addEventListener("astro:after-swap", applyTheme);
     </script>
 
+    <!-- Scoped Smooth Scroll for In-Page Anchor Links (Zero-Lag Route Transitions) -->
+    <script is:inline>
+      document.addEventListener("click", function (e) {
+        var a =
+          e.target && e.target.closest
+            ? e.target.closest('a[href^="#"]')
+            : null;
+        if (!a) return;
+        var hash = a.getAttribute("href");
+        if (!hash || hash.length <= 1) return;
+        var targetId = hash.slice(1);
+        var target = document.getElementById(targetId);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({
+            behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+              .matches
+              ? "auto"
+              : "smooth",
+          });
+          history.pushState(null, "", hash);
+        }
+      });
+    </script>
+
     <!-- Schema.org Person JSON-LD -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body class="bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark font-sans relative overflow-x-hidden min-h-screen">
-    <div class="ambient-glow top-glow" aria-hidden="true"></div>
-    <div class="ambient-glow bottom-glow" aria-hidden="true"></div>
-
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[200] focus:border focus:border-black focus:bg-bgLight focus:px-4 focus:py-3 focus:text-sm focus:font-bold focus:uppercase focus:tracking-widest dark:focus:border-white dark:focus:bg-bgDark"

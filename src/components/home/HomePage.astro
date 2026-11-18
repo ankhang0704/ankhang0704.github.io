@@ -225,10 +225,10 @@ const currentPath = isVi ? "/vi/" : "/";
             </div>
 
             <div class="summary-narrative lg:col-span-8 space-y-10 lg:border-l lg:border-black/10 dark:lg:border-white/10 lg:pl-12">
-              <p class="font-display text-3xl sm:text-4xl font-light leading-relaxed text-justify tracking-tight">
+              <p class="font-display text-3xl sm:text-4xl font-light leading-relaxed text-left tracking-tight">
                 {dict.about.lead}
               </p>
-              <div class="space-y-6 text-xl md:text-2xl font-light opacity-85 leading-relaxed text-justify border-t border-black/10 dark:border-white/10 pt-8">
+              <div class="space-y-6 text-xl md:text-2xl font-light opacity-85 leading-relaxed text-left border-t border-black/10 dark:border-white/10 pt-8">
                 <p>{dict.about.p1}</p>
                 <p>{dict.about.p2}</p>
               </div>
@@ -272,7 +272,10 @@ const currentPath = isVi ? "/vi/" : "/";
             const isWide = index === 2 && featuredProjects.length === 3;
 
             return (
-              <RevealOnScroll class={width} delay={index * 100}>
+              <RevealOnScroll
+                class={`${width} h-full flex flex-col`}
+                delay={index * 100}
+              >
                 <SpotlightCard class="h-full group border border-black/10 bg-cardLight dark:border-white/10 dark:bg-cardDark scroll-mt-24 flex flex-col justify-between hover:border-black dark:hover:border-white transition-colors duration-300">
                   <article
                     id={project.data.code.toLowerCase()}
