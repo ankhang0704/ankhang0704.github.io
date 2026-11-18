@@ -1,0 +1,151 @@
+---
+interface TimelineItem {
+  index: string;
+  time: string;
+  status: string;
+  badge: string;
+  isActive: boolean;
+  role: string;
+  desc: string;
+  tags: string[];
+}
+
+interface Props {
+  lang?: 'en' | 'vi';
+}
+
+const { lang = 'en' } = Astro.props;
+const isVi = lang === 'vi';
+
+const items: TimelineItem[] = [
+  {
+    index: "01",
+    time: isVi ? "04/2026 — Nay" : "04/2026 — Present",
+    status: isVi ? "HIỆN TẠI" : "CURRENT",
+    badge: isVi ? "Hỗ trợ CNTT" : "IT Support",
+    isActive: true,
+    role: isVi ? "IT Helpdesk · Bệnh viện Mắt Bình Thuận" : "IT Helpdesk · Binh Thuan Eye Hospital",
+    desc: isVi
+      ? "Công việc IT helpdesk hiện tại, hỗ trợ người dùng, thiết bị và các vấn đề công nghệ hằng ngày trong môi trường bệnh viện."
+      : "Current hands-on IT helpdesk work supporting users, devices, and day-to-day technology issues in a hospital environment.",
+    tags: ["IT Helpdesk", "Hardware Support", "Network Troubleshooting"],
+  },
+  {
+    index: "02",
+    time: "01/2026 — 03/2026",
+    status: isVi ? "ĐÃ HOÀN THÀNH" : "COMPLETED",
+    badge: isVi ? "Vận hành CNTT" : "IT Operations",
+    isActive: false,
+    role: "IT Support / IT Operations · SOJO",
+    desc: isVi
+      ? "Làm việc về hỗ trợ và vận hành CNTT tại SOJO từ tháng 1 đến tháng 3 năm 2026."
+      : "Worked with IT support and operations at SOJO from January to March 2026.",
+    tags: ["IT Support", "Operations", "Service Workflows"],
+  },
+  {
+    index: "03",
+    time: "08/2025 – 11/2025",
+    status: isVi ? "ĐÃ HOÀN THÀNH" : "COMPLETED",
+    badge: isVi ? "Thực tập" : "Internship",
+    isActive: false,
+    role: isVi ? "IT Internship · The Sailing Bay" : "IT Internship · The Sailing Bay",
+    desc: isVi
+      ? "Thực tập CNTT tại The Sailing Bay từ tháng 8 đến tháng 11 năm 2025."
+      : "IT internship at The Sailing Bay from August to November 2025.",
+    tags: ["IT Internship", "The Sailing Bay"],
+  },
+  {
+    index: "04",
+    time: "2022 — 2026",
+    status: isVi ? "ĐÃ HOÀN THÀNH" : "COMPLETED",
+    badge: isVi ? "Bằng cấp" : "Academic Degree",
+    isActive: false,
+    role: isVi ? "Cử nhân Công nghệ Thông tin · Đại học" : "B.S. Information Technology · University",
+    desc: isVi
+      ? "Hoàn thành chương trình Cử nhân Công nghệ Thông tin từ năm 2022 đến 2026, với các môn và dự án về phát triển phần mềm, ứng dụng mobile và hệ thống thông tin."
+      : "Completed a Bachelor of Information Technology from 2022 to 2026, with work across software development, mobile applications, and information systems.",
+    tags: ["Information Technology", "Django & Python", "Flutter & Dart"],
+  },
+];
+---
+
+<div
+  id="experience"
+  class="timeline-wrapper relative max-w-5xl pl-6 sm:pl-8 md:pl-12 border-l border-black/10 dark:border-white/10 border-b border-b-black/10 dark:border-b-white/10"
+>
+  {items.map((item) => (
+    <div
+      class="group relative border-t border-black/10 dark:border-white/10 py-12 md:py-16 transition-colors duration-200 hover:bg-black/[0.015] dark:hover:bg-white/[0.015] px-2 sm:px-4 md:px-6"
+    >
+      <!-- Timeline Node Marker -->
+      <div
+        class="absolute -left-[31px] sm:-left-[39px] md:-left-[55px] top-14 w-4 h-4 bg-bgLight dark:bg-bgDark border-2 border-black dark:border-white group-hover:scale-125 group-hover:bg-black dark:group-hover:bg-white transition-[transform,background-color] duration-200 z-10"
+        aria-hidden="true"
+      ></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start relative z-10">
+        <!-- Metadata Column (Index, Time, Status) -->
+        <div class="lg:col-span-4 space-y-3.5">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-sm opacity-75 font-bold">{item.index} /</span>
+            <span class="text-xs font-mono uppercase tracking-widest border border-black/20 dark:border-white/20 px-3 py-1 opacity-80 font-medium">
+              {item.badge}
+            </span>
+          </div>
+
+          <div class="font-display text-3xl md:text-4xl font-bold tracking-tight text-black dark:text-white">
+            {item.time}
+          </div>
+
+          {item.isActive ? (
+            <div class="inline-flex items-center gap-2.5 border border-black dark:border-white px-3 py-1.5 text-xs font-mono font-bold uppercase tracking-widest bg-black text-white dark:bg-white dark:text-black">
+              <span class="w-2 h-2 bg-white dark:bg-black animate-pulse inline-block" aria-hidden="true"></span>
+              <span>{item.status}</span>
+            </div>
+          ) : (
+            <span class="text-xs font-mono uppercase tracking-widest opacity-75 block font-medium">
+              {item.status}
+            </span>
+          )}
+        </div>
+
+        <!-- Role, Description & Tags Column -->
+        <div class="lg:col-span-8 lg:border-l lg:border-black/10 dark:lg:border-white/10 lg:pl-10 space-y-5">
+          <h4 class="font-display text-2xl sm:text-3xl md:text-4xl font-bold group-hover:translate-x-2 transition-transform duration-300 flex items-center justify-between text-black dark:text-white">
+            <span>{item.role}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="opacity-0 transition-opacity group-hover:opacity-100 shrink-0 ml-4 hidden sm:block"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </h4>
+
+          <p class="font-light opacity-85 text-lg md:text-xl leading-relaxed text-justify max-w-[65ch]">
+            {item.desc}
+          </p>
+
+          <div class="flex flex-wrap gap-2.5 pt-2">
+            {item.tags.map((tag) => (
+              <span
+                class="border border-black/15 dark:border-white/15 px-3.5 py-1.5 text-xs font-mono uppercase tracking-wider opacity-80 group-hover:opacity-100 transition-opacity bg-bgLight dark:bg-bgDark"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>

@@ -1,0 +1,101 @@
+---
+interface Props {
+  to: number;
+  from?: number;
+  duration?: number;
+  prefix?: string;
+  suffix?: string;
+  separator?: string;
+  decimals?: number;
+  class?: string;
+}
+
+const {
+  to,
+  from = 0,
+  duration = 2,
+  prefix = '',
+  suffix = '',
+  separator = ',',
+  decimals = 0,
+  class: className = '',
+} = Astro.props;
+
+// Server-rendered static fallback: accessible, SEO friendly, never freezes at 0
+const initialFormatted = to
+  .toLocaleString('en-US', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  })
+  .replace(/,/g, separator);
+---
+
+<span
+  class={`inline-block font-mono count-up-target ${className}`}
+  data-to={to}
+  data-from={from}
+  data-duration={duration}
+  data-prefix={prefix}
+  data-suffix={suffix}
+  data-separator={separator}
+  data-decimals={decimals}
+  aria-label={`${prefix}${initialFormatted}${suffix}`}
+>
+  <span class="count-up-value">{prefix}{initialFormatted}{suffix}</span>
+</span>
+
+<script>
+  function initCountUps() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const elements = document.querySelectorAll<HTMLElement>('.count-up-target:not([data-counted])');
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target as HTMLElement;
+          observer.unobserve(el);
+          el.setAttribute('data-counted', 'true');
+
+          const to = parseFloat(el.dataset.to || '0');
+          const from = parseFloat(el.dataset.from || '0');
+          const duration = parseFloat(el.dataset.duration || '2') * 1000;
+          const prefix = el.dataset.prefix || '';
+          const suffix = el.dataset.suffix || '';
+          const separator = el.dataset.separator || ',';
+          const decimals = parseInt(el.dataset.decimals || '0', 10);
+          const valEl = el.querySelector('.count-up-value');
+          if (!valEl) return;
+
+          let start: number | null = null;
+          function step(timestamp: number) {
+            if (!start) start = timestamp;
+            const progress = Math.min((timestamp - start) / duration, 1);
+            const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+            const current = from + (to - from) * eased;
+            const formatted = current
+              .toLocaleString('en-US', {
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals,
+              })
+              .replace(/,/g, separator);
+
+            valEl!.textContent = `${prefix}${formatted}${suffix}`;
+            if (progress < 1) {
+              requestAnimationFrame(step);
+            }
+          }
+          requestAnimationFrame(step);
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+  }
+
+  initCountUps();
+  document.addEventListener('astro:page-load', initCountUps);
+</script>

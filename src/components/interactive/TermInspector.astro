@@ -1,0 +1,620 @@
+---
+interface Props {
+  lang?: 'en' | 'vi';
+}
+
+const { lang = 'en' } = Astro.props;
+const isVi = lang === 'vi';
+
+const SAMPLE_TERMS = [
+  {
+    id: "vav",
+    topic: "HVAC & Thermal",
+    word: "Variable Air Volume",
+    abbreviation: "VAV Box",
+    phoneticUK: "/ˈveə.ri.ə.bəl eər ˈvɒl.juːm/",
+    phoneticUS: "/ˈver.i.ə.bəl er ˈvɑːl.juːm/",
+    vietnameseMeaning:
+      "Hộp điều chỉnh lưu lượng gió biến đổi theo tải nhiệt thực tế của khu vực phòng.",
+    englishDefinition:
+      "Terminal equipment that regulates supply airflow at constant supply temperature to maintain zone comfort.",
+    fieldNote:
+      "Thường lắp đặt phía trên trần thạch cao, tích hợp van gió điều khiển bằng actuator điện và bộ cảm biến lưu lượng vi sai.",
+    standard: "ASHRAE 90.1",
+    quizQuestion: {
+      promptVi: "Chức năng chính của VAV Box trong hệ thống HVAC trung tâm là gì?",
+      promptEn: "What is the primary function of a VAV Box in a central HVAC system?",
+      options: [
+        {
+          textVi: "Thay đổi nhiệt độ nước lạnh cung cấp cho Chiller",
+          textEn: "Varying chilled water temperature supply to chiller",
+          isCorrect: false,
+        },
+        {
+          textVi: "Điều tiết lưu lượng gió cấp tùy theo tải nhiệt từng phòng",
+          textEn: "Regulating supply air volume based on zone cooling demand",
+          isCorrect: true,
+        },
+        {
+          textVi: "Lọc bụi thô tại cửa hút ngoài trời của tòa nhà",
+          textEn: "Filtering coarse outdoor air dust at fresh air louvers",
+          isCorrect: false,
+        },
+      ],
+    },
+  },
+  {
+    id: "chiller",
+    topic: "HVAC & Thermal",
+    word: "Centrifugal Chiller",
+    abbreviation: "Water-Cooled Chiller",
+    phoneticUK: "/sɛnˈtrɪf.jʊ.ɡəl ˈtʃɪl.ər/",
+    phoneticUS: "/sɛnˈtrɪf.jə.ɡəl ˈtʃɪl.ɚ/",
+    vietnameseMeaning:
+      "Máy làm lạnh ly tâm làm mát bằng nước cho các tòa nhà và trung tâm thương mại quy mô lớn.",
+    englishDefinition:
+      "A refrigeration machine utilizing a high-speed rotating impeller to compress refrigerant vapor and chill water for zone distribution.",
+    fieldNote:
+      "Vận hành với hệ số COP từ 5.5 đến 7.0, kết hợp tuần hoàn với tháp giải nhiệt (cooling tower) trên tầng mái.",
+    standard: "AHRI 550/590",
+    quizQuestion: {
+      promptVi: "Máy lạnh ly tâm Centrifugal Chiller thường được giải nhiệt bằng gì?",
+      promptEn: "How is a large-capacity Centrifugal Chiller typically heat-rejected?",
+      options: [
+        {
+          textVi: "Tháp giải nhiệt giải nhiệt bằng nước tuần hoàn",
+          textEn: "Water-cooled via cooling towers and condenser pumps",
+          isCorrect: true,
+        },
+        {
+          textVi: "Quạt gió thổi trực tiếp từ dàn nóng cục bộ",
+          textEn: "Direct air-cooled fan coils without water loop",
+          isCorrect: false,
+        },
+        {
+          textVi: "Bơm chìm xả nước ngầm trực tiếp",
+          textEn: "Submersible pump dumping groundwater",
+          isCorrect: false,
+        },
+      ],
+    },
+  },
+  {
+    id: "bms",
+    topic: "Smart Building & Automation",
+    word: "Building Management System",
+    abbreviation: "BMS / BAS",
+    phoneticUK: "/ˈbɪl.dɪŋ ˈmæn.ɪdʒ.mənt ˈsɪs.təm/",
+    phoneticUS: "/ˈbɪl.dɪŋ ˈmæn.ədʒ.mənt ˈsɪs.təm/",
+    vietnameseMeaning:
+      "Hệ thống quản lý tòa nhà tích hợp điều khiển tự động toàn bộ MEP qua mạng vi xử lý DDC.",
+    englishDefinition:
+      "A computer-based control system installed in buildings that controls and monitors mechanical and electrical equipment.",
+    fieldNote:
+      "Giao tiếp chủ yếu qua chuẩn BACnet/IP và Modbus TCP, kết nối cảm biến nhiệt độ, áp suất và van điều khiển tự động.",
+    standard: "ISO 16484 / BACnet",
+    quizQuestion: {
+      promptVi: "Giao thức truyền thông mở phổ biến nhất trong hệ thống BMS hiện đại là gì?",
+      promptEn: "What is the most widely adopted open communication protocol in modern BMS?",
+      options: [
+        {
+          textVi: "BACnet / IP & MS/TP",
+          textEn: "BACnet / IP & MS/TP",
+          isCorrect: true,
+        },
+        {
+          textVi: "Bluetooth Low Energy 4.0",
+          textEn: "Bluetooth Low Energy 4.0",
+          isCorrect: false,
+        },
+        {
+          textVi: "HTTP GET polling thuần",
+          textEn: "Raw HTTP GET polling",
+          isCorrect: false,
+        },
+      ],
+    },
+  },
+  {
+    id: "ahu",
+    topic: "HVAC & Air Quality",
+    word: "Air Handling Unit",
+    abbreviation: "AHU",
+    phoneticUK: "/eər ˈhænd.lɪŋ ˈjuː.nɪt/",
+    phoneticUS: "/er ˈhænd.lɪŋ ˈjuː.nɪt/",
+    vietnameseMeaning:
+      "Thiết bị xử lý không khí trung tâm bao gồm quạt cấp, bầu lọc bụi và dàn coil làm lạnh/sưởi.",
+    englishDefinition:
+      "A central mechanical device used to re-condition and circulate air as part of a heating, ventilating, and air-conditioning system.",
+    fieldNote:
+      "Thường bố trí trong phòng kỹ thuật cơ điện mỗi tầng; yêu cầu kiểm tra định kỳ độ chênh áp qua màng lọc (filter differential pressure).",
+    standard: "ASHRAE 62.1",
+    quizQuestion: {
+      promptVi: "Chỉ số quan trọng nào cần đo lường định kỳ để biết màng lọc AHU bị nghẹt?",
+      promptEn: "What differential parameter is measured across AHU filters to assess clogging?",
+      options: [
+        {
+          textVi: "Độ chênh lệch áp suất qua màng lọc (Delta-P in Pascals)",
+          textEn: "Differential pressure across filter bank (Delta-P)",
+          isCorrect: true,
+        },
+        {
+          textVi: "Điện áp xoay chiều của đèn chiếu sáng phòng AHU",
+          textEn: "AC line voltage of mechanical room lighting",
+          isCorrect: false,
+        },
+        {
+          textVi: "Tốc độ vòng quay của bơm nước thải tầng hầm",
+          textEn: "RPM speed of basement sump pump",
+          isCorrect: false,
+        },
+      ],
+    },
+  },
+  {
+    id: "ppm",
+    topic: "Operations & Asset Care",
+    word: "Planned Preventive Maintenance",
+    abbreviation: "PPM Schedule",
+    phoneticUK: "/plænd prɪˈven.tɪv ˈmeɪn.tən.əns/",
+    phoneticUS: "/plænd prɪˈven.t̬ɪv ˈmeɪn.tən.əns/",
+    vietnameseMeaning:
+      "Bảo trì phòng ngừa có kế hoạch nhằm duy trì tuổi thọ thiết bị và ngăn ngừa sự cố bất ngờ.",
+    englishDefinition:
+      "Scheduled maintenance activities performed systematically to prevent unexpected equipment failure and preserve asset lifespan.",
+    fieldNote:
+      "Được lên lịch trình tự động trên CMMS/CAFM theo chu kỳ hàng tuần, tháng, quý hoặc số giờ chạy máy thực tế.",
+    standard: "ISO 55000",
+    quizQuestion: {
+      promptVi: "Mục tiêu trọng tâm của bảo trì phòng ngừa PPM là gì?",
+      promptEn: "What is the primary objective of Planned Preventive Maintenance (PPM)?",
+      options: [
+        {
+          textVi: "Chờ đến khi máy hỏng hoàn toàn mới thay thế để tiết kiệm",
+          textEn: "Waiting until catastrophic failure before ordering replacement",
+          isCorrect: false,
+        },
+        {
+          textVi: "Chủ động kiểm tra, bảo dưỡng định kỳ để triệt tiêu sự cố dừng máy đột xuất",
+          textEn: "Proactively servicing equipment to eliminate unplanned downtime",
+          isCorrect: true,
+        },
+        {
+          textVi: "Tăng chi phí sửa chữa đột xuất của tòa nhà",
+          textEn: "Increasing emergency repair expense for the facility",
+          isCorrect: false,
+        },
+      ],
+    },
+  },
+];
+
+const initialTerm = SAMPLE_TERMS[0];
+---
+
+<div
+  id="term-inspector"
+  data-lang={lang}
+  class="w-full border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark p-6 md:p-10 space-y-8 select-none"
+>
+  <!-- Header bar -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/10 dark:border-white/10 pb-6">
+    <div>
+      <div class="flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.2em] opacity-60">
+        <span class="w-2 h-2 bg-black dark:bg-white inline-block" aria-hidden="true"></span>
+        <span>
+          {isVi ? "Bộ Mô Phỏng Tra Cứu Thuật Ngữ MEP / FM" : "Interactive MEP / FM Protocol Inspector"}
+        </span>
+      </div>
+      <h3 class="mt-2 font-display text-2xl md:text-3xl font-bold tracking-tight text-black dark:text-white">
+        {isVi ? "Trải nghiệm trực tiếp dữ liệu học tập 1.847 thuật ngữ" : "Live Sample from the 1,847 Term Lexicon"}
+      </h3>
+    </div>
+    <div class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider opacity-60 bg-black/5 dark:bg-white/5 px-3 py-1.5 border border-black/10 dark:border-white/10 self-start sm:self-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="text-emerald-500"
+        aria-hidden="true"
+      >
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span>ASHRAE / AHRI / ISO ALIGNED</span>
+    </div>
+  </div>
+
+  <!-- Search Filter Bar -->
+  <div class="relative">
+    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none opacity-50">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.3-4.3"></path>
+      </svg>
+    </div>
+    <input
+      id="term-search-input"
+      type="text"
+      placeholder={isVi ? "Lọc thuật ngữ (VAV, Chiller, BMS, AHU, PPM, bảo trì...)" : "Filter terms (VAV, Chiller, BMS, AHU, PPM...)"}
+      class="w-full bg-bgLight dark:bg-bgDark border border-black/20 dark:border-white/20 pl-10 pr-4 py-3 text-xs sm:text-sm font-mono placeholder:opacity-40 focus:border-black dark:focus:border-white focus:outline-none transition-colors text-black dark:text-white"
+    />
+  </div>
+
+  <!-- Term Selector Pills -->
+  <div id="term-pills-list" class="flex flex-wrap gap-2">
+    {SAMPLE_TERMS.map((term, index) => (
+      <button
+        type="button"
+        data-term-id={term.id}
+        data-term-word={term.word.toLowerCase()}
+        data-term-abbr={term.abbreviation.toLowerCase()}
+        data-term-meaning={term.vietnameseMeaning.toLowerCase()}
+        class={`term-pill-btn px-4 py-2.5 text-xs font-mono uppercase tracking-wider border transition-all ${
+          index === 0
+            ? 'border-black bg-black text-white dark:border-white dark:bg-white dark:text-black font-bold active-pill'
+            : 'border-black/15 dark:border-white/15 opacity-70 hover:opacity-100 hover:border-black dark:hover:border-white'
+        }`}
+      >
+        <span>{term.abbreviation}</span>
+      </button>
+    ))}
+  </div>
+
+  <!-- Main Term Detailed Card -->
+  <div
+    id="term-detail-card"
+    class="border border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark p-6 md:p-8 space-y-6 transition-all duration-200"
+  >
+    <div class="flex flex-col md:flex-row md:items-start justify-between gap-6 border-b border-black/10 dark:border-white/10 pb-6">
+      <div class="space-y-2">
+        <div class="flex items-center gap-3">
+          <span
+            id="term-topic-badge"
+            class="font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 border border-black/20 dark:border-white/20 bg-cardLight dark:bg-cardDark font-bold opacity-80"
+          >
+            {initialTerm.topic}
+          </span>
+          <span
+            id="term-standard-badge"
+            class="font-mono text-[10px] uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold"
+          >
+            {initialTerm.standard}
+          </span>
+        </div>
+
+        <h4
+          id="term-word-heading"
+          class="font-display text-3xl md:text-5xl font-bold tracking-tight text-black dark:text-white"
+        >
+          {initialTerm.word}
+        </h4>
+
+        <div class="flex flex-wrap items-center gap-4 text-xs font-mono opacity-70 pt-1">
+          <span id="term-phonetic-uk">UK: {initialTerm.phoneticUK}</span>
+          <span>•</span>
+          <span id="term-phonetic-us">US: {initialTerm.phoneticUS}</span>
+        </div>
+      </div>
+
+      <!-- Pronounce Simulation Button -->
+      <button
+        id="term-pronounce-btn"
+        type="button"
+        class="inline-flex items-center gap-2.5 border border-black dark:border-white px-5 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shrink-0 active:scale-95 font-mono text-black dark:text-white"
+        aria-label={isVi ? "Nghe phát âm chuẩn" : "Listen to pronunciation"}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="pronounce-icon"
+          aria-hidden="true"
+        >
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+          <line x1="12" x2="12" y1="19" y2="22"></line>
+        </svg>
+        <span id="term-pronounce-label">{isVi ? "Phát âm chuẩn" : "Pronounce"}</span>
+      </button>
+    </div>
+
+    <!-- Definitions & Operational Field Notes -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="space-y-2 border-l-2 border-black/30 dark:border-white/30 pl-4">
+        <p class="text-[10px] font-mono uppercase tracking-widest opacity-60">
+          {isVi ? "Định nghĩa kỹ thuật (English)" : "Technical Definition"}
+        </p>
+        <p id="term-definition-en" class="text-base font-light leading-relaxed opacity-90">
+          {initialTerm.englishDefinition}
+        </p>
+      </div>
+
+      <div class="space-y-2 border-l-2 border-black/30 dark:border-white/30 pl-4">
+        <p class="text-[10px] font-mono uppercase tracking-widest opacity-60">
+          {isVi ? "Ý nghĩa Tiếng Việt trong vận hành" : "Vietnamese O&M Context"}
+        </p>
+        <p id="term-meaning-vi" class="text-base font-light leading-relaxed opacity-90">
+          {initialTerm.vietnameseMeaning}
+        </p>
+      </div>
+    </div>
+
+    <!-- Real Engineering Field Note -->
+    <div class="border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark p-5 flex items-start gap-4">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="shrink-0 opacity-60 mt-0.5"
+        aria-hidden="true"
+      >
+        <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+      </svg>
+      <div class="space-y-1">
+        <span class="font-mono text-[10px] font-bold uppercase tracking-widest opacity-70">
+          {isVi ? "Kinh nghiệm thực địa (Field Operations Note)" : "Field Engineering Note"}
+        </span>
+        <p id="term-field-note" class="text-sm font-light leading-relaxed opacity-85">
+          {initialTerm.fieldNote}
+        </p>
+      </div>
+    </div>
+
+    <!-- Mini Quiz Protocol -->
+    <div class="pt-4 border-t border-black/10 dark:border-white/10 space-y-3">
+      <div class="flex items-center justify-between">
+        <span class="font-mono text-[10px] font-bold uppercase tracking-widest opacity-70">
+          {isVi ? "Kiểm tra kiến thức nhanh (Instant Knowledge Check)" : "Micro-Quiz Protocol"}
+        </span>
+        <span id="quiz-status-badge" class="text-[10px] font-mono uppercase tracking-wider font-bold"></span>
+      </div>
+
+      <p id="quiz-prompt-text" class="text-sm font-medium">
+        {isVi ? initialTerm.quizQuestion.promptVi : initialTerm.quizQuestion.promptEn}
+      </p>
+
+      <div id="quiz-options-container" class="grid grid-cols-1 gap-2 pt-1">
+        {initialTerm.quizQuestion.options.map((opt, i) => (
+          <button
+            type="button"
+            data-option-index={i}
+            data-is-correct={opt.isCorrect ? "true" : "false"}
+            class="quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-black/15 dark:border-white/15 opacity-80 hover:opacity-100 hover:border-black dark:hover:border-white"
+          >
+            <span>{isVi ? opt.textVi : opt.textEn}</span>
+            <span class="quiz-feedback-icon shrink-0 ml-3 hidden font-bold"></span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Embedded JSON for Client Runtime (Zero React, Pure Vanilla TS) -->
+<script id="term-inspector-dataset" type="application/json" set:html={JSON.stringify(SAMPLE_TERMS)} />
+
+<script>
+  interface TermData {
+    id: string;
+    topic: string;
+    word: string;
+    abbreviation: string;
+    phoneticUK: string;
+    phoneticUS: string;
+    vietnameseMeaning: string;
+    englishDefinition: string;
+    fieldNote: string;
+    standard: string;
+    quizQuestion: {
+      promptVi: string;
+      promptEn: string;
+      options: { textVi: string; textEn: string; isCorrect: boolean }[];
+    };
+  }
+
+  function initTermInspector() {
+    const root = document.getElementById('term-inspector');
+    if (!root) return;
+
+    const dataScript = document.getElementById('term-inspector-dataset');
+    if (!dataScript || !dataScript.textContent) return;
+
+    let terms: TermData[] = [];
+    try {
+      terms = JSON.parse(dataScript.textContent);
+    } catch {
+      return;
+    }
+
+    const isVi = root.dataset.lang === 'vi';
+    let currentTerm = terms[0];
+
+    // DOM Elements
+    const searchInput = document.getElementById('term-search-input') as HTMLInputElement | null;
+    const pills = document.querySelectorAll<HTMLButtonElement>('.term-pill-btn');
+    const topicBadge = document.getElementById('term-topic-badge');
+    const standardBadge = document.getElementById('term-standard-badge');
+    const wordHeading = document.getElementById('term-word-heading');
+    const phoneticUk = document.getElementById('term-phonetic-uk');
+    const phoneticUs = document.getElementById('term-phonetic-us');
+    const definitionEn = document.getElementById('term-definition-en');
+    const meaningVi = document.getElementById('term-meaning-vi');
+    const fieldNote = document.getElementById('term-field-note');
+    const pronounceBtn = document.getElementById('term-pronounce-btn');
+    const pronounceLabel = document.getElementById('term-pronounce-label');
+    const pronounceIcon = pronounceBtn?.querySelector('.pronounce-icon');
+    const quizStatusBadge = document.getElementById('quiz-status-badge');
+    const quizPromptText = document.getElementById('quiz-prompt-text');
+    const quizOptionsContainer = document.getElementById('quiz-options-container');
+
+    function renderTerm(term: TermData) {
+      currentTerm = term;
+      if (topicBadge) topicBadge.textContent = term.topic;
+      if (standardBadge) standardBadge.textContent = term.standard;
+      if (wordHeading) wordHeading.textContent = term.word;
+      if (phoneticUk) phoneticUk.textContent = `UK: ${term.phoneticUK}`;
+      if (phoneticUs) phoneticUs.textContent = `US: ${term.phoneticUS}`;
+      if (definitionEn) definitionEn.textContent = term.englishDefinition;
+      if (meaningVi) meaningVi.textContent = term.vietnameseMeaning;
+      if (fieldNote) fieldNote.textContent = term.fieldNote;
+
+      // Update Active Pill Styling
+      pills.forEach((p) => {
+        const isActive = p.dataset.termId === term.id;
+        if (isActive) {
+          p.className = 'term-pill-btn px-4 py-2.5 text-xs font-mono uppercase tracking-wider border transition-all border-black bg-black text-white dark:border-white dark:bg-white dark:text-black font-bold active-pill';
+        } else {
+          p.className = 'term-pill-btn px-4 py-2.5 text-xs font-mono uppercase tracking-wider border transition-all border-black/15 dark:border-white/15 opacity-70 hover:opacity-100 hover:border-black dark:hover:border-white';
+        }
+      });
+
+      // Reset Quiz
+      if (quizStatusBadge) quizStatusBadge.innerHTML = '';
+      if (quizPromptText) {
+        quizPromptText.textContent = isVi ? term.quizQuestion.promptVi : term.quizQuestion.promptEn;
+      }
+
+      if (quizOptionsContainer) {
+        quizOptionsContainer.innerHTML = '';
+        term.quizQuestion.options.forEach((opt) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-black/15 dark:border-white/15 opacity-80 hover:opacity-100 hover:border-black dark:hover:border-white text-black dark:text-white';
+          
+          const textSpan = document.createElement('span');
+          textSpan.textContent = isVi ? opt.textVi : opt.textEn;
+          btn.appendChild(textSpan);
+
+          const iconSpan = document.createElement('span');
+          iconSpan.className = 'quiz-feedback-icon shrink-0 ml-3 font-bold hidden';
+          btn.appendChild(iconSpan);
+
+          btn.onclick = () => {
+            // Clear other options
+            quizOptionsContainer.querySelectorAll('.quiz-option-btn').forEach((b) => {
+              b.className = 'quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-black/15 dark:border-white/15 opacity-50 text-black dark:text-white';
+              const ic = b.querySelector('.quiz-feedback-icon');
+              if (ic) ic.classList.add('hidden');
+            });
+
+            if (opt.isCorrect) {
+              btn.className = 'quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-emerald-600 bg-emerald-500/10 text-emerald-900 dark:text-emerald-200 font-bold';
+              iconSpan.textContent = '✓';
+              iconSpan.classList.remove('hidden');
+              if (quizStatusBadge) {
+                quizStatusBadge.innerHTML = `<span class="text-emerald-600 dark:text-emerald-400">✓ ${isVi ? 'CHÍNH XÁC' : 'CORRECT'}</span>`;
+              }
+            } else {
+              btn.className = 'quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-rose-600 bg-rose-500/10 text-rose-900 dark:text-rose-200 font-bold';
+              iconSpan.textContent = '✕';
+              iconSpan.classList.remove('hidden');
+              if (quizStatusBadge) {
+                quizStatusBadge.innerHTML = `<span class="text-rose-600 dark:text-rose-400">✕ ${isVi ? 'CHƯA ĐÚNG' : 'INCORRECT'}</span>`;
+              }
+            }
+          };
+
+          quizOptionsContainer.appendChild(btn);
+        });
+      }
+    }
+
+    // Bind pill clicks
+    pills.forEach((pill) => {
+      pill.onclick = () => {
+        const id = pill.dataset.termId;
+        const match = terms.find((t) => t.id === id);
+        if (match) renderTerm(match);
+      };
+    });
+
+    // Pronounce handler using Web Speech API
+    if (pronounceBtn) {
+      pronounceBtn.onclick = () => {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(currentTerm.word);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.9;
+
+        pronounceIcon?.classList.add('animate-pulse');
+        if (pronounceLabel) pronounceLabel.textContent = isVi ? 'Đang phát...' : 'Playing...';
+
+        utterance.onend = () => {
+          pronounceIcon?.classList.remove('animate-pulse');
+          if (pronounceLabel) pronounceLabel.textContent = isVi ? 'Phát âm chuẩn' : 'Pronounce';
+        };
+        utterance.onerror = () => {
+          pronounceIcon?.classList.remove('animate-pulse');
+          if (pronounceLabel) pronounceLabel.textContent = isVi ? 'Phát âm chuẩn' : 'Pronounce';
+        };
+
+        window.speechSynthesis.speak(utterance);
+      };
+    }
+
+    // Search filter handler
+    if (searchInput) {
+      searchInput.oninput = () => {
+        const q = searchInput.value.trim().toLowerCase();
+        let firstMatch: TermData | null = null;
+
+        pills.forEach((p) => {
+          const id = p.dataset.termId || '';
+          const word = p.dataset.termWord || '';
+          const abbr = p.dataset.termAbbr || '';
+          const meaning = p.dataset.termMeaning || '';
+
+          const matches = !q || id.includes(q) || word.includes(q) || abbr.includes(q) || meaning.includes(q);
+          if (matches) {
+            p.classList.remove('hidden');
+            if (!firstMatch) {
+              firstMatch = terms.find((t) => t.id === id) || null;
+            }
+          } else {
+            p.classList.add('hidden');
+          }
+        });
+
+        if (firstMatch && firstMatch !== currentTerm) {
+          renderTerm(firstMatch);
+        }
+      };
+    }
+
+    // Initialize with first term
+    renderTerm(terms[0]);
+  }
+
+  initTermInspector();
+  document.addEventListener('astro:page-load', initTermInspector);
+</script>

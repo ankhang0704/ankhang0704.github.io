@@ -1,0 +1,364 @@
+---
+interface Props {
+  lang?: 'en' | 'vi';
+  currentPath?: string;
+}
+
+const { lang = 'en', currentPath } = Astro.props;
+const pathname = currentPath || Astro.url.pathname;
+const isVi = lang === 'vi';
+const isHome = pathname === '/' || pathname === '/vi' || pathname === '/vi/';
+
+// Calculate alternate language link
+let targetLangHref: string;
+if (isVi) {
+  // If in Vietnamese, strip /vi prefix
+  const cleanPath = pathname.replace(/^\/vi(\/|$)/, '/');
+  targetLangHref = cleanPath === '' ? '/' : cleanPath;
+} else {
+  // If in English, prefix with /vi
+  const cleanPath = pathname === '/' ? '' : pathname.replace(/\/$/, '');
+  targetLangHref = `/vi${cleanPath}/`;
+}
+
+// Ensure trailing slash according to project config
+if (!targetLangHref.endsWith('/') && !targetLangHref.includes('#')) {
+  targetLangHref += '/';
+}
+
+const homeHref = isVi ? '/vi/' : '/';
+const workHref = isHome ? '#projects' : (isVi ? '/vi/#projects' : '/#projects');
+const expHref = isHome ? '#experience' : (isVi ? '/vi/#experience' : '/#experience');
+const projectsHref = isVi ? '/vi/projects/' : '/projects/';
+const aboutHref = isHome ? '#about' : (isVi ? '/vi/#about' : '/#about');
+
+const isProjectsPage = pathname.includes('/projects');
+
+const links = [
+  { href: aboutHref, label: isVi ? 'Tóm tắt' : 'Summary', section: 'about', active: false },
+  { href: workHref, label: isVi ? 'Nổi bật' : 'Work', section: 'projects', active: false },
+  { href: expHref, label: isVi ? 'Kinh nghiệm' : 'Experience', section: 'experience', active: false },
+  { href: projectsHref, label: isVi ? 'Dự án' : 'Projects', section: 'projects-index', active: isProjectsPage },
+];
+---
+
+<header
+  id="navbar"
+  class="fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow,padding] duration-300 py-4"
+>
+  <div class="container mx-auto flex w-full min-w-0 items-center justify-between gap-4 px-6 md:px-8">
+    <!-- Typographic Logo KHANG (0px border-radius, pure typography as per AGENTS.md) -->
+    <a
+      href={homeHref}
+      class="min-w-0 shrink-0 font-display font-bold tracking-tighter whitespace-nowrap text-3xl hover:opacity-75 transition-opacity select-none text-black dark:text-white"
+      aria-label="An Khang — Home"
+    >
+      KHANG
+    </a>
+
+    <!-- Desktop Navigation & Controls -->
+    <div class="flex items-center space-x-6 md:space-x-10">
+      <nav class="hidden md:flex items-center space-x-8 text-sm tracking-widest uppercase font-mono">
+        {links.map((link) => (
+          <a
+            href={link.href}
+            data-section={link.section}
+            class={`nav-link hover-underline text-black dark:text-white transition-opacity ${link.active ? 'active' : ''}`}
+            aria-current={link.active ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="flex shrink-0 items-center space-x-3 md:space-x-5">
+        <!-- Language Switch (Native View Transition Link) -->
+        <a
+          href={targetLangHref}
+          class="flex min-h-11 min-w-11 items-center justify-center text-sm font-bold tracking-widest hover:opacity-50 transition-opacity font-mono text-black dark:text-white"
+          aria-label={isVi ? "Switch to English" : "Chuyển sang tiếng Việt"}
+        >
+          {isVi ? "EN" : "VI"}
+        </a>
+
+        <!-- Dark / Light Theme Toggle -->
+        <button
+          id="theme-toggle"
+          type="button"
+          class="flex min-h-11 min-w-11 items-center justify-center text-xl text-black dark:text-white hover:rotate-180 transition-transform duration-500"
+          aria-label={isVi ? "Chuyển đổi giao diện sáng / tối" : "Toggle dark / light mode"}
+        >
+          <!-- Moon Icon (Light Mode) -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="block dark:hidden"
+            aria-hidden="true"
+          >
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+          <!-- Sun Icon (Dark Mode) -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="hidden dark:block"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button
+          id="mobile-menu-open"
+          type="button"
+          class="md:hidden text-black dark:text-white p-2 flex min-h-11 min-w-11 items-center justify-center hover:opacity-75 transition-opacity"
+          aria-label={isVi ? "Mở menu điều hướng" : "Open navigation menu"}
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="4" x2="20" y1="6" y2="6"></line>
+            <line x1="4" x2="20" y1="12" y2="12"></line>
+            <line x1="4" x2="20" y1="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Progress Indicator -->
+  <div
+    id="scroll-progress-bar"
+    class="scroll-progress absolute bottom-0 left-0 right-0 h-[2px] bg-black dark:bg-white scale-x-0 origin-left pointer-events-none opacity-80"
+  ></div>
+</header>
+
+<!-- Mobile Menu Drawer (Editorial Fullscreen Overlay) -->
+<div
+  id="mobile-menu"
+  role="dialog"
+  aria-modal="true"
+  aria-label={isVi ? "Menu điều hướng" : "Navigation menu"}
+  class="fixed inset-0 md:hidden bg-bgLight/98 dark:bg-bgDark/98 z-[60] flex flex-col items-center justify-start pt-24 pb-12 space-y-10 text-2xl font-display uppercase tracking-widest transition-opacity duration-300 w-full h-full opacity-0 pointer-events-none overflow-y-auto"
+>
+  <div class="w-full flex justify-end px-8">
+    <button
+      id="mobile-menu-close"
+      type="button"
+      class="text-black dark:text-white p-2 flex min-h-11 min-w-11 items-center justify-center hover:opacity-75 transition-opacity"
+      aria-label={isVi ? "Đóng menu điều hướng" : "Close navigation menu"}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M18 6 6 18"></path>
+        <path d="m6 6 12 12"></path>
+      </svg>
+    </button>
+  </div>
+
+  <nav class="flex flex-col items-center space-y-8 w-full">
+    {links.map((link) => (
+      <a
+        href={link.href}
+        class="mobile-nav-link text-black dark:text-white hover:opacity-50 transition-all font-display text-2xl tracking-widest"
+      >
+        {link.label}
+      </a>
+    ))}
+  </nav>
+
+  <div class="flex items-center space-x-12 pt-8 border-t border-black/10 dark:border-white/10 w-2/3 justify-center">
+    <a
+      href={targetLangHref}
+      class="flex min-h-11 min-w-11 items-center justify-center text-lg font-bold tracking-widest font-mono text-black dark:text-white"
+    >
+      {isVi ? "EN" : "VI"}
+    </a>
+
+    <button
+      id="mobile-theme-toggle"
+      type="button"
+      class="flex min-h-11 min-w-11 items-center justify-center text-2xl text-black dark:text-white hover:rotate-180 transition-transform duration-500"
+      aria-label={isVi ? "Chuyển đổi giao diện sáng / tối" : "Toggle dark / light mode"}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="block dark:hidden"
+        aria-hidden="true"
+      >
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+      </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="hidden dark:block"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2"></path>
+        <path d="M12 20v2"></path>
+        <path d="m4.93 4.93 1.41 1.41"></path>
+        <path d="m17.66 17.66 1.41 1.41"></path>
+        <path d="M2 12h2"></path>
+        <path d="M20 12h2"></path>
+        <path d="m6.34 17.66-1.41 1.41"></path>
+        <path d="m19.07 4.93-1.41 1.41"></path>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  function setupHeader() {
+    const navbar = document.getElementById('navbar');
+    const progressBar = document.getElementById('scroll-progress-bar');
+    const themeToggle = document.getElementById('theme-toggle');
+    const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+    const menuOpenBtn = document.getElementById('mobile-menu-open');
+    const menuCloseBtn = document.getElementById('mobile-menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
+
+    // Scroll listener for sticky glass navbar & reading progress
+    let ticking = false;
+    const updateScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          if (navbar) {
+            if (scrollY > 30) {
+              navbar.classList.add('glass-nav', 'py-2');
+              navbar.classList.remove('py-4');
+            } else {
+              navbar.classList.remove('glass-nav', 'py-2');
+              navbar.classList.add('py-4');
+            }
+          }
+          if (progressBar) {
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? Math.min(1, Math.max(0, scrollY / docHeight)) : 0;
+            progressBar.style.transform = `scaleX(${progress})`;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.removeEventListener('scroll', updateScroll);
+    window.addEventListener('scroll', updateScroll, { passive: true });
+    updateScroll();
+
+    // Dark / Light Theme Toggle Function
+    const toggleTheme = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      const nextTheme = isDark ? 'light' : 'dark';
+      if (nextTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      try {
+        localStorage.setItem('theme', nextTheme);
+      } catch (e) {}
+    };
+
+    themeToggle?.addEventListener('click', toggleTheme);
+    mobileThemeToggle?.addEventListener('click', toggleTheme);
+
+    // Mobile Menu Open / Close
+    const openMenu = () => {
+      if (!mobileMenu) return;
+      mobileMenu.classList.add('active', 'opacity-100', 'pointer-events-auto');
+      mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+      document.body.classList.add('body-lock');
+      menuOpenBtn?.setAttribute('aria-expanded', 'true');
+    };
+
+    const closeMenu = () => {
+      if (!mobileMenu) return;
+      mobileMenu.classList.remove('active', 'opacity-100', 'pointer-events-auto');
+      mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+      document.body.classList.remove('body-lock');
+      menuOpenBtn?.setAttribute('aria-expanded', 'false');
+    };
+
+    menuOpenBtn?.addEventListener('click', openMenu);
+    menuCloseBtn?.addEventListener('click', closeMenu);
+
+    mobileLinks.forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Close mobile menu on Escape key press
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu?.classList.contains('active')) {
+        closeMenu();
+        menuOpenBtn?.focus();
+      }
+    });
+  }
+
+  // Bind to Astro lifecycle (both initial load and View Transitions)
+  setupHeader();
+  document.addEventListener('astro:page-load', setupHeader);
+</script>

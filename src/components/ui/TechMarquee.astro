@@ -1,0 +1,50 @@
+---
+interface Props {
+  items?: string[];
+  speedSeconds?: number;
+  class?: string;
+}
+
+const DEFAULT_TECH = [
+  "Flutter",
+  "Django",
+  "Python",
+  "TypeScript",
+  "Tailwind CSS",
+  "Cloudflare Workers",
+  "Firebase",
+  "SQLite",
+  "Docker",
+  "IT Helpdesk",
+];
+
+const {
+  items = DEFAULT_TECH,
+  speedSeconds = 35,
+  class: className = "",
+} = Astro.props;
+
+// Duplicate array twice to ensure seamless infinite CSS looping across any viewport width
+const duplicated = [...items, ...items];
+---
+
+<div
+  class={`group relative overflow-hidden border-y border-black/10 bg-cardLight/60 py-4 dark:border-white/10 dark:bg-cardDark/60 select-none ${className}`}
+  aria-label="Technologies and competencies ticker"
+>
+  <div
+    class="flex w-max motion-reduce:transform-none animate-marquee group-hover:[animation-play-state:paused]"
+    style={`animation-duration: ${speedSeconds}s;`}
+  >
+    {duplicated.map((tech) => (
+      <div
+        class="flex items-center space-x-6 px-6 font-mono text-xs uppercase tracking-[0.25em] text-black/70 dark:text-white/70"
+      >
+        <span class="font-semibold transition-colors duration-200 group-hover:text-black dark:group-hover:text-white">
+          {tech}
+        </span>
+        <span class="inline-block h-1.5 w-1.5 bg-black/30 dark:bg-white/30" aria-hidden="true" />
+      </div>
+    ))}
+  </div>
+</div>

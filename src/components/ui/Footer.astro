@@ -1,0 +1,228 @@
+---
+import CopyEmailButton from '../interactive/CopyEmailButton.astro';
+
+interface Props {
+  lang?: 'en' | 'vi';
+}
+
+const { lang = 'en' } = Astro.props;
+const isVi = lang === 'vi';
+const email = 'ankhang.nguyen0704@gmail.com';
+---
+
+<footer
+  id="contact"
+  data-nav-section="contact"
+  class="py-24 md:py-32 border-t border-black/10 dark:border-white/10 text-center relative overflow-hidden bg-bgLight dark:bg-bgDark text-black dark:text-white"
+>
+  <div class="container mx-auto px-6 md:px-8 max-w-4xl footer-content">
+    <p class="text-xs font-bold uppercase tracking-[0.3em] mb-6 opacity-75 font-mono">
+      {isVi ? "Liên hệ" : "Get in touch"}
+    </p>
+
+    <h2 class="font-display text-4xl sm:text-6xl md:text-8xl font-bold mb-12 tracking-tight">
+      {isVi ? "Cùng tạo nên điều đặc biệt." : "Let's build something."}
+    </h2>
+
+    <!-- Primary Action: Email & Copy -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+      <a
+        href={`mailto:${email}`}
+        class="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 flex items-center justify-center w-full sm:w-auto font-mono group"
+      >
+        <span>{isVi ? "Gửi Email Trực Tiếp" : "Send an Email"}</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ml-3 group-hover:translate-x-1 transition-transform"
+          aria-hidden="true"
+        >
+          <path d="M5 12h14"></path>
+          <path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </a>
+
+      <CopyEmailButton email={email} isVi={isVi} />
+    </div>
+
+    <!-- Social & Network Icons -->
+    <div class="flex justify-center space-x-6 sm:space-x-8 text-2xl">
+      <a
+        href="https://github.com/ankhang0704"
+        class="footer-social-icon inline-flex min-h-11 min-w-11 items-center justify-center hover:opacity-50 transition-opacity duration-300 text-black dark:text-white"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="GitHub"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+        </svg>
+      </a>
+
+      <a
+        href="https://www.linkedin.com/in/ankhang0704/"
+        class="footer-social-icon inline-flex min-h-11 min-w-11 items-center justify-center hover:opacity-50 transition-opacity duration-300 text-black dark:text-white"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="LinkedIn"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+          <rect width="4" height="12" x="2" y="9"></rect>
+          <circle cx="4" cy="4" r="2"></circle>
+        </svg>
+      </a>
+
+      <a
+        href={`mailto:${email}`}
+        class="footer-social-icon inline-flex min-h-11 min-w-11 items-center justify-center hover:opacity-50 transition-opacity duration-300 text-black dark:text-white"
+        aria-label="Email"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <rect width="20" height="16" x="2" y="4" rx="0"></rect>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Download CV Link -->
+    <div class="mt-12 flex justify-center">
+      <a
+        href="/my_cv.pdf"
+        download="Nguyen-An-Khang-CV.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 border border-black dark:border-white px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 font-mono"
+      >
+        <span>{isVi ? "Tải xuống CV" : "Download CV"}</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" x2="12" y1="15" y2="3"></line>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Copyright & Timestamp -->
+    <div class="mt-16 flex flex-col items-center gap-2">
+      <p class="text-sm font-medium opacity-80 uppercase tracking-widest font-mono">
+        © 2026 An Khang
+      </p>
+      <p class="text-xs font-medium opacity-60 uppercase tracking-widest font-mono">
+        {isVi ? "Cập nhật · Năm 2026" : "Updated · 2026"}
+      </p>
+    </div>
+  </div>
+
+  <!-- Sharp Architectural Back to Top Button -->
+  <button
+    type="button"
+    id="back-to-top"
+    class="fixed bottom-8 right-8 w-12 h-12 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black flex items-center justify-center transition-all duration-300 z-40 hover:opacity-80 active:scale-95 opacity-0 translate-y-6 pointer-events-none"
+    aria-label={isVi ? "Cuộn lên đầu trang" : "Back to top"}
+    tabindex="-1"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m18 15-6-6-6 6"></path>
+    </svg>
+  </button>
+</footer>
+
+<script>
+  function initFooter() {
+    const backToTop = document.getElementById('back-to-top');
+
+    const handleScroll = () => {
+      if (!backToTop) return;
+      if (window.scrollY > 400) {
+        backToTop.classList.remove('opacity-0', 'translate-y-6', 'pointer-events-none');
+        backToTop.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        backToTop.setAttribute('tabindex', '0');
+      } else {
+        backToTop.classList.add('opacity-0', 'translate-y-6', 'pointer-events-none');
+        backToTop.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        backToTop.setAttribute('tabindex', '-1');
+      }
+    };
+
+    window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    if (backToTop) {
+      backToTop.onclick = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+            ? 'auto'
+            : 'smooth',
+        });
+      };
+    }
+  }
+
+  initFooter();
+  document.addEventListener('astro:page-load', initFooter);
+</script>

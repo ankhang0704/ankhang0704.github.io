@@ -1,0 +1,373 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../ui/Header.astro';
+import Footer from '../ui/Footer.astro';
+import GridPattern from '../ui/GridPattern.astro';
+import { getDictionary } from '../../i18n/utils';
+
+interface Props {
+  lang: 'en' | 'vi';
+}
+
+const { lang } = Astro.props;
+const isVi = lang === 'vi';
+const dict = getDictionary(lang);
+
+// Query all projects for this language
+const allProjects = await getCollection('projects');
+const projects = allProjects
+  .filter((p) => p.id.startsWith(`${lang}/`))
+  .sort((a, b) => a.data.code.localeCompare(b.data.code));
+
+const pageTitle = isVi
+  ? 'Dự án | An Khang'
+  : 'Projects | An Khang';
+
+const pageDesc = isVi
+  ? 'Danh mục các dự án hoàn thiện, mã nguồn mở và công cụ của An Khang.'
+  : 'Directory of software engineering projects, open source tools, and mobile applications by An Khang.';
+
+const currentPath = isVi ? '/vi/projects/' : '/projects/';
+
+const categories = [
+  { key: 'all', label: isVi ? 'Tất cả' : 'All Works' },
+  { key: 'mobile', label: isVi ? 'Di động (Flutter)' : 'Mobile & Flutter' },
+  { key: 'backend', label: isVi ? 'Hệ thống (Django / AI)' : 'Backend & AI' },
+  { key: 'tools', label: isVi ? 'Công cụ & Mã nguồn mở' : 'Tools & Open Source' },
+  { key: 'web', label: isVi ? 'Web & Khách hàng' : 'Web & Client' },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDesc} lang={lang}>
+  <Header lang={lang} currentPath={currentPath} />
+
+  <main id="main-content" class="min-h-screen pt-32 pb-24 relative overflow-x-hidden bg-bgLight dark:bg-bgDark text-black dark:text-white">
+    <GridPattern />
+
+    <div class="container mx-auto px-6 md:px-8 relative z-10">
+      <!-- Page Header -->
+      <header class="max-w-4xl mb-16">
+        <div class="inline-flex items-center gap-3 mb-6">
+          <span class="w-8 h-px bg-black dark:bg-white"></span>
+          <p class="text-xs font-mono font-bold uppercase tracking-[0.3em] opacity-60">
+            {dict.projects.label}
+          </p>
+        </div>
+
+        <h1 class="font-display text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-8">
+          {dict.allProjects.title}
+        </h1>
+
+        <p class="font-light text-xl md:text-2xl leading-relaxed opacity-85 text-neutral-700 dark:text-neutral-300">
+          {dict.allProjects.desc}
+        </p>
+      </header>
+
+      <!-- Precision Controls Toolbar -->
+      <section
+        aria-label={isVi ? "Bộ lọc dự án" : "Project filters"}
+        class="border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark p-4 sm:p-6 mb-12 space-y-6"
+      >
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <!-- Category Filter Buttons -->
+          <div class="flex flex-wrap items-center gap-2" id="category-filter-group">
+            {categories.map((cat) => (
+              <button
+                type="button"
+                data-filter-btn={cat.key}
+                class={`category-btn px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border ${
+                  cat.key === 'all'
+                    ? 'border-black bg-black text-white dark:border-white dark:bg-white dark:text-black'
+                    : 'border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white'
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+
+          <!-- Live Search Input -->
+          <div class="relative w-full md:w-72">
+            <input
+              type="text"
+              id="directory-search"
+              placeholder={isVi ? "Tìm theo tên, công nghệ..." : "Search projects, stack..."}
+              aria-label={isVi ? "Tìm kiếm dự án" : "Search projects"}
+              class="w-full bg-bgLight dark:bg-bgDark border border-black/20 dark:border-white/20 px-4 py-2 text-sm font-mono placeholder:opacity-40 focus:outline-none focus:border-black dark:focus:border-white"
+            />
+          </div>
+        </div>
+
+        <!-- Result Stats Bar -->
+        <div class="flex items-center justify-between text-xs font-mono opacity-60 pt-2 border-t border-black/5 dark:border-white/5">
+          <span id="directory-count">
+            {isVi ? `Hiển thị ${projects.length} / ${projects.length} dự án` : `Showing ${projects.length} of ${projects.length} projects`}
+          </span>
+          <span class="hidden sm:inline">
+            {isVi ? 'Phân loại theo tiêu chuẩn kỹ thuật' : 'Classified by engineering specification'}
+          </span>
+        </div>
+      </section>
+
+      <!-- Projects Grid -->
+      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {projects.map((project) => {
+          const hasCaseStudy = project.data.canonicalPath !== '/projects/';
+          const caseStudyUrl = isVi ? `/vi${project.data.canonicalPath}` : project.data.canonicalPath;
+          const cardTargetHref = hasCaseStudy ? caseStudyUrl : project.data.externalHref;
+          const searchData = `${project.data.code} ${project.data.title} ${project.data.summary} ${project.data.techStack.join(' ')} ${project.data.specs.join(' ')}`.toLowerCase();
+
+          return (
+            <article
+              data-project-card
+              data-category={project.data.category}
+              data-search={searchData}
+              class="project-card border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between hover:border-black/30 dark:hover:border-white/30 transition-colors duration-200"
+            >
+              <div>
+                <!-- Card Header Bar -->
+                <div class="flex items-center justify-between px-5 py-3 border-b border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark text-xs font-mono">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-1.5 h-1.5 bg-black dark:bg-white inline-block"></span>
+                    <span class="font-bold tracking-wider">{project.data.code}</span>
+                    <span class="opacity-50">/</span>
+                    <span class="uppercase opacity-60">{project.data.category}</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="text-[10px] uppercase tracking-wider px-2 py-0.5 border border-black/15 dark:border-white/15 opacity-75">
+                      {project.data.status}
+                    </span>
+                    <span class="opacity-40">{project.data.year}</span>
+                  </div>
+                </div>
+
+                <!-- Cover Image (if available) -->
+                {project.data.image && (
+                  <a
+                    href={cardTargetHref}
+                    target={hasCaseStudy ? undefined : "_blank"}
+                    rel={hasCaseStudy ? undefined : "noopener noreferrer"}
+                    class="block overflow-hidden border-b border-black/10 dark:border-white/10 group"
+                  >
+                    <div class="aspect-[16/9] overflow-hidden relative">
+                      <img
+                        src={project.data.image}
+                        alt={project.data.title}
+                        loading="lazy"
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                  </a>
+                )}
+
+                <!-- Card Body -->
+                <div class="p-6 sm:p-8 space-y-5">
+                  <h2 class="font-display text-2xl sm:text-3xl font-bold tracking-tight">
+                    <a
+                      href={cardTargetHref}
+                      target={hasCaseStudy ? undefined : "_blank"}
+                      rel={hasCaseStudy ? undefined : "noopener noreferrer"}
+                      class="hover:underline"
+                    >
+                      {project.data.title}
+                    </a>
+                  </h2>
+
+                  <p class="font-light text-base opacity-85 leading-relaxed text-neutral-700 dark:text-neutral-300">
+                    {project.data.summary}
+                  </p>
+
+                  <!-- Specs List -->
+                  {project.data.specs && project.data.specs.length > 0 && (
+                    <div class="space-y-1.5 pt-2 border-t border-black/5 dark:border-white/5">
+                      {project.data.specs.map((spec) => (
+                        <div class="flex items-center gap-2 text-xs font-mono opacity-75">
+                          <span class="w-1 h-1 bg-black dark:bg-white inline-block"></span>
+                          <span>{spec}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  <!-- Tech Stack -->
+                  <div class="pt-2">
+                    <div class="flex flex-wrap gap-1.5">
+                      {project.data.techStack.map((tech) => (
+                        <span class="text-[11px] font-mono px-2.5 py-1 border border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card Action Footer -->
+              <div class="px-6 sm:px-8 py-5 border-t border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark flex flex-wrap items-center justify-between gap-3">
+                {hasCaseStudy ? (
+                  <a
+                    href={caseStudyUrl}
+                    class="border border-black dark:border-white px-5 py-2.5 text-xs font-bold uppercase tracking-widest font-mono hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 inline-flex items-center gap-2 group"
+                  >
+                    <span>{dict.projects.viewCaseStudy}</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="group-hover:translate-x-1 transition-transform"
+                      aria-hidden="true"
+                    >
+                      <path d="M5 12h14"></path>
+                      <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                  </a>
+                ) : (
+                  <a
+                    href={project.data.externalHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="border border-black dark:border-white px-5 py-2.5 text-xs font-bold uppercase tracking-widest font-mono hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 inline-flex items-center gap-2 group"
+                  >
+                    <span>{project.data.externalLabel || (isVi ? 'Xem mã nguồn ↗' : 'View Source ↗')}</span>
+                  </a>
+                )}
+
+                {hasCaseStudy && (
+                  <div class="flex items-center gap-3">
+                    {project.data.externalHref && (
+                      <a
+                        href={project.data.externalHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-xs font-mono opacity-75 hover:opacity-100 hover:underline uppercase tracking-wider"
+                      >
+                        {project.data.externalLabel || (isVi ? 'Liên kết ↗' : 'Link ↗')}
+                      </a>
+                    )}
+
+                    {project.data.secondaryExternalHref && (
+                      <a
+                        href={project.data.secondaryExternalHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-xs font-mono opacity-75 hover:opacity-100 hover:underline uppercase tracking-wider"
+                      >
+                        {project.data.secondaryExternalLabel}
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      <!-- Empty State -->
+      <div
+        id="directory-empty"
+        class="hidden text-center py-24 border border-dashed border-black/20 dark:border-white/20 bg-cardLight dark:bg-cardDark p-8"
+      >
+        <p class="font-display text-2xl font-bold mb-2">
+          {isVi ? 'Không tìm thấy dự án phù hợp' : 'No projects found'}
+        </p>
+        <p class="text-sm font-mono opacity-60 mb-6">
+          {isVi ? 'Vui lòng thử lại với từ khóa hoặc danh mục khác.' : 'Try adjusting your search query or category filter.'}
+        </p>
+        <button
+          type="button"
+          id="reset-directory-filters"
+          class="border border-black dark:border-white px-6 py-2.5 text-xs font-mono uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+        >
+          {isVi ? 'Đặt lại bộ lọc' : 'Reset filters'}
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <Footer lang={lang} />
+</BaseLayout>
+
+<script is:inline define:vars={{ isVi, totalCount: projects.length }}>
+  function setupDirectory() {
+    let currentCategory = 'all';
+    let currentQuery = '';
+
+    const filterButtons = document.querySelectorAll('[data-filter-btn]');
+    const searchInput = document.getElementById('directory-search');
+    const cards = document.querySelectorAll('[data-project-card]');
+    const countDisplay = document.getElementById('directory-count');
+    const emptyState = document.getElementById('directory-empty');
+    const resetButton = document.getElementById('reset-directory-filters');
+
+    function applyFilters() {
+      let visible = 0;
+      cards.forEach((card) => {
+        const cat = card.getAttribute('data-category');
+        const search = card.getAttribute('data-search') || '';
+        const matchCat = currentCategory === 'all' || cat === currentCategory;
+        const matchSearch = !currentQuery || search.includes(currentQuery);
+
+        if (matchCat && matchSearch) {
+          card.classList.remove('hidden');
+          visible++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      if (countDisplay) {
+        countDisplay.textContent = isVi
+          ? `Hiển thị ${visible} / ${totalCount} dự án`
+          : `Showing ${visible} of ${totalCount} projects`;
+      }
+
+      if (emptyState) {
+        if (visible === 0) {
+          emptyState.classList.remove('hidden');
+        } else {
+          emptyState.classList.add('hidden');
+        }
+      }
+    }
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        currentCategory = btn.getAttribute('data-filter-btn') || 'all';
+        filterButtons.forEach((b) => {
+          b.className = 'category-btn px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white';
+        });
+        btn.className = 'category-btn px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider transition-colors duration-150 border border-black bg-black text-white dark:border-white dark:bg-white dark:text-black';
+        applyFilters();
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        currentQuery = (e.target.value || '').toLowerCase().trim();
+        applyFilters();
+      });
+    }
+
+    if (resetButton) {
+      resetButton.addEventListener('click', () => {
+        currentCategory = 'all';
+        currentQuery = '';
+        if (searchInput) searchInput.value = '';
+        const allBtn = document.querySelector('[data-filter-btn="all"]');
+        if (allBtn) allBtn.click();
+      });
+    }
+  }
+
+  // Support both direct initial load and Astro View Transitions
+  setupDirectory();
+  document.addEventListener('astro:page-load', setupDirectory);
+</script>

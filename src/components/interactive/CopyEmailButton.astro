@@ -1,0 +1,168 @@
+---
+interface Props {
+  email?: string;
+  lang?: 'en' | 'vi';
+  isVi?: boolean;
+  class?: string;
+  showText?: boolean;
+}
+
+const {
+  email = 'ankhang.nguyen0704@gmail.com',
+  lang = 'en',
+  isVi: isViProp,
+  class: className = '',
+  showText = true,
+} = Astro.props;
+
+const isVi = isViProp ?? lang === 'vi';
+---
+
+<div class="inline-block relative">
+  <button
+    type="button"
+    data-copy-email-btn
+    data-email={email}
+    data-copied-text={isVi ? "Đã chép!" : "Copied!"}
+    data-default-text={isVi ? "Sao chép" : "Copy"}
+    class={`inline-flex min-h-11 items-center gap-2 transition-all group ${className}`}
+    title={isVi ? "Sao chép địa chỉ email" : "Copy email address"}
+    aria-label={isVi ? "Sao chép email" : "Copy email"}
+  >
+    <span class="copy-icon-box p-1.5 border border-black/20 dark:border-white/20 group-hover:border-black dark:group-hover:border-white group-hover:bg-black group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-all">
+      <!-- Copy SVG -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="copy-icon-default block"
+        aria-hidden="true"
+      >
+        <rect width="14" height="14" x="8" y="8" rx="0" ry="0"></rect>
+        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+      </svg>
+      <!-- Check SVG -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="copy-icon-success hidden"
+        aria-hidden="true"
+      >
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </span>
+
+    {showText && (
+      <span class="copy-label text-xs uppercase tracking-widest opacity-60 group-hover:opacity-100 font-mono transition-opacity">
+        {isVi ? "Sao chép" : "Copy"}
+      </span>
+    )}
+  </button>
+</div>
+
+<!-- Global Toast Container (singleton rendered once per page) -->
+<div
+  id="copy-email-toast"
+  role="status"
+  aria-live="polite"
+  class="fixed bottom-8 left-1/2 -translate-x-1/2 md:left-auto md:right-8 md:translate-x-0 z-[100] border border-black dark:border-white bg-bgLight dark:bg-bgDark p-4 flex items-center gap-3 transition-all duration-300 opacity-0 pointer-events-none translate-y-4"
+>
+  <div class="w-2 h-2 bg-black dark:bg-white shrink-0" aria-hidden="true"></div>
+  <span id="copy-email-toast-text" class="text-xs font-mono tracking-wider font-bold"></span>
+</div>
+
+<script>
+  let toastTimer: number | undefined;
+
+  function initCopyEmail() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('[data-copy-email-btn]');
+    const toast = document.getElementById('copy-email-toast');
+    const toastText = document.getElementById('copy-email-toast-text');
+
+    buttons.forEach((btn) => {
+      // Remove any existing click listener to avoid duplicate bindings
+      btn.onclick = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const email = btn.dataset.email || 'ankhang.nguyen0704@gmail.com';
+        const copiedText = btn.dataset.copiedText || 'Copied!';
+        const defaultText = btn.dataset.defaultText || 'Copy';
+
+        const copyIconDefault = btn.querySelector('.copy-icon-default');
+        const copyIconSuccess = btn.querySelector('.copy-icon-success');
+        const copyLabel = btn.querySelector('.copy-label');
+
+        try {
+          await navigator.clipboard.writeText(email);
+        } catch {
+          // Fallback for non-secure contexts or legacy browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = email;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+        }
+
+        // Visual feedback on button
+        if (copyIconDefault && copyIconSuccess) {
+          copyIconDefault.classList.add('hidden');
+          copyIconDefault.classList.remove('block');
+          copyIconSuccess.classList.remove('hidden');
+          copyIconSuccess.classList.add('block');
+        }
+
+        if (copyLabel) {
+          copyLabel.textContent = copiedText;
+        }
+
+        // Show Toast
+        if (toast && toastText) {
+          const isVi = copiedText.includes('Đã');
+          toastText.textContent = isVi
+            ? `[ ✓ Đã sao chép: ${email} ]`
+            : `[ ✓ Copied to clipboard: ${email} ]`;
+
+          toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+          toast.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+
+          if (toastTimer) window.clearTimeout(toastTimer);
+          toastTimer = window.setTimeout(() => {
+            toast.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+          }, 2000);
+        }
+
+        // Revert button after 2000ms
+        window.setTimeout(() => {
+          if (copyIconDefault && copyIconSuccess) {
+            copyIconDefault.classList.remove('hidden');
+            copyIconDefault.classList.add('block');
+            copyIconSuccess.classList.add('hidden');
+            copyIconSuccess.classList.remove('block');
+          }
+          if (copyLabel) {
+            copyLabel.textContent = defaultText;
+          }
+        }, 2000);
+      };
+    });
+  }
+
+  initCopyEmail();
+  document.addEventListener('astro:page-load', initCopyEmail);
+</script>
