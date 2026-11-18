@@ -49,15 +49,34 @@ In this session, the project achieved a major architectural milestone:
 - **Deduplicated Event Listeners**: Guarded navbar and interactive component listeners to ensure single-instance binding during client-side navigation.
 - **Design Principle C (Freshness)**: Updated [`Footer.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Footer.astro) update indicator to `Updated · November 2026` / `Cập nhật · Tháng 11, 2026`.
 
+### E. Swarm Audit & Elimination of Route Transition Delay (Ponytail Full Mode)
+
+- **Root Causes of Perceived Route Transition Delay Identified & Resolved**:
+  - **Astro Prefetch Strategy**: Changed `defaultStrategy: "hover"` to `"viewport"` in [`astro.config.mjs`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/astro.config.mjs). On mobile devices and touchpads, hover never triggered, causing a 200–500ms network fetch before view transitions started. With `viewport`, every internal link entering the viewport is prefetched in the background into HTTP cache, yielding instant (0ms) clicks across all routes (`/projects/`, `/fm-dictionary/`, `/vi/`, etc.).
+  - **Scroll-Behavior Conflict**: Removed `scroll-smooth` class from `BaseLayout.astro` and replaced global `scroll-behavior: smooth` in `global.css` with `html[data-astro-transition] { scroll-behavior: auto !important; }`. Added a scoped in-page anchor click handler (`a[href^="#"]`) in `BaseLayout.astro` so that intra-page anchor navigation remains smooth while route view transitions jump to top in 0ms without floaty scroll lag.
+  - **View Transition Speed Tuning**: Tuned View Transition duration in `global.css` from 140ms down to 90ms with snappy `cubic-bezier(0, 0, 0.2, 1)`.
+- **Architectural & Layout Audit (`improve-codebase-architecture`) Fixes**:
+  - **Mobile Menu Lifecycle**: Patched event binding in [`Header.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Header.astro). Previously, `transition:name="site-header"` preserved `#navbar` while `#mobile-menu` was discarded and recreated outside of it, causing detached listeners and an unresponsive mobile menu after navigating. Now properly binds handlers on every mount and maintains focus management.
+  - **Focus Trap & Accessibility**: Added Tab/Shift+Tab focus trap inside `#mobile-menu`, Escape key dismiss, and focus restoration to the hamburger button.
+  - **Z-Index Layering**: Raised `#mobile-menu` to `z-[110]` over `#navbar` (`z-50`).
+  - **Canonical Trailing Slashes**: Enforced trailing slashes on `enHref` and `viHref` in `BaseLayout.astro` (`/projects/`, `/vi/projects/`, etc.).
+  - **ID Uniqueness**: Removed duplicate `id="experience"` in `ExperienceTimeline.astro`.
+  - **Floating UI Collision**: Adjusted `CopyEmailButton.astro` toast notification positioning to `md:bottom-24` and `bottom-20` on mobile, preventing overlap with the `#back-to-top` button.
+- **Editorial Design & Anti-Slop Audit (`checklist-design` & `design-taste-frontend`) Fixes**:
+  - **Typography**: Replaced `text-justify` with `text-left` in `HomePage.astro` and `ExperienceTimeline.astro` to eliminate browser whitespace rivers in Vietnamese and English.
+  - **Anti-Slop Cleanliness**: Removed `.ambient-glow` blurry radial gradients from `BaseLayout.astro` and `global.css` in favor of crisp monochromatic surfaces. Dropped decorative timeline `01 /` index numbering and pulsing dots.
+  - **WCAG AA Touch & Contrast**: Expanded mobile filter button height to `min-h-11` (44px) in `ProjectsIndexPage.astro`, normalized neutral color classes to strict monochromatic tokens (`text-black dark:text-white`), and added visible keyboard focus rings.
+- **Tooling Fix**: Installed devDependencies into `node_modules` enabling Prettier formatting and Husky pre-commit checks to run cleanly on Windows.
+
 ---
 
 ## 2. 🚦 Current State
 
 - **Branch**: `main`
-- **Latest Commit**: `d62c467` (`fix(i18n): eliminate language toggle lag with instant prefetch, viewport-aware reveals, and scroll preservation`)
+- **Latest Commit**: `c36fd63` (`fix(perf): eliminate route transition delay, patch mobile drawer lifecycle, and refine editorial design`)
 - **Build Status**:
   - `npm run lint` (`astro check`): **0 errors, 0 warnings**
-  - `npm run build`: **10/10 static routes generated successfully in ~2.8s** to [`dist/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/dist/)
+  - `npm run build`: **10/10 static routes generated successfully in ~2.9s** to [`dist/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/dist/)
 - **Pre-commit Hooks**: Verified and active (`lint-staged` with `prettier` + `astro check`).
 - **Brand Rules Compliance**:
   - Navbar logo: `KHANG` (typographic wordmark, 0px border-radius).
