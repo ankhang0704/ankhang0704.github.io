@@ -207,7 +207,7 @@ const initialTerm = SAMPLE_TERMS[0];
 <div
   id="term-inspector"
   data-lang={lang}
-  class="w-full border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark p-6 md:p-10 space-y-8 select-none"
+  class="w-full border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark p-6 md:p-10 space-y-8"
 >
   <!-- Header bar -->
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/10 dark:border-white/10 pb-6">
@@ -540,15 +540,42 @@ const initialTerm = SAMPLE_TERMS[0];
       if (meaningVi) meaningVi.textContent = term.vietnameseMeaning;
       if (fieldNote) fieldNote.textContent = term.fieldNote;
 
-      // Update Active Pill Styling
+      // Update Active Pill Styling without wiping search filter 'hidden' class
       pills.forEach((p) => {
         const isActive = p.dataset.termId === term.id;
+        p.setAttribute("aria-selected", isActive ? "true" : "false");
         if (isActive) {
-          p.className =
-            "term-pill-btn px-4 py-2.5 text-xs font-mono uppercase tracking-wider border transition-all border-black bg-black text-white dark:border-white dark:bg-white dark:text-black font-bold active-pill";
+          p.classList.add(
+            "border-black",
+            "bg-black",
+            "text-white",
+            "dark:border-white",
+            "dark:bg-white",
+            "dark:text-black",
+            "font-bold",
+            "active-pill"
+          );
+          p.classList.remove(
+            "border-black/15",
+            "dark:border-white/15",
+            "opacity-70"
+          );
         } else {
-          p.className =
-            "term-pill-btn px-4 py-2.5 text-xs font-mono uppercase tracking-wider border transition-all border-black/15 dark:border-white/15 opacity-70 hover:opacity-100 hover:border-black dark:hover:border-white";
+          p.classList.remove(
+            "border-black",
+            "bg-black",
+            "text-white",
+            "dark:border-white",
+            "dark:bg-white",
+            "dark:text-black",
+            "font-bold",
+            "active-pill"
+          );
+          p.classList.add(
+            "border-black/15",
+            "dark:border-white/15",
+            "opacity-70"
+          );
         }
       });
 
@@ -686,6 +713,12 @@ const initialTerm = SAMPLE_TERMS[0];
     // Initialize with first term
     renderTerm(terms[0]);
   }
+
+  document.addEventListener("astro:before-swap", () => {
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
+  });
 
   document.addEventListener("astro:page-load", initTermInspector);
 </script>

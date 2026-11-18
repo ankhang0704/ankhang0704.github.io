@@ -49,7 +49,7 @@ const initialFormatted = to
 </span>
 
 <script>
-  let hasCountedGlobally = false;
+  const activeRafs = new Set<number>();
 
   function initCountUps() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -59,8 +59,11 @@ const initialFormatted = to
     );
     if (!elements.length) return;
 
-    // If counters have already animated, keep final static numbers across transitions
-    if (hasCountedGlobally) {
+    const isLangSwitch =
+      sessionStorage.getItem("lang_switch_freeze_anim") === "true";
+
+    // If switching language, keep final static numbers without re-animating
+    if (isLangSwitch) {
       elements.forEach((el) => {
         el.setAttribute("data-counted", "true");
       });
@@ -74,7 +77,6 @@ const initialFormatted = to
           const el = entry.target as HTMLElement;
           observer.unobserve(el);
           el.setAttribute("data-counted", "true");
-          hasCountedGlobally = true;
 
           const to = parseFloat(el.dataset.to || "0");
           const from = parseFloat(el.dataset.from || "0");
@@ -87,6 +89,8 @@ const initialFormatted = to
           if (!valEl) return;
 
           let start: number | null = null;
+          let rafId: number;
+
           function step(timestamp: number) {
             if (!start) start = timestamp;
             const progress = Math.min((timestamp - start) / duration, 1);
@@ -101,10 +105,14 @@ const initialFormatted = to
 
             valEl!.textContent = `${prefix}${formatted}${suffix}`;
             if (progress < 1) {
-              requestAnimationFrame(step);
+              rafId = requestAnimationFrame(step);
+              activeRafs.add(rafId);
+            } else {
+              activeRafs.delete(rafId);
             }
           }
-          requestAnimationFrame(step);
+          rafId = requestAnimationFrame(step);
+          activeRafs.add(rafId);
         });
       },
       { threshold: 0.15 }
@@ -112,6 +120,11 @@ const initialFormatted = to
 
     elements.forEach((el) => observer.observe(el));
   }
+
+  document.addEventListener("astro:before-swap", () => {
+    activeRafs.forEach((id) => cancelAnimationFrame(id));
+    activeRafs.clear();
+  });
 
   document.addEventListener("astro:page-load", initCountUps);
 </script>

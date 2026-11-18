@@ -13,10 +13,6 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
-
 # astro
 /dist/
 /.astro/
@@ -43,4 +39,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 tsconfig.tsbuildinfo
-next-env.d.ts

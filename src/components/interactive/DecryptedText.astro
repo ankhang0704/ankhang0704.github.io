@@ -36,10 +36,13 @@ const {
 </span>
 
 <script>
-  let hasDecryptedGlobally = false;
+  const activeIntervals = new Set<number>();
 
   function initDecryptedText() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const isLangSwitch =
+      sessionStorage.getItem("lang_switch_freeze_anim") === "true";
 
     const containers = document.querySelectorAll<HTMLElement>(
       ".decrypted-text-container"
@@ -71,7 +74,10 @@ const {
         isAnimating = true;
 
         let iteration = 0;
-        if (intervalId) clearInterval(intervalId);
+        if (intervalId) {
+          clearInterval(intervalId);
+          activeIntervals.delete(intervalId);
+        }
 
         intervalId = window.setInterval(() => {
           iteration += 1;
@@ -81,6 +87,7 @@ const {
           if (iteration >= maxIterations) {
             target.textContent = text;
             clearInterval(intervalId);
+            if (intervalId) activeIntervals.delete(intervalId);
             isAnimating = false;
             return;
           }
@@ -96,10 +103,12 @@ const {
 
           target.textContent = scrambled;
         }, speed);
+
+        activeIntervals.add(intervalId);
       };
 
       if (animateOn === "mount") {
-        if (!hasDecryptedGlobally) {
+        if (!isLangSwitch) {
           runScramble();
         } else {
           target.textContent = text;
@@ -123,9 +132,12 @@ const {
         container.addEventListener("mouseenter", runScramble);
       }
     });
-
-    hasDecryptedGlobally = true;
   }
+
+  document.addEventListener("astro:before-swap", () => {
+    activeIntervals.forEach((id) => clearInterval(id));
+    activeIntervals.clear();
+  });
 
   document.addEventListener("astro:page-load", initDecryptedText);
 </script>

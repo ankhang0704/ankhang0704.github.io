@@ -1,4 +1,6 @@
 ---
+import { getLocalizedPath } from "../../i18n/utils";
+
 interface Props {
   lang?: "en" | "vi";
   currentPath?: string;
@@ -9,22 +11,8 @@ const pathname = currentPath || Astro.url.pathname;
 const isVi = lang === "vi";
 const isHome = pathname === "/" || pathname === "/vi" || pathname === "/vi/";
 
-// Calculate alternate language link
-let targetLangHref: string;
-if (isVi) {
-  // If in Vietnamese, strip /vi prefix
-  const cleanPath = pathname.replace(/^\/vi(\/|$)/, "/");
-  targetLangHref = cleanPath === "" ? "/" : cleanPath;
-} else {
-  // If in English, prefix with /vi
-  const cleanPath = pathname === "/" ? "" : pathname.replace(/\/$/, "");
-  targetLangHref = `/vi${cleanPath}/`;
-}
-
-// Ensure trailing slash according to project config
-if (!targetLangHref.endsWith("/") && !targetLangHref.includes("#")) {
-  targetLangHref += "/";
-}
+// Calculate alternate language link cleanly using centralized utility
+const targetLangHref = getLocalizedPath(pathname, isVi ? "en" : "vi");
 
 const homeHref = isVi ? "/vi/" : "/";
 const aboutHref = isHome ? "#about" : isVi ? "/vi/#about" : "/#about";
@@ -355,43 +343,48 @@ const links = [
     }
   }
 
+  let scrollTicking = false;
+  function onWindowScroll() {
+    if (!scrollTicking) {
+      requestAnimationFrame(() => {
+        const navbar = document.getElementById("navbar");
+        const progressBar = document.getElementById("scroll-progress-bar");
+        const scrollY = window.scrollY;
+        if (navbar) {
+          if (scrollY > 30) {
+            navbar.classList.add("glass-nav", "py-2");
+            navbar.classList.remove("py-4");
+          } else {
+            navbar.classList.remove("glass-nav", "py-2");
+            navbar.classList.add("py-4");
+          }
+        }
+        if (progressBar) {
+          const docHeight =
+            document.documentElement.scrollHeight - window.innerHeight;
+          const progress =
+            docHeight > 0 ? Math.min(1, Math.max(0, scrollY / docHeight)) : 0;
+          progressBar.style.transform = `scaleX(${progress})`;
+        }
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  }
+
+  // Register window scroll listener ONCE globally across view transitions
+  if (typeof window !== "undefined" && !(window as any).__headerScrollBound) {
+    window.addEventListener("scroll", onWindowScroll, { passive: true });
+    (window as any).__headerScrollBound = true;
+  }
+
   function setupHeader() {
     const navbar = document.getElementById("navbar");
-    const progressBar = document.getElementById("scroll-progress-bar");
     const themeToggle = document.getElementById("theme-toggle");
     const menuOpenBtn = document.getElementById("mobile-menu-open");
 
-    // Scroll listener for sticky glass navbar & reading progress
-    let ticking = false;
-    const updateScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const scrollY = window.scrollY;
-          if (navbar) {
-            if (scrollY > 30) {
-              navbar.classList.add("glass-nav", "py-2");
-              navbar.classList.remove("py-4");
-            } else {
-              navbar.classList.remove("glass-nav", "py-2");
-              navbar.classList.add("py-4");
-            }
-          }
-          if (progressBar) {
-            const docHeight =
-              document.documentElement.scrollHeight - window.innerHeight;
-            const progress =
-              docHeight > 0 ? Math.min(1, Math.max(0, scrollY / docHeight)) : 0;
-            progressBar.style.transform = `scaleX(${progress})`;
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.removeEventListener("scroll", updateScroll);
-    window.addEventListener("scroll", updateScroll, { passive: true });
-    updateScroll();
+    // Sync scroll state immediately on page load/swap
+    onWindowScroll();
 
     // Guard navbar controls from multi-attachment
     if (navbar && navbar.dataset.initialized !== "true") {
@@ -444,11 +437,12 @@ const links = [
     }
   });
 
-  // Preserve scroll position across language toggle
+  // Preserve scroll position and freeze scramble/counter state across language toggle
   document.addEventListener("click", (e) => {
     const target = (e.target as HTMLElement).closest("[data-lang-switch]");
     if (target) {
       sessionStorage.setItem("lang_switch_scroll", window.scrollY.toString());
+      sessionStorage.setItem("lang_switch_freeze_anim", "true");
     }
   });
 
@@ -459,6 +453,17 @@ const links = [
       window.scrollTo({ top: parseInt(savedY, 10), behavior: "instant" });
     }
     setupHeader();
+  });
+
+  document.addEventListener("astro:page-load", () => {
+    // Clear freeze flag after page has mounted
+    setTimeout(() => {
+      sessionStorage.removeItem("lang_switch_freeze_anim");
+    }, 100);
+  });
+
+  document.addEventListener("astro:before-swap", () => {
+    document.body.classList.remove("body-lock");
   });
 
   // Bind to Astro lifecycle

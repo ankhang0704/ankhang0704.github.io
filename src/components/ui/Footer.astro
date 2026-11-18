@@ -191,41 +191,54 @@ const email = "ankhang.nguyen0704@gmail.com";
 </footer>
 
 <script>
+  let footerScrollTicking = false;
+  function handleFooterScroll() {
+    if (!footerScrollTicking) {
+      requestAnimationFrame(() => {
+        const backToTop = document.getElementById("back-to-top");
+        if (backToTop) {
+          if (window.scrollY > 400) {
+            backToTop.classList.remove(
+              "opacity-0",
+              "translate-y-6",
+              "pointer-events-none"
+            );
+            backToTop.classList.add(
+              "opacity-100",
+              "translate-y-0",
+              "pointer-events-auto"
+            );
+            backToTop.setAttribute("tabindex", "0");
+          } else {
+            backToTop.classList.add(
+              "opacity-0",
+              "translate-y-6",
+              "pointer-events-none"
+            );
+            backToTop.classList.remove(
+              "opacity-100",
+              "translate-y-0",
+              "pointer-events-auto"
+            );
+            backToTop.setAttribute("tabindex", "-1");
+          }
+        }
+        footerScrollTicking = false;
+      });
+      footerScrollTicking = true;
+    }
+  }
+
+  // Register window scroll listener ONCE globally across view transitions
+  if (typeof window !== "undefined" && !(window as any).__footerScrollBound) {
+    window.addEventListener("scroll", handleFooterScroll, { passive: true });
+    (window as any).__footerScrollBound = true;
+  }
+
   function initFooter() {
     const backToTop = document.getElementById("back-to-top");
 
-    const handleScroll = () => {
-      if (!backToTop) return;
-      if (window.scrollY > 400) {
-        backToTop.classList.remove(
-          "opacity-0",
-          "translate-y-6",
-          "pointer-events-none"
-        );
-        backToTop.classList.add(
-          "opacity-100",
-          "translate-y-0",
-          "pointer-events-auto"
-        );
-        backToTop.setAttribute("tabindex", "0");
-      } else {
-        backToTop.classList.add(
-          "opacity-0",
-          "translate-y-6",
-          "pointer-events-none"
-        );
-        backToTop.classList.remove(
-          "opacity-100",
-          "translate-y-0",
-          "pointer-events-auto"
-        );
-        backToTop.setAttribute("tabindex", "-1");
-      }
-    };
-
-    window.removeEventListener("scroll", handleScroll);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+    handleFooterScroll();
 
     if (backToTop) {
       backToTop.onclick = () => {

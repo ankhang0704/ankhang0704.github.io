@@ -29,3 +29,8 @@
 /vi/it-infrastructure /projects/ 301
 /it-infrastructure /projects/ 301
 /it-infrastructure/ /projects/ 301
+
+# Locale redirects (prefixDefaultLocale: false mapping)
+/en / 301
+/en/ / 301
+/en/* /:splat 301

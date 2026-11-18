@@ -3,7 +3,7 @@ title: "KOI Phan Thiết"
 code: "PRJ-04"
 category: "web"
 status: "DỰ ÁN KHÁCH HÀNG"
-year: "2025"
+year: "2026"
 summary: "Cộng tác WordPress từ tháng 2 đến tháng 5 năm 2026, phụ trách website layer, Polylang, menu đa ngôn ngữ cho năm ngôn ngữ và tối ưu page-load/performance."
 featured: false
 techStack:

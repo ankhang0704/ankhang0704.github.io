@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from "astro:transitions";
+import { getLocalizedPath } from "../i18n/utils";
 import "../styles/global.css";
 
 interface Props {
@@ -20,21 +21,14 @@ const {
 
 const siteUrl = "https://ankhang0704.pages.dev";
 
-// Canonical URL calculation
-const canonical = canonicalUrl || new URL(Astro.url.pathname, siteUrl).href;
+// Bilingual alternate paths with guaranteed trailing slashes via central utility
+const enPath = getLocalizedPath(Astro.url.pathname, "en");
+const viPath = getLocalizedPath(Astro.url.pathname, "vi");
+const enHref = new URL(enPath, siteUrl).href;
+const viHref = new URL(viPath, siteUrl).href;
 
-// Bilingual alternate paths with guaranteed trailing slashes
-const pathname = Astro.url.pathname.replace(/\/$/, "");
-const pathWithoutLang = pathname.replace(/^\/vi(\/|$)/, "/") || "/";
-const cleanPath =
-  pathWithoutLang === "" || pathWithoutLang === "/"
-    ? "/"
-    : pathWithoutLang.endsWith("/")
-      ? pathWithoutLang
-      : `${pathWithoutLang}/`;
-const enHref = new URL(cleanPath, siteUrl).href;
-const viHref = new URL(cleanPath === "/" ? "/vi/" : `/vi${cleanPath}`, siteUrl)
-  .href;
+// Canonical URL calculation
+const canonical = canonicalUrl || (lang === "vi" ? viHref : enHref);
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -64,6 +58,16 @@ const jsonLd = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+    <meta
+      name="theme-color"
+      content="#fafafa"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#0a0a0a"
+      media="(prefers-color-scheme: dark)"
+    />
 
     <!-- SEO Meta Tags -->
     <title>{title}</title>
@@ -146,6 +150,8 @@ const jsonLd = {
               ? "auto"
               : "smooth",
           });
+          target.setAttribute("tabindex", "-1");
+          target.focus({ preventScroll: true });
           history.pushState(null, "", hash);
         }
       });
@@ -163,5 +169,22 @@ const jsonLd = {
     </a>
 
     <slot />
+
+    <!-- Global Copy Email Toast Container (Singleton) -->
+    <div
+      id="copy-email-toast"
+      role="status"
+      aria-live="polite"
+      class="fixed bottom-20 left-1/2 -translate-x-1/2 md:bottom-24 md:right-8 md:left-auto md:translate-x-0 z-[100] border border-black dark:border-white bg-bgLight dark:bg-bgDark p-4 flex items-center gap-3 transition-all duration-300 opacity-0 pointer-events-none translate-y-4"
+    >
+      <div
+        class="w-2 h-2 bg-black dark:bg-white shrink-0"
+        aria-hidden="true"
+      ></div>
+      <span
+        id="copy-email-toast-text"
+        class="text-xs font-mono tracking-wider font-bold"
+      ></span>
+    </div>
   </body>
 </html>

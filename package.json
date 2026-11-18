@@ -9,6 +9,8 @@
     "check": "astro check",
     "typecheck": "astro check",
     "lint": "astro check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "prepare": "husky"
   },
   "dependencies": {

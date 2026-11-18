@@ -24,8 +24,8 @@ const {
   class: className = "",
 } = Astro.props;
 
-// Duplicate array twice to ensure seamless infinite CSS looping across any viewport width
-const duplicated = [...items, ...items];
+// Duplicate array 4 times to ensure seamless infinite CSS looping across any viewport width (including 4K / ultrawide)
+const duplicated = [...items, ...items, ...items, ...items];
 ---
 
 <div

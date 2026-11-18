@@ -10,7 +10,18 @@ export default defineConfig({
     prefetchAll: true,
     defaultStrategy: "viewport",
   },
-  integrations: [tailwind(), sitemap()],
+  integrations: [
+    tailwind(),
+    sitemap({
+      i18n: {
+        defaultLocale: "en",
+        locales: {
+          en: "en",
+          vi: "vi",
+        },
+      },
+    }),
+  ],
   i18n: {
     defaultLocale: "en",
     locales: ["en", "vi"],

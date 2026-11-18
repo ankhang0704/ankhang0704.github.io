@@ -3,7 +3,7 @@ title: "KOI Phan Thiết"
 code: "PRJ-04"
 category: "web"
 status: "COMMERCIAL CLIENT"
-year: "2025"
+year: "2026"
 summary: "WordPress collaboration from February to May 2026 covering the website layer, Polylang, multilingual menus across five languages, and page-load/performance optimization."
 featured: false
 techStack:

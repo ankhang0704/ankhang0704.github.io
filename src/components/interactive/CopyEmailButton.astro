@@ -73,20 +73,6 @@ const isVi = isViProp ?? lang === "vi";
   </button>
 </div>
 
-<!-- Global Toast Container (singleton rendered once per page) -->
-<div
-  id="copy-email-toast"
-  role="status"
-  aria-live="polite"
-  class="fixed bottom-20 left-1/2 -translate-x-1/2 md:bottom-24 md:right-8 md:left-auto md:translate-x-0 z-[100] border border-black dark:border-white bg-bgLight dark:bg-bgDark p-4 flex items-center gap-3 transition-all duration-300 opacity-0 pointer-events-none translate-y-4"
->
-  <div class="w-2 h-2 bg-black dark:bg-white shrink-0" aria-hidden="true"></div>
-  <span
-    id="copy-email-toast-text"
-    class="text-xs font-mono tracking-wider font-bold"
-  ></span>
-</div>
-
 <script>
   let toastTimer: number | undefined;
 
@@ -112,16 +98,21 @@ const isVi = isViProp ?? lang === "vi";
         const copyLabel = btn.querySelector(".copy-label");
 
         try {
-          await navigator.clipboard.writeText(email);
-        } catch {
-          // Fallback for non-secure contexts or legacy browsers
-          const textArea = document.createElement("textarea");
-          textArea.value = email;
-          document.body.appendChild(textArea);
-          textArea.select();
-          document.execCommand("copy");
-          document.body.removeChild(textArea);
-        }
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(email);
+          } else {
+            const textArea = document.createElement("textarea");
+            textArea.value = email;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            textArea.style.top = "0";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            (document as any).execCommand?.("copy");
+            document.body.removeChild(textArea);
+          }
+        } catch {}
 
         // Visual feedback on button
         if (copyIconDefault && copyIconSuccess) {
