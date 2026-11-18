@@ -1,0 +1,132 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: 'en' | 'vi';
+  ogImage?: string;
+  canonicalUrl?: string;
+}
+
+const {
+  title = "An Khang | Software Developer",
+  description = "An Khang — Software Developer building web, mobile, and automation tools with hands-on IT support experience.",
+  lang = "en",
+  ogImage = "/icon.png",
+  canonicalUrl,
+} = Astro.props;
+
+const siteUrl = "https://ankhang0704.pages.dev";
+
+// Canonical URL calculation
+const canonical = canonicalUrl || new URL(Astro.url.pathname, siteUrl).href;
+
+// Bilingual alternate paths
+const pathname = Astro.url.pathname.replace(/\/$/, "");
+const pathWithoutLang = pathname.replace(/^\/vi(\/|$)/, "/") || "/";
+const enHref = new URL(pathWithoutLang === "" ? "/" : pathWithoutLang, siteUrl).href;
+const viHref = new URL(pathWithoutLang === "/" ? "/vi/" : `/vi${pathWithoutLang}`, siteUrl).href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "An Khang",
+  jobTitle: "Software Developer",
+  knowsAbout: [
+    "Web Development",
+    "Mobile Development",
+    "Automation",
+    "IT Support",
+    "Django",
+    "Flutter",
+  ],
+  email: "mailto:ankhang.nguyen0704@gmail.com",
+  url: siteUrl,
+  sameAs: [
+    "https://github.com/ankhang0704",
+    "https://www.linkedin.com/in/ankhang0704/",
+  ],
+};
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Multilingual Alternates -->
+    <link rel="alternate" hreflang="en" href={enHref} />
+    <link rel="alternate" hreflang="vi" href={viHref} />
+    <link rel="alternate" hreflang="x-default" href={enHref} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, siteUrl).href} />
+    <meta property="og:site_name" content="An Khang Portfolio" />
+    <meta property="og:locale" content={lang === "vi" ? "vi_VN" : "en_US"} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonical} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, siteUrl).href} />
+
+    <!-- Favicon Links (AK Monogram) -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" sizes="any" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Astro 5 ClientRouter for View Transitions -->
+    <ClientRouter />
+
+    <!-- Zero-FOUC Inline Theme Script -->
+    <script is:inline>
+      function applyTheme() {
+        try {
+          var s = localStorage.getItem('theme');
+          var d = s === 'dark' || (!s && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (d) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      }
+      applyTheme();
+      document.addEventListener('astro:after-swap', applyTheme);
+    </script>
+
+    <!-- Schema.org Person JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body class="bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark font-sans relative overflow-x-hidden min-h-screen">
+    <div class="ambient-glow top-glow" aria-hidden="true"></div>
+    <div class="ambient-glow bottom-glow" aria-hidden="true"></div>
+
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[200] focus:border focus:border-black focus:bg-bgLight focus:px-4 focus:py-3 focus:text-sm focus:font-bold focus:uppercase focus:tracking-widest dark:focus:border-white dark:focus:bg-bgDark"
+    >
+      Skip to content
+    </a>
+
+    <slot />
+  </body>
+</html>

@@ -6,18 +6,6 @@
 /vi/fm-dictionary/case-study /fm-dictionary/ 301
 /vi/fm-dictionary/case-study/ /fm-dictionary/ 301
 
-# Legacy /vi/ aliases -> Canonical Routes (In-place client-side bilingual switching)
-/vi / 301
-/vi/ / 301
-/vi/projects /projects/ 301
-/vi/projects/ /projects/ 301
-/vi/fm-dictionary /fm-dictionary/ 301
-/vi/fm-dictionary/ /fm-dictionary/ 301
-/vi/hotel-management /hotel-management/ 301
-/vi/hotel-management/ /hotel-management/ 301
-/vi/github-vault-relay /github-vault-relay/ 301
-/vi/github-vault-relay/ /github-vault-relay/ 301
-
 # FM Dictionary standalone app official policies
 /fm-dictionary/privacy-policy https://fm-dictionary.pages.dev/privacy/ 301
 /fm-dictionary/privacy-policy/ https://fm-dictionary.pages.dev/privacy/ 301

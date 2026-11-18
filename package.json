@@ -1,28 +1,24 @@
 {
-  "name": "next-app",
+  "name": "ankhang-portfolio",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
-    "typecheck": "tsc --noEmit",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "typecheck": "astro check",
     "prepare": "husky"
   },
   "dependencies": {
-    "@tabler/icons-react": "^3.44.0",
-    "next": "16.2.6",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/tailwind": "^5.1.5",
+    "astro": "^5.0.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.4",
     "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
     "autoprefixer": "^10.5.0",
-    "eslint": "^9",
-    "eslint-config-next": "16.2.6",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "postcss": "^8.5.15",
