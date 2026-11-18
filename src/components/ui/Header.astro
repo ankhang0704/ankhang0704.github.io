@@ -27,16 +27,18 @@ if (!targetLangHref.endsWith('/') && !targetLangHref.includes('#')) {
 }
 
 const homeHref = isVi ? '/vi/' : '/';
+const aboutHref = isHome ? '#about' : (isVi ? '/vi/#about' : '/#about');
 const workHref = isHome ? '#projects' : (isVi ? '/vi/#projects' : '/#projects');
+const skillsHref = isHome ? '#skills' : (isVi ? '/vi/#skills' : '/#skills');
 const expHref = isHome ? '#experience' : (isVi ? '/vi/#experience' : '/#experience');
 const projectsHref = isVi ? '/vi/projects/' : '/projects/';
-const aboutHref = isHome ? '#about' : (isVi ? '/vi/#about' : '/#about');
 
 const isProjectsPage = pathname.includes('/projects');
 
 const links = [
   { href: aboutHref, label: isVi ? 'Tóm tắt' : 'Summary', section: 'about', active: false },
   { href: workHref, label: isVi ? 'Nổi bật' : 'Work', section: 'projects', active: false },
+  { href: skillsHref, label: isVi ? 'Kỹ năng' : 'Skills', section: 'skills', active: false },
   { href: expHref, label: isVi ? 'Kinh nghiệm' : 'Experience', section: 'experience', active: false },
   { href: projectsHref, label: isVi ? 'Dự án' : 'Projects', section: 'projects-index', active: isProjectsPage },
 ];
@@ -58,7 +60,7 @@ const links = [
 
     <!-- Desktop Navigation & Controls -->
     <div class="flex items-center space-x-6 md:space-x-10">
-      <nav class="hidden md:flex items-center space-x-8 text-sm tracking-widest uppercase font-mono">
+      <nav class="hidden md:flex items-center space-x-8 text-sm tracking-widest uppercase">
         {links.map((link) => (
           <a
             href={link.href}

@@ -6,7 +6,6 @@ import Footer from '../ui/Footer.astro';
 import GridPattern from '../ui/GridPattern.astro';
 import SpotlightCard from '../interactive/SpotlightCard.astro';
 import MagneticButton from '../interactive/MagneticButton.astro';
-import TiltedCard from '../interactive/TiltedCard.astro';
 import RevealOnScroll from '../interactive/RevealOnScroll.astro';
 import { getDictionary } from '../../i18n/utils';
 
@@ -125,9 +124,7 @@ const categories = [
           const searchData = `${project.data.code} ${project.data.title} ${project.data.summary} ${project.data.techStack.join(' ')} ${project.data.specs.join(' ')}`.toLowerCase();
 
           return (
-            <TiltedCard
-              maxTilt={4}
-              scale={1.01}
+            <div
               data-project-card
               data-category={project.data.category}
               data-search={searchData}
@@ -286,7 +283,7 @@ const categories = [
                   )}
                 </div>
               </SpotlightCard>
-            </TiltedCard>
+            </div>
           );
         })}
       </div>

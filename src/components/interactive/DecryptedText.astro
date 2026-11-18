@@ -6,7 +6,7 @@ interface Props {
   characters?: string;
   class?: string;
   parentClass?: string;
-  animateOn?: 'view' | 'hover';
+  animateOn?: 'view' | 'hover' | 'mount';
   hoverReplay?: boolean;
 }
 
@@ -17,7 +17,7 @@ const {
   characters = '0123456789ABCDEF!@#$%&*+/?~',
   class: className = '',
   parentClass = '',
-  animateOn = 'view',
+  animateOn = 'mount',
   hoverReplay = true,
 } = Astro.props;
 ---
@@ -90,7 +90,9 @@ const {
         }, speed);
       };
 
-      if (animateOn === 'hover') {
+      if (animateOn === 'mount') {
+        runScramble();
+      } else if (animateOn === 'hover') {
         container.addEventListener('mouseenter', runScramble);
       } else {
         const observer = new IntersectionObserver(
@@ -100,13 +102,13 @@ const {
               observer.disconnect();
             }
           },
-          { threshold: 0.2 }
+          { threshold: 0.05 }
         );
         observer.observe(container);
+      }
 
-        if (hoverReplay) {
-          container.addEventListener('mouseenter', runScramble);
-        }
+      if (hoverReplay && animateOn !== 'hover') {
+        container.addEventListener('mouseenter', runScramble);
       }
     });
   }
