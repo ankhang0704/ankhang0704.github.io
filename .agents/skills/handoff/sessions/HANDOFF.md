@@ -1,104 +1,72 @@
-# Portfolio & Architecture Handoff — November 2026
+# Portfolio & Header Redesign Handoff — November 2026
 
-## 🎯 Executive Summary & Architectural Milestone
+## 🎯 Executive Summary
 
 This repository ([`ankhang0704.github.io`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io)) is the personal software engineering portfolio and product landing page for **An Khang** (Software Developer).
 
-In this session, the project achieved a major design and architectural milestone:
+In this session, the navigation header and page top rhythm were redesigned end-to-end — adopting the slim `48px` stability inspired by reference review (`https://getartcraft.com/`) while preserving and elevating the portfolio's own monochromatic editorial identity (`Space Grotesk` + `Inter`, square pixel `■` markers, and `.hover-underline` hairline sweeps):
 
-- **Interactive Circuit Flow Architecture**: Created a zero-overflow, interactive system architecture circuit ([`ArchitectureDiagram.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/ArchitectureDiagram.astro)) for all major case studies (`FM Dictionary`, `GitHub Vault Relay`, `Hotel Management`). It features bounded horizontal directional flow on desktop, pure SVG signal wire conduits with keyframe flow animation, and an on-demand Inspector Panel below the circuit.
-- **Full-Codebase Subtitle Bloat Purge**: Systematically audited and eliminated redundant filler texts and subtitle bloat across all pages (`HomePage.astro`, `ProjectsIndexPage.astro`, `CaseStudyPage.astro`, `ExperienceTimeline.astro`, and i18n dictionaries). Content is now punchy, architectural, and confident.
-- **Tactile Micro-Interactions & Animations**: Enhanced interactive feel across the site using 100% native Web Standards and pure CSS (active node beacon pulse, inspector fade-in/slide-up keyframes, diagonal arrow translation on Bento cards, tactile button press scaling, and monochromatic focus glow).
-- **100% Static HTML/CSS Export**: Compiles cleanly with Astro 5 in `dist/` with zero runtime JavaScript animation dependencies.
+- **Slim `48.8px` Fixed Architectural Header ([`Header.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Header.astro))**: Replaced the `76px` → `60.8px` padding-jumping navbar with a steady `h-12` (`48px` + `1px` full-bleed `border-b`) bar aligned cleanly to `.container mx-auto px-6 md:px-8`, with `KHANG` (`text-xl`) flush-aligned to Hero `<h1>`.
+- **Distinctive Portfolio Hover & Active Language ([`global.css`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/styles/global.css))**: Dropped boxy CAD borders and inverted block fills in favor of `Inter` (`12px` uppercase) links, a single `h-4 w-px` vertical hairline separator before `[EN/VI]` and `#theme-toggle`, signature `■` (`w-1.5 h-1.5`) square pixel indicators, sweeping `1px` underlines, and a `45°` diagonal `↗` arrow on `Projects`.
+- **`1px` Integrated Scroll Progress Bar & Attached Mobile Dropdown**: Overlaid `#scroll-progress-bar` (`-bottom-[1px] h-[1px]`) directly onto the bottom hairline border, and replaced the blank full-screen mobile overlay with an attached `top-[49px]` dropdown that keeps `#navbar` and the hamburger ↔ `X` toggle pinned at top with focus-trap, `Escape`, and backdrop dismissal.
+- **Synced Page Offsets & Anchor Margins**: Updated top spacing and `scroll-mt-12` across [`HomePage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/home/HomePage.astro), [`ProjectsIndexPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/projects/ProjectsIndexPage.astro), [`CaseStudyPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/CaseStudyPage.astro), and [`404.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/pages/404.astro). Footer freshness remains at **November 2026** (`Updated · November 2026` / `Cập nhật · Tháng 11, 2026`).
 
 ---
 
 ## 1. 📋 Session Summary
 
-### A. Interactive Circuit Flow Architecture (`ArchitectureDiagram.astro`)
-- Replaced static text-heavy blocks with an **Interactive Circuit Flow**:
-  - **Bounded Zero-Overflow Topology**: Bounded node buttons (`flex-1 min-w-0 truncate`) connected by pure SVG animated dashed signal wires (`circuit-wire-h` and `circuit-wire-v`), completely resolving previous horizontal blowout (+241px) on desktop and mobile viewports.
-  - **On-Demand Inspector Panel**: Dedicated inspector card below the circuit displaying *Responsibilities*, *Core Components*, *Invariants & Guarantees*, and *Fault Tolerance* only when a tier node is activated.
-  - **Dual-Mode Switcher**: Clean tabbed toggle between **Kiến Trúc Phân Tầng** (Layered Topology) and **Quy Trình** (Serialized Pipeline).
-  - **Responsive Tablist**: Optimized mobile tab labels and grid layout to prevent text clipping on narrow mobile viewports.
-- Integrated into [`CaseStudyPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/CaseStudyPage.astro) and backed by type-safe schemas in [`src/data/architectures.ts`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/data/architectures.ts).
-
-### B. Subtitle Bloat Purge Across Codebase
-- **`HomePage.astro`**:
-  - *About Section*: Purged paragraphs `p1` and `p2`, elevating the single bold **Lead** statement (`text-3xl sm:text-4xl md:text-5xl`) with zero filler text.
-  - *Skills Section*: Deleted 3 long descriptive paragraphs (`devDesc`, `cloudDesc`, `infraDesc`) and redundant subtitle labels; skills cards now directly showcase tech stack badges with micro-hover highlights.
-  - *All Projects Banner*: Removed redundant description paragraph under the title `Xem tất cả dự án`.
-- **`ProjectsIndexPage.astro`**:
-  - Removed contradictory eyebrow label ("Nổi bật") and description paragraph from the header, allowing the `h1` title to dominate with generous whitespace.
-  - Removed decorative filler text ("Phân loại theo tiêu chuẩn kỹ thuật") from the stats bar, keeping the clean counter `Hiển thị 5 / 5 dự án`.
-- **`CaseStudyPage.astro`**:
-  - Purged redundant explanatory sentence from the live `TermInspector` module header.
-- **`ExperienceTimeline.astro` & Dictionaries (`en.json`, `vi.json`)**:
-  - Refactored experience descriptions from wordy filler sentences into concise, engineering-focused operational summaries.
-  - Updated footer freshness indicator to **November 2026** (`Updated · November 2026` / `Cập nhật · Tháng 11, 2026`).
-
-### C. Tactile Micro-Interactions & Animations (Pure Web Standards)
-- **Active Node Beacon Pulse**: Indicator dot on active architecture tier pulses softly via `@keyframes activePulse`.
-- **Inspector Smooth Transition**: Inspector cards reveal with a smooth micro fade-and-slide keyframe (`@keyframes inspectorFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1)`).
-- **Tactile Click Feedback**: Added `active:scale-95` on category filter buttons and `active:scale-[0.99]` on architecture nodes.
-- **Search Focus Glow**: Monochromatic subtle glow ring on directory search input (`focus:shadow-[0_0_15px_rgba(...)]`).
-- **Diagonal Arrow Glide**: Bento cards now translate the external link arrow diagonally ($45^\circ$) on hover (`group-hover:translate-x-1 group-hover:-translate-y-1`).
+- Evaluated the previous `76px` header visually in browser (`1440×900`, `1280×800`, `390×844`) alongside `https://getartcraft.com/`, pinpointing vertical bloat (`py-4` + `min-h-11`), `30px` logo imbalance, scroll height jump, and `2px` progress bar overlap.
+- Built and refined [`Header.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Header.astro) + [`global.css`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/styles/global.css) across two iterations: first adopting a `48px` grid structure, then stripping CAD boxes/inverted fills to preserve KHANG's own `Space Grotesk` + `Inter` editorial restraint, `■` markers, `.hover-underline`, and `ClientRouter` 0ms language/theme transitions.
+- Verified rendered output in Chromium across Desktop (`1440×900`, dark/light, `scrollY = 0` & `500`, `/`, `/projects/`), Tablet (`768×1024`, `/vi/` single-row fit with zero wrapping), and Mobile (`390×844`, closed bar + open dropdown).
 
 ---
 
 ## 2. 🚦 Current State
 
 - **Branch**: `main`
-- **Latest Commit**:
-  - `f810f2f`: `refactor: purge subtitle bloat across codebase and elevate tactile micro-interactions`
-  - Preceded by `74fc517`, `585fbec`, and `84f637c`.
+- **Latest Code Commit**: `ab52d3c` — `refactor(header): redesign slim 48px editorial header with signature pixel markers` (preceded by `2c49d38`, `f810f2f`, `74fc517`, `585fbec`).
 - **Build & Quality Assurance**:
   - `npm run lint` (`astro check`): **0 errors, 0 warnings, 0 hints** across all 28 files.
-  - `npm run build`: **11/11 static routes successfully compiled in ~3.8s** to [`dist/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/dist/).
-  - Fully compliant with zero-runtime React constraint, 0px border-radius architectural geometry, and monochromatic editorial aesthetic.
-- **Pre-commit Hooks**: Verified and functioning cleanly via Husky + lint-staged (Prettier + `astro check`).
+  - `npm run build` (`astro build`): **11 static pages** compiled cleanly in `3.42s` to [`dist/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/dist/).
+  - **Pre-commit Hooks**: Husky + `lint-staged` (Prettier + `astro check`) verified passing on commit `ab52d3c`.
 
 ---
 
 ## 3. 🚧 In Progress
 
-None. All interactive architecture blueprints, subtitle purges, tactile micro-interactions, and build verifications are complete and validated.
+None. All header redesign, page offset adjustments, and build/browser verifications are complete.
 
 ---
 
 ## 4. ✅ Next Steps
 
-1. **Push to Remote**:
-   - Push local commits on branch `main` to `origin/main` to trigger automated Cloudflare Pages deployment.
-2. **Production Verification**:
-   - Verify deployment on `https://ankhang0704.pages.dev/` and ensure edge CDN cache serves the newly streamlined static assets.
-3. **Future Considerations**:
-   - If desired, explore Cloudflare Pages Functions for an edge contact form or lightweight telemetry.
+1. **Production Verification**:
+   - Verify the live Cloudflare Pages deployment at `https://ankhang0704.pages.dev/` once `origin/main` builds, checking the `48.8px` header and mobile dropdown on real devices.
+2. **Future Enhancements (Optional)**:
+   - Explore Cloudflare Pages Functions for an edge contact form or lightweight privacy-friendly telemetry if desired.
 
 ---
 
 ## 5. 📂 Key Files Touched
 
-- [`src/components/case-study/ArchitectureDiagram.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/ArchitectureDiagram.astro): Interactive circuit flow diagram with animated signal wires, bounded cards, and smooth inspector transitions.
-- [`src/components/case-study/CaseStudyPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/CaseStudyPage.astro): Integrated architecture diagram and cleaned up term inspector header.
-- [`src/data/architectures.ts`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/data/architectures.ts): Dual-mode architecture schemas and invariants for all major projects.
-- [`src/components/home/HomePage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/home/HomePage.astro): Purged subtitle bloat in About, Skills, and All Projects banner; elevated diagonal arrow on Bento cards.
-- [`src/components/projects/ProjectsIndexPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/projects/ProjectsIndexPage.astro): Streamlined header and stats bar; added tactile category filter and search glow.
-- [`src/components/ui/ExperienceTimeline.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/ExperienceTimeline.astro): Concise engineering responsibility descriptions.
-- [`src/dictionaries/vi.json`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/dictionaries/vi.json) & [`src/dictionaries/en.json`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/dictionaries/en.json): Updated timeline text and November 2026 freshness indicator.
-- [`src/content/projects/en/*.md`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/content/projects/en/) & [`src/content/projects/vi/*.md`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/content/projects/vi/): Replaced rigid ASCII art boxes with responsive structural comparison matrices.
+- [`src/components/ui/Header.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Header.astro): Slim `48px` fixed header, `■` + underline nav states, `1px` scroll progress bar, and attached mobile dropdown with `ClientRouter` lifecycle bindings.
+- [`src/styles/global.css`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/styles/global.css): Inset `#navbar :where(a, button):focus-visible` outline, updated `.hover-underline` sweep, mobile menu toggle rules, and removal of unused `.glass-nav` CSS.
+- [`src/components/home/HomePage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/home/HomePage.astro): Adjusted Hero top padding (`pt-16 pb-8`) and section anchor offsets (`scroll-mt-12`).
+- [`src/components/projects/ProjectsIndexPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/projects/ProjectsIndexPage.astro): Adjusted top padding (`pt-32` → `pt-24`).
+- [`src/components/case-study/CaseStudyPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/CaseStudyPage.astro): Adjusted top padding (`pt-28` → `pt-20`).
+- [`src/pages/404.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/pages/404.astro): Adjusted top padding (`pt-24` → `pt-20`).
 
 ---
 
 ## 6. ❓ Open Questions
 
-None. All user requirements and refinement goals have been achieved.
+None.
 
 ---
 
 ## 7. 🛠️ Suggested Skills
 
-When continuing work in this repository, the following verified skills in [`.agents/skills/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.agents/skills/) are recommended:
+Verified skills available in [`.agents/skills/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.agents/skills/):
 
 - `start`: Resume work cleanly from this handoff document in a new session.
 - `improve-codebase-architecture`: Audit layout, typography, and responsive design consistency.
