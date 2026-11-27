@@ -31,7 +31,7 @@ const initialFormatted = to
 ---
 
 <span
-  class={`inline-block font-mono count-up-target ${className}`}
+  class={`inline-block font-mono tabular-nums count-up-target ${className}`}
   data-to={to}
   data-from={from}
   data-duration={duration}
@@ -50,8 +50,18 @@ const initialFormatted = to
 
 <script>
   const activeRafs = new Set<number>();
+  const activeObservers = new Set<IntersectionObserver>();
+
+  function cleanupCountUps() {
+    activeRafs.forEach((id) => cancelAnimationFrame(id));
+    activeRafs.clear();
+    activeObservers.forEach((observer) => observer.disconnect());
+    activeObservers.clear();
+  }
 
   function initCountUps() {
+    cleanupCountUps();
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const elements = document.querySelectorAll<HTMLElement>(
@@ -88,29 +98,36 @@ const initialFormatted = to
           const valEl = el.querySelector(".count-up-value");
           if (!valEl) return;
 
+          const formatter = new Intl.NumberFormat("en-US", {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals,
+          });
+          const formatValue = (num: number) => {
+            const base = formatter.format(num);
+            return separator === "," ? base : base.replace(/,/g, separator);
+          };
+
           let start: number | null = null;
-          let rafId: number;
+          let rafId: number | null = null;
 
           function step(timestamp: number) {
-            if (!start) start = timestamp;
-            const progress = Math.min((timestamp - start) / duration, 1);
+            if (rafId !== null) {
+              activeRafs.delete(rafId);
+              rafId = null;
+            }
+            if (start === null) start = timestamp;
+            const progress =
+              duration > 0 ? Math.min((timestamp - start) / duration, 1) : 1;
             const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
             const current = from + (to - from) * eased;
-            const formatted = current
-              .toLocaleString("en-US", {
-                minimumFractionDigits: decimals,
-                maximumFractionDigits: decimals,
-              })
-              .replace(/,/g, separator);
 
-            valEl!.textContent = `${prefix}${formatted}${suffix}`;
+            valEl!.textContent = `${prefix}${formatValue(current)}${suffix}`;
             if (progress < 1) {
               rafId = requestAnimationFrame(step);
               activeRafs.add(rafId);
-            } else {
-              activeRafs.delete(rafId);
             }
           }
+
           rafId = requestAnimationFrame(step);
           activeRafs.add(rafId);
         });
@@ -118,13 +135,16 @@ const initialFormatted = to
       { threshold: 0.15 }
     );
 
+    activeObservers.add(observer);
     elements.forEach((el) => observer.observe(el));
   }
 
-  document.addEventListener("astro:before-swap", () => {
-    activeRafs.forEach((id) => cancelAnimationFrame(id));
-    activeRafs.clear();
-  });
+  document.addEventListener("astro:before-swap", cleanupCountUps);
 
-  document.addEventListener("astro:page-load", initCountUps);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCountUps, { once: true });
+  } else {
+    initCountUps();
+  }
+  document.addEventListener("astro:after-swap", initCountUps);
 </script>

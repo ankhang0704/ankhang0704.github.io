@@ -29,11 +29,13 @@ const duplicated = [...items, ...items, ...items, ...items];
 ---
 
 <div
+  data-marquee-root
   class={`group relative overflow-hidden border-y border-black/10 bg-cardLight/60 py-4 dark:border-white/10 dark:bg-cardDark/60 select-none ${className}`}
   aria-label="Technologies and competencies ticker"
 >
   <div
-    class="flex w-max motion-reduce:transform-none animate-marquee group-hover:[animation-play-state:paused]"
+    data-marquee-track
+    class="flex w-max motion-reduce:animate-none motion-reduce:transform-none animate-marquee group-hover:[animation-play-state:paused]"
     style={`animation-duration: ${speedSeconds}s;`}
   >
     {duplicated.map((tech) => (
@@ -49,3 +51,44 @@ const duplicated = [...items, ...items, ...items, ...items];
     ))}
   </div>
 </div>
+
+<script>
+  const activeObservers = new Set<IntersectionObserver>();
+
+  function cleanupMarquees() {
+    activeObservers.forEach((observer) => observer.disconnect());
+    activeObservers.clear();
+  }
+
+  function initMarquees() {
+    cleanupMarquees();
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const roots = document.querySelectorAll<HTMLElement>("[data-marquee-root]");
+    if (!roots.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const track = entry.target.querySelector<HTMLElement>(
+          "[data-marquee-track]"
+        );
+        if (track) {
+          track.style.animationPlayState = entry.isIntersecting ? "" : "paused";
+        }
+      });
+    });
+
+    activeObservers.add(observer);
+    roots.forEach((root) => observer.observe(root));
+  }
+
+  document.addEventListener("astro:before-swap", cleanupMarquees);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMarquees, { once: true });
+  } else {
+    initMarquees();
+  }
+  document.addEventListener("astro:after-swap", initMarquees);
+</script>

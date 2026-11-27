@@ -37,16 +37,42 @@ const {
 
 <script>
   const activeIntervals = new Set<number>();
+  const activeObservers = new Set<IntersectionObserver>();
+
+  function cleanupDecryptedText() {
+    activeIntervals.forEach((id) => clearInterval(id));
+    activeIntervals.clear();
+    activeObservers.forEach((observer) => observer.disconnect());
+    activeObservers.clear();
+  }
 
   function initDecryptedText() {
+    cleanupDecryptedText();
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const isLangSwitch =
       sessionStorage.getItem("lang_switch_freeze_anim") === "true";
 
-    const containers = document.querySelectorAll<HTMLElement>(
-      ".decrypted-text-container"
+    const containers = Array.from(
+      document.querySelectorAll<HTMLElement>(".decrypted-text-container")
     );
+    if (!containers.length) return;
+
+    // Pre-measure mount containers in one read pass before writing locked widths
+    const premeasuredWidths = new Map<HTMLElement, number>();
+    containers.forEach((container) => {
+      if (
+        container.dataset.decryptedInitialized !== "true" &&
+        (container.dataset.animateOn || "view") === "mount" &&
+        !isLangSwitch
+      ) {
+        premeasuredWidths.set(
+          container,
+          Math.ceil(container.getBoundingClientRect().width)
+        );
+      }
+    });
 
     containers.forEach((container) => {
       if (container.dataset.decryptedInitialized === "true") return;
@@ -69,12 +95,27 @@ const {
       let isAnimating = false;
       let intervalId: number | undefined;
 
-      const runScramble = () => {
+      const clearWidthLock = () => {
+        container.style.minWidth = "";
+        container.style.width = "";
+      };
+
+      const runScramble = (measuredWidth?: number) => {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+          return;
         if (isAnimating) return;
         isAnimating = true;
 
+        const width =
+          measuredWidth ?? Math.ceil(container.getBoundingClientRect().width);
+        if (width > 0) {
+          const locked = `${width}px`;
+          container.style.minWidth = locked;
+          container.style.width = locked;
+        }
+
         let iteration = 0;
-        if (intervalId) {
+        if (intervalId !== undefined) {
           clearInterval(intervalId);
           activeIntervals.delete(intervalId);
         }
@@ -87,7 +128,9 @@ const {
           if (iteration >= maxIterations) {
             target.textContent = text;
             clearInterval(intervalId);
-            if (intervalId) activeIntervals.delete(intervalId);
+            if (intervalId !== undefined) activeIntervals.delete(intervalId);
+            intervalId = undefined;
+            clearWidthLock();
             isAnimating = false;
             return;
           }
@@ -109,35 +152,41 @@ const {
 
       if (animateOn === "mount") {
         if (!isLangSwitch) {
-          runScramble();
+          runScramble(premeasuredWidths.get(container));
         } else {
           target.textContent = text;
         }
       } else if (animateOn === "hover") {
-        container.addEventListener("mouseenter", runScramble);
+        container.addEventListener("mouseenter", () => runScramble());
       } else {
         const observer = new IntersectionObserver(
           ([entry]) => {
             if (entry.isIntersecting) {
               runScramble();
               observer.disconnect();
+              activeObservers.delete(observer);
             }
           },
           { threshold: 0.05 }
         );
+        activeObservers.add(observer);
         observer.observe(container);
       }
 
       if (hoverReplay && animateOn !== "hover") {
-        container.addEventListener("mouseenter", runScramble);
+        container.addEventListener("mouseenter", () => runScramble());
       }
     });
   }
 
-  document.addEventListener("astro:before-swap", () => {
-    activeIntervals.forEach((id) => clearInterval(id));
-    activeIntervals.clear();
-  });
+  document.addEventListener("astro:before-swap", cleanupDecryptedText);
 
-  document.addEventListener("astro:page-load", initDecryptedText);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initDecryptedText, {
+      once: true,
+    });
+  } else {
+    initDecryptedText();
+  }
+  document.addEventListener("astro:after-swap", initDecryptedText);
 </script>

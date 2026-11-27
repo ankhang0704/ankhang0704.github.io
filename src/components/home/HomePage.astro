@@ -168,12 +168,12 @@ const currentPath = isVi ? "/vi/" : "/";
       class="scroll-mt-12 py-32 md:py-40 bg-cardLight dark:bg-cardDark border-y border-black/5 dark:border-white/5 relative overflow-x-clip text-black dark:text-white"
     >
       <div class="container mx-auto px-6 md:px-8 relative z-10">
-        <RevealOnScroll direction="up" delay={50} class="max-w-3xl mb-12">
+        <RevealOnScroll delay={50} class="max-w-3xl mb-12">
           <h2 class="font-display text-4xl md:text-6xl font-bold">
             {dict.about.title}
           </h2>
         </RevealOnScroll>
-        <RevealOnScroll direction="up" delay={120}>
+        <RevealOnScroll delay={120}>
           <div class="summary-container grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
             <div class="summary-credentials lg:col-span-4 space-y-8">
               <div class="border-t border-black/10 dark:border-white/10 pt-6 space-y-5 font-mono opacity-90">
@@ -301,7 +301,10 @@ const currentPath = isVi ? "/vi/" : "/";
                             <img
                               src={project.data.image}
                               alt={project.data.title}
+                              width="1280"
+                              height="801"
                               loading="lazy"
+                              decoding="async"
                               class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                             />
                           ) : (
@@ -362,7 +365,7 @@ const currentPath = isVi ? "/vi/" : "/";
                     <div class="p-5 md:p-6 pt-0 flex flex-wrap gap-3">
                       <a
                         href={caseStudyUrl}
-                        class="inline-flex items-center gap-3 border border-black px-5 py-3 text-xs font-bold uppercase tracking-widest transition-all hover:bg-black hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-black font-mono"
+                        class="inline-flex items-center gap-3 border border-black px-5 py-3 text-xs font-bold uppercase tracking-widest transition-colors hover:bg-black hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-black font-mono"
                       >
                         {dict.projects.viewCaseStudy}
                         <svg
@@ -386,7 +389,7 @@ const currentPath = isVi ? "/vi/" : "/";
                           href={project.data.externalHref}
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="inline-flex items-center border border-black/30 px-5 py-3 text-xs font-bold uppercase tracking-widest transition-all hover:border-black dark:border-white/30 dark:hover:border-white font-mono"
+                          class="inline-flex items-center border border-black/30 px-5 py-3 text-xs font-bold uppercase tracking-widest transition-colors hover:border-black dark:border-white/30 dark:hover:border-white font-mono"
                         >
                           {project.data.externalLabel ||
                             dict.projects.viewSource}
@@ -397,7 +400,7 @@ const currentPath = isVi ? "/vi/" : "/";
                           href={project.data.secondaryExternalHref}
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="inline-flex items-center border border-black/20 px-5 py-3 text-xs font-bold uppercase tracking-widest opacity-80 transition-all hover:border-black hover:opacity-100 dark:border-white/20 dark:hover:border-white font-mono"
+                          class="inline-flex items-center border border-black/20 px-5 py-3 text-xs font-bold uppercase tracking-widest opacity-80 transition-colors hover:border-black hover:opacity-100 dark:border-white/20 dark:hover:border-white font-mono"
                         >
                           {project.data.secondaryExternalLabel ||
                             dict.projects.viewSource}
@@ -419,7 +422,7 @@ const currentPath = isVi ? "/vi/" : "/";
       class="scroll-mt-12 py-32 md:py-40 overflow-x-clip relative text-black dark:text-white"
     >
       <div class="container mx-auto px-6 md:px-8">
-        <RevealOnScroll direction="up" delay={50} class="max-w-3xl mb-16">
+        <RevealOnScroll delay={50} class="max-w-3xl mb-16">
           <h2 class="font-display text-4xl md:text-6xl font-bold">
             {dict.skills.title}
           </h2>
@@ -427,7 +430,7 @@ const currentPath = isVi ? "/vi/" : "/";
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl">
           <!-- Column 1: Software & Applications -->
-          <RevealOnScroll direction="up" delay={80}>
+          <RevealOnScroll delay={80}>
             <SpotlightCard class="h-full p-8 sm:p-10 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between hover:border-black dark:hover:border-white transition-[border-color] duration-300">
               <div class="mb-8">
                 <div class="flex items-center justify-between mb-6">
@@ -459,7 +462,7 @@ const currentPath = isVi ? "/vi/" : "/";
           </RevealOnScroll>
 
           <!-- Column 2: Architecture & Data -->
-          <RevealOnScroll direction="up" delay={160}>
+          <RevealOnScroll delay={160}>
             <SpotlightCard class="h-full p-8 sm:p-10 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between hover:border-black dark:hover:border-white transition-[border-color] duration-300">
               <div class="mb-8">
                 <div class="flex items-center justify-between mb-6">
@@ -491,7 +494,7 @@ const currentPath = isVi ? "/vi/" : "/";
           </RevealOnScroll>
 
           <!-- Column 3: Systems & Operations -->
-          <RevealOnScroll direction="up" delay={240}>
+          <RevealOnScroll delay={240}>
             <SpotlightCard class="h-full p-8 sm:p-10 border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark flex flex-col justify-between hover:border-black dark:hover:border-white transition-[border-color] duration-300">
               <div class="mb-8">
                 <div class="flex items-center justify-between mb-6">
@@ -530,12 +533,12 @@ const currentPath = isVi ? "/vi/" : "/";
       class="scroll-mt-12 py-32 md:py-40 relative overflow-x-clip text-black dark:text-white"
     >
       <div class="container mx-auto px-6 md:px-8">
-        <RevealOnScroll direction="up" delay={50} class="max-w-3xl mb-20">
+        <RevealOnScroll delay={50} class="max-w-3xl mb-20">
           <h2 class="font-display text-4xl md:text-6xl font-bold">
             {dict.timeline.title}
           </h2>
         </RevealOnScroll>
-        <RevealOnScroll direction="up" delay={120}>
+        <RevealOnScroll delay={120}>
           <ExperienceTimeline lang={lang} />
         </RevealOnScroll>
       </div>
@@ -556,7 +559,8 @@ const currentPath = isVi ? "/vi/" : "/";
         <div class="lg:col-span-5 lg:border-l lg:border-black/10 dark:lg:border-white/10 lg:pl-10">
           <a
             href={isVi ? "/vi/projects/" : "/projects/"}
-            class="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all inline-flex items-center justify-between gap-3 w-full font-mono"
+            data-astro-prefetch="tap"
+            class="border border-black dark:border-white px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors inline-flex items-center justify-between gap-3 w-full font-mono"
           >
             <span>{dict.allProjects.cta}</span>
             <svg

@@ -25,11 +25,11 @@ const isVi = isViProp ?? lang === "vi";
     data-email={email}
     data-copied-text={isVi ? "Đã chép!" : "Copied!"}
     data-default-text={isVi ? "Sao chép" : "Copy"}
-    class={`inline-flex min-h-11 items-center gap-2 transition-all group ${className}`}
+    class={`inline-flex min-h-11 items-center gap-2 transition-colors group ${className}`}
     title={isVi ? "Sao chép địa chỉ email" : "Copy email address"}
     aria-label={isVi ? "Sao chép email" : "Copy email"}
   >
-    <span class="copy-icon-box p-1.5 border border-black/20 dark:border-white/20 group-hover:border-black dark:group-hover:border-white group-hover:bg-black group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-all">
+    <span class="copy-icon-box p-1.5 border border-black/20 dark:border-white/20 group-hover:border-black dark:group-hover:border-white group-hover:bg-black group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-colors">
       <!-- Copy SVG -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -75,6 +75,17 @@ const isVi = isViProp ?? lang === "vi";
 
 <script>
   let toastTimer: number | undefined;
+  const activeButtonTimers = new Set<number>();
+  const buttonTimerMap = new WeakMap<HTMLButtonElement, number>();
+
+  function cleanupCopyEmailTimers() {
+    if (toastTimer !== undefined) {
+      window.clearTimeout(toastTimer);
+      toastTimer = undefined;
+    }
+    activeButtonTimers.forEach((id) => window.clearTimeout(id));
+    activeButtonTimers.clear();
+  }
 
   function initCopyEmail() {
     const buttons = document.querySelectorAll<HTMLButtonElement>(
@@ -144,8 +155,9 @@ const isVi = isViProp ?? lang === "vi";
             "translate-y-0"
           );
 
-          if (toastTimer) window.clearTimeout(toastTimer);
+          if (toastTimer !== undefined) window.clearTimeout(toastTimer);
           toastTimer = window.setTimeout(() => {
+            toastTimer = undefined;
             toast.classList.remove(
               "opacity-100",
               "pointer-events-auto",
@@ -159,8 +171,16 @@ const isVi = isViProp ?? lang === "vi";
           }, 2000);
         }
 
-        // Revert button after 2000ms
-        window.setTimeout(() => {
+        // Revert button after 2000ms (cancel previous timer if rapidly re-clicked)
+        const prevBtnTimer = buttonTimerMap.get(btn);
+        if (prevBtnTimer !== undefined) {
+          window.clearTimeout(prevBtnTimer);
+          activeButtonTimers.delete(prevBtnTimer);
+        }
+
+        const btnTimer = window.setTimeout(() => {
+          activeButtonTimers.delete(btnTimer);
+          buttonTimerMap.delete(btn);
           if (copyIconDefault && copyIconSuccess) {
             copyIconDefault.classList.remove("hidden");
             copyIconDefault.classList.add("block");
@@ -171,9 +191,20 @@ const isVi = isViProp ?? lang === "vi";
             copyLabel.textContent = defaultText;
           }
         }, 2000);
+        buttonTimerMap.set(btn, btnTimer);
+        activeButtonTimers.add(btnTimer);
       };
     });
   }
 
-  document.addEventListener("astro:page-load", initCopyEmail);
+  document.addEventListener("astro:before-swap", cleanupCopyEmailTimers);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCopyEmail, {
+      once: true,
+    });
+  } else {
+    initCopyEmail();
+  }
+  document.addEventListener("astro:after-swap", initCopyEmail);
 </script>

@@ -69,13 +69,14 @@ const links = [
 <header
   id="navbar"
   transition:name="site-header"
-  class="fixed inset-x-0 top-0 z-50 border-b border-black/10 dark:border-white/10 bg-bgLight/85 dark:bg-bgDark/85 backdrop-blur-md transition-colors duration-200"
+  transition:animate="none"
+  class="fixed inset-x-0 top-0 z-50 border-b border-black/10 dark:border-white/10 bg-bgLight/85 dark:bg-bgDark/85 backdrop-blur-md"
 >
   <div class="container mx-auto flex h-12 w-full min-w-0 items-center justify-between gap-4 px-6 md:px-8">
     <!-- Typographic Logo KHANG (0px geometry, aligned cleanly with hero & content edges) -->
     <a
       href={homeHref}
-      class="min-w-0 shrink-0 font-display text-xl font-bold tracking-tighter whitespace-nowrap text-black dark:text-white hover:opacity-70 transition-opacity select-none"
+      class="min-h-11 min-w-0 shrink-0 inline-flex items-center font-display text-xl font-bold tracking-tighter whitespace-nowrap text-black dark:text-white hover:opacity-70 transition-opacity select-none"
       aria-label="An Khang — Home"
     >
       KHANG
@@ -91,8 +92,9 @@ const links = [
           <a
             href={link.href}
             data-section={link.section}
+            data-astro-prefetch={link.isRoute ? "tap" : undefined}
             aria-current={link.active ? "page" : undefined}
-            class={`nav-link hover-underline group inline-flex items-center gap-1.5 font-sans text-xs font-medium uppercase tracking-[0.14em] whitespace-nowrap transition-colors duration-200 ${
+            class={`nav-link hover-underline group min-h-11 py-2 inline-flex items-center gap-1.5 font-sans text-xs font-medium uppercase tracking-[0.14em] whitespace-nowrap transition-colors duration-200 ${
               link.active
                 ? "active text-black dark:text-white font-semibold"
                 : "text-black/65 dark:text-white/65 hover:text-black dark:hover:text-white"
@@ -103,7 +105,7 @@ const links = [
               class={`inline-block w-1.5 h-1.5 bg-current transition-[opacity,transform] duration-200 ${
                 link.active
                   ? "opacity-100 scale-100"
-                  : "opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100"
+                  : "opacity-0 scale-0 [@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100 [@media(hover:hover)_and_(pointer:fine)]:group-hover:scale-100"
               }`}
             />
             <span>{link.label}</span>
@@ -119,7 +121,7 @@ const links = [
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 aria-hidden="true"
-                class="opacity-55 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+                class="opacity-55 transition-transform duration-200 [@media(hover:hover)_and_(pointer:fine)]:group-hover:translate-x-0.5 [@media(hover:hover)_and_(pointer:fine)]:group-hover:-translate-y-0.5 [@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100"
               >
                 <path d="M7 17 17 7" />
                 <path d="M7 7h10v10" />
@@ -141,8 +143,8 @@ const links = [
         <a
           href={targetLangHref}
           data-lang-switch
-          data-astro-prefetch="load"
-          class="flex h-11 min-w-10 px-2 items-center justify-center font-mono text-xs font-bold uppercase tracking-widest text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white hover:opacity-55 active:scale-95 transition-[opacity,transform,color] duration-150"
+          data-astro-prefetch="tap"
+          class="flex h-11 min-w-11 px-2 items-center justify-center font-mono text-xs font-bold uppercase tracking-widest text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white hover:opacity-55 active:scale-95 transition-[opacity,transform,color] duration-150"
           aria-label={isVi ? "Switch to English" : "Chuyển sang tiếng Việt"}
         >
           {isVi ? "EN" : "VI"}
@@ -152,7 +154,7 @@ const links = [
         <button
           id="theme-toggle"
           type="button"
-          class="group flex h-11 w-10 items-center justify-center text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white active:scale-90 transition-[color,transform] duration-150"
+          class="group flex h-11 w-11 items-center justify-center text-black/80 dark:text-white/80 hover:text-black dark:hover:text-white active:scale-90 transition-[color,transform] duration-150"
           aria-label={
             isVi
               ? "Chuyển đổi giao diện sáng / tối"
@@ -209,7 +211,7 @@ const links = [
           data-label-close={
             isVi ? "Đóng menu điều hướng" : "Close navigation menu"
           }
-          class="flex md:hidden h-11 w-10 items-center justify-center text-black dark:text-white hover:opacity-65 active:scale-90 transition-[opacity,transform] duration-150"
+          class="flex md:hidden h-11 w-11 items-center justify-center text-black dark:text-white hover:opacity-65 active:scale-90 transition-[opacity,transform] duration-150"
           aria-label={isVi ? "Mở menu điều hướng" : "Open navigation menu"}
           aria-expanded="false"
           aria-controls="mobile-menu"
@@ -271,7 +273,7 @@ const links = [
 >
   <div
     id="mobile-menu-backdrop"
-    class="absolute inset-0 bg-black/35 dark:bg-black/60 backdrop-blur-[2px]"
+    class="absolute inset-0 bg-black/40 dark:bg-black/65"
     aria-hidden="true"
   ></div>
 
@@ -284,6 +286,7 @@ const links = [
         <a
           href={link.href}
           data-section={link.section}
+          data-astro-prefetch={link.isRoute ? "tap" : undefined}
           aria-current={link.active ? "page" : undefined}
           class={`mobile-nav-link group flex min-h-12 items-center justify-between py-3 font-sans text-xs font-medium uppercase tracking-[0.15em] transition-colors ${
             link.active
@@ -291,19 +294,19 @@ const links = [
               : "text-black/75 dark:text-white/75 hover:text-black dark:hover:text-white"
           }`}
         >
-          <span class="inline-flex items-center gap-2.5 transition-transform duration-200 group-hover:translate-x-1.5">
+          <span class="inline-flex items-center gap-2.5 transition-transform duration-200 [@media(hover:hover)_and_(pointer:fine)]:group-hover:translate-x-1.5">
             <span
               aria-hidden="true"
               class={`inline-block w-1.5 h-1.5 bg-current transition-opacity duration-200 ${
                 link.active
                   ? "opacity-100"
-                  : "opacity-30 group-hover:opacity-100"
+                  : "opacity-30 [@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100"
               }`}
             />
             <span>{link.label}</span>
           </span>
           <span
-            class="font-mono text-xs opacity-40 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0.5"
+            class="font-mono text-xs opacity-40 transition-[opacity,transform] duration-200 [@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100 [@media(hover:hover)_and_(pointer:fine)]:group-hover:translate-x-0.5"
             aria-hidden="true"
           >
             {link.isRoute ? "↗" : "↓"}
@@ -319,11 +322,15 @@ const links = [
 
   function toggleTheme() {
     const isDark = document.documentElement.classList.contains("dark");
-    const nextTheme = isDark ? "light" : "dark";
-    if (nextTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
+    const nextIsDark = !isDark;
+    const nextTheme = nextIsDark ? "dark" : "light";
+    document.documentElement.classList.toggle("dark", nextIsDark);
+    const themeColorMeta = document.getElementById("theme-color-meta");
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute(
+        "content",
+        nextIsDark ? "#0a0a0a" : "#fafafa"
+      );
     }
     try {
       localStorage.setItem("theme", nextTheme);
@@ -368,6 +375,7 @@ const links = [
     if (restoreFocus) {
       if (
         lastFocusedElement &&
+        lastFocusedElement.isConnected &&
         typeof lastFocusedElement.focus === "function"
       ) {
         lastFocusedElement.focus();
@@ -394,7 +402,9 @@ const links = [
 
   let progressBarEl: HTMLElement | null = null;
   let cachedMaxScroll = 0;
+  let lastScrollY = -1;
   let lastScrollProgress = -1;
+  let scrollTicking = false;
 
   function updateScrollProgress() {
     if (supportsScrollTimeline) return;
@@ -404,6 +414,9 @@ const links = [
     if (!progressBarEl) return;
 
     const scrollY = window.scrollY;
+    if (scrollY === lastScrollY && lastScrollProgress !== -1) return;
+    lastScrollY = scrollY;
+
     const progress =
       cachedMaxScroll > 0
         ? Math.min(1, Math.max(0, scrollY / cachedMaxScroll))
@@ -415,15 +428,29 @@ const links = [
     }
   }
 
+  function onScrollFallback() {
+    if (!scrollTicking) {
+      scrollTicking = true;
+      requestAnimationFrame(() => {
+        updateScrollProgress();
+        scrollTicking = false;
+      });
+    }
+  }
+
   function syncScrollMetrics() {
     if (supportsScrollTimeline) return;
     progressBarEl = document.getElementById("scroll-progress-bar");
-    cachedMaxScroll = Math.max(
+    const nextMax = Math.max(
       0,
       document.documentElement.scrollHeight - window.innerHeight
     );
-    lastScrollProgress = -1;
-    updateScrollProgress();
+    if (nextMax !== cachedMaxScroll || lastScrollProgress === -1) {
+      cachedMaxScroll = nextMax;
+      lastScrollY = -1;
+      lastScrollProgress = -1;
+      updateScrollProgress();
+    }
   }
 
   // Register fallback scroll & metric listeners ONLY when CSS scroll-timeline is unsupported
@@ -432,7 +459,7 @@ const links = [
     !supportsScrollTimeline &&
     !(window as any).__headerScrollBound
   ) {
-    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+    window.addEventListener("scroll", onScrollFallback, { passive: true });
     window.addEventListener("resize", syncScrollMetrics, { passive: true });
     window.visualViewport?.addEventListener("resize", syncScrollMetrics, {
       passive: true,
@@ -449,7 +476,7 @@ const links = [
     const themeToggle = document.getElementById("theme-toggle");
     const menuToggleBtn = document.getElementById("mobile-menu-open");
 
-    // Sync scroll progress bar immediately on page load/swap (fallback path)
+    // Sync scroll progress bar immediately on init/swap (fallback path)
     syncScrollMetrics();
 
     // Guard navbar controls from multi-attachment
@@ -473,7 +500,17 @@ const links = [
     }
   }
 
-  // Focus trap & Escape key handler for mobile dropdown (includes header toggle button)
+  if (typeof document !== "undefined") {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", setupHeader, {
+        once: true,
+      });
+    } else {
+      setupHeader();
+    }
+  }
+
+  // Focus trap, Escape key, viewport resize & View Transition lifecycle handlers
   if (typeof window !== "undefined" && !(window as any).__headerKeyBound) {
     document.addEventListener("keydown", (e) => {
       const mobileMenu = document.getElementById("mobile-menu");
@@ -509,9 +546,23 @@ const links = [
       }
     });
 
+    const desktopMedia = window.matchMedia("(min-width: 768px)");
+    const handleDesktopChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      if (e.matches) {
+        closeMenu(false);
+      }
+    };
+    if (typeof desktopMedia.addEventListener === "function") {
+      desktopMedia.addEventListener("change", handleDesktopChange);
+    } else if (typeof (desktopMedia as any).addListener === "function") {
+      (desktopMedia as any).addListener(handleDesktopChange);
+    }
+
     // Preserve scroll position and freeze scramble/counter state across language toggle
     document.addEventListener("click", (e) => {
-      const target = (e.target as HTMLElement).closest("[data-lang-switch]");
+      const target = (e.target as HTMLElement | null)?.closest(
+        "[data-lang-switch]"
+      );
       if (target) {
         sessionStorage.setItem("lang_switch_scroll", window.scrollY.toString());
         sessionStorage.setItem("lang_switch_freeze_anim", "true");
@@ -524,6 +575,8 @@ const links = [
         sessionStorage.removeItem("lang_switch_scroll");
         window.scrollTo({ top: parseInt(savedY, 10), behavior: "instant" });
       }
+      lastScrollY = -1;
+      lastScrollProgress = -1;
       setupHeader();
     });
 
@@ -537,7 +590,6 @@ const links = [
       closeMenu(false);
     });
 
-    document.addEventListener("astro:page-load", setupHeader);
     (window as any).__headerKeyBound = true;
   }
 </script>

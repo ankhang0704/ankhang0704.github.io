@@ -30,6 +30,25 @@ const {
 </Tag>
 
 <script>
+  const activeRafs = new Set<number>();
+  let spotlightLayoutGen = 0;
+  let invalidationBound = false;
+
+  function ensureLayoutInvalidation() {
+    if (invalidationBound) return;
+    invalidationBound = true;
+    const invalidate = () => {
+      spotlightLayoutGen += 1;
+    };
+    window.addEventListener("scroll", invalidate, { passive: true });
+    window.addEventListener("resize", invalidate, { passive: true });
+  }
+
+  function cleanupSpotlightCards() {
+    activeRafs.forEach((id) => cancelAnimationFrame(id));
+    activeRafs.clear();
+  }
+
   function initSpotlightCards() {
     if (
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
@@ -39,6 +58,9 @@ const {
     }
 
     const cards = document.querySelectorAll<HTMLElement>(".spotlight-card");
+    if (!cards.length) return;
+    ensureLayoutInvalidation();
+
     cards.forEach((card) => {
       if (card.dataset.spotlightInitialized === "true") return;
       card.dataset.spotlightInitialized = "true";
@@ -51,19 +73,62 @@ const {
       const color = card.dataset.spotlightColor || "rgba(125, 125, 125, 0.12)";
       const size = parseInt(card.dataset.spotlightSize || "450", 10);
 
+      let rect: DOMRect | null = null;
+      let rectGen = -1;
+      let rafId: number | null = null;
+      let pointerX = 0;
+      let pointerY = 0;
+
+      const updateGlow = () => {
+        if (rafId !== null) {
+          activeRafs.delete(rafId);
+          rafId = null;
+        }
+        overlay.style.background = `radial-gradient(${size}px circle at ${pointerX.toFixed(1)}px ${pointerY.toFixed(1)}px, ${color}, transparent 70%)`;
+        if (overlay.style.opacity !== "1") {
+          overlay.style.opacity = "1";
+        }
+      };
+
+      card.addEventListener("mouseenter", () => {
+        rect = card.getBoundingClientRect();
+        rectGen = spotlightLayoutGen;
+      });
+
       card.addEventListener("mousemove", (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        overlay.style.background = `radial-gradient(${size}px circle at ${x}px ${y}px, ${color}, transparent 70%)`;
-        overlay.style.opacity = "1";
+        if (!rect || rectGen !== spotlightLayoutGen) {
+          rect = card.getBoundingClientRect();
+          rectGen = spotlightLayoutGen;
+        }
+        pointerX = e.clientX - rect.left;
+        pointerY = e.clientY - rect.top;
+
+        if (rafId === null) {
+          rafId = requestAnimationFrame(updateGlow);
+          activeRafs.add(rafId);
+        }
       });
 
       card.addEventListener("mouseleave", () => {
+        if (rafId !== null) {
+          cancelAnimationFrame(rafId);
+          activeRafs.delete(rafId);
+          rafId = null;
+        }
+        rect = null;
         overlay.style.opacity = "0";
       });
     });
   }
 
-  document.addEventListener("astro:page-load", initSpotlightCards);
+  document.addEventListener("astro:before-swap", cleanupSpotlightCards);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSpotlightCards, {
+      once: true,
+    });
+  } else {
+    initSpotlightCards();
+  }
+  document.addEventListener("astro:after-swap", initSpotlightCards);
 </script>

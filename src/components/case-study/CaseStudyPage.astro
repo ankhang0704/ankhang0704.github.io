@@ -42,7 +42,7 @@ const projectsListHref = isVi ? "/vi/projects/" : "/projects/";
 
   <main
     id="main-content"
-    class="min-h-screen pt-20 pb-24 relative overflow-x-clip bg-bgLight dark:bg-bgDark text-black dark:text-white"
+    class="min-h-screen scroll-mt-12 pt-20 pb-24 relative overflow-x-clip bg-bgLight dark:bg-bgDark text-black dark:text-white"
   >
     <GridPattern />
 
@@ -54,7 +54,7 @@ const projectsListHref = isVi ? "/vi/projects/" : "/projects/";
       >
         <a
           href={projectsListHref}
-          class="inline-flex items-center gap-2 hover:opacity-60 transition-opacity font-bold uppercase tracking-widest"
+          class="min-h-11 inline-flex items-center gap-2 hover:opacity-60 transition-opacity font-bold uppercase tracking-widest"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +140,7 @@ const projectsListHref = isVi ? "/vi/projects/" : "/projects/";
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <!-- Specs -->
           <div>
-            <h2 class="text-xs font-mono font-bold uppercase tracking-[0.25em] opacity-50 mb-4">
+            <h2 class="text-xs font-mono font-bold uppercase tracking-[0.25em] opacity-65 mb-4">
               {isVi ? "Thông số kỹ thuật" : "Engineering Specifications"}
             </h2>
             <div class="space-y-2.5">
@@ -155,7 +155,7 @@ const projectsListHref = isVi ? "/vi/projects/" : "/projects/";
 
           <!-- Tech Stack -->
           <div>
-            <h2 class="text-xs font-mono font-bold uppercase tracking-[0.25em] opacity-50 mb-4">
+            <h2 class="text-xs font-mono font-bold uppercase tracking-[0.25em] opacity-65 mb-4">
               {isVi ? "Công nghệ triển khai" : "Technology Stack"}
             </h2>
             <div class="flex flex-wrap gap-2">
@@ -185,7 +185,11 @@ const projectsListHref = isVi ? "/vi/projects/" : "/projects/";
             <img
               src={project.data.image}
               alt={project.data.title}
+              width="1280"
+              height="801"
               loading="eager"
+              decoding="async"
+              fetchpriority="high"
               class="w-full h-full object-cover"
             />
           </div>
@@ -197,9 +201,12 @@ const projectsListHref = isVi ? "/vi/projects/" : "/projects/";
 
       <!-- Interactive Term Inspector (Embedded for FM Dictionary) -->
       {isFmDictionary && (
-        <section aria-label="Interactive Term Inspector" class="mb-20">
+        <section
+          aria-label="Interactive Term Inspector"
+          class="mb-20 scroll-mt-12"
+        >
           <div class="mb-8">
-            <div class="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-[0.25em] opacity-50 mb-3">
+            <div class="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-[0.25em] opacity-65 mb-3">
               <span class="w-2 h-2 bg-emerald-500 inline-block"></span>
               <span>{isVi ? "Mô đun tương tác" : "Interactive Module"}</span>
             </div>
@@ -244,7 +251,7 @@ const projectsListHref = isVi ? "/vi/projects/" : "/projects/";
 
         <a
           href="#main-content"
-          class="text-xs font-mono opacity-60 hover:opacity-100 hover:underline uppercase tracking-wider inline-flex items-center gap-1.5"
+          class="min-h-11 text-xs font-mono opacity-60 hover:opacity-100 hover:underline uppercase tracking-wider inline-flex items-center gap-1.5 transition-opacity"
         >
           <span>{isVi ? "Về đầu trang" : "Back to top"}</span>
           <svg
@@ -338,7 +345,10 @@ const projectsListHref = isVi ? "/vi/projects/" : "/projects/";
     margin-top: 1.25rem;
     margin-bottom: 1.75rem;
     padding-left: 1.75rem;
-    space-y: 0.5rem;
+  }
+
+  .case-study-content ul > li + li {
+    margin-top: 0.5rem;
   }
 
   .case-study-content ol {
@@ -354,6 +364,59 @@ const projectsListHref = isVi ? "/vi/projects/" : "/projects/";
     font-weight: 300;
     margin-bottom: 0.5rem;
     opacity: 0.9;
+  }
+
+  .case-study-content table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+  .dark .case-study-content table {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+  @media (min-width: 768px) {
+    .case-study-content table {
+      display: table;
+    }
+  }
+
+  .case-study-content th,
+  .case-study-content td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    min-width: 9rem;
+  }
+  .dark .case-study-content th,
+  .dark .case-study-content td {
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  @media (min-width: 768px) {
+    .case-study-content th,
+    .case-study-content td {
+      min-width: 0;
+    }
+  }
+
+  .case-study-content thead th {
+    font-family:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+  .dark .case-study-content thead th {
+    background-color: rgba(255, 255, 255, 0.05);
   }
 
   .case-study-content blockquote {

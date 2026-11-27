@@ -7,11 +7,13 @@ export default defineConfig({
   site: "https://ankhang0704.pages.dev",
   output: "static",
   prefetch: {
-    prefetchAll: true,
-    defaultStrategy: "viewport",
+    prefetchAll: false,
+    defaultStrategy: "tap",
   },
   integrations: [
-    tailwind(),
+    tailwind({
+      applyBaseStyles: false,
+    }),
     sitemap({
       i18n: {
         defaultLocale: "en",

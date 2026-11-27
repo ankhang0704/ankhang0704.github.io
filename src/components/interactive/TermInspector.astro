@@ -251,7 +251,7 @@ const initialTerm = SAMPLE_TERMS[0];
 
   <!-- Search Filter Bar -->
   <div class="relative">
-    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none opacity-50">
+    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none opacity-65">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -276,7 +276,7 @@ const initialTerm = SAMPLE_TERMS[0];
           ? "Lọc thuật ngữ (VAV, Chiller, BMS, AHU, PPM, bảo trì...)"
           : "Filter terms (VAV, Chiller, BMS, AHU, PPM...)"
       }
-      class="w-full bg-bgLight dark:bg-bgDark border border-black/20 dark:border-white/20 pl-10 pr-4 py-3 text-xs sm:text-sm font-mono placeholder:opacity-40 focus:border-black dark:focus:border-white focus:outline-none transition-colors text-black dark:text-white"
+      class="w-full bg-bgLight dark:bg-bgDark border border-black/20 dark:border-white/20 pl-10 pr-4 py-3 text-base sm:text-sm font-mono placeholder:opacity-65 focus:border-black dark:focus:border-white focus:outline-none transition-colors text-black dark:text-white"
     />
   </div>
 
@@ -289,7 +289,8 @@ const initialTerm = SAMPLE_TERMS[0];
         data-term-word={term.word.toLowerCase()}
         data-term-abbr={term.abbreviation.toLowerCase()}
         data-term-meaning={term.vietnameseMeaning.toLowerCase()}
-        class={`term-pill-btn px-4 py-2.5 text-xs font-mono uppercase tracking-wider border transition-all ${
+        aria-selected={index === 0 ? "true" : "false"}
+        class={`term-pill-btn min-h-11 inline-flex items-center px-4 py-2.5 text-xs font-mono uppercase tracking-wider border transition-colors ${
           index === 0
             ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black font-bold active-pill"
             : "border-black/15 dark:border-white/15 opacity-70 hover:opacity-100 hover:border-black dark:hover:border-white"
@@ -303,7 +304,7 @@ const initialTerm = SAMPLE_TERMS[0];
   <!-- Main Term Detailed Card -->
   <div
     id="term-detail-card"
-    class="border border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark p-6 md:p-8 space-y-6 transition-all duration-200"
+    class="border border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark p-6 md:p-8 space-y-6 transition-colors duration-200"
   >
     <div class="flex flex-col md:flex-row md:items-start justify-between gap-6 border-b border-black/10 dark:border-white/10 pb-6">
       <div class="space-y-2">
@@ -316,7 +317,7 @@ const initialTerm = SAMPLE_TERMS[0];
           </span>
           <span
             id="term-standard-badge"
-            class="font-mono text-[10px] uppercase tracking-widest text-emerald-600 dark:text-emerald-400 font-bold"
+            class="font-mono text-[10px] uppercase tracking-widest text-emerald-700 dark:text-emerald-400 font-bold"
           >
             {initialTerm.standard}
           </span>
@@ -340,7 +341,7 @@ const initialTerm = SAMPLE_TERMS[0];
       <button
         id="term-pronounce-btn"
         type="button"
-        class="inline-flex items-center gap-2.5 border border-black dark:border-white px-5 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all shrink-0 active:scale-95 font-mono text-black dark:text-white"
+        class="inline-flex min-h-11 items-center gap-2.5 border border-black dark:border-white px-5 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-[background-color,border-color,color,transform] shrink-0 active:scale-95 font-mono text-black dark:text-white"
         aria-label={isVi ? "Nghe phát âm chuẩn" : "Listen to pronunciation"}
       >
         <svg
@@ -453,7 +454,7 @@ const initialTerm = SAMPLE_TERMS[0];
             type="button"
             data-option-index={i}
             data-is-correct={opt.isCorrect ? "true" : "false"}
-            class="quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-black/15 dark:border-white/15 opacity-80 hover:opacity-100 hover:border-black dark:hover:border-white"
+            class="quiz-option-btn min-h-11 w-full text-left p-3 border text-xs font-mono transition-[border-color,background-color,color,opacity] flex items-center justify-between border-black/15 dark:border-white/15 opacity-80 hover:opacity-100 hover:border-black dark:hover:border-white text-black dark:text-white"
           >
             <span>{isVi ? opt.textVi : opt.textEn}</span>
             <span class="quiz-feedback-icon shrink-0 ml-3 hidden font-bold"></span>
@@ -489,9 +490,14 @@ const initialTerm = SAMPLE_TERMS[0];
     };
   }
 
+  const QUIZ_BASE_CLASS =
+    "quiz-option-btn min-h-11 w-full text-left p-3 border text-xs font-mono transition-[border-color,background-color,color,opacity] flex items-center justify-between";
+
+  let activeUtterance: SpeechSynthesisUtterance | null = null;
+
   function initTermInspector() {
     const root = document.getElementById("term-inspector");
-    if (!root) return;
+    if (!root || root.dataset.initialized === "true") return;
 
     const dataScript = document.getElementById("term-inspector-dataset");
     if (!dataScript || !dataScript.textContent) return;
@@ -502,6 +508,9 @@ const initialTerm = SAMPLE_TERMS[0];
     } catch {
       return;
     }
+    if (!terms.length) return;
+
+    root.dataset.initialized = "true";
 
     const isVi = root.dataset.lang === "vi";
     let currentTerm = terms[0];
@@ -528,6 +537,45 @@ const initialTerm = SAMPLE_TERMS[0];
     const quizOptionsContainer = document.getElementById(
       "quiz-options-container"
     );
+
+    function bindQuizButton(btn: HTMLButtonElement, isCorrect: boolean) {
+      const iconSpan = btn.querySelector<HTMLElement>(".quiz-feedback-icon");
+      btn.onclick = () => {
+        if (!quizOptionsContainer) return;
+
+        quizOptionsContainer
+          .querySelectorAll<HTMLButtonElement>(".quiz-option-btn")
+          .forEach((b) => {
+            b.className = `${QUIZ_BASE_CLASS} border-black/15 dark:border-white/15 opacity-65 text-black dark:text-white`;
+            const ic = b.querySelector(".quiz-feedback-icon");
+            if (ic) ic.classList.add("hidden");
+          });
+
+        if (isCorrect) {
+          btn.className = `${QUIZ_BASE_CLASS} border-emerald-600 bg-emerald-500/10 text-emerald-900 dark:text-emerald-200 font-bold`;
+          if (iconSpan) {
+            iconSpan.textContent = "✓";
+            iconSpan.classList.remove("hidden");
+          }
+          if (quizStatusBadge) {
+            quizStatusBadge.className =
+              "text-[10px] font-mono uppercase tracking-wider font-bold text-emerald-700 dark:text-emerald-400";
+            quizStatusBadge.textContent = isVi ? "✓ CHÍNH XÁC" : "✓ CORRECT";
+          }
+        } else {
+          btn.className = `${QUIZ_BASE_CLASS} border-rose-600 bg-rose-500/10 text-rose-900 dark:text-rose-200 font-bold`;
+          if (iconSpan) {
+            iconSpan.textContent = "✕";
+            iconSpan.classList.remove("hidden");
+          }
+          if (quizStatusBadge) {
+            quizStatusBadge.className =
+              "text-[10px] font-mono uppercase tracking-wider font-bold text-rose-700 dark:text-rose-400";
+            quizStatusBadge.textContent = isVi ? "✕ CHƯA ĐÚNG" : "✕ INCORRECT";
+          }
+        }
+      };
+    }
 
     function renderTerm(term: TermData) {
       currentTerm = term;
@@ -580,7 +628,11 @@ const initialTerm = SAMPLE_TERMS[0];
       });
 
       // Reset Quiz
-      if (quizStatusBadge) quizStatusBadge.innerHTML = "";
+      if (quizStatusBadge) {
+        quizStatusBadge.className =
+          "text-[10px] font-mono uppercase tracking-wider font-bold";
+        quizStatusBadge.textContent = "";
+      }
       if (quizPromptText) {
         quizPromptText.textContent = isVi
           ? term.quizQuestion.promptVi
@@ -592,8 +644,7 @@ const initialTerm = SAMPLE_TERMS[0];
         term.quizQuestion.options.forEach((opt) => {
           const btn = document.createElement("button");
           btn.type = "button";
-          btn.className =
-            "quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-black/15 dark:border-white/15 opacity-80 hover:opacity-100 hover:border-black dark:hover:border-white text-black dark:text-white";
+          btn.className = `${QUIZ_BASE_CLASS} border-black/15 dark:border-white/15 opacity-80 hover:opacity-100 hover:border-black dark:hover:border-white text-black dark:text-white`;
 
           const textSpan = document.createElement("span");
           textSpan.textContent = isVi ? opt.textVi : opt.textEn;
@@ -604,36 +655,7 @@ const initialTerm = SAMPLE_TERMS[0];
             "quiz-feedback-icon shrink-0 ml-3 font-bold hidden";
           btn.appendChild(iconSpan);
 
-          btn.onclick = () => {
-            // Clear other options
-            quizOptionsContainer
-              .querySelectorAll(".quiz-option-btn")
-              .forEach((b) => {
-                b.className =
-                  "quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-black/15 dark:border-white/15 opacity-50 text-black dark:text-white";
-                const ic = b.querySelector(".quiz-feedback-icon");
-                if (ic) ic.classList.add("hidden");
-              });
-
-            if (opt.isCorrect) {
-              btn.className =
-                "quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-emerald-600 bg-emerald-500/10 text-emerald-900 dark:text-emerald-200 font-bold";
-              iconSpan.textContent = "✓";
-              iconSpan.classList.remove("hidden");
-              if (quizStatusBadge) {
-                quizStatusBadge.innerHTML = `<span class="text-emerald-600 dark:text-emerald-400">✓ ${isVi ? "CHÍNH XÁC" : "CORRECT"}</span>`;
-              }
-            } else {
-              btn.className =
-                "quiz-option-btn w-full text-left p-3 border text-xs font-mono transition-all flex items-center justify-between border-rose-600 bg-rose-500/10 text-rose-900 dark:text-rose-200 font-bold";
-              iconSpan.textContent = "✕";
-              iconSpan.classList.remove("hidden");
-              if (quizStatusBadge) {
-                quizStatusBadge.innerHTML = `<span class="text-rose-600 dark:text-rose-400">✕ ${isVi ? "CHƯA ĐÚNG" : "INCORRECT"}</span>`;
-              }
-            }
-          };
-
+          bindQuizButton(btn, opt.isCorrect);
           quizOptionsContainer.appendChild(btn);
         });
       }
@@ -644,16 +666,34 @@ const initialTerm = SAMPLE_TERMS[0];
       pill.onclick = () => {
         const id = pill.dataset.termId;
         const match = terms.find((t) => t.id === id);
-        if (match) renderTerm(match);
+        if (match && match !== currentTerm) renderTerm(match);
       };
     });
 
+    // Hydrate SSR-rendered quiz options in place without rebuilding DOM
+    if (quizOptionsContainer) {
+      quizOptionsContainer
+        .querySelectorAll<HTMLButtonElement>(".quiz-option-btn")
+        .forEach((btn) => {
+          bindQuizButton(btn, btn.dataset.isCorrect === "true");
+        });
+    }
+
     // Pronounce handler using Web Speech API
     if (pronounceBtn) {
+      const resetPronounceUI = () => {
+        pronounceIcon?.classList.remove("animate-pulse");
+        if (pronounceLabel) {
+          pronounceLabel.textContent = isVi ? "Phát âm chuẩn" : "Pronounce";
+        }
+      };
+
       pronounceBtn.onclick = () => {
         if (!("speechSynthesis" in window)) return;
+        activeUtterance = null;
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(currentTerm.word);
+        activeUtterance = utterance;
         utterance.lang = "en-US";
         utterance.rate = 0.9;
 
@@ -662,14 +702,16 @@ const initialTerm = SAMPLE_TERMS[0];
           pronounceLabel.textContent = isVi ? "Đang phát..." : "Playing...";
 
         utterance.onend = () => {
-          pronounceIcon?.classList.remove("animate-pulse");
-          if (pronounceLabel)
-            pronounceLabel.textContent = isVi ? "Phát âm chuẩn" : "Pronounce";
+          if (activeUtterance === utterance) {
+            activeUtterance = null;
+            resetPronounceUI();
+          }
         };
         utterance.onerror = () => {
-          pronounceIcon?.classList.remove("animate-pulse");
-          if (pronounceLabel)
-            pronounceLabel.textContent = isVi ? "Phát âm chuẩn" : "Pronounce";
+          if (activeUtterance === utterance) {
+            activeUtterance = null;
+            resetPronounceUI();
+          }
         };
 
         window.speechSynthesis.speak(utterance);
@@ -709,16 +751,21 @@ const initialTerm = SAMPLE_TERMS[0];
         }
       };
     }
-
-    // Initialize with first term
-    renderTerm(terms[0]);
   }
 
   document.addEventListener("astro:before-swap", () => {
+    activeUtterance = null;
     if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
     }
   });
 
-  document.addEventListener("astro:page-load", initTermInspector);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTermInspector, {
+      once: true,
+    });
+  } else {
+    initTermInspector();
+  }
+  document.addEventListener("astro:after-swap", initTermInspector);
 </script>

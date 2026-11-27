@@ -31,7 +31,7 @@ if (!architecture) {
   <header class="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-3 border-b border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark text-xs font-mono">
     <div class="flex items-center gap-2">
       <span
-        class="w-2 h-2 bg-emerald-500 animate-pulse flex-shrink-0"
+        class="arch-live-dot w-2 h-2 bg-emerald-500 animate-pulse flex-shrink-0"
         aria-hidden="true"
       ></span>
       <span class="font-bold tracking-wider">{architecture.code}</span>
@@ -97,7 +97,7 @@ if (!architecture) {
             data-layer-index={idx}
             aria-expanded={idx === 0 ? "true" : "false"}
             aria-controls={`layer-inspector-${slug}-${idx}`}
-            class={`layer-node-btn flex-1 min-w-0 text-left p-3 sm:p-4 border transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white group ${
+            class={`layer-node-btn flex-1 min-w-0 text-left p-3 sm:p-4 border transition-[border-color,background-color,box-shadow,transform] duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white group ${
               idx === 0
                 ? "active-node border-black dark:border-white bg-black/5 dark:bg-white/5 ring-1 ring-black dark:ring-white"
                 : "border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark hover:border-black/40 dark:hover:border-white/40"
@@ -282,7 +282,7 @@ if (!architecture) {
             data-stage-index={idx}
             aria-expanded={idx === 0 ? "true" : "false"}
             aria-controls={`stage-inspector-${slug}-${idx}`}
-            class={`stage-node-btn min-w-0 text-left p-3 border transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white group ${
+            class={`stage-node-btn min-w-0 text-left p-3 border transition-[border-color,background-color,box-shadow,transform] duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black dark:focus-visible:ring-white group ${
               idx === 0
                 ? "active-node border-black dark:border-white bg-black/5 dark:bg-white/5 ring-1 ring-black dark:ring-white"
                 : "border-black/15 dark:border-white/15 bg-bgLight dark:bg-bgDark hover:border-black/40 dark:hover:border-white/40"
@@ -320,7 +320,7 @@ if (!architecture) {
                 <span>{stage.name}</span>
               </h4>
 
-              <div class="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-medium">
+              <div class="text-[10px] font-mono text-emerald-700 dark:text-emerald-400 font-medium">
                 ⚡ {stage.invariants}
               </div>
             </div>
@@ -422,7 +422,15 @@ if (!architecture) {
     transform: scale(0.99);
   }
 
+  #system-architecture.arch-paused .circuit-wire-h,
+  #system-architecture.arch-paused .circuit-wire-v,
+  #system-architecture.arch-paused .active-node .node-indicator-dot,
+  #system-architecture.arch-paused .arch-live-dot {
+    animation-play-state: paused;
+  }
+
   @media (prefers-reduced-motion: reduce) {
+    .arch-live-dot,
     .circuit-wire-h,
     .circuit-wire-v,
     .active-node .node-indicator-dot,
@@ -436,17 +444,116 @@ if (!architecture) {
 </style>
 
 <script>
+  const activeObservers = new Set<IntersectionObserver>();
+
+  function cleanupArchitectureDiagrams() {
+    activeObservers.forEach((observer) => observer.disconnect());
+    activeObservers.clear();
+  }
+
+  function selectDiagramNode(
+    buttons: NodeListOf<Element>,
+    cards: NodeListOf<Element>,
+    indexAttr: string,
+    targetIdx: string | null
+  ) {
+    buttons.forEach((b) => {
+      const isTarget = b.getAttribute(indexAttr) === targetIdx;
+      if (isTarget) {
+        b.classList.add(
+          "active-node",
+          "border-black",
+          "dark:border-white",
+          "bg-black/5",
+          "dark:bg-white/5",
+          "ring-1",
+          "ring-black",
+          "dark:ring-white"
+        );
+        b.classList.remove(
+          "border-black/15",
+          "dark:border-white/15",
+          "bg-bgLight",
+          "dark:bg-bgDark"
+        );
+        b.setAttribute("aria-expanded", "true");
+      } else {
+        b.classList.remove(
+          "active-node",
+          "border-black",
+          "dark:border-white",
+          "bg-black/5",
+          "dark:bg-white/5",
+          "ring-1",
+          "ring-black",
+          "dark:ring-white"
+        );
+        b.classList.add(
+          "border-black/15",
+          "dark:border-white/15",
+          "bg-bgLight",
+          "dark:bg-bgDark"
+        );
+        b.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    cards.forEach((card, idx) => {
+      if (idx.toString() === targetIdx) {
+        card.classList.remove("hidden");
+        card.classList.add("block");
+      } else {
+        card.classList.add("hidden");
+        card.classList.remove("block");
+      }
+    });
+  }
+
   function setupCircuitInteractions() {
-    const sections = document.querySelectorAll("#system-architecture");
+    cleanupArchitectureDiagrams();
+
+    const sections = document.querySelectorAll<HTMLElement>(
+      "#system-architecture"
+    );
+    if (!sections.length) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    let visibilityObserver: IntersectionObserver | null = null;
+    if (!prefersReducedMotion) {
+      visibilityObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          (entry.target as HTMLElement).classList.toggle(
+            "arch-paused",
+            !entry.isIntersecting
+          );
+        });
+      });
+      activeObservers.add(visibilityObserver);
+    }
+
     sections.forEach((section) => {
-      // 1. Mode Tab Switching (Topology vs Pipeline)
+      visibilityObserver?.observe(section);
+
+      if (section.dataset.archInitialized === "true") return;
+      section.dataset.archInitialized = "true";
+
       const modeBtns = section.querySelectorAll(".arch-mode-btn");
       const viewPanels = section.querySelectorAll(".arch-view-panel");
+      const layerBtns = section.querySelectorAll(".layer-node-btn");
+      const layerCards = section.querySelectorAll(".layer-inspector-card");
+      const stageBtns = section.querySelectorAll(".stage-node-btn");
+      const stageCards = section.querySelectorAll(".stage-inspector-card");
 
-      modeBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const targetView = btn.getAttribute("data-view");
+      section.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement | null;
+        if (!target) return;
 
+        const modeBtn = target.closest<HTMLElement>(".arch-mode-btn");
+        if (modeBtn && section.contains(modeBtn)) {
+          const targetView = modeBtn.getAttribute("data-view");
           modeBtns.forEach((b) => {
             const isTarget = b.getAttribute("data-view") === targetView;
             b.setAttribute("aria-selected", isTarget ? "true" : "false");
@@ -472,146 +579,47 @@ if (!architecture) {
           });
 
           viewPanels.forEach((panel) => {
-            const panelType = panel.getAttribute("data-panel");
-            if (panelType === targetView) {
+            if (panel.getAttribute("data-panel") === targetView) {
               panel.classList.remove("hidden");
             } else {
               panel.classList.add("hidden");
             }
           });
-        });
-      });
+          return;
+        }
 
-      // 2. Topology Node Inspection Interaction
-      const layerBtns = section.querySelectorAll(".layer-node-btn");
-      const layerCards = section.querySelectorAll(".layer-inspector-card");
+        const layerBtn = target.closest<HTMLElement>(".layer-node-btn");
+        if (layerBtn && section.contains(layerBtn)) {
+          selectDiagramNode(
+            layerBtns,
+            layerCards,
+            "data-layer-index",
+            layerBtn.getAttribute("data-layer-index")
+          );
+          return;
+        }
 
-      layerBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const targetIdx = btn.getAttribute("data-layer-index");
-
-          // Update Button states
-          layerBtns.forEach((b) => {
-            const bIdx = b.getAttribute("data-layer-index");
-            const isTarget = bIdx === targetIdx;
-
-            if (isTarget) {
-              b.classList.add(
-                "active-node",
-                "border-black",
-                "dark:border-white",
-                "bg-black/5",
-                "dark:bg-white/5",
-                "ring-1",
-                "ring-black",
-                "dark:ring-white"
-              );
-              b.classList.remove(
-                "border-black/15",
-                "dark:border-white/15",
-                "bg-bgLight",
-                "dark:bg-bgDark"
-              );
-              b.setAttribute("aria-expanded", "true");
-            } else {
-              b.classList.remove(
-                "active-node",
-                "border-black",
-                "dark:border-white",
-                "bg-black/5",
-                "dark:bg-white/5",
-                "ring-1",
-                "ring-black",
-                "dark:ring-white"
-              );
-              b.classList.add(
-                "border-black/15",
-                "dark:border-white/15",
-                "bg-bgLight",
-                "dark:bg-bgDark"
-              );
-              b.setAttribute("aria-expanded", "false");
-            }
-          });
-
-          // Update Inspector Card visibility
-          layerCards.forEach((card, idx) => {
-            if (idx.toString() === targetIdx) {
-              card.classList.remove("hidden");
-              card.classList.add("block");
-            } else {
-              card.classList.add("hidden");
-              card.classList.remove("block");
-            }
-          });
-        });
-      });
-
-      // 3. Pipeline Stage Inspection Interaction
-      const stageBtns = section.querySelectorAll(".stage-node-btn");
-      const stageCards = section.querySelectorAll(".stage-inspector-card");
-
-      stageBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const targetIdx = btn.getAttribute("data-stage-index");
-
-          stageBtns.forEach((b) => {
-            const bIdx = b.getAttribute("data-stage-index");
-            const isTarget = bIdx === targetIdx;
-
-            if (isTarget) {
-              b.classList.add(
-                "active-node",
-                "border-black",
-                "dark:border-white",
-                "bg-black/5",
-                "dark:bg-white/5",
-                "ring-1",
-                "ring-black",
-                "dark:ring-white"
-              );
-              b.classList.remove(
-                "border-black/15",
-                "dark:border-white/15",
-                "bg-bgLight",
-                "dark:bg-bgDark"
-              );
-              b.setAttribute("aria-expanded", "true");
-            } else {
-              b.classList.remove(
-                "active-node",
-                "border-black",
-                "dark:border-white",
-                "bg-black/5",
-                "dark:bg-white/5",
-                "ring-1",
-                "ring-black",
-                "dark:ring-white"
-              );
-              b.classList.add(
-                "border-black/15",
-                "dark:border-white/15",
-                "bg-bgLight",
-                "dark:bg-bgDark"
-              );
-              b.setAttribute("aria-expanded", "false");
-            }
-          });
-
-          stageCards.forEach((card, idx) => {
-            if (idx.toString() === targetIdx) {
-              card.classList.remove("hidden");
-              card.classList.add("block");
-            } else {
-              card.classList.add("hidden");
-              card.classList.remove("block");
-            }
-          });
-        });
+        const stageBtn = target.closest<HTMLElement>(".stage-node-btn");
+        if (stageBtn && section.contains(stageBtn)) {
+          selectDiagramNode(
+            stageBtns,
+            stageCards,
+            "data-stage-index",
+            stageBtn.getAttribute("data-stage-index")
+          );
+        }
       });
     });
   }
 
-  // Safe binding to Astro lifecycle
-  document.addEventListener("astro:page-load", setupCircuitInteractions);
+  document.addEventListener("astro:before-swap", cleanupArchitectureDiagrams);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupCircuitInteractions, {
+      once: true,
+    });
+  } else {
+    setupCircuitInteractions();
+  }
+  document.addEventListener("astro:after-swap", setupCircuitInteractions);
 </script>

@@ -22,12 +22,31 @@ const {
   data-max-distance={maxDistance}
   {...rest}
 >
-  <div class="magnetic-button-inner w-full h-full will-change-transform">
+  <div class="magnetic-button-inner w-full h-full">
     <slot />
   </div>
 </Tag>
 
 <script>
+  const activeRafs = new Set<number>();
+  let magneticLayoutGen = 0;
+  let invalidationBound = false;
+
+  function ensureLayoutInvalidation() {
+    if (invalidationBound) return;
+    invalidationBound = true;
+    const invalidate = () => {
+      magneticLayoutGen += 1;
+    };
+    window.addEventListener("scroll", invalidate, { passive: true });
+    window.addEventListener("resize", invalidate, { passive: true });
+  }
+
+  function cleanupMagneticButtons() {
+    activeRafs.forEach((id) => cancelAnimationFrame(id));
+    activeRafs.clear();
+  }
+
   function initMagneticButtons() {
     if (
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
@@ -37,6 +56,9 @@ const {
     }
 
     const buttons = document.querySelectorAll<HTMLElement>(".magnetic-button");
+    if (!buttons.length) return;
+    ensureLayoutInvalidation();
+
     buttons.forEach((btn) => {
       if (btn.dataset.magneticInitialized === "true") return;
       btn.dataset.magneticInitialized = "true";
@@ -52,14 +74,30 @@ const {
       let rafId: number | null = null;
       let targetX = 0;
       let targetY = 0;
+      let rect: DOMRect | null = null;
+      let rectGen = -1;
 
       const updatePosition = () => {
+        if (rafId !== null) {
+          activeRafs.delete(rafId);
+          rafId = null;
+        }
         inner.style.transform = `translate3d(${targetX.toFixed(2)}px, ${targetY.toFixed(2)}px, 0)`;
-        rafId = null;
       };
 
+      btn.addEventListener("mouseenter", () => {
+        inner.style.willChange = "transform";
+        inner.style.transition =
+          "transform 0.12s cubic-bezier(0.25, 1, 0.5, 1)";
+        rect = btn.getBoundingClientRect();
+        rectGen = magneticLayoutGen;
+      });
+
       btn.addEventListener("mousemove", (e) => {
-        const rect = btn.getBoundingClientRect();
+        if (!rect || rectGen !== magneticLayoutGen) {
+          rect = btn.getBoundingClientRect();
+          rectGen = magneticLayoutGen;
+        }
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
         const deltaX = (e.clientX - centerX) * strength;
@@ -68,31 +106,45 @@ const {
         targetX = Math.max(-maxDistance, Math.min(maxDistance, deltaX));
         targetY = Math.max(-maxDistance, Math.min(maxDistance, deltaY));
 
-        inner.style.transition =
-          "transform 0.12s cubic-bezier(0.25, 1, 0.5, 1)";
-        if (!rafId) {
+        if (rafId === null) {
           rafId = requestAnimationFrame(updatePosition);
+          activeRafs.add(rafId);
         }
       });
 
       btn.addEventListener("mouseleave", () => {
-        if (rafId) {
+        if (rafId !== null) {
           cancelAnimationFrame(rafId);
+          activeRafs.delete(rafId);
           rafId = null;
         }
+        rect = null;
         targetX = 0;
         targetY = 0;
         inner.style.transition =
           "transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
         inner.style.transform = "translate3d(0, 0, 0)";
-      });
-
-      btn.addEventListener("mouseenter", () => {
-        inner.style.transition =
-          "transform 0.12s cubic-bezier(0.25, 1, 0.5, 1)";
+        inner.addEventListener(
+          "transitionend",
+          () => {
+            if (targetX === 0 && targetY === 0) {
+              inner.style.willChange = "auto";
+            }
+          },
+          { once: true }
+        );
       });
     });
   }
 
-  document.addEventListener("astro:page-load", initMagneticButtons);
+  document.addEventListener("astro:before-swap", cleanupMagneticButtons);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initMagneticButtons, {
+      once: true,
+    });
+  } else {
+    initMagneticButtons();
+  }
+  document.addEventListener("astro:after-swap", initMagneticButtons);
 </script>

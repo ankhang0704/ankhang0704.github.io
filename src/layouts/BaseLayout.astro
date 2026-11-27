@@ -9,6 +9,7 @@ interface Props {
   lang?: "en" | "vi";
   ogImage?: string;
   canonicalUrl?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   lang = "en",
   ogImage = "/icon.png",
   canonicalUrl,
+  noindex = false,
 } = Astro.props;
 
 const siteUrl = "https://ankhang0704.pages.dev";
@@ -53,31 +55,30 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html
+  lang={lang}
+  class="bg-bgLight text-textLight dark:bg-bgDark dark:text-textDark"
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    <meta
-      name="theme-color"
-      content="#fafafa"
-      media="(prefers-color-scheme: light)"
-    />
-    <meta
-      name="theme-color"
-      content="#0a0a0a"
-      media="(prefers-color-scheme: dark)"
-    />
+    <meta name="theme-color" id="theme-color-meta" content="#fafafa" />
 
     <!-- SEO Meta Tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {!noindex && <link rel="canonical" href={canonical} />}
 
     <!-- Multilingual Alternates -->
-    <link rel="alternate" hreflang="en" href={enHref} />
-    <link rel="alternate" hreflang="vi" href={viHref} />
-    <link rel="alternate" hreflang="x-default" href={enHref} />
+    {!noindex && (
+      <>
+        <link rel="alternate" hreflang="en" href={enHref} />
+        <link rel="alternate" hreflang="vi" href={viHref} />
+        <link rel="alternate" hreflang="x-default" href={enHref} />
+      </>
+    )}
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -100,61 +101,116 @@ const jsonLd = {
     <link rel="icon" sizes="any" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts (Non-Blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+      id="google-fonts-css"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;500;700&display=swap"
       rel="stylesheet"
+      media="print"
     />
+    <script is:inline>
+      (function () {
+        var l = document.getElementById("google-fonts-css");
+        if (!l) return;
+        if (l.sheet) {
+          l.media = "all";
+        } else {
+          l.addEventListener(
+            "load",
+            function () {
+              l.media = "all";
+            },
+            { once: true }
+          );
+        }
+      })();
+    </script>
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;500;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
     <!-- Astro 5 ClientRouter for View Transitions -->
     <ClientRouter />
 
     <!-- Zero-FOUC Inline Theme Script -->
     <script is:inline>
-      function applyTheme() {
-        try {
-          var s = localStorage.getItem("theme");
-          var d =
-            s === "dark" ||
-            (!s && window.matchMedia("(prefers-color-scheme: dark)").matches);
-          if (d) {
-            document.documentElement.classList.add("dark");
-          } else {
-            document.documentElement.classList.remove("dark");
+      (function () {
+        function getIsDark() {
+          var s = null;
+          try {
+            s = localStorage.getItem("theme");
+          } catch (e) {
+            if (document.documentElement.classList.contains("dark")) {
+              return true;
+            }
           }
-        } catch (e) {}
-      }
-      applyTheme();
-      document.addEventListener("astro:after-swap", applyTheme);
+          return (
+            s === "dark" ||
+            (!s && window.matchMedia("(prefers-color-scheme: dark)").matches)
+          );
+        }
+
+        function syncTheme(doc, isDark) {
+          doc.documentElement.classList.toggle("dark", isDark);
+          var meta = doc.getElementById("theme-color-meta");
+          if (meta) {
+            meta.setAttribute("content", isDark ? "#0a0a0a" : "#fafafa");
+          }
+        }
+
+        function applyTheme() {
+          syncTheme(document, getIsDark());
+        }
+
+        applyTheme();
+
+        if (!window.__themeListenersBound) {
+          document.addEventListener("astro:before-swap", function (ev) {
+            var isDark = document.documentElement.classList.contains("dark");
+            if (ev && ev.newDocument) {
+              syncTheme(ev.newDocument, isDark);
+            }
+          });
+          document.addEventListener("astro:after-swap", applyTheme);
+          window.__themeListenersBound = true;
+        }
+      })();
     </script>
 
     <!-- Scoped Smooth Scroll for In-Page Anchor Links (Zero-Lag Route Transitions) -->
     <script is:inline>
-      document.addEventListener("click", function (e) {
-        var a =
-          e.target && e.target.closest
-            ? e.target.closest('a[href^="#"]')
-            : null;
-        if (!a) return;
-        var hash = a.getAttribute("href");
-        if (!hash || hash.length <= 1) return;
-        var targetId = hash.slice(1);
-        var target = document.getElementById(targetId);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({
-            behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
-              .matches
-              ? "auto"
-              : "smooth",
-          });
-          target.setAttribute("tabindex", "-1");
-          target.focus({ preventScroll: true });
-          history.pushState(null, "", hash);
-        }
-      });
+      (function () {
+        if (window.__hashScrollBound) return;
+        window.__hashScrollBound = true;
+        document.addEventListener("click", function (e) {
+          var a =
+            e.target && e.target.closest
+              ? e.target.closest('a[href^="#"]')
+              : null;
+          if (!a) return;
+          var hash = a.getAttribute("href");
+          if (!hash || hash.length <= 1) return;
+          var targetId = hash.slice(1);
+          var target = document.getElementById(targetId);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({
+              behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+                .matches
+                ? "auto"
+                : "smooth",
+            });
+            target.setAttribute("tabindex", "-1");
+            target.focus({ preventScroll: true });
+            history.pushState(history.state, "", hash);
+          }
+        });
+      })();
     </script>
 
     <!-- Schema.org Person JSON-LD -->
@@ -175,7 +231,7 @@ const jsonLd = {
       id="copy-email-toast"
       role="status"
       aria-live="polite"
-      class="fixed bottom-20 left-1/2 -translate-x-1/2 md:bottom-24 md:right-8 md:left-auto md:translate-x-0 z-[100] border border-black dark:border-white bg-bgLight dark:bg-bgDark p-4 flex items-center gap-3 transition-all duration-300 opacity-0 pointer-events-none translate-y-4"
+      class="fixed bottom-20 left-1/2 -translate-x-1/2 md:bottom-24 md:right-8 md:left-auto md:translate-x-0 z-[100] border border-black dark:border-white bg-bgLight dark:bg-bgDark p-4 flex items-center gap-3 transition-[opacity,transform] duration-300 opacity-0 pointer-events-none translate-y-4"
     >
       <div
         class="w-2 h-2 bg-black dark:bg-white shrink-0"

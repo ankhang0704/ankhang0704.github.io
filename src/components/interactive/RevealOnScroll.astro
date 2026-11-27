@@ -38,13 +38,21 @@ const {
     transition-delay: var(--reveal-delay, 0ms);
   }
 
-  .reveal-on-scroll:not(.is-revealed) {
+  .reveal-on-scroll.is-revealing {
     will-change: transform, opacity;
   }
 
   .reveal-on-scroll.is-revealed {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+    will-change: auto;
+  }
+
+  .reveal-on-scroll.is-revealed-instant {
+    opacity: 1;
+    transform: none;
+    transition: none !important;
+    transition-delay: 0ms !important;
     will-change: auto;
   }
 
@@ -66,43 +74,94 @@ const {
 </style>
 
 <script>
+  const activeObservers = new Set<IntersectionObserver>();
+
+  function cleanupRevealObservers() {
+    activeObservers.forEach((observer) => observer.disconnect());
+    activeObservers.clear();
+  }
+
   function initRevealOnScroll() {
-    const elements =
-      document.querySelectorAll<HTMLElement>(".reveal-on-scroll");
+    cleanupRevealObservers();
+
+    const elements = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        ".reveal-on-scroll:not(.is-revealed):not(.is-revealed-instant)"
+      )
+    );
+    if (!elements.length) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      elements.forEach((el) => el.classList.add("is-revealed"));
+      elements.forEach((el) => el.classList.add("is-revealed-instant"));
       return;
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-revealed");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
-    );
-
+    // Batch all layout reads before any DOM mutations to avoid read/write thrashing
     const winH = window.innerHeight;
-    elements.forEach((el) => {
-      if (el.classList.contains("is-revealed")) return;
+    const rects = elements.map((el) => el.getBoundingClientRect());
 
-      const rect = el.getBoundingClientRect();
-      // If element is already within or above the viewport, reveal immediately without animation delay
-      if (rect.top < winH && rect.bottom > 0) {
-        el.style.setProperty("--reveal-delay", "0ms");
-        el.classList.add("is-revealed");
-      } else {
-        observer.observe(el);
+    const instantElements: HTMLElement[] = [];
+    const thresholdGroups = new Map<number, HTMLElement[]>();
+
+    elements.forEach((el, index) => {
+      const rect = rects[index];
+      // Reveal elements already within or above the viewport immediately without fade delay
+      if (rect.top < winH && (rect.bottom > 0 || rect.height > 0)) {
+        instantElements.push(el);
+        return;
       }
+
+      const parsed = parseFloat(el.dataset.revealThreshold || "0.1");
+      const threshold = Number.isFinite(parsed)
+        ? Math.min(1, Math.max(0, parsed))
+        : 0.1;
+      const group = thresholdGroups.get(threshold);
+      if (group) {
+        group.push(el);
+      } else {
+        thresholdGroups.set(threshold, [el]);
+      }
+    });
+
+    instantElements.forEach((el) => {
+      el.classList.add("is-revealed-instant");
+    });
+
+    thresholdGroups.forEach((group, threshold) => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const target = entry.target as HTMLElement;
+            target.classList.add("is-revealing", "is-revealed");
+            const clearWillChange = () => {
+              target.classList.remove("is-revealing");
+            };
+            target.addEventListener("transitionend", clearWillChange, {
+              once: true,
+            });
+            target.addEventListener("transitioncancel", clearWillChange, {
+              once: true,
+            });
+            observer.unobserve(target);
+          });
+        },
+        { threshold, rootMargin: "0px 0px -50px 0px" }
+      );
+
+      activeObservers.add(observer);
+      group.forEach((el) => observer.observe(el));
     });
   }
 
-  // Run on after-swap so new snapshot captures fully visible state
+  document.addEventListener("astro:before-swap", cleanupRevealObservers);
+  // Run immediately / on DOMContentLoaded + after-swap so snapshots capture visible state
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initRevealOnScroll, {
+      once: true,
+    });
+  } else {
+    initRevealOnScroll();
+  }
   document.addEventListener("astro:after-swap", initRevealOnScroll);
-  document.addEventListener("astro:page-load", initRevealOnScroll);
 </script>

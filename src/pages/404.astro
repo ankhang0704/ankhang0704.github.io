@@ -9,7 +9,7 @@ const description =
   "The requested page could not be found. Trang bạn đang tìm kiếm không tồn tại.";
 ---
 
-<BaseLayout title={title} description={description} lang="en">
+<BaseLayout title={title} description={description} lang="en" noindex={true}>
   <Header lang="en" />
 
   <main
@@ -41,14 +41,16 @@ const description =
 
       <div class="pt-6 flex flex-wrap justify-center gap-4">
         <MagneticButton
+          as="a"
           href="/"
-          class="border border-black bg-black text-white dark:border-white dark:bg-white dark:text-black px-6 py-3 text-xs font-bold uppercase tracking-widest hover:opacity-85 transition-opacity"
+          class="min-h-11 border border-black bg-black text-white dark:border-white dark:bg-white dark:text-black px-6 py-3.5 text-xs font-bold uppercase tracking-widest hover:opacity-85 transition-opacity"
         >
           Return Home (EN)
         </MagneticButton>
         <MagneticButton
+          as="a"
           href="/vi/"
-          class="border border-black/20 dark:border-white/20 text-black dark:text-white px-6 py-3 text-xs font-bold uppercase tracking-widest hover:border-black dark:hover:border-white transition-colors"
+          class="min-h-11 border border-black/20 dark:border-white/20 text-black dark:text-white px-6 py-3.5 text-xs font-bold uppercase tracking-widest hover:border-black dark:hover:border-white transition-colors"
         >
           Trang chủ (VI)
         </MagneticButton>

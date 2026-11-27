@@ -6,7 +6,6 @@ import Footer from "../ui/Footer.astro";
 import GridPattern from "../ui/GridPattern.astro";
 import SpotlightCard from "../interactive/SpotlightCard.astro";
 import MagneticButton from "../interactive/MagneticButton.astro";
-import RevealOnScroll from "../interactive/RevealOnScroll.astro";
 import { getDictionary } from "../../i18n/utils";
 
 interface Props {
@@ -54,69 +53,72 @@ const categories = [
 
     <div class="container mx-auto px-6 md:px-8 relative z-10">
       <!-- Page Header (Pure & Bold) -->
-      <RevealOnScroll delay={50} class="max-w-4xl mb-12 sm:mb-16">
+      <div class="max-w-4xl mb-12 sm:mb-16">
         <h1 class="font-display text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight">
           {dict.allProjects.title}
         </h1>
-      </RevealOnScroll>
+      </div>
 
       <!-- Precision Controls Toolbar -->
-      <RevealOnScroll delay={100}>
-        <section
-          aria-label={isVi ? "Bộ lọc dự án" : "Project filters"}
-          class="border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark p-4 sm:p-6 mb-12 space-y-6"
-        >
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <!-- Category Filter Buttons -->
-            <div
-              class="flex flex-wrap items-center gap-2"
-              id="category-filter-group"
-            >
-              {categories.map((cat) => (
-                <button
-                  type="button"
-                  data-filter-btn={cat.key}
-                  class={`category-btn min-h-11 inline-flex items-center px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider active:scale-95 transition-all duration-150 border ${
-                    cat.key === "all"
-                      ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black"
-                      : "border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white"
-                  }`}
-                >
-                  {cat.label}
-                </button>
-              ))}
-            </div>
-
-            <!-- Live Search Input (Monochromatic Subtle Glow Focus) -->
-            <div class="relative w-full md:w-72">
-              <input
-                type="text"
-                id="directory-search"
-                placeholder={
-                  isVi
-                    ? "Tìm theo tên, công nghệ..."
-                    : "Search projects, stack..."
-                }
-                aria-label={isVi ? "Tìm kiếm dự án" : "Search projects"}
-                class="w-full bg-bgLight dark:bg-bgDark border border-black/20 dark:border-white/20 px-4 py-2.5 text-sm font-mono placeholder:opacity-50 focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white focus:border-black dark:focus:border-white focus:shadow-[0_0_15px_rgba(0,0,0,0.06)] dark:focus:shadow-[0_0_15px_rgba(255,255,255,0.08)] transition-all"
-              />
-            </div>
+      <section
+        aria-label={isVi ? "Bộ lọc dự án" : "Project filters"}
+        class="border border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark p-4 sm:p-6 mb-12 space-y-6"
+      >
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <!-- Category Filter Buttons -->
+          <div
+            class="flex flex-wrap items-center gap-2"
+            id="category-filter-group"
+          >
+            {categories.map((cat) => (
+              <button
+                type="button"
+                data-filter-btn={cat.key}
+                class={`category-btn min-h-11 inline-flex items-center px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider active:scale-95 transition-colors duration-150 border ${
+                  cat.key === "all"
+                    ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black"
+                    : "border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white"
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
           </div>
 
-          <!-- Result Stats Bar -->
-          <div class="flex items-center justify-between text-xs font-mono opacity-60 pt-2 border-t border-black/5 dark:border-white/5">
-            <span id="directory-count">
-              {isVi
-                ? `Hiển thị ${projects.length} / ${projects.length} dự án`
-                : `Showing ${projects.length} of ${projects.length} projects`}
-            </span>
+          <!-- Live Search Input (Monochromatic Subtle Glow Focus) -->
+          <div class="relative w-full md:w-72">
+            <input
+              type="text"
+              id="directory-search"
+              placeholder={
+                isVi
+                  ? "Tìm theo tên, công nghệ..."
+                  : "Search projects, stack..."
+              }
+              aria-label={isVi ? "Tìm kiếm dự án" : "Search projects"}
+              class="w-full bg-bgLight dark:bg-bgDark border border-black/20 dark:border-white/20 px-4 py-2.5 text-base sm:text-sm font-mono placeholder:opacity-65 focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white focus:border-black dark:focus:border-white focus:shadow-[0_0_15px_rgba(0,0,0,0.06)] dark:focus:shadow-[0_0_15px_rgba(255,255,255,0.08)] transition-[border-color,box-shadow]"
+            />
           </div>
-        </section>
-      </RevealOnScroll>
+        </div>
+
+        <!-- Result Stats Bar -->
+        <div class="flex items-center justify-between text-xs font-mono opacity-60 pt-2 border-t border-black/5 dark:border-white/5">
+          <span id="directory-count">
+            {isVi
+              ? `Hiển thị ${projects.length} / ${projects.length} dự án`
+              : `Showing ${projects.length} of ${projects.length} projects`}
+          </span>
+        </div>
+      </section>
 
       <!-- Projects Grid -->
-      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {projects.map((project) => {
+      <div
+        id="projects-grid"
+        data-lang={lang}
+        data-total-count={projects.length}
+        class="grid grid-cols-1 md:grid-cols-2 gap-8"
+      >
+        {projects.map((project, index) => {
           const hasCaseStudy = project.data.canonicalPath !== "/projects/";
           const caseStudyUrl = isVi
             ? `/vi${project.data.canonicalPath}`
@@ -146,7 +148,7 @@ const categories = [
                       <span class="font-bold tracking-wider">
                         {project.data.code}
                       </span>
-                      <span class="opacity-50">/</span>
+                      <span class="opacity-65">/</span>
                       <span class="uppercase opacity-60">
                         {project.data.category}
                       </span>
@@ -155,7 +157,7 @@ const categories = [
                       <span class="text-[10px] uppercase tracking-wider px-2 py-0.5 border border-black/15 dark:border-white/15 opacity-75">
                         {project.data.status}
                       </span>
-                      <span class="opacity-40">{project.data.year}</span>
+                      <span class="opacity-65">{project.data.year}</span>
                     </div>
                   </div>
 
@@ -171,7 +173,11 @@ const categories = [
                         <img
                           src={project.data.image}
                           alt={project.data.title}
-                          loading="lazy"
+                          width="1280"
+                          height="801"
+                          loading={index < 2 ? "eager" : "lazy"}
+                          decoding="async"
+                          fetchpriority={index === 0 ? "high" : undefined}
                           class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                       </div>
@@ -226,7 +232,7 @@ const categories = [
                     <MagneticButton>
                       <a
                         href={caseStudyUrl}
-                        class="border border-black dark:border-white px-5 py-2.5 text-xs font-bold uppercase tracking-widest font-mono hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 inline-flex items-center gap-2 group"
+                        class="min-h-11 border border-black dark:border-white px-5 py-2.5 text-xs font-bold uppercase tracking-widest font-mono hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 inline-flex items-center gap-2 group"
                       >
                         <span>{dict.projects.viewCaseStudy}</span>
                         <svg
@@ -253,7 +259,7 @@ const categories = [
                         href={project.data.externalHref}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="border border-black dark:border-white px-5 py-2.5 text-xs font-bold uppercase tracking-widest font-mono hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 inline-flex items-center gap-2 group"
+                        class="min-h-11 border border-black dark:border-white px-5 py-2.5 text-xs font-bold uppercase tracking-widest font-mono hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 inline-flex items-center gap-2 group"
                       >
                         <span>
                           {project.data.externalLabel ||
@@ -271,7 +277,7 @@ const categories = [
                             href={project.data.externalHref}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="text-xs font-mono opacity-75 hover:opacity-100 hover:underline uppercase tracking-wider inline-block py-1"
+                            class="text-xs font-mono opacity-75 hover:opacity-100 hover:underline uppercase tracking-wider min-h-11 inline-flex items-center"
                           >
                             {project.data.externalLabel ||
                               (isVi ? "Liên kết ↗" : "Link ↗")}
@@ -285,7 +291,7 @@ const categories = [
                             href={project.data.secondaryExternalHref}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="text-xs font-mono opacity-75 hover:opacity-100 hover:underline uppercase tracking-wider inline-block py-1"
+                            class="text-xs font-mono opacity-75 hover:opacity-100 hover:underline uppercase tracking-wider min-h-11 inline-flex items-center"
                           >
                             {project.data.secondaryExternalLabel}
                           </a>
@@ -317,7 +323,7 @@ const categories = [
           <button
             type="button"
             id="reset-directory-filters"
-            class="border border-black dark:border-white px-6 py-2.5 text-xs font-mono uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+            class="min-h-11 inline-flex items-center border border-black dark:border-white px-6 py-2.5 text-xs font-mono uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
           >
             {isVi ? "Đặt lại bộ lọc" : "Reset filters"}
           </button>
@@ -329,21 +335,33 @@ const categories = [
   <Footer lang={lang} />
 </BaseLayout>
 
-<script is:inline define:vars={{ isVi, totalCount: projects.length }}>
+<script>
   function setupDirectory() {
-    const filterButtons = document.querySelectorAll("[data-filter-btn]");
-    if (!filterButtons.length) return;
-    if (filterButtons[0].hasAttribute("data-bound")) return;
-    filterButtons.forEach((b) => b.setAttribute("data-bound", "true"));
+    const grid = document.getElementById("projects-grid");
+    const filterButtons =
+      document.querySelectorAll<HTMLButtonElement>("[data-filter-btn]");
+    if (!grid || !filterButtons.length) return;
+    if (grid.dataset.bound === "true") return;
+    grid.dataset.bound = "true";
+
+    const isVi = grid.dataset.lang === "vi";
+    const cards = document.querySelectorAll<HTMLElement>("[data-project-card]");
+    const totalCount = Number(grid.dataset.totalCount || cards.length);
 
     let currentCategory = "all";
     let currentQuery = "";
 
-    const searchInput = document.getElementById("directory-search");
-    const cards = document.querySelectorAll("[data-project-card]");
+    const searchInput = document.getElementById(
+      "directory-search"
+    ) as HTMLInputElement | null;
     const countDisplay = document.getElementById("directory-count");
     const emptyState = document.getElementById("directory-empty");
     const resetButton = document.getElementById("reset-directory-filters");
+
+    const activeBtnClass =
+      "category-btn min-h-11 inline-flex items-center px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider active:scale-95 transition-colors duration-150 border border-black bg-black text-white dark:border-white dark:bg-white dark:text-black";
+    const inactiveBtnClass =
+      "category-btn min-h-11 inline-flex items-center px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider active:scale-95 transition-colors duration-150 border border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white";
 
     function applyFilters() {
       let visible = 0;
@@ -380,18 +398,17 @@ const categories = [
       btn.addEventListener("click", () => {
         currentCategory = btn.getAttribute("data-filter-btn") || "all";
         filterButtons.forEach((b) => {
-          b.className =
-            "category-btn min-h-11 inline-flex items-center px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider active:scale-95 transition-all duration-150 border border-black/20 dark:border-white/20 hover:border-black dark:hover:border-white";
+          b.className = inactiveBtnClass;
         });
-        btn.className =
-          "category-btn min-h-11 inline-flex items-center px-4 py-2 text-xs font-mono font-semibold uppercase tracking-wider active:scale-95 transition-all duration-150 border border-black bg-black text-white dark:border-white dark:bg-white dark:text-black";
+        btn.className = activeBtnClass;
         applyFilters();
       });
     });
 
     if (searchInput) {
       searchInput.addEventListener("input", (e) => {
-        currentQuery = (e.target.value || "").toLowerCase().trim();
+        const target = e.target as HTMLInputElement | null;
+        currentQuery = (target?.value || "").toLowerCase().trim();
         applyFilters();
       });
     }
@@ -401,12 +418,28 @@ const categories = [
         currentCategory = "all";
         currentQuery = "";
         if (searchInput) searchInput.value = "";
-        const allBtn = document.querySelector('[data-filter-btn="all"]');
-        if (allBtn) allBtn.click();
+        const allBtn = document.querySelector<HTMLButtonElement>(
+          '[data-filter-btn="all"]'
+        );
+        if (allBtn) {
+          allBtn.click();
+        } else {
+          applyFilters();
+        }
       });
     }
   }
 
-  // Support both direct initial load and Astro View Transitions
-  document.addEventListener("astro:page-load", setupDirectory);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupDirectory, {
+      once: true,
+    });
+  } else {
+    setupDirectory();
+  }
+
+  if (!(window as any).__projectsDirSwapBound) {
+    document.addEventListener("astro:after-swap", setupDirectory);
+    (window as any).__projectsDirSwapBound = true;
+  }
 </script>

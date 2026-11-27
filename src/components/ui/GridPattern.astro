@@ -11,36 +11,47 @@ const { class: className = "", size = 40 } = Astro.props;
   class={`grid-pattern-container pointer-events-none absolute inset-0 overflow-hidden ${className}`}
   aria-hidden="true"
 >
-  <!-- Precision Blueprint Grid Lines -->
-  <svg
-    class="absolute inset-0 h-full w-full stroke-black/[0.04] dark:stroke-white/[0.04]"
-    width="100%"
-    height="100%"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <defs>
-      <pattern
-        id="blueprint-grid-pattern"
-        width={size}
-        height={size}
-        patternUnits="userSpaceOnUse"
-      >
-        <path d={`M.5 ${size}V.5H${size}`} fill="none" stroke-dasharray="2 4" />
-      </pattern>
-    </defs>
-    <rect
-      width="100%"
-      height="100%"
-      stroke-width="0"
-      fill="url(#blueprint-grid-pattern)"
-    />
-  </svg>
+  <!-- Precision Blueprint Grid Lines (CSS background tile, zero DOM SVG bloat) -->
+  <div
+    class="grid-pattern-lines absolute inset-0"
+    style={size !== 40 ? `background-size: ${size}px ${size}px;` : undefined}
+  ></div>
 
   <!-- Interactive Cursor Spotlight Glow -->
   <div class="grid-pattern-glow absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none"></div>
 </div>
 
+<style>
+  .grid-pattern-lines {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M.5 40V.5H40' fill='none' stroke='%23000' stroke-opacity='.04' stroke-dasharray='2 4'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+
+  :global(html.dark) .grid-pattern-lines {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M.5 40V.5H40' fill='none' stroke='%23fff' stroke-opacity='.04' stroke-dasharray='2 4'/%3E%3C/svg%3E");
+  }
+</style>
+
 <script>
+  const activeRafs = new Set<number>();
+  let gridLayoutGen = 0;
+  let invalidationBound = false;
+
+  function ensureLayoutInvalidation() {
+    if (invalidationBound) return;
+    invalidationBound = true;
+    const invalidate = () => {
+      gridLayoutGen += 1;
+    };
+    window.addEventListener("scroll", invalidate, { passive: true });
+    window.addEventListener("resize", invalidate, { passive: true });
+  }
+
+  function cleanupGridPattern() {
+    activeRafs.forEach((id) => cancelAnimationFrame(id));
+    activeRafs.clear();
+  }
+
   function initGridPattern() {
     if (
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
@@ -52,6 +63,9 @@ const { class: className = "", size = 40 } = Astro.props;
     const containers = document.querySelectorAll<HTMLElement>(
       ".grid-pattern-container"
     );
+    if (!containers.length) return;
+    ensureLayoutInvalidation();
+
     containers.forEach((container) => {
       if (container.dataset.gridInitialized === "true") return;
       container.dataset.gridInitialized = "true";
@@ -60,19 +74,62 @@ const { class: className = "", size = 40 } = Astro.props;
       const glow = container.querySelector<HTMLElement>(".grid-pattern-glow");
       if (!parent || !glow) return;
 
+      let rect: DOMRect | null = null;
+      let rectGen = -1;
+      let rafId: number | null = null;
+      let pointerX = 0;
+      let pointerY = 0;
+
+      const updateGlow = () => {
+        if (rafId !== null) {
+          activeRafs.delete(rafId);
+          rafId = null;
+        }
+        glow.style.background = `radial-gradient(350px circle at ${pointerX.toFixed(1)}px ${pointerY.toFixed(1)}px, rgba(125, 125, 125, 0.08), transparent 70%)`;
+        if (glow.style.opacity !== "1") {
+          glow.style.opacity = "1";
+        }
+      };
+
+      parent.addEventListener("mouseenter", () => {
+        rect = parent.getBoundingClientRect();
+        rectGen = gridLayoutGen;
+      });
+
       parent.addEventListener("mousemove", (e) => {
-        const rect = parent.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        glow.style.opacity = "1";
-        glow.style.background = `radial-gradient(350px circle at ${x}px ${y}px, rgba(125, 125, 125, 0.08), transparent 70%)`;
+        if (!rect || rectGen !== gridLayoutGen) {
+          rect = parent.getBoundingClientRect();
+          rectGen = gridLayoutGen;
+        }
+        pointerX = e.clientX - rect.left;
+        pointerY = e.clientY - rect.top;
+
+        if (rafId === null) {
+          rafId = requestAnimationFrame(updateGlow);
+          activeRafs.add(rafId);
+        }
       });
 
       parent.addEventListener("mouseleave", () => {
+        if (rafId !== null) {
+          cancelAnimationFrame(rafId);
+          activeRafs.delete(rafId);
+          rafId = null;
+        }
+        rect = null;
         glow.style.opacity = "0";
       });
     });
   }
 
-  document.addEventListener("astro:page-load", initGridPattern);
+  document.addEventListener("astro:before-swap", cleanupGridPattern);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initGridPattern, {
+      once: true,
+    });
+  } else {
+    initGridPattern();
+  }
+  document.addEventListener("astro:after-swap", initGridPattern);
 </script>
