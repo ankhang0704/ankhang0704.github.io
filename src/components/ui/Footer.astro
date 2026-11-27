@@ -192,37 +192,50 @@ const email = "ankhang.nguyen0704@gmail.com";
 
 <script>
   let footerScrollTicking = false;
+  let lastBackToTopVisible: boolean | null = null;
+  let backToTopEl: HTMLElement | null = null;
+
+  function syncBackToTopVisibility() {
+    if (!backToTopEl || !backToTopEl.isConnected) {
+      backToTopEl = document.getElementById("back-to-top");
+    }
+    if (!backToTopEl) return;
+
+    const isVisible = window.scrollY > 400;
+    if (isVisible === lastBackToTopVisible) return;
+    lastBackToTopVisible = isVisible;
+
+    if (isVisible) {
+      backToTopEl.classList.remove(
+        "opacity-0",
+        "translate-y-6",
+        "pointer-events-none"
+      );
+      backToTopEl.classList.add(
+        "opacity-100",
+        "translate-y-0",
+        "pointer-events-auto"
+      );
+      backToTopEl.setAttribute("tabindex", "0");
+    } else {
+      backToTopEl.classList.add(
+        "opacity-0",
+        "translate-y-6",
+        "pointer-events-none"
+      );
+      backToTopEl.classList.remove(
+        "opacity-100",
+        "translate-y-0",
+        "pointer-events-auto"
+      );
+      backToTopEl.setAttribute("tabindex", "-1");
+    }
+  }
+
   function handleFooterScroll() {
     if (!footerScrollTicking) {
       requestAnimationFrame(() => {
-        const backToTop = document.getElementById("back-to-top");
-        if (backToTop) {
-          if (window.scrollY > 400) {
-            backToTop.classList.remove(
-              "opacity-0",
-              "translate-y-6",
-              "pointer-events-none"
-            );
-            backToTop.classList.add(
-              "opacity-100",
-              "translate-y-0",
-              "pointer-events-auto"
-            );
-            backToTop.setAttribute("tabindex", "0");
-          } else {
-            backToTop.classList.add(
-              "opacity-0",
-              "translate-y-6",
-              "pointer-events-none"
-            );
-            backToTop.classList.remove(
-              "opacity-100",
-              "translate-y-0",
-              "pointer-events-auto"
-            );
-            backToTop.setAttribute("tabindex", "-1");
-          }
-        }
+        syncBackToTopVisibility();
         footerScrollTicking = false;
       });
       footerScrollTicking = true;
@@ -236,12 +249,13 @@ const email = "ankhang.nguyen0704@gmail.com";
   }
 
   function initFooter() {
-    const backToTop = document.getElementById("back-to-top");
+    backToTopEl = document.getElementById("back-to-top");
+    lastBackToTopVisible = null;
 
-    handleFooterScroll();
+    syncBackToTopVisibility();
 
-    if (backToTop) {
-      backToTop.onclick = () => {
+    if (backToTopEl) {
+      backToTopEl.onclick = () => {
         window.scrollTo({
           top: 0,
           behavior: window.matchMedia("(prefers-reduced-motion: reduce)")

@@ -29,7 +29,12 @@ const {
 
 <script>
   function initMagneticButtons() {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+    ) {
+      return;
+    }
 
     const buttons = document.querySelectorAll<HTMLElement>(".magnetic-button");
     buttons.forEach((btn) => {

@@ -256,7 +256,7 @@ const links = [
   <div
     id="scroll-progress-bar"
     aria-hidden="true"
-    class="scroll-progress pointer-events-none absolute -bottom-[1px] left-0 right-0 h-[1px] origin-left scale-x-0 bg-black dark:bg-white"
+    class="scroll-progress pointer-events-none absolute -bottom-[1px] left-0 right-0 h-[1px] origin-left bg-black dark:bg-white"
   ></div>
 </header>
 
@@ -386,28 +386,61 @@ const links = [
     }
   }
 
-  let scrollTicking = false;
-  function onWindowScroll() {
-    if (!scrollTicking) {
-      requestAnimationFrame(() => {
-        const progressBar = document.getElementById("scroll-progress-bar");
-        if (progressBar) {
-          const scrollY = window.scrollY;
-          const docHeight =
-            document.documentElement.scrollHeight - window.innerHeight;
-          const progress =
-            docHeight > 0 ? Math.min(1, Math.max(0, scrollY / docHeight)) : 0;
-          progressBar.style.transform = `scaleX(${progress})`;
-        }
-        scrollTicking = false;
-      });
-      scrollTicking = true;
+  const supportsScrollTimeline =
+    typeof CSS !== "undefined" &&
+    typeof CSS.supports === "function" &&
+    CSS.supports("animation-timeline: scroll()") &&
+    CSS.supports("animation-range: 0% 100%");
+
+  let progressBarEl: HTMLElement | null = null;
+  let cachedMaxScroll = 0;
+  let lastScrollProgress = -1;
+
+  function updateScrollProgress() {
+    if (supportsScrollTimeline) return;
+    if (!progressBarEl || !progressBarEl.isConnected) {
+      progressBarEl = document.getElementById("scroll-progress-bar");
+    }
+    if (!progressBarEl) return;
+
+    const scrollY = window.scrollY;
+    const progress =
+      cachedMaxScroll > 0
+        ? Math.min(1, Math.max(0, scrollY / cachedMaxScroll))
+        : 0;
+
+    if (progress !== lastScrollProgress) {
+      lastScrollProgress = progress;
+      progressBarEl.style.transform = `scaleX(${progress})`;
     }
   }
 
-  // Register window scroll listener ONCE globally across view transitions
-  if (typeof window !== "undefined" && !(window as any).__headerScrollBound) {
-    window.addEventListener("scroll", onWindowScroll, { passive: true });
+  function syncScrollMetrics() {
+    if (supportsScrollTimeline) return;
+    progressBarEl = document.getElementById("scroll-progress-bar");
+    cachedMaxScroll = Math.max(
+      0,
+      document.documentElement.scrollHeight - window.innerHeight
+    );
+    lastScrollProgress = -1;
+    updateScrollProgress();
+  }
+
+  // Register fallback scroll & metric listeners ONLY when CSS scroll-timeline is unsupported
+  if (
+    typeof window !== "undefined" &&
+    !supportsScrollTimeline &&
+    !(window as any).__headerScrollBound
+  ) {
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+    window.addEventListener("resize", syncScrollMetrics, { passive: true });
+    window.visualViewport?.addEventListener("resize", syncScrollMetrics, {
+      passive: true,
+    });
+    if (typeof ResizeObserver !== "undefined") {
+      const resizeObserver = new ResizeObserver(syncScrollMetrics);
+      resizeObserver.observe(document.documentElement);
+    }
     (window as any).__headerScrollBound = true;
   }
 
@@ -416,8 +449,8 @@ const links = [
     const themeToggle = document.getElementById("theme-toggle");
     const menuToggleBtn = document.getElementById("mobile-menu-open");
 
-    // Sync scroll progress bar immediately on page load/swap
-    onWindowScroll();
+    // Sync scroll progress bar immediately on page load/swap (fallback path)
+    syncScrollMetrics();
 
     // Guard navbar controls from multi-attachment
     if (navbar && navbar.dataset.initialized !== "true") {

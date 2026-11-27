@@ -31,7 +31,12 @@ const {
 
 <script>
   function initSpotlightCards() {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+    ) {
+      return;
+    }
 
     const cards = document.querySelectorAll<HTMLElement>(".spotlight-card");
     cards.forEach((card) => {

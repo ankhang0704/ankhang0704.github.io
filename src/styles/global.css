@@ -101,10 +101,33 @@ html.dark {
   transform-origin: bottom left;
 }
 
-/* Scroll-linked transform hints */
+/* Scroll-linked progress bar (GPU compositor-driven where supported) */
 .scroll-progress {
+  transform: scaleX(0);
   will-change: transform;
   backface-visibility: hidden;
+  contain: layout style paint;
+}
+
+@keyframes scroll-progress-scale {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@supports (animation-timeline: scroll()) and (animation-range: 0% 100%) {
+  .scroll-progress {
+    animation-name: scroll-progress-scale;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-duration: auto !important;
+    animation-iteration-count: 1 !important;
+    animation-timeline: scroll(root block);
+    animation-range: 0% 100%;
+  }
 }
 
 #navbar {

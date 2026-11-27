@@ -42,10 +42,20 @@ const { class: className = "", size = 40 } = Astro.props;
 
 <script>
   function initGridPattern() {
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+    ) {
+      return;
+    }
+
     const containers = document.querySelectorAll<HTMLElement>(
       ".grid-pattern-container"
     );
     containers.forEach((container) => {
+      if (container.dataset.gridInitialized === "true") return;
+      container.dataset.gridInitialized = "true";
+
       const parent = container.parentElement;
       const glow = container.querySelector<HTMLElement>(".grid-pattern-glow");
       if (!parent || !glow) return;
