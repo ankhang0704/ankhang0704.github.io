@@ -125,18 +125,18 @@ const email = "ankhang.nguyen0704@gmail.com";
       </a>
     </div>
 
-    <!-- Web CV & Download CV Links -->
-    <div class="mt-12 flex flex-wrap justify-center gap-4">
+    <!-- Single Editorial CV Link -->
+    <div class="mt-8 flex justify-center">
       <a
         href={isVi ? "/vi/cv/" : "/cv/"}
         data-astro-prefetch="tap"
-        class="min-h-11 inline-flex items-center gap-2 border border-black dark:border-white px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors duration-200 font-mono"
+        class="hover-underline group min-h-11 inline-flex items-center gap-2 px-3 text-xs font-mono font-bold uppercase tracking-[0.2em] text-black/75 dark:text-white/75 hover:text-black dark:hover:text-white transition-colors duration-200"
       >
-        <span>{isVi ? "Xem Web CV" : "View Web CV"}</span>
+        <span>{isVi ? "Xem CV" : "Resume / CV"}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="14"
-          height="14"
+          width="13"
+          height="13"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -144,41 +144,16 @@ const email = "ankhang.nguyen0704@gmail.com";
           stroke-linecap="round"
           stroke-linejoin="round"
           aria-hidden="true"
+          class="opacity-65 transition-transform duration-200 [@media(hover:hover)_and_(pointer:fine)]:group-hover:translate-x-0.5 [@media(hover:hover)_and_(pointer:fine)]:group-hover:-translate-y-0.5 [@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100"
         >
-          <path d="M5 12h14"></path>
-          <path d="m12 5 7 7-7 7"></path>
-        </svg>
-      </a>
-
-      <a
-        href="/my_cv.pdf"
-        download="Nguyen-An-Khang-CV.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="min-h-11 inline-flex items-center gap-2 border border-black/30 dark:border-white/30 px-6 py-3 text-xs font-bold uppercase tracking-widest hover:border-black dark:hover:border-white transition-colors duration-200 font-mono"
-      >
-        <span>{isVi ? "Tải xuống CV (PDF)" : "Download CV (PDF)"}</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="7 10 12 15 17 10"></polyline>
-          <line x1="12" x2="12" y1="15" y2="3"></line>
+          <path d="M7 17 17 7"></path>
+          <path d="M7 7h10v10"></path>
         </svg>
       </a>
     </div>
 
     <!-- Copyright & Timestamp -->
-    <div class="mt-16 flex flex-col items-center gap-2">
+    <div class="mt-12 flex flex-col items-center gap-2">
       <p class="text-sm font-medium opacity-80 uppercase tracking-widest font-mono">
         © 2026 An Khang
       </p>
