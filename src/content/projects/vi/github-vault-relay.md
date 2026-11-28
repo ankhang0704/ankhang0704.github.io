@@ -4,7 +4,7 @@ code: "PRJ-02"
 category: "tools"
 status: "MÃ NGUỒN MỞ · COMMUNITY"
 year: "2026"
-summary: "Cầu nối đồng bộ GitHub open source, mobile-first cho Obsidian Mobile và desktop, dùng HTTPS API mà không chạy Git trên điện thoại. Sync do người dùng kích hoạt và giữ lại các thay đổi không rõ để review."
+summary: "Plugin Obsidian đồng bộ vault trực tiếp với GitHub qua HTTPS API trên cả Mobile lẫn Desktop, không cần cài Git."
 featured: true
 techStack:
   - "TypeScript"

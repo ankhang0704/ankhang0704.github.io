@@ -4,7 +4,7 @@ code: "PRJ-05"
 category: "tools"
 status: "INTERNAL IT UTILITY"
 year: "2026"
-summary: "Practical Python IT utility for batch IP checking instead of checking addresses manually one by one."
+summary: "Multi-threaded Python utility for batch subnet sweeps, service port checks, and CSV audit exports."
 featured: false
 techStack:
   - "Python 3"

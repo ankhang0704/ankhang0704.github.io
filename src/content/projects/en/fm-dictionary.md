@@ -4,7 +4,7 @@ code: "PRJ-01"
 category: "mobile"
 status: "PRODUCTION · APP STORE"
 year: "2026"
-summary: "Flutter FM vocabulary-learning app with 1,847 terms, a local-first learning core, documented Firebase boundaries, Cloudflare proxy, and pronunciation/STT flows."
+summary: "Offline-first Flutter vocabulary app for Facilities Management, pairing instant local search with edge speech practice."
 featured: true
 techStack:
   - "Flutter"

@@ -4,7 +4,7 @@ code: "PRJ-02"
 category: "tools"
 status: "OPEN SOURCE · RELEASED"
 year: "2026"
-summary: "A conservative, mobile-first GitHub sync bridge for Obsidian Mobile and desktop, using HTTPS APIs without running Git on the phone. User-triggered sync preserves ambiguous changes for review."
+summary: "Mobile-first Obsidian plugin syncing vaults directly with GitHub over HTTPS APIs—no Git CLI or relay server needed."
 featured: true
 techStack:
   - "TypeScript"

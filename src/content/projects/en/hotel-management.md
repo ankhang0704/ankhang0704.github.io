@@ -4,7 +4,7 @@ code: "PRJ-03"
 category: "backend"
 status: "ACADEMIC CAPSTONE"
 year: "2025"
-summary: "Django monolith with server-rendered templates and SQLite for booking, inventory, cancellation, and admin workflows, plus a RAG path using HuggingFace embeddings and FAISS."
+summary: "Django hotel reservation platform handling booking, room inventory, and role-based desk workflows, paired with local FAISS policy Q&A."
 featured: true
 techStack:
   - "Django 5.x"

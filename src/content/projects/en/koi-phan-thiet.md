@@ -4,7 +4,7 @@ code: "PRJ-04"
 category: "web"
 status: "COMMERCIAL CLIENT"
 year: "2026"
-summary: "WordPress collaboration from February to May 2026 covering the website layer, Polylang, multilingual menus across five languages, and page-load/performance optimization."
+summary: "Five-language WordPress dining and venue site built with Polylang, localized menus, and fast mobile page loads."
 featured: false
 techStack:
   - "WordPress"

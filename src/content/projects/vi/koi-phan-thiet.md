@@ -4,7 +4,7 @@ code: "PRJ-04"
 category: "web"
 status: "DỰ ÁN KHÁCH HÀNG"
 year: "2026"
-summary: "Cộng tác WordPress từ tháng 2 đến tháng 5 năm 2026, phụ trách website layer, Polylang, menu đa ngôn ngữ cho năm ngôn ngữ và tối ưu page-load/performance."
+summary: "Website ẩm thực WordPress đa ngôn ngữ (5 thứ tiếng) với Polylang, thực đơn địa phương hóa và tối ưu tốc độ tải trang."
 featured: false
 techStack:
   - "WordPress"

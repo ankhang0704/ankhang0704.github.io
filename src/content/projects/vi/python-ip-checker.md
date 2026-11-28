@@ -4,7 +4,7 @@ code: "PRJ-05"
 category: "tools"
 status: "CÔNG CỤ NỘI BỘ CNTT"
 year: "2026"
-summary: "Tiện ích Python thực tế cho IT, kiểm tra IP theo batch thay vì kiểm tra thủ công từng địa chỉ."
+summary: "Tiện ích Python đa luồng quét dải IP, kiểm tra cổng dịch vụ và xuất báo cáo CSV cho vận hành CNTT."
 featured: false
 techStack:
   - "Python 3"

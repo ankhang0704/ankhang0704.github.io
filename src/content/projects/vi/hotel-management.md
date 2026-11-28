@@ -4,7 +4,7 @@ code: "PRJ-03"
 category: "backend"
 status: "ĐỒ ÁN TỐT NGHIỆP"
 year: "2025"
-summary: "Django monolith với template server-rendered và SQLite cho các luồng đặt phòng, tồn kho, hủy phòng và quản trị; kèm RAG dùng embedding HuggingFace và FAISS."
+summary: "Hệ thống quản lý đặt phòng và tồn kho bằng Django, tích hợp trợ lý RAG tra cứu chính sách nội bộ trên FAISS."
 featured: true
 techStack:
   - "Django 5.x"

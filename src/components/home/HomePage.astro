@@ -110,7 +110,7 @@ const currentPath = isVi ? "/vi/" : "/";
               data-astro-prefetch="tap"
               class="min-h-11 border border-black/30 dark:border-white/30 px-8 py-4 text-sm font-bold uppercase tracking-widest hover:border-black dark:hover:border-white transition-colors duration-200 inline-flex items-center justify-center w-full sm:w-auto text-black dark:text-white font-mono"
             >
-              <span>{isVi ? "Xem Web CV" : "View Resume / CV"}</span>
+              <span>{isVi ? "Xem CV" : "View Resume"}</span>
             </a>
           </MagneticButton>
         </div>
@@ -244,178 +244,186 @@ const currentPath = isVi ? "/vi/" : "/";
       </div>
     </section>
 
-    <!-- Projects Section (Exact Bento Grid - Flat Architectural Aesthetic) -->
+    <!-- Projects Section (Flagship Split + Balanced Two-Column Showcase) -->
     <section
       id="projects"
       data-nav-section="projects"
-      class="scroll-mt-12 relative overflow-x-clip border-y border-black/5 bg-cardLight py-32 dark:border-white/5 dark:bg-cardDark md:py-40 text-black dark:text-white"
+      class="scroll-mt-12 relative overflow-x-clip border-b border-black/10 bg-bgLight py-28 dark:border-white/10 dark:bg-bgDark md:py-36 text-black dark:text-white"
     >
       <div class="container mx-auto px-6 md:px-8">
-        <RevealOnScroll class="mb-12 max-w-3xl md:mb-20">
+        <RevealOnScroll class="mb-12 max-w-3xl md:mb-16">
           <h2 class="font-display text-4xl font-bold md:text-6xl">
             {dict.projects.title}
           </h2>
         </RevealOnScroll>
 
-        <div class="grid grid-cols-1 gap-4 md:grid-cols-12">
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
           {featuredProjects.map((project, index) => {
-            const width =
-              featuredProjects.length === 3
-                ? index === 0
-                  ? "md:col-span-7"
-                  : index === 1
-                    ? "md:col-span-5"
-                    : "md:col-span-12"
-                : index === 0
-                  ? "md:col-span-7"
-                  : index === 1
-                    ? "md:col-span-5"
-                    : "md:col-span-4";
+            const isFlagship = index === 0;
             const caseStudyUrl = isVi
               ? `/vi${project.data.canonicalPath}`
               : project.data.canonicalPath;
-            const statusLabel = project.data.status;
-            const isWide = index === 2 && featuredProjects.length === 3;
+            const keySpecs = (project.data.specs ?? []).slice(0, 3);
 
             return (
               <RevealOnScroll
-                class={`${width} h-full flex flex-col`}
-                delay={index * 100}
+                class={`${isFlagship ? "md:col-span-2" : ""} h-full flex flex-col`}
+                delay={index * 90}
               >
-                <SpotlightCard class="h-full group border border-black/10 bg-cardLight dark:border-white/10 dark:bg-cardDark scroll-mt-24 flex flex-col justify-between hover:border-black dark:hover:border-white transition-colors duration-300">
+                <SpotlightCard class="group h-full border border-black/10 bg-cardLight dark:border-white/10 dark:bg-cardDark scroll-mt-24 hover:border-black dark:hover:border-white transition-colors duration-300">
                   <article
                     id={project.data.code.toLowerCase()}
-                    class="flex flex-col h-full justify-between"
+                    class={
+                      isFlagship
+                        ? "grid grid-cols-1 lg:grid-cols-12 h-full"
+                        : "flex flex-col h-full"
+                    }
                   >
-                    <div>
-                      <!-- Precision Engineering Viewport Header & Image -->
-                      <div class="relative overflow-hidden border-b border-black/10 dark:border-white/10 flex flex-col">
-                        <div class="flex items-center justify-between px-3.5 py-2 border-b border-black/10 dark:border-white/10 bg-cardLight dark:bg-cardDark z-10 text-[10px] font-mono uppercase tracking-wider">
-                          <div class="flex items-center gap-2">
-                            <span class="w-1.5 h-1.5 bg-black dark:bg-white inline-block" />
-                            <span class="opacity-90 font-bold">
+                    {/* Clean Editorial Cover Artwork */}
+                    <a
+                      href={caseStudyUrl}
+                      data-astro-prefetch="tap"
+                      aria-label={project.data.title}
+                      class={
+                        isFlagship
+                          ? "block lg:col-span-7 relative overflow-hidden border-b lg:border-b-0 lg:border-r border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark"
+                          : "block relative overflow-hidden border-b border-black/10 dark:border-white/10 bg-bgLight dark:bg-bgDark"
+                      }
+                    >
+                      <div
+                        class={
+                          isFlagship
+                            ? "aspect-[16/10] lg:h-full w-full overflow-hidden"
+                            : "aspect-[16/10] w-full overflow-hidden"
+                        }
+                      >
+                        {project.data.image ? (
+                          <img
+                            src={project.data.image}
+                            alt={project.data.title}
+                            width="1280"
+                            height="801"
+                            loading={isFlagship ? "eager" : "lazy"}
+                            decoding="async"
+                            class="w-full h-full object-cover transition-transform duration-500 ease-out [@media(hover:hover)_and_(pointer:fine)]:group-hover:scale-[1.03]"
+                          />
+                        ) : (
+                          <div class="flex h-full min-h-[220px] flex-col items-center justify-center gap-2 font-mono text-xs uppercase tracking-[0.25em] opacity-60">
+                            <span class="text-3xl font-bold tracking-tight opacity-75">
                               {project.data.code}
                             </span>
+                            <span>Documented Repository</span>
                           </div>
-                          {statusLabel && (
-                            <span class="opacity-75 tracking-widest">
-                              {statusLabel}
-                            </span>
+                        )}
+                      </div>
+                    </a>
+
+                    {/* Card Content & Single Primary Action */}
+                    <div
+                      class={
+                        isFlagship
+                          ? "lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-8"
+                          : "p-6 sm:p-8 flex-1 flex flex-col justify-between gap-6"
+                      }
+                    >
+                      <div>
+                        <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-xs uppercase tracking-widest opacity-65">
+                          <span class="inline-block w-1.5 h-1.5 bg-current" />
+                          <span class="font-bold opacity-100">
+                            {project.data.code}
+                          </span>
+                          {project.data.status && (
+                            <>
+                              <span aria-hidden="true">·</span>
+                              <span>{project.data.status}</span>
+                            </>
                           )}
                         </div>
 
-                        <div
-                          class={`relative w-full overflow-hidden ${isWide ? "aspect-[16/10] md:aspect-[2.4/1]" : "aspect-[16/10]"}`}
+                        <h3
+                          class={
+                            isFlagship
+                              ? "mt-3 font-display text-3xl sm:text-4xl font-bold tracking-tight"
+                              : "mt-3 font-display text-2xl sm:text-3xl font-bold tracking-tight"
+                          }
                         >
-                          {project.data.image ? (
-                            <img
-                              src={project.data.image}
-                              alt={project.data.title}
-                              width="1280"
-                              height="801"
-                              loading="lazy"
-                              decoding="async"
-                              class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                            />
-                          ) : (
-                            <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 font-mono text-xs uppercase tracking-[0.25em] opacity-60">
-                              <span class="text-3xl font-mono font-bold tracking-tight opacity-75">
-                                {project.data.code}
-                              </span>
-                              <span>Documented Repository</span>
-                            </div>
-                          )}
+                          <a
+                            href={caseStudyUrl}
+                            data-astro-prefetch="tap"
+                            class="hover:underline"
+                          >
+                            {project.data.title}
+                          </a>
+                        </h3>
 
-                          {project.data.specs &&
-                            project.data.specs.length > 0 && (
-                              <div class="absolute bottom-2.5 left-2.5 right-2.5 flex flex-wrap gap-1.5 z-10 pointer-events-none">
-                                {project.data.specs.map((spec) => (
-                                  <span class="bg-black/85 dark:bg-white/95 text-white dark:text-black text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 border border-white/20 dark:border-black/20 font-semibold">
-                                    {spec}
-                                  </span>
-                                ))}
-                              </div>
-                            )}
-                        </div>
+                        <p class="mt-3 max-w-[54ch] text-base font-light leading-relaxed opacity-80">
+                          {project.data.summary}
+                        </p>
+
+                        {keySpecs.length > 0 && (
+                          <ul class="mt-5 pt-4 border-t border-black/10 dark:border-white/10 flex flex-wrap gap-x-4 gap-y-1.5 font-mono text-xs opacity-70">
+                            {keySpecs.map((spec) => (
+                              <li class="inline-flex items-center gap-1.5">
+                                <span
+                                  aria-hidden="true"
+                                  class="w-1 h-1 bg-current opacity-60"
+                                />
+                                <span>{spec}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                       </div>
 
-                      <div class="p-5 md:p-6 flex flex-col">
-                        <div class="flex items-start justify-between gap-5">
-                          <div>
-                            <span class="font-mono text-xs uppercase tracking-widest opacity-60">
-                              {project.data.code} / {project.data.category}
-                            </span>
-                            <h3 class="mt-2 font-display text-2xl font-bold md:text-3xl">
-                              {project.data.title}
-                            </h3>
-                          </div>
+                      <div class="flex flex-wrap items-center gap-4 pt-1">
+                        <a
+                          href={caseStudyUrl}
+                          data-astro-prefetch="tap"
+                          class="min-h-11 inline-flex items-center gap-2.5 border border-black px-5 py-2.5 text-xs font-bold uppercase tracking-widest transition-colors hover:bg-black hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-black font-mono group/cta"
+                        >
+                          <span>{dict.projects.viewCaseStudy}</span>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
+                            width="15"
+                            height="15"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
                             stroke-width="2"
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                            class="opacity-50 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1 flex-shrink-0 mt-2"
+                            class="transition-transform duration-200 [@media(hover:hover)_and_(pointer:fine)]:group-hover/cta:translate-x-1"
                             aria-hidden="true"
                           >
                             <path d="M5 12h14"></path>
                             <path d="m12 5 7 7-7 7"></path>
                           </svg>
-                        </div>
-                        <p class="mt-4 max-w-[65ch] text-base font-light leading-relaxed opacity-80">
-                          {project.data.summary}
-                        </p>
-                      </div>
-                    </div>
+                        </a>
 
-                    <div class="p-5 md:p-6 pt-0 flex flex-wrap gap-3">
-                      <a
-                        href={caseStudyUrl}
-                        class="inline-flex items-center gap-3 border border-black px-5 py-3 text-xs font-bold uppercase tracking-widest transition-colors hover:bg-black hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-black font-mono"
-                      >
-                        {dict.projects.viewCaseStudy}
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          aria-hidden="true"
-                        >
-                          <path d="M5 12h14"></path>
-                          <path d="m12 5 7 7-7 7"></path>
-                        </svg>
-                      </a>
-                      {project.data.externalHref && (
-                        <a
-                          href={project.data.externalHref}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="inline-flex items-center border border-black/30 px-5 py-3 text-xs font-bold uppercase tracking-widest transition-colors hover:border-black dark:border-white/30 dark:hover:border-white font-mono"
-                        >
-                          {project.data.externalLabel ||
-                            dict.projects.viewSource}
-                        </a>
-                      )}
-                      {project.data.secondaryExternalHref && (
-                        <a
-                          href={project.data.secondaryExternalHref}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="inline-flex items-center border border-black/20 px-5 py-3 text-xs font-bold uppercase tracking-widest opacity-80 transition-colors hover:border-black hover:opacity-100 dark:border-white/20 dark:hover:border-white font-mono"
-                        >
-                          {project.data.secondaryExternalLabel ||
-                            dict.projects.viewSource}
-                        </a>
-                      )}
+                        {project.data.externalHref && (
+                          <a
+                            href={project.data.externalHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="min-h-11 inline-flex items-center font-mono text-xs font-medium uppercase tracking-wider opacity-75 hover:opacity-100 hover:underline transition-opacity"
+                          >
+                            {project.data.externalLabel ||
+                              dict.projects.viewSource}
+                          </a>
+                        )}
+
+                        {project.data.secondaryExternalHref && (
+                          <a
+                            href={project.data.secondaryExternalHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="min-h-11 inline-flex items-center font-mono text-xs font-medium uppercase tracking-wider opacity-75 hover:opacity-100 hover:underline transition-opacity"
+                          >
+                            {project.data.secondaryExternalLabel ||
+                              dict.projects.viewSource}
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </article>
                 </SpotlightCard>

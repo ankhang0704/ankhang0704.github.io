@@ -4,7 +4,7 @@ code: "PRJ-01"
 category: "mobile"
 status: "SẢN PHẨM · APP STORE"
 year: "2026"
-summary: "Ứng dụng học từ vựng FM bằng Flutter với 1.847 thuật ngữ, learning core local-first, ranh giới Firebase được ghi nhận, proxy Cloudflare và các luồng phát âm/STT."
+summary: "Ứng dụng Flutter học từ vựng Quản lý Tòa nhà offline-first, kết hợp tra cứu tức thì và luyện phát âm qua edge proxy."
 featured: true
 techStack:
   - "Flutter"
