@@ -5,8 +5,13 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-inter)", "Inter", "sans-serif"],
-        display: ["var(--font-space-grotesk)", "Space Grotesk", "sans-serif"],
+        sans: ["var(--font-inter)", "Inter Variable", "Inter", "sans-serif"],
+        display: [
+          "var(--font-space-grotesk)",
+          "Space Grotesk Variable",
+          "Space Grotesk",
+          "sans-serif",
+        ],
       },
       colors: {
         bgLight: "#fafafa",

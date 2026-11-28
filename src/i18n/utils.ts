@@ -20,45 +20,6 @@ export function getLangFromUrl(url: URL): "en" | "vi" {
   return "en";
 }
 
-export function useTranslations(lang: "en" | "vi") {
-  const dict = dictionaries[lang] || dictionaries[defaultLang];
-  const fallbackDict = dictionaries[defaultLang];
-
-  return function t(key: string): string {
-    const keys = key.split(".");
-    let current: any = dict;
-    for (const k of keys) {
-      if (current && typeof current === "object" && k in current) {
-        current = current[k];
-      } else {
-        current = undefined;
-        break;
-      }
-    }
-
-    if (current !== undefined && typeof current === "string") {
-      return current;
-    }
-
-    // Fallback to default language dictionary
-    let fallback: any = fallbackDict;
-    for (const k of keys) {
-      if (fallback && typeof fallback === "object" && k in fallback) {
-        fallback = fallback[k];
-      } else {
-        fallback = undefined;
-        break;
-      }
-    }
-
-    if (fallback !== undefined && typeof fallback === "string") {
-      return fallback;
-    }
-
-    return key;
-  };
-}
-
 export function getDictionary(lang: "en" | "vi") {
   return dictionaries[lang] || dictionaries[defaultLang];
 }

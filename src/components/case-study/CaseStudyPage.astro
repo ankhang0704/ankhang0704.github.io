@@ -36,7 +36,8 @@ const projectsListHref = isVi ? "/vi/projects/" : "/projects/";
   title={pageTitle}
   description={pageDesc}
   lang={lang}
-  ogImage={project.data.image || "/icon.png"}
+  ogImage={project.data.image || "/og-card.png"}
+  ogImageAlt={pageTitle}
 >
   <Header lang={lang} currentPath={currentPath} />
 

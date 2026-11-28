@@ -1,60 +1,64 @@
-# Portfolio & Header Redesign Handoff — November 2026
+# Portfolio Performance, Safari UX, Web CV & Brand Mark Handoff — November 2026
 
 ## 🎯 Executive Summary
 
-This repository ([`ankhang0704.github.io`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io)) is the personal software engineering portfolio and product landing page for **An Khang** (Software Developer).
+This repository ([`ankhang0704.github.io`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io)) is the personal software engineering portfolio and product showcase for **An Khang** (Software Developer).
 
-In this session, the navigation header and page top rhythm were redesigned end-to-end — adopting the slim `48px` stability inspired by reference review (`https://getartcraft.com/`) while preserving and elevating the portfolio's own monochromatic editorial identity (`Space Grotesk` + `Inter`, square pixel `■` markers, and `.hover-underline` hairline sweeps):
+Across this session (`ccab086`, `153bef4`, and the concluding feature/brand commit), the portfolio underwent a comprehensive mobile performance pass, Safari UX fixes, dark-mode view transition repair, recruiting/shareability upgrades, and a geometric `K■` brand icon refresh:
 
-- **Slim `48.8px` Fixed Architectural Header ([`Header.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Header.astro))**: Replaced the `76px` → `60.8px` padding-jumping navbar with a steady `h-12` (`48px` + `1px` full-bleed `border-b`) bar aligned cleanly to `.container mx-auto px-6 md:px-8`, with `KHANG` (`text-xl`) flush-aligned to Hero `<h1>`.
-- **Distinctive Portfolio Hover & Active Language ([`global.css`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/styles/global.css))**: Dropped boxy CAD borders and inverted block fills in favor of `Inter` (`12px` uppercase) links, a single `h-4 w-px` vertical hairline separator before `[EN/VI]` and `#theme-toggle`, signature `■` (`w-1.5 h-1.5`) square pixel indicators, sweeping `1px` underlines, and a `45°` diagonal `↗` arrow on `Projects`.
-- **`1px` Integrated Scroll Progress Bar & Attached Mobile Dropdown**: Overlaid `#scroll-progress-bar` (`-bottom-[1px] h-[1px]`) directly onto the bottom hairline border, and replaced the blank full-screen mobile overlay with an attached `top-[49px]` dropdown that keeps `#navbar` and the hamburger ↔ `X` toggle pinned at top with focus-trap, `Escape`, and backdrop dismissal.
-- **Synced Page Offsets & Anchor Margins**: Updated top spacing and `scroll-mt-12` across [`HomePage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/home/HomePage.astro), [`ProjectsIndexPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/projects/ProjectsIndexPage.astro), [`CaseStudyPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/CaseStudyPage.astro), and [`404.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/pages/404.astro). Footer freshness remains at **November 2026** (`Updated · November 2026` / `Cập nhật · Tháng 11, 2026`).
+- **Mobile Scroll & Compositor Performance (`ccab086`, `153bef4`)**: Moved `#scroll-progress-bar` onto GPU-native `animation-timeline: scroll(root block)` with cached-metric JS fallback, switched Hero to `min-h-[100svh]` and containers to `overflow-x-clip`, eliminated `applyBaseStyles: true` duplicate Tailwind CSS (~45% reduction), and cleaned View Transition listener/observer/RAF leaks across all interactive components.
+- **Safari Double-Tap Zoom & Dark-Mode White Flash Fixes (`153bef4`)**: Added `touch-action: manipulation`, `pointer-events: none` on header icon/span children, `44px` hit targets, `16px` mobile search inputs, `@media (hover: hover) and (pointer: fine)` hover gating, `astro:before-swap` `.dark` + `#theme-color-meta` preservation, `html`/`::view-transition` backgrounds, `transition:animate="none"` on `#navbar`, and instant above-the-fold rendering on `/projects/`.
+- **Shareability, Printable Web CV, Self-Hosted Fonts & `K■` Brand Mark**:
+  - Generated `1200×630` editorial OG social card ([`og-card.png`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/og-card.png)) and set it as default `ogImage` with `og:image:width`/`height`/`alt` in [`BaseLayout.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/layouts/BaseLayout.astro).
+  - Redesigned [`icon.svg`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/icon.svg) (`555 B`) to the `0px` architectural `K■` mark matching the `KHANG` + `■` header, synced [`icon.png`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/icon.png), [`apple-touch-icon.png`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/apple-touch-icon.png), and compressed [`favicon.ico`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/favicon.ico) (`2,771 B`).
+  - Enabled dedicated bilingual case study routes (`/koi-phan-thiet/`, `/python-ip-checker/`, and `/vi/*` equivalents) and built printable Web CV pages at `/cv/` and `/vi/cv/` ([`CvPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/cv/CvPage.astro)) with A4 `@media print` CSS.
+  - Self-hosted `@fontsource-variable/inter` and `@fontsource-variable/space-grotesk` (zero `fonts.googleapis.com` requests) and pruned unused keys/helpers from [`en.json`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/dictionaries/en.json), [`vi.json`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/dictionaries/vi.json), and [`utils.ts`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/i18n/utils.ts).
 
 ---
 
 ## 1. 📋 Session Summary
 
-- Evaluated the previous `76px` header visually in browser (`1440×900`, `1280×800`, `390×844`) alongside `https://getartcraft.com/`, pinpointing vertical bloat (`py-4` + `min-h-11`), `30px` logo imbalance, scroll height jump, and `2px` progress bar overlap.
-- Built and refined [`Header.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Header.astro) + [`global.css`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/styles/global.css) across two iterations: first adopting a `48px` grid structure, then stripping CAD boxes/inverted fills to preserve KHANG's own `Space Grotesk` + `Inter` editorial restraint, `■` markers, `.hover-underline`, and `ClientRouter` 0ms language/theme transitions.
-- Verified rendered output in Chromium across Desktop (`1440×900`, dark/light, `scrollY = 0` & `500`, `/`, `/projects/`), Tablet (`768×1024`, `/vi/` single-row fit with zero wrapping), and Mobile (`390×844`, closed bar + open dropdown).
+- Replaced JS `rAF` scroll progress calculation with CSS Scroll-Driven Animations + non-thrashing fallback (`ccab086`).
+- Executed a multi-agent `/swarm` audit (`safari-transitions`, `runtime-perf`, `assets-arch`, `verifier`) and landed 21 fixes across core layout, runtime islands, pages, `404.astro`, `_redirects`, and removed duplicate `public/fm-offline-architecture.webp` (`153bef4`).
+- Built `public/og-card.png`, enabled `/koi-phan-thiet/` & `/python-ip-checker/` case studies, added `/cv/` & `/vi/cv/` printable Web CV, migrated Google Fonts to self-hosted `@fontsource-variable/*`, cleaned `i18n` dictionaries, and replaced the squircle `AK` icon with the `0px` `K■` brand mark across SVG/PNG/ICO/OG assets.
 
 ---
 
 ## 2. 🚦 Current State
 
-- **Branch**: `main`
-- **Latest Code Commit**: `ab52d3c` — `refactor(header): redesign slim 48px editorial header with signature pixel markers` (preceded by `2c49d38`, `f810f2f`, `74fc517`, `585fbec`).
+- **Branch**: `main` (pushed with `origin/main`).
+- **Recent Commits**: `ccab086` (GPU scroll progress), `153bef4` (Safari zoom, dark-mode swap flash, duplicate CSS & runtime leaks), followed by the current session-closing commit.
 - **Build & Quality Assurance**:
-  - `npm run lint` (`astro check`): **0 errors, 0 warnings, 0 hints** across all 28 files.
-  - `npm run build` (`astro build`): **11 static pages** compiled cleanly in `3.42s` to [`dist/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/dist/).
-  - **Pre-commit Hooks**: Husky + `lint-staged` (Prettier + `astro check`) verified passing on commit `ab52d3c`.
+  - `npm run lint` (`astro check`): **0 errors, 0 warnings, 0 hints** across **31 files**.
+  - `npm run build` (`astro build`): **17 static pages** compiled cleanly in `8.88s` to [`dist/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/dist/) (`/`, `/cv/`, `/projects/`, 5 case studies, `/vi/*` equivalents, and `/404.html`, plus `dist/sitemap-0.xml` with 16 canonical URLs).
+  - **Pre-commit Hooks**: Husky + `lint-staged` (Prettier + `astro check`).
 
 ---
 
 ## 3. 🚧 In Progress
 
-None. All header redesign, page offset adjustments, and build/browser verifications are complete.
+None. All planned implementation, formatting, lint, and build checks are complete.
 
 ---
 
 ## 4. ✅ Next Steps
 
-1. **Production Verification**:
-   - Verify the live Cloudflare Pages deployment at `https://ankhang0704.pages.dev/` once `origin/main` builds, checking the `48.8px` header and mobile dropdown on real devices.
-2. **Future Enhancements (Optional)**:
-   - Explore Cloudflare Pages Functions for an edge contact form or lightweight privacy-friendly telemetry if desired.
+1. **Live Production & Mobile Verification (`https://ankhang0704.pages.dev/`)**:
+   - Confirm Safari iOS double-tap no longer zooms `#navbar` controls, dark-mode `/` → `/projects/` transitions have no white flash, `K■` favicon/Apple Touch Icon updates properly, and `/cv/` prints cleanly to A4 PDF.
+   - Verify Open Graph social preview card (`og-card.png` `1200×630`) via LinkedIn/Facebook/Zalo sharing debuggers.
+2. **Performance Benchmark (Optional)**:
+   - Run PageSpeed Insights / Lighthouse on `/` and `/fm-dictionary/` to inspect live Core Web Vitals after self-hosted font migration.
+3. **Future Content/Edge Enhancements (Optional)**:
+   - Add `/notes/` engineering articles or Cloudflare Pages Functions contact handler if needed later.
 
 ---
 
 ## 5. 📂 Key Files Touched
 
-- [`src/components/ui/Header.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Header.astro): Slim `48px` fixed header, `■` + underline nav states, `1px` scroll progress bar, and attached mobile dropdown with `ClientRouter` lifecycle bindings.
-- [`src/styles/global.css`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/styles/global.css): Inset `#navbar :where(a, button):focus-visible` outline, updated `.hover-underline` sweep, mobile menu toggle rules, and removal of unused `.glass-nav` CSS.
-- [`src/components/home/HomePage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/home/HomePage.astro): Adjusted Hero top padding (`pt-16 pb-8`) and section anchor offsets (`scroll-mt-12`).
-- [`src/components/projects/ProjectsIndexPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/projects/ProjectsIndexPage.astro): Adjusted top padding (`pt-32` → `pt-24`).
-- [`src/components/case-study/CaseStudyPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/CaseStudyPage.astro): Adjusted top padding (`pt-28` → `pt-20`).
-- [`src/pages/404.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/pages/404.astro): Adjusted top padding (`pt-24` → `pt-20`).
+- **Brand, OG & Icons**: [`public/icon.svg`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/icon.svg), [`public/icon.png`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/icon.png), [`public/apple-touch-icon.png`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/apple-touch-icon.png), [`public/favicon.ico`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/favicon.ico), [`public/og-card.png`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/og-card.png).
+- **Web CV & Case Studies**: [`src/components/cv/CvPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/cv/CvPage.astro), [`src/pages/cv/index.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/pages/cv/index.astro), [`src/pages/vi/cv/index.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/pages/vi/cv/index.astro), [`src/content/projects/en/koi-phan-thiet.md`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/content/projects/en/koi-phan-thiet.md), [`src/content/projects/vi/koi-phan-thiet.md`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/content/projects/vi/koi-phan-thiet.md), [`src/content/projects/en/python-ip-checker.md`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/content/projects/en/python-ip-checker.md), [`src/content/projects/vi/python-ip-checker.md`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/content/projects/vi/python-ip-checker.md).
+- **Core Layout, Fonts, i18n & Links**: [`package.json`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/package.json), [`package-lock.json`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/package-lock.json), [`tailwind.config.js`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/tailwind.config.js), [`src/layouts/BaseLayout.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/layouts/BaseLayout.astro), [`src/styles/global.css`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/styles/global.css), [`src/components/home/HomePage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/home/HomePage.astro), [`src/components/ui/Footer.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Footer.astro), [`src/components/case-study/CaseStudyPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/case-study/CaseStudyPage.astro), [`src/dictionaries/en.json`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/dictionaries/en.json), [`src/dictionaries/vi.json`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/dictionaries/vi.json), [`src/i18n/utils.ts`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/i18n/utils.ts).
+- **Earlier Session Commits (`ccab086`, `153bef4`)**: [`astro.config.mjs`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/astro.config.mjs), [`public/_redirects`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/public/_redirects), [`src/components/ui/Header.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/ui/Header.astro), [`src/components/projects/ProjectsIndexPage.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/components/projects/ProjectsIndexPage.astro), [`src/pages/404.astro`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/src/pages/404.astro), and interactive/UI islands under `src/components/`.
 
 ---
 
@@ -68,8 +72,9 @@ None.
 
 Verified skills available in [`.agents/skills/`](file:///c:/Users/Admin/Documents/Github/ankhang0704.github.io/.agents/skills/):
 
-- `start`: Resume work cleanly from this handoff document in a new session.
-- `improve-codebase-architecture`: Audit layout, typography, and responsive design consistency.
-- `taste-skill`: Review editorial restraint, typography hierarchy, and anti-slop guidelines.
-- `checklist-design`: Verify accessibility and interaction patterns against design system checklists.
-- `setup-pre-commit`: Maintain Husky and lint-staged git hooks.
+- `start`: Resume cleanly from this handoff in the next session.
+- `handoff`: Capture updated session state at wrap-up.
+- `improve-codebase-architecture`: Audit layout, responsiveness, and rendering performance.
+- `taste-skill`: Maintain editorial typography, contrast, and anti-slop restraint.
+- `checklist-design`: Verify UI completeness and accessibility checklists.
+- `setup-pre-commit`: Maintain Husky and `lint-staged` commit gates.

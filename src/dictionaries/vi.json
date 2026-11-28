@@ -1,26 +1,11 @@
 {
-  "nav": {
-    "summary": "Tóm tắt",
-    "skills": "Kỹ năng",
-    "projects": "Nổi bật",
-    "timeline": "Kinh nghiệm",
-    "allProjects": "Dự án",
-    "features": "Tính năng",
-    "gallery": "Màn hình",
-    "tech": "Công nghệ",
-    "download": "Tải xuống"
-  },
   "hero": {
     "subtitle": "Software Developer xây dựng sản phẩm web, mobile và công cụ tự động hóa, với kinh nghiệm hỗ trợ CNTT thực tế.",
-    "viewProjects": "Xem dự án chọn lọc",
-    "downloadCV": "Tải xuống CV"
+    "viewProjects": "Xem dự án chọn lọc"
   },
   "about": {
-    "label": "Định vị ngắn",
     "title": "Web, mobile & tự động hóa.",
     "lead": "Tôi xây dựng phần mềm thực tế với góc nhìn của một developer và bối cảnh vận hành từ kinh nghiệm hỗ trợ CNTT.",
-    "p1": "Công việc của tôi trải rộng từ ứng dụng web, sản phẩm mobile đến những công cụ tự động hóa nhỏ giúp các công việc lặp lại dễ hiểu và dễ hoàn thành hơn.",
-    "p2": "Tôi ưu tiên phạm vi rõ ràng, công cụ phù hợp và phần mềm vẫn hữu ích sau khi bản demo kết thúc.",
     "hospital": "Bệnh viện Mắt Bình Thuận",
     "hospitalRole": "IT Helpdesk",
     "degree": "Cử nhân Công nghệ Thông tin",
@@ -31,90 +16,22 @@
     "tag2": "Tự động hóa + Hỗ trợ CNTT"
   },
   "skills": {
-    "label": "Năng lực",
     "title": "Công cụ cho phần mềm hữu ích",
     "devTitle": "Web & Mobile",
-    "devDesc": "Xây dựng trải nghiệm web và mobile tập trung với Django, Flutter, Python và những công cụ phù hợp với nhu cầu thực tế của dự án.",
     "cloudTitle": "Tự động hóa & Dữ liệu",
-    "cloudDesc": "Kết nối quy trình thực tế với Firebase, dữ liệu local, ranh giới dịch vụ rõ ràng và các công cụ tự động hóa nhẹ.",
     "infraTitle": "Hỗ trợ CNTT",
-    "infraDesc": "Kinh nghiệm hỗ trợ thực tế giúp tôi điều tra sự cố, giao tiếp rõ ràng và duy trì hoạt động công nghệ hằng ngày.",
-    "stackLabel": "Công nghệ & dự án áp dụng",
     "supportLabel": "Thực hành hỗ trợ"
   },
   "projects": {
-    "label": "Nổi bật",
     "title": "Dự án với phạm vi rõ ràng",
     "viewCaseStudy": "Xem case study",
-    "viewSource": "Xem mã nguồn",
-    "items": {
-      "fmDictionary": {
-        "type": "SẢN PHẨM",
-        "status": "ĐÃ GHI NHẬN",
-        "category": "Products",
-        "title": "FM Dictionary",
-        "desc": "Ứng dụng học từ vựng FM bằng Flutter với 1.847 thuật ngữ, learning core local-first, ranh giới Firebase được ghi nhận, proxy Cloudflare và các luồng phát âm/STT."
-      },
-      "githubVaultRelay": {
-        "type": "OPEN SOURCE",
-        "status": "Obsidian Community Plugin · Open Source",
-        "category": "Open Source",
-        "title": "GitHub Vault Relay",
-        "desc": "Cầu nối đồng bộ GitHub open source, mobile-first cho Obsidian Mobile và desktop, dùng HTTPS API mà không chạy Git trên điện thoại. Sync do người dùng kích hoạt và giữ lại các thay đổi không rõ để review."
-      },
-      "hotelManagement": {
-        "type": "ĐỒ ÁN HỌC THUẬT",
-        "status": "ĐÃ HOÀN THÀNH",
-        "category": "Academic",
-        "title": "Hotel Management",
-        "desc": "Django monolith với template server-rendered và SQLite cho các luồng đặt phòng, tồn kho, hủy phòng và quản trị; kèm RAG dùng embedding HuggingFace và FAISS."
-      },
-      "koiPhanThiet": {
-        "type": "CLIENT / COLLABORATION",
-        "status": "ĐÃ HOÀN THÀNH",
-        "category": "Client / Collaboration",
-        "title": "KOI Phan Thiết",
-        "desc": "Cộng tác WordPress từ tháng 2 đến tháng 5 năm 2026, phụ trách website layer, Polylang, menu đa ngôn ngữ cho năm ngôn ngữ và tối ưu page-load/performance."
-      },
-      "pythonIpChecker": {
-        "type": "TOOLS / AUTOMATION",
-        "status": "UTILITY",
-        "category": "Tools / Automation",
-        "title": "Python IP Checker",
-        "desc": "Tiện ích Python thực tế cho IT, kiểm tra IP theo batch thay vì kiểm tra thủ công từng địa chỉ."
-      }
-    }
+    "viewSource": "Xem mã nguồn"
   },
   "timeline": {
-    "label": "Hành trình nghề nghiệp",
-    "title": "Kinh nghiệm",
-    "items": {
-      "hospital": {
-        "role": "IT Helpdesk · Bệnh viện Mắt Bình Thuận",
-        "desc": "Trực tiếp hỗ trợ người dùng, duy trì hạ tầng thiết bị và xử lý sự cố công nghệ hằng ngày trong môi trường bệnh viện."
-      },
-      "sojo": {
-        "role": "IT Support / IT Operations · SOJO",
-        "desc": "Hỗ trợ kỹ thuật người dùng, vận hành thiết bị ngoại vi và chuẩn hóa quy trình dịch vụ CNTT tại đơn vị."
-      },
-      "sailingBay": {
-        "role": "IT Internship · The Sailing Bay",
-        "desc": "Thực tập vận hành hệ thống mạng, kiểm tra thiết bị phòng ban và tiếp nhận yêu cầu hỗ trợ kỹ thuật."
-      },
-      "degree": {
-        "role": "Cử nhân Công nghệ Thông tin · Đại học",
-        "desc": "Chương trình đào tạo chính quy tập trung vào kỹ thuật phát triển phần mềm, ứng dụng di động và kiến trúc hệ thống thông tin."
-      }
-    }
+    "title": "Kinh nghiệm"
   },
   "allProjects": {
-    "label": "Danh mục dự án",
     "title": "Xem tất cả dự án",
-    "desc": "Xem toàn bộ dự án theo các nhóm sản phẩm, open source, cộng tác khách hàng, công cụ và học thuật.",
     "cta": "Mở danh mục dự án"
-  },
-  "footer": {
-    "letsTalk": "Bắt Đầu.",
-    "updated": "Cập nhật · Tháng 11, 2026"
   }
 }

@@ -1,26 +1,11 @@
 {
-  "nav": {
-    "summary": "Summary",
-    "skills": "Skills",
-    "projects": "Work",
-    "timeline": "Experience",
-    "allProjects": "Projects",
-    "features": "Features",
-    "gallery": "Gallery",
-    "tech": "Tech Stack",
-    "download": "Download"
-  },
   "hero": {
     "subtitle": "Software Developer building web, mobile, and automation tools, with hands-on IT support experience.",
-    "viewProjects": "View Selected Work",
-    "downloadCV": "Download CV"
+    "viewProjects": "View Selected Work"
   },
   "about": {
-    "label": "Summary",
     "title": "Web, mobile & automation.",
     "lead": "I build practical software with a developer's perspective and the operational context of hands-on IT support.",
-    "p1": "My work spans web applications, mobile products, and small automation tools that make recurring work easier to understand and complete.",
-    "p2": "I prefer clear scope, appropriate tools, and software that remains useful after the demo is over.",
     "hospital": "Binh Thuan Eye Hospital",
     "hospitalRole": "IT Helpdesk",
     "degree": "B.S. in Information Technology",
@@ -31,90 +16,22 @@
     "tag2": "Automation + IT Support"
   },
   "skills": {
-    "label": "Capabilities",
     "title": "Tools for useful software",
     "devTitle": "Web & Mobile",
-    "devDesc": "Building focused web and mobile experiences with Django, Flutter, Python, and the surrounding tools a project actually needs.",
     "cloudTitle": "Automation & Data",
-    "cloudDesc": "Connecting practical workflows with Firebase, local data, documented service boundaries, and lightweight automation.",
     "infraTitle": "IT Support",
-    "infraDesc": "Hands-on support experience informs how I investigate issues, communicate clearly, and keep everyday technology moving.",
-    "stackLabel": "Technologies & applied work",
     "supportLabel": "Support practice"
   },
   "projects": {
-    "label": "Work",
     "title": "Projects with a clear scope",
     "viewCaseStudy": "View Case Study",
-    "viewSource": "View Source",
-    "items": {
-      "fmDictionary": {
-        "type": "PRODUCT",
-        "status": "DOCUMENTED",
-        "category": "Products",
-        "title": "FM Dictionary",
-        "desc": "Flutter FM vocabulary-learning app with 1,847 terms, a local-first learning core, documented Firebase boundaries, Cloudflare proxy, and pronunciation/STT flows."
-      },
-      "githubVaultRelay": {
-        "type": "OPEN SOURCE",
-        "status": "Obsidian Community Plugin · Open Source",
-        "category": "Open Source",
-        "title": "GitHub Vault Relay",
-        "desc": "A conservative, mobile-first GitHub sync bridge for Obsidian Mobile and desktop, using HTTPS APIs without running Git on the phone. User-triggered sync preserves ambiguous changes for review."
-      },
-      "hotelManagement": {
-        "type": "ACADEMIC CAPSTONE",
-        "status": "COMPLETED",
-        "category": "Academic",
-        "title": "Hotel Management",
-        "desc": "Django monolith with server-rendered templates and SQLite for booking, inventory, cancellation, and admin workflows, plus a RAG path using HuggingFace embeddings and FAISS."
-      },
-      "koiPhanThiet": {
-        "type": "CLIENT / COLLABORATION",
-        "status": "COMPLETED",
-        "category": "Client / Collaboration",
-        "title": "KOI Phan Thiết",
-        "desc": "WordPress collaboration from February to May 2026 covering the website layer, Polylang, multilingual menus across five languages, and page-load/performance optimization."
-      },
-      "pythonIpChecker": {
-        "type": "TOOLS / AUTOMATION",
-        "status": "UTILITY",
-        "category": "Tools / Automation",
-        "title": "Python IP Checker",
-        "desc": "Practical Python IT utility for batch IP checking instead of checking addresses manually one by one."
-      }
-    }
+    "viewSource": "View Source"
   },
   "timeline": {
-    "label": "Career path",
-    "title": "Experience",
-    "items": {
-      "hospital": {
-        "role": "IT Helpdesk · Binh Thuan Eye Hospital",
-        "desc": "Hands-on end-user support, device infrastructure maintenance, and day-to-day issue resolution in a hospital environment."
-      },
-      "sojo": {
-        "role": "IT Support / IT Operations · SOJO",
-        "desc": "Technical user support, peripheral hardware operations, and IT service workflow coordination."
-      },
-      "sailingBay": {
-        "role": "IT Internship · The Sailing Bay",
-        "desc": "Network operations, departmental workstation maintenance, and tier-1 technical support intake."
-      },
-      "degree": {
-        "role": "B.S. Information Technology · University",
-        "desc": "Degree curriculum focused on software engineering, mobile application development, and information systems architecture."
-      }
-    }
+    "title": "Experience"
   },
   "allProjects": {
-    "label": "Project index",
     "title": "View all projects",
-    "desc": "Browse the complete project list across products, open source, client collaboration, tools, and academic work.",
     "cta": "Open project index"
-  },
-  "footer": {
-    "letsTalk": "Let's Talk.",
-    "updated": "Updated · November 2026"
   }
 }

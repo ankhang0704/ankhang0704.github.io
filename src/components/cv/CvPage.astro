@@ -1,0 +1,428 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../ui/Header.astro";
+import Footer from "../ui/Footer.astro";
+import GridPattern from "../ui/GridPattern.astro";
+
+interface Props {
+  lang: "en" | "vi";
+}
+
+const { lang } = Astro.props;
+const isVi = lang === "vi";
+const currentPath = isVi ? "/vi/cv/" : "/cv/";
+const homeHref = isVi ? "/vi/" : "/";
+
+const pageTitle = isVi
+  ? "CV / Hồ sơ năng lực | Nguyễn An Khang"
+  : "CV / Resume | Nguyen An Khang";
+
+const pageDesc = isVi
+  ? "Hồ sơ năng lực (Web CV) chuẩn in của Nguyễn An Khang — Software Developer (Flutter, Django, Python, Cloudflare Workers, IT Support)."
+  : "Printable Web CV of Nguyen An Khang — Software Developer building mobile, web, and automation tools with hands-on IT support experience.";
+
+const skillGroups = [
+  {
+    label: isVi ? "Phát triển phần mềm" : "Software Development",
+    value:
+      "Flutter / Dart, Python / Django, TypeScript / JavaScript, WordPress / Polylang",
+  },
+  {
+    label: isVi ? "Dữ liệu & Dịch vụ" : "Data & Services",
+    value: "Firebase, Cloudflare Workers, Hive, SQLite, REST APIs, Git, GitHub",
+  },
+  {
+    label: isVi ? "Hỗ trợ CNTT" : "IT Support",
+    value: isVi
+      ? "Windows, xử lý sự cố phần cứng/phần mềm, máy in & thiết bị ngoại vi, kết nối LAN"
+      : "Windows, hardware/software troubleshooting, printers/peripherals, LAN connectivity",
+  },
+];
+
+const experience = [
+  {
+    org: isVi ? "Bệnh viện Mắt Bình Thuận" : "Binh Thuan Eye Hospital",
+    role: "IT Helpdesk",
+    period: isVi ? "04/2026 — Hiện tại" : "04/2026 — Present",
+    location: isVi ? "Phan Thiết, Bình Thuận" : "Phan Thiet, Binh Thuan",
+    bullets: isVi
+      ? [
+          "Hỗ trợ CNTT hằng ngày cho 30–50 nhân sự bệnh viện, xử lý sự cố máy trạm Windows, máy in và phần mềm nghiệp vụ.",
+          "Duy trì kết nối mạng ổn định và vận hành thiết bị ngoại vi tại các khoa lâm sàng và phòng hành chính.",
+        ]
+      : [
+          "Provided day-to-day IT support for 30–50 hospital staff, resolving issues across Windows workstations, printers, and business applications.",
+          "Maintained reliable connectivity and peripheral operations across clinical and administrative departments.",
+        ],
+  },
+  {
+    org: "SOJO",
+    role: "IT Support / IT Operations",
+    period: "01/2026 — 03/2026",
+    location: isVi ? "Phan Thiết, Bình Thuận" : "Phan Thiet, Binh Thuan",
+    bullets: isVi
+      ? [
+          "Hỗ trợ kỹ thuật cho 30–50 nhân sự về máy trạm, máy in, ứng dụng nội bộ và kết nối mạng LAN.",
+          "Phối hợp với nhà cung cấp bên ngoài xử lý sự cố phần cứng/phần mềm, giảm thiểu thời gian gián đoạn vận hành.",
+        ]
+      : [
+          "Delivered IT support for 30–50 staff, covering workstations, printers, internal applications, and LAN connectivity.",
+          "Coordinated with external vendors to resolve hardware and software issues, minimizing operational downtime.",
+        ],
+  },
+  {
+    org: "The Sailing Bay",
+    role: "IT Internship",
+    period: "08/2025 — 11/2025",
+    location: isVi ? "Mũi Né, Phan Thiết" : "Mui Ne, Phan Thiet",
+    bullets: isVi
+      ? [
+          "Hỗ trợ xử lý sự cố phần cứng/phần mềm và kết nối mạng LAN giữa các bộ phận khách sạn.",
+          "Tham gia cấu hình Access Point, thiết bị VoIP ngoại vi và hỗ trợ vận hành phần mềm quản lý khách sạn (PMS).",
+        ]
+      : [
+          "Supported hardware/software issues and LAN connectivity across hotel departments.",
+          "Assisted with access point configuration, VoIP peripheral setup, and Property Management System (PMS) onboarding.",
+        ],
+  },
+];
+
+const projects = [
+  {
+    name: "FM Dictionary",
+    stack: "Flutter, Dart, Hive, Firebase, Cloudflare Workers",
+    period: isVi ? "03/2026 — Hiện tại" : "03/2026 — Present",
+    href: isVi ? "/vi/fm-dictionary/" : "/fm-dictionary/",
+    bullets: isVi
+      ? [
+          "Phát triển và phát hành ứng dụng học từ vựng Flutter (iOS & Android) với 1.847 thuật ngữ Quản lý Tòa nhà (FM), lõi tra cứu offline-first và flashcard lặp lại ngắt quãng.",
+          "Triển khai proxy biên Cloudflare Workers cho luồng STT/TTS có xác thực, giữ toàn bộ API key tách khỏi thiết bị người dùng.",
+        ]
+      : [
+          "Developed and shipped a production Flutter vocabulary app (iOS & Android) with 1,847 FM terms, local-first offline learning, and spaced-repetition flashcards.",
+          "Implemented a Cloudflare Workers edge proxy for authenticated STT/TTS calls, keeping all API keys off the client device.",
+        ],
+  },
+  {
+    name: "GitHub Vault Relay",
+    stack: "TypeScript, Obsidian Plugin API, GitHub REST/Git Data API",
+    period: isVi ? "09/2026 — Hiện tại" : "09/2026 — Present",
+    href: isVi ? "/vi/github-vault-relay/" : "/github-vault-relay/",
+    bullets: isVi
+      ? [
+          "Xây dựng và phát hành plugin mã nguồn mở Obsidian Community Plugin (v1.2.1), đồng bộ vault qua GitHub trên Mobile & Desktop không cần cài Git trên thiết bị.",
+        ]
+      : [
+          "Built and published an open-source Obsidian Community Plugin (v1.2.1) providing GitHub-backed vault sync across Mobile and Desktop without requiring Git on the device.",
+        ],
+  },
+  {
+    name: "Hotel Management",
+    stack: "Django, SQLite, HuggingFace + FAISS, Groq, LlamaCpp/Phi-4",
+    period: "09/2025 — 11/2025",
+    href: isVi ? "/vi/hotel-management/" : "/hotel-management/",
+    bullets: isVi
+      ? [
+          "Phát triển đồ án tốt nghiệp Django xử lý đặt phòng, kiểm tra tồn phòng, hủy phòng và phân quyền quản trị trên SQLite cùng 6 test tập trung.",
+          "Xây dựng nhánh tra cứu RAG dùng embedding HuggingFace và FAISS, hỗ trợ cả Groq cloud và suy luận cục bộ LlamaCpp/Phi-4.",
+        ]
+      : [
+          "Developed an academic Django capstone covering SQLite booking, inventory, cancellation, and admin workflow with six focused tests.",
+          "Built a RAG path using HuggingFace embeddings and FAISS, supporting both Groq cloud and optional local LlamaCpp/Phi-4 inference.",
+        ],
+  },
+  {
+    name: "KOI Phan Thiết",
+    stack: "WordPress, Polylang, PHP, CSS3",
+    period: "02/2026 — 05/2026",
+    href: isVi ? "/vi/koi-phan-thiet/" : "/koi-phan-thiet/",
+    bullets: isVi
+      ? [
+          "Cộng tác phát triển website thương mại WordPress 5 ngôn ngữ với Polylang, menu ẩm thực đa ngôn ngữ và tối ưu tốc độ tải trang.",
+        ]
+      : [
+          "Collaborated on a 5-language WordPress site, implementing Polylang multilingual menus and page-load optimizations.",
+        ],
+  },
+  {
+    name: "Python IP Checker",
+    stack: "Python 3, Socket API, Threading, CSV Export",
+    period: "2026",
+    href: isVi ? "/vi/python-ip-checker/" : "/python-ip-checker/",
+    bullets: isVi
+      ? [
+          "Xây dựng tiện ích Python đa luồng quét dải IP, kiểm tra cổng dịch vụ (DNS, HTTP, SMB, RDP) và xuất báo cáo CSV phục vụ vận hành CNTT.",
+        ]
+      : [
+          "Built a multi-threaded Python utility for batch subnet scanning, port reachability probes (DNS, HTTP, SMB, RDP), and timestamped CSV reporting.",
+        ],
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDesc} lang={lang}>
+  <Header lang={lang} currentPath={currentPath} />
+
+  <main
+    id="main-content"
+    class="min-h-screen pt-20 pb-24 print:pt-0 print:pb-0 relative overflow-x-clip bg-bgLight dark:bg-bgDark print:bg-white text-black dark:text-white print:text-black"
+  >
+    <GridPattern />
+
+    <div class="container mx-auto px-6 md:px-8 relative z-10 max-w-4xl print:max-w-none print:px-0">
+      <!-- Top Controls Bar (Hidden when printing) -->
+      <div class="print:hidden flex flex-wrap items-center justify-between gap-3 mb-8 pb-5 border-b border-black/10 dark:border-white/10 text-xs font-mono">
+        <a
+          href={homeHref}
+          class="min-h-11 inline-flex items-center gap-2 hover:opacity-65 transition-opacity font-bold uppercase tracking-widest"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m15 18-6-6 6-6"></path>
+          </svg>
+          <span>{isVi ? "Về trang chủ" : "Back to Portfolio"}</span>
+        </a>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            id="print-cv-btn"
+            class="min-h-11 inline-flex items-center gap-2 border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black px-5 py-2.5 text-xs font-bold uppercase tracking-widest hover:opacity-85 transition-opacity"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+              <rect width="12" height="8" x="6" y="14"></rect>
+            </svg>
+            <span>{isVi ? "In / Lưu PDF" : "Print / Save PDF"}</span>
+          </button>
+
+          <a
+            href="/my_cv.pdf"
+            download="Nguyen-An-Khang-CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="min-h-11 inline-flex items-center gap-2 border border-black/30 dark:border-white/30 px-5 py-2.5 text-xs font-bold uppercase tracking-widest hover:border-black dark:hover:border-white transition-colors"
+          >
+            <span>{isVi ? "Tải PDF gốc" : "Download PDF"}</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Editorial Printable Resume Sheet -->
+      <article class="border border-black/15 dark:border-white/15 bg-cardLight dark:bg-cardDark p-6 sm:p-10 md:p-14 space-y-10 print:border-0 print:bg-white print:p-0 print:space-y-6">
+        <!-- Resume Header -->
+        <header class="border-b-2 border-black dark:border-white print:border-black pb-6 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <p class="font-mono text-xs uppercase tracking-[0.25em] opacity-65 mb-2">
+                {isVi ? "Hồ sơ năng lực // 2026" : "Curriculum Vitae // 2026"}
+              </p>
+              <h1 class="font-display text-3xl sm:text-5xl font-bold tracking-tight">
+                {isVi ? "NGUYỄN AN KHANG" : "NGUYEN AN KHANG"}
+              </h1>
+              <p class="font-display text-lg sm:text-xl font-medium opacity-80 mt-1">
+                Software Developer
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-x-5 gap-y-2 text-xs font-mono opacity-85 pt-2">
+            <span>{isVi ? "Lâm Đồng, Việt Nam" : "Lam Dong, Vietnam"}</span>
+            <a href="tel:+84946754751" class="hover:underline">
+              +84 946 754 751
+            </a>
+            <a
+              href="mailto:ankhang.nguyen0704@gmail.com"
+              class="hover:underline"
+            >
+              ankhang.nguyen0704@gmail.com
+            </a>
+            <a href="https://ankhang0704.pages.dev/" class="hover:underline">
+              ankhang0704.pages.dev
+            </a>
+            <a
+              href="https://github.com/ankhang0704"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:underline"
+            >
+              github.com/ankhang0704
+            </a>
+            <a
+              href="https://www.linkedin.com/in/ankhang0704/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hover:underline"
+            >
+              linkedin.com/in/ankhang0704
+            </a>
+          </div>
+        </header>
+
+        <!-- Objective -->
+        <section class="space-y-2.5 print:break-inside-avoid">
+          <h2 class="font-mono text-xs font-bold uppercase tracking-[0.22em] border-b border-black/15 dark:border-white/15 print:border-black/25 pb-1.5">
+            {isVi ? "Mục tiêu nghề nghiệp" : "Objective"}
+          </h2>
+          <p class="text-sm sm:text-base font-light leading-relaxed opacity-90">
+            {isVi
+              ? "Software Developer có kinh nghiệm thực tế trong việc xây dựng và phát hành sản phẩm mobile, web và công cụ tự động hóa — mong muốn đóng góp năng lực kỹ thuật thực chiến trong một đội ngũ sản phẩm chuyên nghiệp."
+              : "Software Developer with hands-on experience building and shipping mobile, web, and automation tools — seeking opportunities to contribute practical engineering skills in a collaborative product team."}
+          </p>
+        </section>
+
+        <!-- Technical Skills -->
+        <section class="space-y-3 print:break-inside-avoid">
+          <h2 class="font-mono text-xs font-bold uppercase tracking-[0.22em] border-b border-black/15 dark:border-white/15 print:border-black/25 pb-1.5">
+            {isVi ? "Kỹ năng chuyên môn" : "Technical Skills"}
+          </h2>
+          <dl class="space-y-2 text-sm">
+            {skillGroups.map((group) => (
+              <div class="grid grid-cols-1 sm:grid-cols-12 gap-1 sm:gap-4">
+                <dt class="sm:col-span-4 font-mono text-xs font-bold uppercase tracking-wider opacity-85 pt-0.5">
+                  {group.label}
+                </dt>
+                <dd class="sm:col-span-8 font-light opacity-90 leading-relaxed">
+                  {group.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        <!-- Work Experience -->
+        <section class="space-y-5">
+          <h2 class="font-mono text-xs font-bold uppercase tracking-[0.22em] border-b border-black/15 dark:border-white/15 print:border-black/25 pb-1.5">
+            {isVi ? "Kinh nghiệm làm việc" : "Work Experience"}
+          </h2>
+          <div class="space-y-6">
+            {experience.map((job) => (
+              <div class="space-y-2 print:break-inside-avoid">
+                <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                  <h3 class="font-display text-lg font-bold">
+                    {job.org}{" "}
+                    <span class="font-normal opacity-75">· {job.role}</span>
+                  </h3>
+                  <span class="font-mono text-xs opacity-75">
+                    {job.period} · {job.location}
+                  </span>
+                </div>
+                <ul class="space-y-1.5 text-sm font-light opacity-90 list-disc pl-5 leading-relaxed">
+                  {job.bullets.map((bullet) => (
+                    <li>{bullet}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="space-y-5">
+          <h2 class="font-mono text-xs font-bold uppercase tracking-[0.22em] border-b border-black/15 dark:border-white/15 print:border-black/25 pb-1.5">
+            {isVi ? "Dự án tiêu biểu" : "Projects"}
+          </h2>
+          <div class="space-y-5">
+            {projects.map((proj) => (
+              <div class="space-y-1.5 print:break-inside-avoid">
+                <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                  <div class="flex flex-wrap items-baseline gap-2">
+                    <h3 class="font-display text-lg font-bold">
+                      <a
+                        href={proj.href}
+                        class="hover:underline print:no-underline"
+                      >
+                        {proj.name}
+                      </a>
+                    </h3>
+                    <span class="font-mono text-xs opacity-65">
+                      [{proj.stack}]
+                    </span>
+                  </div>
+                  <span class="font-mono text-xs opacity-75">
+                    {proj.period}
+                  </span>
+                </div>
+                <ul class="space-y-1 text-sm font-light opacity-90 list-disc pl-5 leading-relaxed">
+                  {proj.bullets.map((bullet) => (
+                    <li>{bullet}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Education -->
+        <section class="space-y-2.5 print:break-inside-avoid">
+          <h2 class="font-mono text-xs font-bold uppercase tracking-[0.22em] border-b border-black/15 dark:border-white/15 print:border-black/25 pb-1.5">
+            {isVi ? "Học vấn" : "Education"}
+          </h2>
+          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 text-sm">
+            <div>
+              <p class="font-display text-base font-bold">
+                {isVi ? "Đại học Phan Thiết" : "Phan Thiet University"}
+              </p>
+              <p class="font-light opacity-90">
+                {isVi
+                  ? "Cử nhân Công nghệ Thông tin · GPA: 3.2/4.0"
+                  : "B.S. in Information Technology · GPA: 3.2/4.0"}
+              </p>
+            </div>
+            <span class="font-mono text-xs opacity-75">2022 — 2026</span>
+          </div>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <Footer lang={lang} />
+</BaseLayout>
+
+<script>
+  function initCvPrintButton() {
+    const printBtn = document.getElementById("print-cv-btn");
+    if (!printBtn || printBtn.dataset.printBound === "true") return;
+    printBtn.dataset.printBound = "true";
+    printBtn.addEventListener("click", () => {
+      window.print();
+    });
+  }
+
+  if (typeof document !== "undefined") {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initCvPrintButton, {
+        once: true,
+      });
+    } else {
+      initCvPrintButton();
+    }
+  }
+
+  if (typeof window !== "undefined" && !(window as any).__cvPrintSwapBound) {
+    document.addEventListener("astro:after-swap", initCvPrintButton);
+    (window as any).__cvPrintSwapBound = true;
+  }
+</script>
